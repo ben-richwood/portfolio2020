@@ -1,0 +1,15 @@
+{
+  "name": "portfolio2020",
+  "version": "1.0.0",
+  "description": "Richwood's portfolio - millesim 2020. ThreeJS + VueJS",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "vuejs",
+    "threejs"
+  ],
+  "author": "Richwood",
+  "license": "ISC"
+}
