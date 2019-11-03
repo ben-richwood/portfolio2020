@@ -44,6 +44,29 @@ export const LoadingPhrases = [
 
 // console.log("Projects[0]: ", Projects[0]);
 
+export const Popup = new Vue({
+  el: "#intro",
+  data: {
+    displayConfig: true,
+    displayIntro: false,
+    config: ""
+  },
+  methods: {
+    whichConfig: function () {
+      let result = /^intel/i.test(this.config);
+      if (result) {
+        return "Low Performance"
+      } else {
+        return "High Performance"
+      }
+    },
+    choosePerf: function (e) {
+      this.displayConfig = false;
+      this.displayIntro = true;
+    }
+  }
+})
+
 export const Menu = new Vue({
   el: "#paradeAcross",
   data: {

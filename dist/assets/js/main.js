@@ -25,10 +25,12 @@ export let Settings = {
 };
 const svgLoader = new SVGLoader();
 
+const loadingElem = document.querySelector('#loading');
+const progressBarElem = loadingElem.querySelector('.progressbar');
+
 
 let container, stats, controls;
 let scene, renderer, time, clock, light, bgTexture, fog;
-// let tempV, raycaster, guiData;
 let grid, groundMesh;
 export let camera;
 export let box;
@@ -37,16 +39,16 @@ let designLogo, codeLogo
 var groupDesign = new THREE.Group();
 var groupCode = new THREE.Group();
 
-let idleTimer = 8000;
 
 let previousEnvVar = -1, curEnvVar = -1;
 
 // const speed = Math.PI/4;
+// let idleTimer = 8000;
 let isIdleTime = false;
 var tempT = 0;
 let loaded = false;
 
-var orbSound = new Audio('./assets/orb.mp3');
+var orbSound = new Audio('assets/orb.mp3');
 
 var objectScene = [];
 
@@ -56,10 +58,11 @@ var manager = new THREE.LoadingManager();
   manager.onStart = function ( url, itemsLoaded, itemsTotal ) {
     console.log( 'Started loading file: ' + url + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.' );
 };
-// manager.load( url, onLoad, onProgress, onError );
 
 manager.onProgress = function ( url, itemsLoaded, itemsTotal ) {
   console.log( 'Loading file: ' + url + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.' );
+  const progress = itemsLoaded / itemsTotal;
+  progressBarElem.style.transform = `scaleX(${progress})`;
 };
 manager.onError = function ( url ) {
   console.log( 'There was an error loading ' + url );
@@ -98,7 +101,7 @@ function init() {
   // fogBg = new THREE.FogExp2( 0xefd1b5, 0.0025, .7 );
   new RGBELoader()
     .setDataType( THREE.UnsignedByteType )
-    .setPath( 'assets/textures/' )
+    .setPath( 'assets/img/textures/' )
     .load( 'pedestrian_overpass_2k.hdr', function ( texture ) {
       var cubeGenerator = new EquirectangularToCubeGenerator( texture, { resolution: 1024 } );
       cubeGenerator.update( renderer );
@@ -111,7 +114,7 @@ function init() {
       // var loader = new GLTFLoader().setPath( 'models/gltf/DamagedHelmet/glTF/' );
       // loader.load( 'DamagedHelmet.gltf', function ( gltf ) {
       // var loader = new THREE.OBJLoader( manager );
-      var loader = new GLTFLoader(manager).setPath( 'models/' );
+      var loader = new GLTFLoader(manager).setPath( 'assets/models/' );
       // loader.load( 'computer02.gltf', function ( gltf ) {
       loader.load( 'computer_v5.glb', function ( gltf ) {
         gltf.scene.traverse( function ( child ) {
@@ -129,7 +132,7 @@ function init() {
 
   new RGBELoader()
     .setDataType( THREE.UnsignedByteType )
-    .setPath( 'assets/textures/' )
+    .setPath( 'assets/img/textures/' )
     .load( 'bg.hdr', function ( texture ) {
       scene.background = texture;
     });
@@ -192,7 +195,7 @@ function init() {
   // Add 2D textures
   const imgLoader = new THREE.TextureLoader();
   const screenTex = [
-    imgLoader.load('assets/textures/barry-room.gif')
+    imgLoader.load('assets/img/textures/barry-room.gif')
   ];
   const planeWidth = 1;
   const planeHeight = .6;
@@ -238,13 +241,13 @@ function init() {
   // loadSVG( guiData.currentURL );
   const textMaterial = new THREE.MeshStandardMaterial();
   var Texttloader = new THREE.TextureLoader()
-        .setPath( 'assets/textures/' );
+        .setPath( 'assets/img/textures/' );
     textMaterial.color = {b: .2, g: .2, r: .2 }
     textMaterial.roughness = .2; // attenuates roughnessMap
     textMaterial.metalness = 1; // attenuates metalnessMap
     textMaterial.map = Texttloader.load( 'pedestrian_overpass_2k.hdr' );
-  designLogo = loadSVG( 'models/design.svg', 'design', [-1, 3, 1.5], 0.005 ); // [2, 1.8, 1.5], 0.0025
-  codeLogo = loadSVG( 'models/code.svg', 'code', [10, 5, .5], 0.01, [0,-Math.PI/2,0] ); // [2, 1.8, 1.5], 0.0025
+  designLogo = loadSVG( 'assets/models/design.svg', 'design', [-1, 3, 1.5], 0.005 ); // [2, 1.8, 1.5], 0.0025
+  codeLogo = loadSVG( 'assets/models/code.svg', 'code', [10, 5, .5], 0.01, [0,-Math.PI/2,0] ); // [2, 1.8, 1.5], 0.0025
 
   console.log("textMaterial:",textMaterial);
 
@@ -519,7 +522,7 @@ manager.onLoad = function ( ) {
 
   var starsMaterial = new THREE.PointsMaterial({
     size: .04,
-    map: new THREE.TextureLoader().load("./assets/img/spark1.png"),
+    map: new THREE.TextureLoader().load("assets/img/spark1.png"),
     blending: THREE.AdditiveBlending,
     transparent: true,
     color: 0xf2f2f2
@@ -527,7 +530,7 @@ manager.onLoad = function ( ) {
 
   var oceanMaterial = new THREE.PointsMaterial({
     size: .12,
-    map: new THREE.TextureLoader().load("./assets/img/spark1.png"),
+    map: new THREE.TextureLoader().load("assets/img/spark1.png"),
     blending: THREE.AdditiveBlending,
     transparent: true,
     color: 0xf2f2f2

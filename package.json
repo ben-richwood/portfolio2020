@@ -4,7 +4,9 @@
   "description": "Richwood's portfolio - millesim 2020. ThreeJS + VueJS",
   "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build-css": "node-sass --include-path scss assets/scss/main.scss dist/assets/css/main.css",
+    "watch-css": "nodemon -e scss -x \"npm run build-css\""
   },
   "keywords": [
     "vuejs",
@@ -14,6 +16,8 @@
   "license": "ISC",
   "dependencies": {},
   "devDependencies": {
+    "node-sass": "^4.13.0",
+    "nodemon": "^1.19.4",
     "webpack": "^4.41.2",
     "webpack-cli": "^3.3.10"
   }
