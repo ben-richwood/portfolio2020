@@ -11,18 +11,23 @@ import { EquirectangularToCubeGenerator } from './libs/EquirectangularToCubeGene
 import { PMREMGenerator } from './libs/PMREMGenerator.js';
 import { PMREMCubeUVPacker } from './libs/PMREMCubeUVPacker.js';
 
+import { RectAreaLightUniformsLib } from './libs/RectAreaLightUniformsLib.js';
+
 // export let isCameraCloseEnough = true
 
 export let Settings = {
+  currentEnv: 1,
   isCameraCloseEnough: true,
   isCameraFOVUpdates: false,
+  zoomLevel: 1,
+  FOVvalue: 70,
   sidebarMenu: null
 };
 const svgLoader = new SVGLoader();
 
 
 let container, stats, controls;
-let scene, renderer, time, clock, light, fogBg, bgTexture;
+let scene, renderer, time, clock, light, bgTexture, fog;
 // let tempV, raycaster, guiData;
 let grid, groundMesh;
 export let camera;
@@ -40,6 +45,8 @@ let previousEnvVar = -1, curEnvVar = -1;
 let isIdleTime = false;
 var tempT = 0;
 let loaded = false;
+
+var orbSound = new Audio('./assets/orb.mp3');
 
 var objectScene = [];
 
@@ -76,7 +83,7 @@ function init() {
   console.log("init: ",Settings.sidebarMenu);
   container = document.createElement( 'div' );
   document.body.appendChild( container );
-  camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 0.15, 60 );
+  camera = new THREE.PerspectiveCamera( 35, window.innerWidth / window.innerHeight, 0.15, 90 );
   /* THREE.PerspectiveCamera PARAMS
   * fov — Camera frustum vertical field of view.
   * aspect — Camera frustum aspect ratio.
@@ -86,10 +93,12 @@ function init() {
   camera.position.set( 0.7, 1.35, 0.64 );
   camera.focus = 15;
   scene = new THREE.Scene();
+  fog = new THREE.FogExp2( 0x3C5C4A, .09, 15 );
+  scene.fog = null
   // fogBg = new THREE.FogExp2( 0xefd1b5, 0.0025, .7 );
   new RGBELoader()
     .setDataType( THREE.UnsignedByteType )
-    .setPath( 'textures/' )
+    .setPath( 'assets/textures/' )
     .load( 'pedestrian_overpass_2k.hdr', function ( texture ) {
       var cubeGenerator = new EquirectangularToCubeGenerator( texture, { resolution: 1024 } );
       cubeGenerator.update( renderer );
@@ -104,7 +113,7 @@ function init() {
       // var loader = new THREE.OBJLoader( manager );
       var loader = new GLTFLoader(manager).setPath( 'models/' );
       // loader.load( 'computer02.gltf', function ( gltf ) {
-      loader.load( 'computer_v4.glb', function ( gltf ) {
+      loader.load( 'computer_v5.glb', function ( gltf ) {
         gltf.scene.traverse( function ( child ) {
           if ( child.isMesh ) {
             child.material.envMap = envMap;
@@ -120,7 +129,7 @@ function init() {
 
   new RGBELoader()
     .setDataType( THREE.UnsignedByteType )
-    .setPath( 'textures/' )
+    .setPath( 'assets/textures/' )
     .load( 'bg.hdr', function ( texture ) {
       scene.background = texture;
     });
@@ -183,7 +192,7 @@ function init() {
   // Add 2D textures
   const imgLoader = new THREE.TextureLoader();
   const screenTex = [
-    imgLoader.load('textures/barry-room.gif')
+    imgLoader.load('assets/textures/barry-room.gif')
   ];
   const planeWidth = 1;
   const planeHeight = .6;
@@ -229,7 +238,7 @@ function init() {
   // loadSVG( guiData.currentURL );
   const textMaterial = new THREE.MeshStandardMaterial();
   var Texttloader = new THREE.TextureLoader()
-        .setPath( 'textures/' );
+        .setPath( 'assets/textures/' );
     textMaterial.color = {b: .2, g: .2, r: .2 }
     textMaterial.roughness = .2; // attenuates roughnessMap
     textMaterial.metalness = 1; // attenuates metalnessMap
@@ -283,10 +292,21 @@ function testing(){
   // Add light
   light = new THREE.HemisphereLight( 0xffffff, 0x444444 );
   light.position.set( 0, 200, 0 );
+  light = new THREE.AmbientLight( 0x404040 ); // soft white light
   scene.add( light );
 
-  var camHelper = new THREE.CameraHelper( camera );
-  scene.add( camHelper );
+  // const rectLight = new THREE.RectAreaLight( 0xffffff, 1,  10, 10 );
+  // rectLight.position.set( 5, 2, 8 );
+  // rectLight.lookAt( 0, 0, 0 );
+  // scene.add( rectLight )
+  //
+  // const rectLightHelper = new THREE.RectAreaLightHelper( rectLight );
+  // rectLight.add( rectLightHelper );
+
+
+
+  // var camHelper = new THREE.CameraHelper( camera );
+  // scene.add( camHelper );
 
   // normals
   /*
@@ -334,14 +354,28 @@ function animate (time) {
   let speedy = .08 * Math.cos( 3 * time )
   let xOffset = 0; // 1
   let easeFactor = .08;
-  if (idleTimer > 7000){
+  // if (idleTimer > 7000){
+  if (true){
     box.position.y = easeFactor * speedy + 1.4;
     box.position.z = easeFactor * Math.sin( time ) - xOffset;
-    camera.lookAt( box.position );
+    // camera.lookAt( box.position );
     // camera.target.set( box.position.x, box.position.y, box.position.z );
     // camera.lookAt( box.position );
   } else {
     idleTimer += 30;
+  }
+
+  if (Settings.isCameraFOVUpdates) {
+    console.log("camera.fov:", camera.fov);
+    // if (camera.fov < Settings.FOVvalue)
+    const newTime = time * 0.08;
+    camera.fov += newTime * (-1 * Settings.currentEnv);
+    // zoomModel(Settings.isCameraFOVUpdates, newTime * 10)
+    camera.updateProjectionMatrix();
+    // if (camera.fov < Settings.FOVvalue)) {
+    if (camera.fov >= 75 || camera.fov <= 35) {
+      Settings.isCameraFOVUpdates = false;
+    }
   }
 
 
@@ -451,6 +485,75 @@ manager.onLoad = function ( ) {
   loaded = true;
   objectScene.design.visible = false
   objectScene.code.visible = true
+
+  console.log("scene:",scene);
+
+  var oceanVert = new THREE.Geometry();
+  var partVert = new THREE.Geometry();
+
+  var vertexPositions = objectScene.ocean.geometry.attributes.position.array;
+
+  for ( var i = 0; i < vertexPositions.length - 3; i += 3 ) {
+    // var star = new THREE.Vector3();
+    var vertices = new THREE.Vector3();
+    vertices.x = vertexPositions[i]
+    vertices.y = vertexPositions[i+1]
+    vertices.z = vertexPositions[i+2]
+    // vertices[ i*3 + 0 ] = vertexPositions[i][0];
+    // vertices[ i*3 + 1 ] = vertexPositions[i][1];
+    // vertices[ i*3 + 2 ] = vertexPositions[i][2];
+
+    oceanVert.vertices.push( vertices );
+  }
+
+  for ( var i = 0; i < 100; i ++ ) {
+
+  	var star = new THREE.Vector3();
+  	star.x = THREE.Math.randFloatSpread( 7 );
+  	star.y = THREE.Math.randFloatSpread( 7 );
+  	star.z = THREE.Math.randFloatSpread( 7 );
+
+  	partVert.vertices.push( star );
+
+  }
+
+  var starsMaterial = new THREE.PointsMaterial({
+    size: .04,
+    map: new THREE.TextureLoader().load("./assets/img/spark1.png"),
+    blending: THREE.AdditiveBlending,
+    transparent: true,
+    color: 0xf2f2f2
+  });
+
+  var oceanMaterial = new THREE.PointsMaterial({
+    size: .12,
+    map: new THREE.TextureLoader().load("./assets/img/spark1.png"),
+    blending: THREE.AdditiveBlending,
+    transparent: true,
+    color: 0xf2f2f2
+  });
+
+
+
+  var oceanWave = new THREE.Points( oceanVert, oceanMaterial );
+  oceanWave.position.x = 9;
+  var airborneParticules = new THREE.Points( partVert, starsMaterial );
+
+  scene.add( oceanWave );
+  scene.add( airborneParticules );
+  console.log("oceanWave:",oceanWave);
+  console.log("oceanWave:",oceanWave);
+
+  // oceanWave.verticesNeedUpdate = true;
+
+  objectScene.ocean.visible = false;
+
+  // For ocean in background
+  // var starsMaterial = new THREE.PointsMaterial( { color: 0xaaaaaa } );
+  // var starField = new THREE.Points( objectScene.ocean, starsMaterial );
+  // scene.add( starField );
+  // objectScene.ocean.material = starsMaterial;
+
   switchEnvironment(1)
   console.log("scene objs: ", objectScene);
   // console.log("camera: ", camera);
@@ -458,33 +561,43 @@ manager.onLoad = function ( ) {
 };
 
 function switchEnvironment(sign){
-  console.log(designLogo);
-  // designLogo.visible = !designLogo.visible
-  // codeLogo.visible = !codeLogo.visible
+  console.log(camera.fov);
+  Settings.currentEnv = sign;
   objectScene.design.visible = !objectScene.design.visible;
   objectScene.code.visible = !objectScene.code.visible;
-  console.log(Settings.sidebarMenu);
   if (sign >= 0) { // Design env
     grid.visible = false;
-
+    scene.fog = null
     objectScene.servers.visible = false;
     objectScene.wall.visible = true;
-    objectScene.Ground.visible = true;
+    objectScene.new_ground.visible = true;
     Settings.sidebarMenu.className = "menu design";
     objectScene.server_cable001.visible = false;
-    // scene.fog = null;
-    camera.fov = 45;
+    Settings.FOVvalue = 35;
   } else { // Code env
+    orbSound.play();
     grid.visible = true;
+    // scene.fog = fog;
     objectScene.servers.visible = true;
     objectScene.wall.visible = false;
-    objectScene.Ground.visible = false;
+    objectScene.new_ground.visible = false;
     objectScene.server_cable001.visible = true;
     Settings.sidebarMenu.className = "menu code";
-    // scene.fog = fogBg;
-    camera.fov = 70;
+    // scene.fog = new THREE.FogExp2( 0xefd1b5, 0.0025, 10 );
+    // fogBg = new THREE.FogExp2( 0xefd1b5, 0.0025, .7 );
+    Settings.FOVvalue = 75;
+    controls.dollyIn(400);
   }
-  camera.updateProjectionMatrix();
+  // zoomModel(sign, 4)
+  // Settings.isCameraFOVUpdates = true
+}
+
+function zoomModel(isZoomOut, scale) {
+  if(isZoomOut === 1){
+      controls.dollyIn(scale);
+  }else{
+      controls.dollyOut(scale);
+  }
 }
 
 function loadProjectImages() {

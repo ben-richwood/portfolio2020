@@ -323,6 +323,18 @@ var OrbitControls = function ( object, domElement ) {
 	var dollyEnd = new Vector2();
 	var dollyDelta = new Vector2();
 
+	this.dollyIn = function (scale) {
+    dollyIn( getZoomScale() * scale );
+		// dollyStart.copy( dollyEnd );
+    scope.update();
+	};
+
+	this.dollyOut = function (scale) {
+	    dollyOut( getZoomScale() * scale );
+			// dollyStart.copy( dollyEnd );
+	    scope.update();
+	};
+
 	function getAutoRotationAngle() {
 
 		return 2 * Math.PI / 60 / 60 * scope.autoRotateSpeed;
@@ -993,23 +1005,16 @@ var OrbitControls = function ( object, domElement ) {
 
 		if ( scope.enabled === false || scope.enableZoom === false || ( state !== STATE.NONE && state !== STATE.ROTATE ) ) return;
 
-		// console.log(event);
-		// console.log(OrbitControls.getDistanceFromCenter);
-		// console.log(camera.position);
-		// let d = distanceVector(camera.position, box.position);
 		let d = distanceVector(camera.position, box.position);
 		console.log("zoom level: ", d);
 		// console.log("camera position: ", camera.position);
-		// console.log(window.glob);
 		Settings.isCameraCloseEnough = d < 4 ? true : false
 		if (Settings.isCameraCloseEnough){
 			paradeAcross.classList.add("displayProjectNames");
 		} else {
 			paradeAcross.classList.remove("displayProjectNames");
 		}
-		// console.log("IsCameraCloseEnough: ", IsCameraCloseEnough);
-
-		// IsCameraCloseEnough = false;
+		Settings.zoomLevel = d;
 
 		event.preventDefault();
 		event.stopPropagation();

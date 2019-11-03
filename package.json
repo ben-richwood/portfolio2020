@@ -2,7 +2,7 @@
   "name": "portfolio2020",
   "version": "1.0.0",
   "description": "Richwood's portfolio - millesim 2020. ThreeJS + VueJS",
-  "main": "app.js",
+  "private": true,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -11,5 +11,10 @@
     "threejs"
   ],
   "author": "Richwood",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {},
+  "devDependencies": {
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.10"
+  }
 }
