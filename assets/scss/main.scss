@@ -1,6 +1,17 @@
+/* Define the "system" font family */
+@font-face {
+  font-family: system;
+  font-style: normal;
+  font-weight: 300;
+  src: local(".SFNSText-Light"), local(".HelveticaNeueDeskInterface-Light"), local(".LucidaGrandeUI"), local("Ubuntu Light"), local("Segoe UI Light"), local("Roboto-Light"), local("DroidSans"), local("Tahoma");
+}
+
 $font-main: 'Avenir Next', 'Nunito Sans', sans-serif;
 $font-title: 'Ubuntu', 'Open Sans', 'Segoe UI', 'Helvetica Neue', 'Droid Sans Serif', 'Roboto', Arial, sans-serif;
+$font-monospace: Menlo,Consolas,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New,monospace,serif;
 @import "partials/mixins";
+
+$highlightColor: #FFF200;
 
 @import "partials/reset";
 @import "partials/_customClass";
@@ -22,6 +33,7 @@ h{
 }
 
 h2{
+  font-family: 'system';
 	font-size: 2.6rem;
 	text-transform: uppercase;
 	margin-top: 2.2rem;
@@ -66,18 +78,20 @@ h3{
     display: flex;
     justify-content: center;
     align-items: center;
-}
-#loading .progress {
-    margin: 1.5em;
-    border: 1px solid white;
-    width: 50vw;
-}
-#loading .progressbar {
-    margin: 2px;
-    background: white;
-    height: .3em;
-    transform-origin: top left;
-    transform: scaleX(0);
+    .progress {
+        margin: 1.5em;
+        // border: 1px solid white;
+        background: rgba(255,255,255,.22);
+        width: 50vw;
+    }
+    .progressbar {
+        // margin: 2px;
+        background: rgb(255,242,0);
+        background: linear-gradient(-90deg, rgba(255,242,0,1) 0%, rgba(161,154,40,1) 100%);
+        height: .1em;
+        transform-origin: top left;
+        transform: scaleX(0);
+    }
 }
 
 .containerSheen {
@@ -121,6 +135,9 @@ h3{
 	background-origin: border-box !important;
 	background-origin: padding-box;
 	background-clip: border-box;
+  &:focus{
+    border: 2px solid red;
+  }
 }
 .button--sheen-l {
 	color: #fff;
@@ -154,7 +171,7 @@ h3{
 		-ms-transform: skewX(-16deg);
 		-webkit-transform: skewX(-16deg);
 		transform: skewX(-16deg);
-		font-family: 'Ubuntu', 'Open Sans', 'Segoe UI', 'Helvetica Neue', 'Droid Sans Serif', 'Roboto', Arial, sans-serif;
+		font-family: $font-title;
 		margin: 0 auto 0 0;
 	}
 .button--sheen-l:after, .button--sheen-l:before {
@@ -202,12 +219,77 @@ h3{
 		transition: left 0.8s cubic-bezier(0.86, 0, 0.07, 1);
 } */
 
+.large-button{
+  display: -ms-inline-flexbox;
+	display: -webkit-inline-box;
+	display: inline-flex;
+	-ms-flex-align: center;
+	-webkit-box-align: center;
+	align-items: center;
+	-ms-flex-pack: center;
+	-webkit-box-pack: center;
+	justify-content: center;
+	text-align: center;
+
+  background-color: transparent;
+  font-size: 0.9285714286rem;
+	line-height: 1.4;
+	min-height: 4rem;
+  color: white;
+  border: 0;
+  /* align-self: stretch; */
+  display: block;
+  align-self: stretch;
+  /* padding-left: 3rem; */
+  /* padding-right: 3rem; */
+  box-sizing: content-box;
+  width: 100%;
+  // transform: skewX(16deg) !important;
+  border: 1px solid transparent;
+  transition: border .3s ease-out;
+  box-sizing: border-box;
+  position: relative;
+  &:before {
+  	/* padding: 1.3rem 0 0.8rem; */
+  	content: '';
+  	position: absolute;
+    transform: skewX(-16deg) !important;
+  	top: 0;
+  	left:0;
+  	height: 100%;
+  	width: 100%;
+    background-color: rgba(255,255,255,.2);
+  	/* left: calc(-100% - 40px); */
+  	/* width: calc(100% + 20px); */
+  	opacity: 1;
+  	color: #fff;
+  	border-radius: 2px;
+  	/* transform: skew(25deg); */
+  	// transition: opacity .4s ease-in-out, box-shadow .3s ease-in-out;
+  	// background: linear-gradient(90deg, rgba(255, 249, 220, 0.7) 20%, rgba(255,255,255,0) 50%);
+  	// box-shadow: 0 0 12px rgba(255, 249, 220, 0);
+    -webkit-user-select:none;
+  	-moz-user-select:none;
+  	-ms-user-select:none;
+  	user-select:none;
+  }
+  &:hover:before{
+    // border: 1px solid #FFF;
+    background-color: rgba(255, 242, 0, .1);
+    // transition: border .3s ease-out;
+  }
+  &:active{
+    outline: none;
+  }
+}
+
+
 .menu{
 	/* transform: rotateY(0deg) translateX(-3rem); */
 	background-color: rgba(0,0,0,0.7);
 	padding: 2rem;
 	height: 100%;
-	border: 1px solid #faff72;
+	border: 1px solid $highlightColor;
 	/* display: none; */
 	font-family: inherit;
 }
@@ -231,10 +313,16 @@ h3{
   	pointer-events: initial;
   }
   .code{
-  	font: 12px/16px Menlo,Consolas,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New,monospace,serif;
+  	font: 12px/16px $font-monospace;
+    h3{
+      font-family: $font-monospace;
+    }
   }
   .design{
-  	font-family: 'Ubuntu', 'Open Sans', 'Segoe UI', 'Helvetica Neue', 'Droid Sans Serif', 'Roboto', Arial, sans-serif;
+  	font-family: $font-title;
+    h3{
+      font-family: $font-main;
+    }
   }
   &:not(.showSidebar) .menu{
   	transform: rotateY(0deg) translateX(-3rem);
@@ -365,4 +453,75 @@ h3{
 	-ms-user-select: none;
 	user-select: none;
 	z-index: 2 !important; /* TODO Solve this in HTML */
+}
+
+.styled-checkbox {
+  position: absolute; // take it out of document flow
+  opacity: 0; // hide it
+
+  & + label {
+    position: relative;
+    cursor: pointer;
+    padding: 0;
+  }
+
+  // Box.
+  & + label:before {
+    content: '';
+    margin-right: rem(10px);
+    display: inline-block;
+    vertical-align: text-top;
+    width: rem(20px);
+    height: rem(20px);
+    background: transparent;
+    border: 1px solid #aaa;
+    transform: translateY(-2px);
+  }
+
+  // Box hover
+  &:hover + label:before {
+    background: $highlightColor;
+    opacity: .4;
+  }
+
+  // Box focus
+  &:focus + label:before {
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.12);
+  }
+
+  // Box checked
+  &:checked + label:before {
+    background: $highlightColor;
+  }
+
+  // Disabled state label.
+  &:disabled + label {
+    color: #b8b8b8;
+    cursor: auto;
+  }
+
+  // Disabled box.
+  &:disabled + label:before {
+    box-shadow: none;
+    background: #ddd;
+  }
+
+  // Checkmark. Could be replaced with an image
+  &:checked + label:after {
+    content: '';
+    position: absolute;
+    left: rem(5px);
+    top: rem(11px);
+    background: white;
+    width: rem(2px);
+    height: rem(2px);
+    box-shadow:
+      2px 0 0 white,
+      4px 0 0 white,
+      4px -2px 0 white,
+      4px -4px 0 white,
+      4px -6px 0 white,
+      4px -8px 0 white;
+    transform: rotate(45deg);
+  }
 }

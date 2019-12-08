@@ -20,6 +20,35 @@ img{
 .tl{text-align:left;}
 .tr{text-align:right;}
 
+.flex-row{
+  @include displayFlex(space-around, row);
+  position: relative;
+  &.middleBar:after{
+    content: '';
+    transform: skewX(-16deg) !important;
+    position: absolute;
+    top:0; left: 50%;
+    width: 3px;
+    height:100%;
+    background: #FFF200;
+  }
+}
+
+.highlight{
+	color: #888;
+	transition: color .6s ease;
+	&:hover{
+		.highlight--tag{
+			color: #ededed;
+			transition: color .6s ease;
+		}
+	}
+	.highlight--tag{
+		color: #888;
+		transition: color .6s ease;
+	}
+}
+
 @media (max-width: 575.98px) {}
 
 @media (min-width: 576px) and (max-width: 767.98px) {}

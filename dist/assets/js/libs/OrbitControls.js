@@ -17,7 +17,7 @@ import {
 	Vector3
 } from "../build/three.module.js";
 
-import { camera, box, distanceVector, Settings } from '../main.js'
+import { camera, box, distanceVector, settings } from '../main.js'
 
 // This set of controls performs orbiting, dollying (zooming), and panning.
 // Unlike TrackballControls, it maintains the "up" direction object.up (+Y by default).
@@ -1008,13 +1008,13 @@ var OrbitControls = function ( object, domElement ) {
 		let d = distanceVector(camera.position, box.position);
 		console.log("zoom level: ", d);
 		// console.log("camera position: ", camera.position);
-		Settings.isCameraCloseEnough = d < 4 ? true : false
-		if (Settings.isCameraCloseEnough){
+		settings.isCameraCloseEnough = d < 4 ? true : false
+		if (settings.isCameraCloseEnough){
 			paradeAcross.classList.add("displayProjectNames");
 		} else {
 			paradeAcross.classList.remove("displayProjectNames");
 		}
-		Settings.zoomLevel = d;
+		settings.zoomLevel = d;
 
 		event.preventDefault();
 		event.stopPropagation();

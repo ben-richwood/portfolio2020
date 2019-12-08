@@ -1,36 +1,48 @@
+// THREE JS MODULES
 import * as THREE from './build/three.module.js';
 import Stats from './libs/stats.module.js';
 import { OrbitControls } from './libs/OrbitControls.js';
 import { WEBGL } from './libs/WebGL.js';
-
 import { GLTFLoader } from './libs/GLTFLoader.js';
 import { SVGLoader } from './libs/SVGLoader.js';
-
 import { RGBELoader } from './libs/RGBELoader.js';
 import { EquirectangularToCubeGenerator } from './libs/EquirectangularToCubeGenerator.js';
 import { PMREMGenerator } from './libs/PMREMGenerator.js';
 import { PMREMCubeUVPacker } from './libs/PMREMCubeUVPacker.js';
-
 import { RectAreaLightUniformsLib } from './libs/RectAreaLightUniformsLib.js';
 
-// export let isCameraCloseEnough = true
+// VUS JS MODULE
+import { Popup, Sidebar } from './projects.js';
 
-export let Settings = {
-  currentEnv: 1,
-  isCameraCloseEnough: true,
-  isCameraFOVUpdates: false,
-  zoomLevel: 1,
-  FOVvalue: 70,
-  sidebarMenu: null
+function Settings (e) {
+    this.currentEnv = e.currentEnv;
+    this.isCameraCloseEnough = true; // to display menu
+    this.isCameraFOVUpdates = false; // rendering FOV trnasition
+    this.FOVvalue = 70;
+    this.zoomLevel = 1;
+    // this.sidebarMenu = Sidebar.classAttribute; // reprensent the DOM sidebar element
+    this.isConfigHigh = false;
+    this.isDebugMode = true;
+
+    this.isPaused = true;
+
+    this.lateInit = function() {
+      lateInit();
+    }
+
 };
+export const settings = new Settings({currentEnv: 1});
+
+
 const svgLoader = new SVGLoader();
 
-const loadingElem = document.querySelector('#loading');
-const progressBarElem = loadingElem.querySelector('.progressbar');
-
+// Progress bar for manager (loading objects & textures)
+// const loadingElem = document.getElementById('loading');
+// const progressBarElem = loadingElem.getElementsByClassName('progressbar')[0];
 
 let container, stats, controls;
-let scene, renderer, time, clock, light, bgTexture, fog;
+export let scene, renderer;
+let time, clock, light, bgTexture, fog;
 let grid, groundMesh;
 export let camera;
 export let box;
@@ -50,9 +62,10 @@ let loaded = false;
 
 var orbSound = new Audio('assets/orb.mp3');
 
-var objectScene = [];
+// var objectScene = new Array();
+export var objectScene = [];
 
-const worldOrigin = [0.1, 1, 0.1]
+const worldOrigin = [0.1, 1, 0.1];
 
 var manager = new THREE.LoadingManager();
   manager.onStart = function ( url, itemsLoaded, itemsTotal ) {
@@ -61,9 +74,11 @@ var manager = new THREE.LoadingManager();
 
 manager.onProgress = function ( url, itemsLoaded, itemsTotal ) {
   console.log( 'Loading file: ' + url + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.' );
-  const progress = itemsLoaded / itemsTotal;
-  progressBarElem.style.transform = `scaleX(${progress})`;
+  let progress = itemsLoaded / itemsTotal;
+  // progressBarElem.style.transform = "scaleX(" + progress + ")";
+  Popup.progress = progress;
 };
+
 manager.onError = function ( url ) {
   console.log( 'There was an error loading ' + url );
 };
@@ -83,7 +98,6 @@ if (scene.children.length > 0){
 
 
 function init() {
-  console.log("init: ",Settings.sidebarMenu);
   container = document.createElement( 'div' );
   document.body.appendChild( container );
   camera = new THREE.PerspectiveCamera( 35, window.innerWidth / window.innerHeight, 0.15, 90 );
@@ -96,6 +110,10 @@ function init() {
   camera.position.set( 0.7, 1.35, 0.64 );
   camera.focus = 15;
   scene = new THREE.Scene();
+  if(settings.isDebugMode){
+    window.scene = scene;
+    window.THREE = THREE;
+  }
   fog = new THREE.FogExp2( 0x3C5C4A, .09, 15 );
   scene.fog = null
   // fogBg = new THREE.FogExp2( 0xefd1b5, 0.0025, .7 );
@@ -116,7 +134,7 @@ function init() {
       // var loader = new THREE.OBJLoader( manager );
       var loader = new GLTFLoader(manager).setPath( 'assets/models/' );
       // loader.load( 'computer02.gltf', function ( gltf ) {
-      loader.load( 'computer_v5.glb', function ( gltf ) {
+      loader.load( 'computer_v6.glb', function ( gltf ) {
         gltf.scene.traverse( function ( child ) {
           if ( child.isMesh ) {
             child.material.envMap = envMap;
@@ -223,7 +241,7 @@ function init() {
 
     // mesh.rotation.set(new THREE.Euler(0, -Math.PI/8, Math.PI, 'ZYX' ));
     // mesh.rotation.set(new THREE.Euler(Math.PI/2, 0, 0, 'YXZ' ));
-    mesh.eulerOrder = 'YXZ';
+    mesh.rotation.order = 'YXZ'; // mesh.eulerOrder = 'YXZ';
     mesh.rotation.x = -( 2 * Math.PI/16) + Math.PI/32;
     mesh.rotation.y = Math.PI/2;
     mesh.rotation.z = 0;
@@ -231,14 +249,7 @@ function init() {
     return planePivot;
   });
 
-  // guiData = {
-  // 	currentURL: 'models/design.svg',
-  // 	drawFillShapes: true,
-  // 	drawStrokes: true,
-  // 	fillShapesWireframe: false,
-  // 	strokesWireframe: false
-  // };
-  // loadSVG( guiData.currentURL );
+  /*
   const textMaterial = new THREE.MeshStandardMaterial();
   var Texttloader = new THREE.TextureLoader()
         .setPath( 'assets/img/textures/' );
@@ -246,25 +257,84 @@ function init() {
     textMaterial.roughness = .2; // attenuates roughnessMap
     textMaterial.metalness = 1; // attenuates metalnessMap
     textMaterial.map = Texttloader.load( 'pedestrian_overpass_2k.hdr' );
+  */
   designLogo = loadSVG( 'assets/models/design.svg', 'design', [-1, 3, 1.5], 0.005 ); // [2, 1.8, 1.5], 0.0025
   codeLogo = loadSVG( 'assets/models/code.svg', 'code', [10, 5, .5], 0.01, [0,-Math.PI/2,0] ); // [2, 1.8, 1.5], 0.0025
-
-  console.log("textMaterial:",textMaterial);
 
   controls.update();
   window.addEventListener( 'resize', onWindowResize, false );
   // document.addEventListener( 'mousemove', onDocumentMouseMove, false );
 
   // stats
-  stats = new Stats();
-  container.appendChild( stats.dom );
+  if (settings.isDebugMode) {
+    stats = new Stats();
+    container.appendChild( stats.dom );
+  }
 
-  // console.log("scene: ", scene);
+  if (!settings.isPaused){
+    // console.log("scene: ", scene);
+    animate();
+    testing();
+
+    requestAnimationFrame( animate );
+    // clock = new THREE.Clock();
+  }
+}
+
+export function playAnimation() {
   animate();
   testing();
-
   requestAnimationFrame( animate );
-  clock = new THREE.Clock();
+}
+
+export function pauseAnimation () {
+  settings.isPaused = true;
+}
+
+function lateInit() {
+  console.log("%clateInit()", "background-color:orange;color:black;");
+  var oceanVert = new THREE.Geometry();
+  var partVert = new THREE.Geometry();
+
+  var vertexPositions = objectScene.ocean.geometry.attributes.position.array;
+
+  for ( var i = 0; i < vertexPositions.length - 3; i += 3 ) {
+    var vertices = new THREE.Vector3();
+    vertices.x = vertexPositions[i];
+    vertices.y = vertexPositions[i+1];
+    vertices.z = vertexPositions[i+2];
+    oceanVert.vertices.push( vertices );
+  }
+  for ( var i = 0; i < 100; i ++ ) {
+    var star = new THREE.Vector3();
+    star.x = THREE.Math.randFloatSpread( 7 );
+    star.y = THREE.Math.randFloatSpread( 7 );
+    star.z = THREE.Math.randFloatSpread( 7 );
+    partVert.vertices.push( star );
+  }
+  var starsMaterial = new THREE.PointsMaterial({
+    size: .04,
+    map: new THREE.TextureLoader().load("assets/img/spark1.png"),
+    blending: THREE.AdditiveBlending,
+    transparent: true,
+    color: 0xf2f2f2
+  });
+
+  var oceanMaterial = new THREE.PointsMaterial({
+    size: .12,
+    map: new THREE.TextureLoader().load("assets/img/spark1.png"),
+    blending: THREE.AdditiveBlending,
+    transparent: true,
+    color: 0xf2f2f2
+  });
+  var oceanWave = new THREE.Points( oceanVert, oceanMaterial );
+  oceanWave.position.x = 28;
+  var airborneParticules = new THREE.Points( partVert, starsMaterial );
+
+  scene.add( oceanWave );
+  scene.add( airborneParticules );
+  console.log("oceanWave:",oceanWave);
+  console.log("oceanWave:",oceanWave);
 }
 
 function testing(){
@@ -348,6 +418,7 @@ function dumpObject(obj, lines = [], isLast = true, prefix = '') {
 // }
 
 function animate (time) {
+  if (settings.isPaused) return
 // function animate () {
   // var t = Date.now() * 0.0005;
   time *= 0.0006; // convert to seconds
@@ -368,16 +439,16 @@ function animate (time) {
     idleTimer += 30;
   }
 
-  if (Settings.isCameraFOVUpdates) {
+  if (settings.isCameraFOVUpdates) {
     console.log("camera.fov:", camera.fov);
-    // if (camera.fov < Settings.FOVvalue)
+    // if (camera.fov < settings.FOVvalue)
     const newTime = time * 0.08;
-    camera.fov += newTime * (-1 * Settings.currentEnv);
-    // zoomModel(Settings.isCameraFOVUpdates, newTime * 10)
+    camera.fov += newTime * (-1 * settings.currentEnv);
+    // zoomModel(settings.isCameraFOVUpdates, newTime * 10)
     camera.updateProjectionMatrix();
-    // if (camera.fov < Settings.FOVvalue)) {
+    // if (camera.fov < settings.FOVvalue)) {
     if (camera.fov >= 75 || camera.fov <= 35) {
-      Settings.isCameraFOVUpdates = false;
+      settings.isCameraFOVUpdates = false;
     }
   }
 
@@ -424,15 +495,11 @@ function animate (time) {
   }
   */
 
-
   renderer.render( scene, camera );
-  stats.update();
-
+  if (settings.isDebugMode) {
+    stats.update();
+  }
   curEnvVar = Math.sign(camera.position.x);
-
-  // if (camera.position.x < 0) {
-  // 	switchEnvironment()
-  // }
 
   if (loaded && curEnvVar != previousEnvVar) {
     switchEnvironment(curEnvVar)
@@ -461,138 +528,89 @@ function onDocumentMouseMove() {
   // idleTimer = 0;
 }
 
-export function distanceVector( v1, v2 )
-{
+// Used in OrbisControl to get the distance between the camera & the target
+export function distanceVector( v1, v2 ) {
     var dx = v1.x - v2.x;
     var dy = v1.y - v2.y;
     var dz = v1.z - v2.z;
-
     return Math.sqrt( dx * dx + dy * dy + dz * dz );
 }
 
 manager.onLoad = function ( ) {
-  // console.log( 'Loading complete!');
-  readyToStart.style.display = "block";
+  console.warn("loaded")
+  Popup.isReadyToStart = true;
   // add a condition to check if objects are not in the right child node.
   scene.children[scene.children.length - 1].children.forEach( function (obj) {
     objectScene[obj.name] = obj
     // groupDesign.add( obj );
     // groupCode.add( obj );
   });
+  console.log("scene objs: ", objectScene);
 
-  // scene.children[scene.children.length - 1].children.forEach((item, index, array) => {
-  // 	objectScene.push(
-  // 		{[item.name]: item}
-  // 	);
-  // });
   loaded = true;
   objectScene.design.visible = false
   objectScene.code.visible = true
 
   console.log("scene:",scene);
-
-  var oceanVert = new THREE.Geometry();
-  var partVert = new THREE.Geometry();
-
-  var vertexPositions = objectScene.ocean.geometry.attributes.position.array;
-
-  for ( var i = 0; i < vertexPositions.length - 3; i += 3 ) {
-    // var star = new THREE.Vector3();
-    var vertices = new THREE.Vector3();
-    vertices.x = vertexPositions[i]
-    vertices.y = vertexPositions[i+1]
-    vertices.z = vertexPositions[i+2]
-    // vertices[ i*3 + 0 ] = vertexPositions[i][0];
-    // vertices[ i*3 + 1 ] = vertexPositions[i][1];
-    // vertices[ i*3 + 2 ] = vertexPositions[i][2];
-
-    oceanVert.vertices.push( vertices );
-  }
-
-  for ( var i = 0; i < 100; i ++ ) {
-
-  	var star = new THREE.Vector3();
-  	star.x = THREE.Math.randFloatSpread( 7 );
-  	star.y = THREE.Math.randFloatSpread( 7 );
-  	star.z = THREE.Math.randFloatSpread( 7 );
-
-  	partVert.vertices.push( star );
-
-  }
-
-  var starsMaterial = new THREE.PointsMaterial({
-    size: .04,
-    map: new THREE.TextureLoader().load("assets/img/spark1.png"),
-    blending: THREE.AdditiveBlending,
-    transparent: true,
-    color: 0xf2f2f2
-  });
-
-  var oceanMaterial = new THREE.PointsMaterial({
-    size: .12,
-    map: new THREE.TextureLoader().load("assets/img/spark1.png"),
-    blending: THREE.AdditiveBlending,
-    transparent: true,
-    color: 0xf2f2f2
-  });
-
-
-
-  var oceanWave = new THREE.Points( oceanVert, oceanMaterial );
-  oceanWave.position.x = 9;
-  var airborneParticules = new THREE.Points( partVert, starsMaterial );
-
-  scene.add( oceanWave );
-  scene.add( airborneParticules );
-  console.log("oceanWave:",oceanWave);
-  console.log("oceanWave:",oceanWave);
-
-  // oceanWave.verticesNeedUpdate = true;
-
   objectScene.ocean.visible = false;
-
   // For ocean in background
   // var starsMaterial = new THREE.PointsMaterial( { color: 0xaaaaaa } );
   // var starField = new THREE.Points( objectScene.ocean, starsMaterial );
   // scene.add( starField );
   // objectScene.ocean.material = starsMaterial;
 
-  switchEnvironment(1)
-  console.log("scene objs: ", objectScene);
-  // console.log("camera: ", camera);
+  // switchEnvironment(1);
+
+  // var geometry = new THREE.BoxBufferGeometry( 100, 100, 100 );
+  var edges = new THREE.EdgesGeometry( objectScene.servers.geometry ); // WireframeGeometry (triangles) or EdgesGeometry
+  var serverMat = new THREE.LineBasicMaterial( { color: 0x999999 } )
+  var line = new THREE.LineSegments( edges, serverMat );
+  line.position.x = 9;
+  // var instances = new THREE.InstancedMesh( line, serverMat, 4 );
+  scene.add( line );
+  // scene.add( instances );
+  objectScene.servers.visible = false;
+  // scene.children[10].children[12].geometry.dispose();
+  // objectScene.servers.material
+  lateInit();
   loadProjectImages()
 };
 
 function switchEnvironment(sign){
-  console.log(camera.fov);
-  Settings.currentEnv = sign;
+  settings.currentEnv = sign;
   objectScene.design.visible = !objectScene.design.visible;
   objectScene.code.visible = !objectScene.code.visible;
+  Sidebar.switchEnv(sign);
   if (sign >= 0) { // Design env
     grid.visible = false;
     scene.fog = null
     objectScene.servers.visible = false;
     objectScene.wall.visible = true;
     objectScene.new_ground.visible = true;
-    Settings.sidebarMenu.className = "menu design";
     objectScene.server_cable001.visible = false;
-    Settings.FOVvalue = 35;
+    settings.FOVvalue = 35;
+    if (settings.isConfigHigh) {
+      objectScene.ocean.visible = false;
+    }
   } else { // Code env
     orbSound.play();
     grid.visible = true;
     // scene.fog = fog;
-    objectScene.servers.visible = true;
+    // objectScene.servers.visible = true;
     objectScene.wall.visible = false;
     objectScene.new_ground.visible = false;
     objectScene.server_cable001.visible = true;
-    Settings.sidebarMenu.className = "menu code";
+    console.log("settings.sidebarMenu:",settings.sidebarMenu);
     // scene.fog = new THREE.FogExp2( 0xefd1b5, 0.0025, 10 );
     // fogBg = new THREE.FogExp2( 0xefd1b5, 0.0025, .7 );
-    Settings.FOVvalue = 75;
+    settings.FOVvalue = 75;
     controls.dollyIn(400);
+    if (settings.isConfigHigh) {
+      objectScene.ocean.visible = true;
+    }
   }
   // zoomModel(sign, 4)
-  // Settings.isCameraFOVUpdates = true
+  // settings.isCameraFOVUpdates = true
 }
 
 function zoomModel(isZoomOut, scale) {
@@ -613,7 +631,6 @@ function loadProjectImages() {
 }
 
 function loadSVG ( url, name, pos, scaleFac, rot = [0,Math.PI/2,0], mat = undefined ) {
-  console.log("mat: ", mat)
   svgLoader.load( url, function ( data ) {
     var paths = data.paths;
     var group = new THREE.Group();
@@ -666,7 +683,7 @@ function loadSVG ( url, name, pos, scaleFac, rot = [0,Math.PI/2,0], mat = undefi
       }
     }
     scene.add( group );
-    objectScene[name] = group
+    objectScene[name] = group;
     return group
   } );
 }
