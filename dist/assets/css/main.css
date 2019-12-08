@@ -1,4 +1,5 @@
 /* Define the "system" font family */
+@import url("https://rsms.me/inter/inter.css");
 @font-face {
   font-family: system;
   font-style: normal;
@@ -181,36 +182,56 @@ img {
   .tr-lg {
     text-align: right; } }
 
+@supports (font-variation-settings: normal) {
+  body {
+    font-family: "Inter var", "Ubuntu", "Open Sans", "Segoe UI", "Helvetica Neue", "Droid Sans Serif", "Roboto", Arial, sans-serif; } }
+
 body {
   margin: 0;
   background-color: #000;
   color: #fff;
   font-family: "Ubuntu", "Open Sans", "Segoe UI", "Helvetica Neue", "Droid Sans Serif", "Roboto", Arial, sans-serif;
-  line-height: 1.4;
+  font-family: "Inter var", "Ubuntu", "Open Sans", "Segoe UI", "Helvetica Neue", "Droid Sans Serif", "Roboto", Arial, sans-serif;
   font-size: 14px;
-  line-height: 24px;
+  letter-spacing: -0.007em;
+  line-height: 20px;
   transform: translate3d(0, 0, 0); }
 
 h {
   font-family: "Avenir Next", "Nunito Sans", sans-serif; }
 
 h2 {
-  font-family: 'system';
+  font-family: "Inter var", "Ubuntu", "Open Sans", "Segoe UI", "Helvetica Neue", "Droid Sans Serif", "Roboto", Arial, sans-serif;
   font-size: 2.6rem;
   text-transform: uppercase;
   margin-top: 2.2rem;
   letter-spacing: 0.23rem;
-  font-weight: 500; }
+  font-weight: 100;
+  font-variation-settings: 'wght' 700, 'wdth' 100;
+  animation-name: breathe;
+  animation-duration: 2s;
+  animation-timing-function: ease;
+  animation-delay: .7s;
+  animation-direction: normal;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-play-state: running; }
+
+@keyframes breathe {
+  0% {
+    font-variation-settings: 'wght' 700, 'wdth' 100; }
+  100% {
+    font-variation-settings: 'wght' 100, 'wdth' 85; } }
 
 h3 {
+  font-family: 'system';
   font-size: 1.4rem;
   line-height: 1.3;
   font-weight: 500;
   text-transform: uppercase;
   margin-bottom: 0.9rem;
   margin-top: 4.4rem;
-  letter-spacing: 0.1rem;
-  font-family: "Avenir Next", "Nunito Sans", sans-serif; }
+  letter-spacing: 0.1rem; }
 
 #info, #notCompatible {
   position: absolute;

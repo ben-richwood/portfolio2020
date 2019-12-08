@@ -24,7 +24,7 @@ function Settings (e) {
     this.isConfigHigh = false;
     this.isDebugMode = true;
 
-    this.isPaused = true;
+    this.isPaused = false;
 
     this.lateInit = function() {
       lateInit();
@@ -41,6 +41,7 @@ const svgLoader = new SVGLoader();
 // const progressBarElem = loadingElem.getElementsByClassName('progressbar')[0];
 
 let container, stats, controls;
+export let canvasEl;
 export let scene, renderer;
 let time, clock, light, bgTexture, fog;
 let grid, groundMesh;
@@ -177,6 +178,8 @@ function init() {
   renderer.gammaOutput = true;
   container.appendChild( renderer.domElement );
 
+  canvasEl = container.getElementsByTagName('canvas')[0];
+
   controls = new OrbitControls( camera, renderer.domElement );
   // controls.target.set( worldOrigin[0], worldOrigin[1], worldOrigin[2]);
   controls.target.set( worldOrigin[0], worldOrigin[1], worldOrigin[2] );
@@ -271,9 +274,10 @@ function init() {
     container.appendChild( stats.dom );
   }
 
+  animate();
+  settings.isPaused = true; // To animate the first frame only
   if (!settings.isPaused){
     // console.log("scene: ", scene);
-    animate();
     testing();
 
     requestAnimationFrame( animate );
@@ -282,12 +286,15 @@ function init() {
 }
 
 export function playAnimation() {
+  settings.isPaused = false;
+  canvasEl.style.filter = "none";
   animate();
   testing();
   requestAnimationFrame( animate );
 }
 
 export function pauseAnimation () {
+  canvasEl.style.filter = "blur(10px)";
   settings.isPaused = true;
 }
 
@@ -418,6 +425,7 @@ function dumpObject(obj, lines = [], isLast = true, prefix = '') {
 // }
 
 function animate (time) {
+  console.log("paint once");
   if (settings.isPaused) return
 // function animate () {
   // var t = Date.now() * 0.0005;

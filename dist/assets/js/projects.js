@@ -1,4 +1,4 @@
-import { settings, objectScene, scene, renderer, playAnimation, pauseAnimation } from './main.js'
+import { settings, objectScene, scene, renderer, canvasEl, playAnimation, pauseAnimation } from './main.js'
 import * as THREE from './build/three.module.js';
 
 export const Projects = [
@@ -61,6 +61,10 @@ const LoadingPhrases = [
   "Finetuning the experience"
 ];
 
+const tips = [
+  "you can parade accross projects by using your keyboard arrow keys"
+]
+
 let selectPerf = true
 
 export const Popup = new Vue({
@@ -74,7 +78,8 @@ export const Popup = new Vue({
     phraseCounter: 0,
     isIntroOff: false,
     isReadyToStart: false,
-    progress: 0
+    progress: 0,
+    cookie_config: false
   },
   methods: {
     whichConfig: function () {
@@ -128,7 +133,8 @@ export const Menu = new Vue({
       Sidebar.content.speciality = settings.currentEnv === 1 ? e.design : e.code;
     },
     readMore: function () {
-      Sidebar.displaySidebar = !Sidebar.displaySidebar
+      Sidebar.displaySidebar = !Sidebar.displaySidebar;
+      settings.isPaused ? playAnimation() : pauseAnimation();
     }
   }
 });

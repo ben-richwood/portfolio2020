@@ -102,6 +102,7 @@
 				/* max-width: 200px; */
 				min-width: 150px;
 			}
+			/* canvas{ filter: blur(7px); } */
 		</style>
 	</head>
 	<body>
@@ -132,7 +133,7 @@
 						You can also reduce your browser's window size to improve performances.
 					</div>
 					<div>
-            <input type="checkbox" name="rememberPerfQuality" class="styled-checkbox" id="remember_config">
+            <input type="checkbox" name="rememberPerfQuality" class="styled-checkbox" v-bind="cookie_config">
             <label for="remember_config">Remember my performance configuration.</label>
 					</div>
 					<div id="notCompatible"></div>
