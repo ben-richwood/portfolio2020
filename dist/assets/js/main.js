@@ -26,6 +26,9 @@ function Settings (e) {
 
     this.isPaused = false;
 
+    this.muteSound = false;
+    this.linksNewTab = true;
+
     this.lateInit = function() {
       lateInit();
     }
@@ -64,7 +67,7 @@ let loaded = false;
 var orbSound = new Audio('assets/orb.mp3');
 
 // var objectScene = new Array();
-export var objectScene = [];
+export var objectScene = {};
 
 const worldOrigin = [0.1, 1, 0.1];
 
@@ -135,7 +138,7 @@ function init() {
       // var loader = new THREE.OBJLoader( manager );
       var loader = new GLTFLoader(manager).setPath( 'assets/models/' );
       // loader.load( 'computer02.gltf', function ( gltf ) {
-      loader.load( 'computer_v6.glb', function ( gltf ) {
+      loader.load( 'computer_v7.glb', function ( gltf ) {
         gltf.scene.traverse( function ( child ) {
           if ( child.isMesh ) {
             child.material.envMap = envMap;
@@ -202,8 +205,9 @@ function init() {
 
   // Constrain horizontal and vertical rotation
   controls.minPolarAngle = Math.PI/8;
-  controls.maxPolarAngle = 2 * Math.PI/4 - (1 * Math.PI/16) ; // Math.PI/2 + Math.PI/8;
-  controls.minAzimuthAngle = - Math.PI/2 + Math.PI/16; //- Infinity; // radians
+  // controls.maxPolarAngle = 2 * Math.PI/4 - (1 * Math.PI/16) ; // Math.PI/2 + Math.PI/8;
+  controls.maxPolarAngle = 2 * Math.PI/4
+  controls.minAzimuthAngle = - Math.PI/2 - Math.PI/8; //- Infinity; // radians
   controls.maxAzimuthAngle = Math.PI/2 - Math.PI/16; //Infinity; // radian
 
   // var grid = new THREE.GridHelper( 20, 20, 0x000000, 0x000000 );
@@ -261,8 +265,8 @@ function init() {
     textMaterial.metalness = 1; // attenuates metalnessMap
     textMaterial.map = Texttloader.load( 'pedestrian_overpass_2k.hdr' );
   */
-  designLogo = loadSVG( 'assets/models/design.svg', 'design', [-1, 3, 1.5], 0.005 ); // [2, 1.8, 1.5], 0.0025
-  codeLogo = loadSVG( 'assets/models/code.svg', 'code', [10, 5, .5], 0.01, [0,-Math.PI/2,0] ); // [2, 1.8, 1.5], 0.0025
+  designLogo = loadSVG( 'assets/models/design.svg', 'design', 1, [-1, 3, 1.5], 0.005 ); // [2, 1.8, 1.5], 0.0025
+  codeLogo = loadSVG( 'assets/models/code.svg', 'code', -1, [10, 5, .5], 0.01, [0,-Math.PI/2,0] ); // [2, 1.8, 1.5], 0.0025
 
   controls.update();
   window.addEventListener( 'resize', onWindowResize, false );
@@ -274,7 +278,7 @@ function init() {
     container.appendChild( stats.dom );
   }
 
-  animate();
+  // animate();
   settings.isPaused = true; // To animate the first frame only
   if (!settings.isPaused){
     // console.log("scene: ", scene);
@@ -283,6 +287,19 @@ function init() {
     requestAnimationFrame( animate );
     // clock = new THREE.Clock();
   }
+}
+
+export function readyToLaunch(){
+  console.log("ready To Launch",objectScene);
+  for (let obj in objectScene) {
+    let ob = objectScene[obj];
+    if(ob.whichScene === -1){
+      ob.obj.visible = false;
+    }
+  };
+  let selectedObject = scene.getObjectByName("02_ocean");
+  scene.remove( selectedObject );
+  playAnimation();
 }
 
 export function playAnimation() {
@@ -303,7 +320,7 @@ function lateInit() {
   var oceanVert = new THREE.Geometry();
   var partVert = new THREE.Geometry();
 
-  var vertexPositions = objectScene.ocean.geometry.attributes.position.array;
+  var vertexPositions = objectScene["02_ocean"].obj.geometry.attributes.position.array;
 
   for ( var i = 0; i < vertexPositions.length - 3; i += 3 ) {
     var vertices = new THREE.Vector3();
@@ -336,12 +353,14 @@ function lateInit() {
   });
   var oceanWave = new THREE.Points( oceanVert, oceanMaterial );
   oceanWave.position.x = 28;
+
   var airborneParticules = new THREE.Points( partVert, starsMaterial );
 
   scene.add( oceanWave );
   scene.add( airborneParticules );
-  console.log("oceanWave:",oceanWave);
-  console.log("oceanWave:",oceanWave);
+  objectScene["02_ocean02"] = {obj: oceanWave, whichScene: -1};
+  objectScene["airborneParticules"] = {obj: airborneParticules, whichScene: 0};
+  // console.log("oceanWave:",oceanWave);
 }
 
 function testing(){
@@ -374,32 +393,9 @@ function testing(){
   light.position.set( 0, 200, 0 );
   light = new THREE.AmbientLight( 0x404040 ); // soft white light
   scene.add( light );
-
-  // const rectLight = new THREE.RectAreaLight( 0xffffff, 1,  10, 10 );
-  // rectLight.position.set( 5, 2, 8 );
-  // rectLight.lookAt( 0, 0, 0 );
-  // scene.add( rectLight )
-  //
-  // const rectLightHelper = new THREE.RectAreaLightHelper( rectLight );
-  // rectLight.add( rectLightHelper );
-
-
-
-  // var camHelper = new THREE.CameraHelper( camera );
-  // scene.add( camHelper );
-
-  // normals
-  /*
-  var geometry = new THREE.BoxGeometry( 1, 1, 1, 2, 2, 2 );
-  var material = new THREE.MeshBasicMaterial( { color: 0xff0000 } );
-  var box = new THREE.Mesh( geometry, material );
-  var helper = new THREE.VertexNormalsHelper( box, 2, 0x00ff00, 1 );
-
-  scene.add( box );
-  scene.add( helper );
-  */
 }
 
+// To show hierarchy
 function dumpObject(obj, lines = [], isLast = true, prefix = '') {
   const localPrefix = isLast ? '└─' : '├─';
   lines.push(`${prefix}${prefix ? localPrefix : ''}${obj.name || '*no-name*'} [${obj.type}]`);
@@ -425,13 +421,12 @@ function dumpObject(obj, lines = [], isLast = true, prefix = '') {
 // }
 
 function animate (time) {
-  console.log("paint once");
   if (settings.isPaused) return
 // function animate () {
   // var t = Date.now() * 0.0005;
   time *= 0.0006; // convert to seconds
 
-  controls.update(); // only required if controls.enableDamping = true, or if controls.autoRotate = true
+  if (settings.isConfigHigh) controls.update(); // only required if controls.enableDamping = true, or if controls.autoRotate = true
 
   let speedy = .08 * Math.cos( 3 * time )
   let xOffset = 0; // 1
@@ -440,7 +435,7 @@ function animate (time) {
   if (true){
     box.position.y = easeFactor * speedy + 1.4;
     box.position.z = easeFactor * Math.sin( time ) - xOffset;
-    // camera.lookAt( box.position );
+    if (settings.isConfigHigh) camera.lookAt( box.position );
     // camera.target.set( box.position.x, box.position.y, box.position.z );
     // camera.lookAt( box.position );
   } else {
@@ -548,19 +543,25 @@ manager.onLoad = function ( ) {
   console.warn("loaded")
   Popup.isReadyToStart = true;
   // add a condition to check if objects are not in the right child node.
+  console.log("scene:", scene.children[scene.children.length - 1]);
   scene.children[scene.children.length - 1].children.forEach( function (obj) {
-    objectScene[obj.name] = obj
-    // groupDesign.add( obj );
-    // groupCode.add( obj );
+    let name = obj.name;
+    if (obj.name[1] === "1"){ // design
+      objectScene[name] = {obj: obj, whichScene: 1};
+    } else if (obj.name[1] === "2"){ // code
+      objectScene[name] = {obj: obj, whichScene: -1};
+    } else { // both groups
+      objectScene[name] = {obj: obj, whichScene: 0};
+    }
   });
   console.log("scene objs: ", objectScene);
 
   loaded = true;
-  objectScene.design.visible = false
-  objectScene.code.visible = true
+  // objectScene.design.obj.visible = false
+  objectScene.code.obj.visible = false;
 
   console.log("scene:",scene);
-  objectScene.ocean.visible = false;
+
   // For ocean in background
   // var starsMaterial = new THREE.PointsMaterial( { color: 0xaaaaaa } );
   // var starField = new THREE.Points( objectScene.ocean, starsMaterial );
@@ -570,14 +571,18 @@ manager.onLoad = function ( ) {
   // switchEnvironment(1);
 
   // var geometry = new THREE.BoxBufferGeometry( 100, 100, 100 );
-  var edges = new THREE.EdgesGeometry( objectScene.servers.geometry ); // WireframeGeometry (triangles) or EdgesGeometry
+  var edges = new THREE.EdgesGeometry( objectScene["02_servers"].obj.geometry ); // WireframeGeometry (triangles) or EdgesGeometry
   var serverMat = new THREE.LineBasicMaterial( { color: 0x999999 } )
   var line = new THREE.LineSegments( edges, serverMat );
   line.position.x = 9;
   // var instances = new THREE.InstancedMesh( line, serverMat, 4 );
   scene.add( line );
+
+  objectScene["02_servers"] = {obj: line, whichScene: -1};
+  let selectedObject = scene.getObjectByName("02_servers");
+  scene.remove( selectedObject );
+
   // scene.add( instances );
-  objectScene.servers.visible = false;
   // scene.children[10].children[12].geometry.dispose();
   // objectScene.servers.material
   lateInit();
@@ -586,9 +591,34 @@ manager.onLoad = function ( ) {
 
 function switchEnvironment(sign){
   settings.currentEnv = sign;
-  objectScene.design.visible = !objectScene.design.visible;
-  objectScene.code.visible = !objectScene.code.visible;
+  // objectScene.design.visible = !objectScene.design.visible;
+  // objectScene.code.visible = !objectScene.code.visible;
   Sidebar.switchEnv(sign);
+
+  for (let obj in objectScene) {
+    let ob = objectScene[obj];
+    if(ob.whichScene === sign || ob.whichScene === 0){
+      ob.obj.visible = true;
+    } else {
+      ob.obj.visible = false;
+    }
+  }
+  objectScene["02_ocean"].obj.visible = false;
+
+  if (sign >= 0) {
+    // settings.FOVvalue = 35;
+    // if (settings.isConfigHigh) {
+    //   objectScene["02_ocean"].obj.visible = false;
+    // }
+  } else { // Code env
+    if (!settings.muteSound) orbSound.play();
+    grid.visible = true;
+    // settings.FOVvalue = 75;
+    // controls.dollyIn(400);
+    if (!settings.isConfigHigh) objectScene["02_ocean02"].obj.visible = false;
+    if (!settings.isConfigHigh) objectScene["airborneParticules"].obj.visible = false;
+  }
+  /*
   if (sign >= 0) { // Design env
     grid.visible = false;
     scene.fog = null
@@ -617,6 +647,7 @@ function switchEnvironment(sign){
       objectScene.ocean.visible = true;
     }
   }
+  */
   // zoomModel(sign, 4)
   // settings.isCameraFOVUpdates = true
 }
@@ -638,7 +669,7 @@ function loadProjectImages() {
   // ];
 }
 
-function loadSVG ( url, name, pos, scaleFac, rot = [0,Math.PI/2,0], mat = undefined ) {
+function loadSVG ( url, name, sceneSign, pos, scaleFac, rot = [0,Math.PI/2,0], mat = undefined ) {
   svgLoader.load( url, function ( data ) {
     var paths = data.paths;
     var group = new THREE.Group();
@@ -691,7 +722,12 @@ function loadSVG ( url, name, pos, scaleFac, rot = [0,Math.PI/2,0], mat = undefi
       }
     }
     scene.add( group );
-    objectScene[name] = group;
-    return group
+    objectScene = {...objectScene,
+      [name]: {
+        obj: group, whichScene: sceneSign
+      }
+    }
+    // objectScene[name].obj = group;
+    return group;
   } );
 }

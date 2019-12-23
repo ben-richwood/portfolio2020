@@ -1006,7 +1006,7 @@ var OrbitControls = function ( object, domElement ) {
 		if ( scope.enabled === false || scope.enableZoom === false || ( state !== STATE.NONE && state !== STATE.ROTATE ) ) return;
 
 		let d = distanceVector(camera.position, box.position);
-		console.log("zoom level: ", d);
+		// console.log("zoom level: ", d);
 		// console.log("camera position: ", camera.position);
 		settings.isCameraCloseEnough = d < 4 ? true : false
 		if (settings.isCameraCloseEnough){

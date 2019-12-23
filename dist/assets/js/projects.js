@@ -1,4 +1,4 @@
-import { settings, objectScene, scene, renderer, canvasEl, playAnimation, pauseAnimation } from './main.js'
+import { settings, objectScene, scene, renderer, canvasEl, readyToLaunch, playAnimation, pauseAnimation } from './main.js'
 import * as THREE from './build/three.module.js';
 
 export const Projects = [
@@ -11,6 +11,8 @@ export const Projects = [
     design: "",
     software: ['AI', 'PS', 'InDD', 'Laser Cut'],
     techno: ['Bootstrap', 'PHP'],
+    category: "Freelance",
+    link: "http://www.peafowl-consulting.com/",
     path: "projects/peafowl",
     img: ["homepage.png", "indesign_capture.png"]
   }, {
@@ -21,7 +23,9 @@ export const Projects = [
     code: "",
     design: "",
     software: ['AI', 'PS'],
+    link: "https://www.eneom.fr/",
     techno: ['Bootstrap', 'PHP'],
+    category: "Freelance"
   }, {
     id: 2,
     name: 'Go Mékong Evasion',
@@ -30,7 +34,9 @@ export const Projects = [
     code: "I developped the website",
     design: "Leaflet, webdesign and so",
     software: ['AI', 'PS', 'inDD', 'hand drawing'],
+    link: "https://www.gomekongevasion.fr/",
     techno: ['Bootstrap', 'PHP', 'Wordpress'],
+    category: "Freelance",
   }, {
     id: 3,
     name: 'ctOS',
@@ -40,6 +46,19 @@ export const Projects = [
     design: "Leaflet, webdesign and so",
     software: ['AI', 'PS'],
     techno: ['mapbox', 'PHP', 'VueJS'],
+    link: "https://projets.richebois.fr/citadelle/map/mobile.php",
+    category: "Personal"
+  }, {
+    id: 4,
+    name: 'Tool explorer',
+    year: 2019,
+    description: '<p>Go Mékong Evasion (GME) is a travel agency that bring travelers off the beaten track and go into Mekong depths.</p><p> For this client, I realized the graphic identity, through the website and the presentation leaflet.</p><p> Since GME offers off the beaten track trips, I opted for these elements: "gritty/muddy", hand-drawing (traveler notebook), polaroid effect, maps and full size images. And I kept a touch of security to reassure the tourist. </p>',
+    code: "Since this is not a simple parent-children relation (which is a Tree), I opted for VisJS with its Ggraph and Network data structure - based on relations and groups rather than inheritance.",
+    design: "Inspired by WestWorld UI graphic and their \"character response scenario\", I wanted to reproduce the navigation flow, with columns and left-to-right paths",
+    software: ['AI'],
+    techno: ['vis.js', 'VueJS'],
+    link: "https://projets.richebois.fr/tool-explorer",
+    category: "Personal"
   }
 ];
 
@@ -62,10 +81,14 @@ const LoadingPhrases = [
 ];
 
 const tips = [
-  "you can parade accross projects by using your keyboard arrow keys"
+  "you can parade accross projects by using your keyboard arrow keys",
+  "You can adapt the browsing settings in the option panel",
+  "Chrome - thanks to its V8 Javascript engine - gives a smooth experience",
+  "To get a better experience, you can reduce the number of tabs",
+  "There are few Easter eggs hidden on the website. Would you be able to find them? ;)"
 ]
 
-let selectPerf = true
+let selectPerf = true;
 
 export const Popup = new Vue({
   el: "#intro",
@@ -78,8 +101,7 @@ export const Popup = new Vue({
     phraseCounter: 0,
     isIntroOff: false,
     isReadyToStart: false,
-    progress: 0,
-    cookie_config: false
+    progress: 0
   },
   methods: {
     whichConfig: function () {
@@ -104,10 +126,10 @@ export const Popup = new Vue({
     },
     closePopup: function () {
       window.clearInterval(intervalListener);
-      Popup.isIntroOff = true;
+      this.isIntroOff = true;
       selectPerf = false;
       settings.isPaused = false;
-      playAnimation();
+      readyToLaunch();
       // navigateProjects();
     }
   }
@@ -118,7 +140,7 @@ export const Menu = new Vue({
   data: {
     projects: Projects,
     currentProject: Projects[0].id,
-    isOff: false
+    isDisplayed: true
   },
   methods: {
     changeProject: function (direction) {
@@ -132,9 +154,16 @@ export const Menu = new Vue({
       Sidebar.content.design = e.design;
       Sidebar.content.speciality = settings.currentEnv === 1 ? e.design : e.code;
     },
+    option: function () {
+      optionMenu.open();
+      this.isDisplayed = false;
+      pauseAnimation();
+      // if(Popup.isMobile) settings.isPaused ? playAnimation() : pauseAnimation();
+    },
     readMore: function () {
+      if(Popup.isMobile) settings.isPaused ? playAnimation() : pauseAnimation();
+      // Sidebar.showSidebar = true;
       Sidebar.displaySidebar = !Sidebar.displaySidebar;
-      settings.isPaused ? playAnimation() : pauseAnimation();
     }
   }
 });
@@ -156,7 +185,6 @@ export const Sidebar = new Vue({
   },
   methods: {
     switchEnv: function (sign){
-      console.log("Triggered");
       if(sign >= 0){
         this.content.speciality = this.content.design;
         this.content.specTitle = "Design part";
@@ -166,9 +194,44 @@ export const Sidebar = new Vue({
         this.content.specTitle = "Coding part";
         this.classAttribute = "code";
       }
+    },
+    close: function () {
+      Menu.readMore();
     }
   }
 });
+
+export const optionMenu = new Vue({
+  el: "#optionMenu",
+  data: {
+    currentSubmenu: 0,
+    optionsOpen: false
+  },
+  methods: {
+    changeSubmenu: function (idx) {
+      this.currentSubmenu = idx;
+    },
+    close: function () {
+      this.optionsOpen = false;
+      Menu.isDisplayed = true;
+      playAnimation();
+    },
+    open: function () {
+      this.optionsOpen = true;
+    },
+    linkBehavior: function () {
+      const links = document.querySelectorAll('a[href^="http"]');
+      links.forEach(function (e){
+        e.target = settings.linksNewTab ? "_blank" : "_self";
+      });
+      settings.linksNewTab = !settings.linksNewTab;
+    },
+    muteSound: function () {
+      settings.muteSound = !settings.muteSound;
+    }
+  }
+
+})
 
 let phraseCounter = 0
 var intervalListener = self.setInterval(changeLoadingText, 5000);
