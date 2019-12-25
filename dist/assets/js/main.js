@@ -14,6 +14,27 @@ import { RectAreaLightUniformsLib } from './libs/RectAreaLightUniformsLib.js';
 // VUS JS MODULE
 import { Popup, Sidebar } from './projects.js';
 
+export const keyboardMap = {
+  kb_default: {
+    prev: "ArrowLeft",
+    next: "ArrowRight",
+    accept: "Space",
+    option: "Escape"
+  },
+  kb_gamer: {
+    prev: "a",
+    next: "d",
+    accept: "e",
+    option: "Escape"
+  },
+  kb_vim: {
+    prev: "h",
+    next: "l",
+    accept: "Space",
+    option: "Escape"
+  },
+}
+
 function Settings (e) {
     this.currentEnv = e.currentEnv;
     this.isCameraCloseEnough = true; // to display menu
@@ -28,6 +49,7 @@ function Settings (e) {
 
     this.muteSound = false;
     this.linksNewTab = true;
+    this.keyboardConfig = {...keyboardMap.kb_default}
 
     this.lateInit = function() {
       lateInit();

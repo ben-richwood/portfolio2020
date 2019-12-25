@@ -1,4 +1,4 @@
-import { settings, objectScene, scene, renderer, canvasEl, readyToLaunch, playAnimation, pauseAnimation } from './main.js'
+import { settings, keyboardMap, objectScene, scene, renderer, canvasEl, readyToLaunch, playAnimation, pauseAnimation } from './main.js'
 import * as THREE from './build/three.module.js';
 
 export const Projects = [
@@ -205,7 +205,8 @@ export const optionMenu = new Vue({
   el: "#optionMenu",
   data: {
     currentSubmenu: 0,
-    optionsOpen: false
+    optionsOpen: false,
+    kb_config: "kb_default"
   },
   methods: {
     changeSubmenu: function (idx) {
@@ -214,10 +215,26 @@ export const optionMenu = new Vue({
     close: function () {
       this.optionsOpen = false;
       Menu.isDisplayed = true;
+      this.currentSubmenu = 0;
       playAnimation();
     },
     open: function () {
       this.optionsOpen = true;
+      pauseAnimation();
+    },
+    toogle: function () {
+      if(this.optionsOpen){
+        this.close();
+      } else {
+        // this.open();
+        Menu.option();
+      }
+    },
+    changeKbConfig: function(e) {
+      this.kb_config = e;
+      console.log(keyboardMap[this.kb_config]);
+      settings.keyboardConfig = {...keyboardMap[this.kb_config]}
+      console.log("fired", settings.keyboardConfig);
     },
     linkBehavior: function () {
       const links = document.querySelectorAll('a[href^="http"]');
@@ -244,24 +261,27 @@ function changeLoadingText() {
 
 document.addEventListener('keyup', (event) => {
   const keyName = event.key;
+  console.log(keyName);
   if (selectPerf) {
-    if (keyName === 'ArrowLeft') {
+    if (keyName === settings.keyboardConfig.prev) {
       console.log("left");
       console.log(Popup.$refs.highPerf);
       Popup.$refs.highPerf.focus();
-    } else if (keyName === 'ArrowRight') {
-      console.log("right");
+    } else if (keyName === settings.keyboardConfig.next) {
       Popup.$refs.lowPerf.focus();
     } else {}
   } else {
     if (settings.isCameraCloseEnough) {
-      if (keyName === 'ArrowLeft') {
+      if (keyName === settings.keyboardConfig.prev) {
         Menu.changeProject(-1)
-      } else if (keyName === 'ArrowRight') {
+      } else if (keyName === settings.keyboardConfig.next) {
         Menu.changeProject(1)
       } else {}
     } else {
-      return
+      // return
     }
+  }
+  if (keyName === settings.keyboardConfig.option) {
+    optionMenu.toogle();
   }
 }, false);

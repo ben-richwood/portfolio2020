@@ -212,8 +212,9 @@
 						<li><button :class="currentSubmenu == 0 ? 'active' : ''" class="large-button left-align" @click="changeSubmenu(0)">Config</button></li>
 						<li><button :class="currentSubmenu == 1 ? 'active' : ''" class="large-button left-align" @click="changeSubmenu(1)">Controls</button></li>
 						<li><button :class="currentSubmenu == 2 ? 'active' : ''" class="large-button left-align" @click="changeSubmenu(2)">Graphics</button></li>
-						<li><button :class="currentSubmenu == 3 ? 'active' : ''" class="large-button left-align" @click="changeSubmenu(3)">Credit</button></li>
-						<li><button class="large-button left-align" @click="close">back</button></li>
+						<li><button :class="currentSubmenu == 3 ? 'active' : ''" class="large-button left-align" @click="changeSubmenu(3)">Stats</button></li>
+						<li><button :class="currentSubmenu == 4 ? 'active' : ''" class="large-button left-align" @click="changeSubmenu(4)">Credit</button></li>
+						<li><button class="large-button left-align" @click="close"><img class="returnArrow" src="./assets/img/icons/return.svg" alt="back"> Back</button></li>
 					</ul>
 				</div>
 				<div class="rightSettings">
@@ -236,11 +237,20 @@
 					<div v-else-if="currentSubmenu == 1" id="controls">
 						<h3 class="tc">Controls</h3>
 						<p class="tc">Change the controls</p>
-						<ul>
-							<li>
-								Switch keyboard config
-							</li>
-						</ul>
+						<div class="inputGroup">
+							<input id="kb_default" v-on:click="changeKbConfig('kb_default')" value="kb_default" name="radio" type="radio" v-model="kb_config"/>
+							<label for="kb_default">Default</label>
+						</div>
+						<div class="inputGroup">
+							<input id="kb_gamer" v-on:click="changeKbConfig('kb_gamer')" value="kb_gamer" name="radio" type="radio" v-model="kb_config"/>
+							<label for="kb_gamer">Gamer</label>
+						</div>
+						<div class="inputGroup">
+							<input id="kb_vim" v-on:click="changeKbConfig('kb_vim')" value="kb_vim" name="radio" type="radio" v-model="kb_config" />
+							<label for="kb_vim">vim</label>
+						</div>
+						<?php echo file_get_contents("./assets/img/icons/keyboard.svg"); ?>
+						<!-- <img src="./assets/img/icons/keyboard.svg" alt="keyboard configuration"> -->
 					</div>
 					<div v-else-if="currentSubmenu == 2" id="graphics">
 						<h3 class="tc">Graphics</h3>
@@ -249,7 +259,12 @@
 							<li>Switch to Low Resolution</li>
 						</ul>
 					</div>
-					<div v-else-if="currentSubmenu == 3" id="credit">
+					<div v-else-if="currentSubmenu == 3" id="stat">
+						<h3 class="tc">Stats</h3>
+						<p class="tc">Some statistic about your current session</p>
+						<p class="tc"><b>Not any of these statistics are saved in any ways.</b></p>
+					</div>
+					<div v-else-if="currentSubmenu == 4" id="credit">
 						<h3 class="tc">Credits</h3>
 						<p class="tc">This portfolio is built on these technologies:</p>
 						<ul>
@@ -262,8 +277,13 @@
 						</ul>
 						<p class="tc">This portfolio is inspired by these references</p>
 						<ul>
-							<li>Assassin's Creed: Black Flag - for the menu, the options and the layout</li>
-							<li>Cyberpunk 2077 - especially for the intro scene</li>
+							<li>Menu, options and overall layout<br>
+								<ul>
+									<li>A mix of Cyberpunk 2077 & Assassin's Creed: Black Flag </li>
+									<li><a href="https://codepen.io/BuddyLReno/pen/boGRPO" title="Pen from Buddy Reno">Codepen</a>: material design-inspired checkboxes</li>
+								</ul>
+							<li>"Coding" environment: Assassin's Creed: Black Flag</li>
+							<li>"Design" environment: Deus Ex (Human Revolution & Mankind Divided), plus the Humming bird cafe in HCMC, Vietnam.</li>
 						</ul>
 						<p class="tl">The source code is accessibe on my GitHub:<br><a href="https://github.com/ben-richwood/">Portfolio2020</a></p>
 					</div>
