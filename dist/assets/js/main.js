@@ -65,7 +65,8 @@ const svgLoader = new SVGLoader();
 // const loadingElem = document.getElementById('loading');
 // const progressBarElem = loadingElem.getElementsByClassName('progressbar')[0];
 
-let container, stats, controls;
+let container, stats;
+export let controls
 export let canvasEl;
 export let scene, renderer;
 let time, clock, light, bgTexture, fog;
@@ -87,6 +88,13 @@ var tempT = 0;
 let loaded = false;
 
 var orbSound = new Audio('assets/orb.mp3');
+
+
+
+
+let instanciateServer;
+let serverMaterial;
+let instances = 10;
 
 // var objectScene = new Array();
 export var objectScene = {};
@@ -358,9 +366,10 @@ function lateInit() {
     star.z = THREE.Math.randFloatSpread( 7 );
     partVert.vertices.push( star );
   }
+  const sparks = new THREE.TextureLoader().load("assets/img/spark1.png");
   var starsMaterial = new THREE.PointsMaterial({
     size: .04,
-    map: new THREE.TextureLoader().load("assets/img/spark1.png"),
+    map: sparks,
     blending: THREE.AdditiveBlending,
     transparent: true,
     color: 0xf2f2f2
@@ -368,7 +377,7 @@ function lateInit() {
 
   var oceanMaterial = new THREE.PointsMaterial({
     size: .12,
-    map: new THREE.TextureLoader().load("assets/img/spark1.png"),
+    map: sparks,
     blending: THREE.AdditiveBlending,
     transparent: true,
     color: 0xf2f2f2
@@ -590,23 +599,120 @@ manager.onLoad = function ( ) {
   // scene.add( starField );
   // objectScene.ocean.material = starsMaterial;
 
-  // switchEnvironment(1);
 
-  // var geometry = new THREE.BoxBufferGeometry( 100, 100, 100 );
-  var edges = new THREE.EdgesGeometry( objectScene["02_servers"].obj.geometry ); // WireframeGeometry (triangles) or EdgesGeometry
+
+
+  // let tmpGeo = new THREE.BufferGeometry(objectScene["02_servers"].obj.geometry);
+  let instanced = new THREE.BufferGeometry(objectScene["02_servers"].obj.geometry);
+  // let instanced = new THREE.InstancedBufferGeometry().copy(objectScene["02_servers"].obj);
+  instanced.maxInstancedCount = instances;
+
+  var positions = [];
+  var vector = new THREE.Vector4();
+  var offsets = [];
+  let aOffset = [];
+  var indices = [];
+
+  // const bufferServerGeometry = new THREE.InstancedBufferGeometry().copy(objectScene["02_servers"].obj);
+  const bufferServerGeometry = objectScene["02_servers"].obj.geometry;
+  // const bufferServerGeometry = new THREE.BufferGeometry(objectScene["02_servers"].obj.geometry);
   var serverMat = new THREE.LineBasicMaterial( { color: 0x999999 } )
-  var line = new THREE.LineSegments( edges, serverMat );
-  line.position.x = 9;
-  // var instances = new THREE.InstancedMesh( line, serverMat, 4 );
-  scene.add( line );
 
-  objectScene["02_servers"] = {obj: line, whichScene: -1};
+  let instanceIdx = 1;
+
+  makeInstancePlain(bufferServerGeometry, objectScene["02_servers"].obj.material,  [6,0,2]);
+  makeInstancePlain(bufferServerGeometry, objectScene["02_servers"].obj.material,  [6, 0, -3]);
+  makeInstancePlain(bufferServerGeometry, objectScene["02_servers"].obj.material,  [7.5,0,2]);
+  makeInstancePlain(bufferServerGeometry, objectScene["02_servers"].obj.material,  [7.5, 0, -3]);
+
+  makeInstancePlain(bufferServerGeometry, objectScene["02_servers"].obj.material,  [6, 0, 4]);
+  makeInstancePlain(bufferServerGeometry, objectScene["02_servers"].obj.material,  [6, 0, -5]);
+
+  // Additional servers
+  makeInstanceLine(bufferServerGeometry, serverMat, [9,0,-3]);
+  makeInstanceLine(bufferServerGeometry, serverMat, [10.5,0,-3]);
+  makeInstanceLine(bufferServerGeometry, serverMat, [12,0,-3]);
+  makeInstanceLine(bufferServerGeometry, serverMat, [9,0,2]);
+  makeInstanceLine(bufferServerGeometry, serverMat, [10.5,0,2]);
+
+  // Additional afar servers
+  makeInstanceLine(bufferServerGeometry, serverMat, [13,0,-12]);
+  makeInstanceLine(bufferServerGeometry, serverMat, [25,1.5,-3]);
+
+  // reposition server cables
+  objectScene["02_server_cable001"].obj.position.x = 6;
+  objectScene["02_server_cable001"].obj.position.z = 5;
+
+
+
+  var curve = new THREE.CatmullRomCurve3( [
+    new THREE.Vector3( 0, 1.45, 0 ),
+    new THREE.Vector3( 3, 1.45, -1 ),
+    new THREE.Vector3( 10, 1.45, -1 ),
+    new THREE.Vector3( 14, 1.45, -1 ),
+    new THREE.Vector3( 20, 3, -1 )
+  ], false, "catmullrom", 0 );
+
+  var points = curve.getPoints( 50 );
+  var geometry = new THREE.BufferGeometry().setFromPoints( points );
+
+  var material = new THREE.LineBasicMaterial( {
+    color : 0x00ff00,
+    linewidth: 30
+  } );
+
+  var curveObject = new THREE.Line( geometry, material );
+  scene.add(curveObject);
+
+
+  function makeInstancePlain(geometry, material, pos, zRot = 0) {
+    const cube = new THREE.Mesh(geometry, material);
+    cube.position.x = pos[0];
+    cube.position.y = pos[1];
+    cube.position.z = pos[2];
+    objectScene["02_instanciateServers_" + instanceIdx] = {
+      obj: cube,
+      whichScene: -1
+    }
+    instanceIdx++;
+    scene.add(cube);
+    return cube;
+  }
+
+  function makeInstanceLine(geometry, material, pos) {
+    const edges = new THREE.EdgesGeometry( geometry ); // WireframeGeometry (triangles) or EdgesGeometry
+    const line = new THREE.LineSegments( edges, material );
+    line.position.x = pos[0];
+    line.position.y = pos[1];
+    line.position.z = pos[2];
+    objectScene["02_instanciateServersLines_" + instanceIdx] = {
+      obj: line,
+      whichScene: -1
+    }
+    instanceIdx++;
+    scene.add(line);
+    return line;
+  }
+
+
+  // ADD SERVER WITH LINES
+  // var edges = new THREE.EdgesGeometry( objectScene["02_servers"].obj.geometry ); // WireframeGeometry (triangles) or EdgesGeometry
+
+  // var line = new THREE.LineSegments( edges, serverMat );
+  // var line02 = new THREE.LineSegments( edges, serverMat );
+
+  // objectScene["02_instanciateServers"] = {
+  //   obj: line,
+  //   whichScene: -1
+  // }
+  // scene.add( objectScene["02_instanciateServers"].obj );
+  // scene.add( line02 );
+
+  // objectScene["02_servers"] = {obj: line, whichScene: -1};
   let selectedObject = scene.getObjectByName("02_servers");
+  console.log("selectedObject", selectedObject);
   scene.remove( selectedObject );
 
-  // scene.add( instances );
-  // scene.children[10].children[12].geometry.dispose();
-  // objectScene.servers.material
   lateInit();
   loadProjectImages()
 };
@@ -626,6 +732,7 @@ function switchEnvironment(sign){
     }
   }
   objectScene["02_ocean"].obj.visible = false;
+  objectScene["02_servers"].obj.visible = false;
 
   if (sign >= 0) {
     // settings.FOVvalue = 35;
@@ -640,6 +747,8 @@ function switchEnvironment(sign){
     if (!settings.isConfigHigh) objectScene["02_ocean02"].obj.visible = false;
     if (!settings.isConfigHigh) objectScene["airborneParticules"].obj.visible = false;
   }
+
+  console.log("objectScene", objectScene);
   /*
   if (sign >= 0) { // Design env
     grid.visible = false;
@@ -674,7 +783,7 @@ function switchEnvironment(sign){
   // settings.isCameraFOVUpdates = true
 }
 
-function zoomModel(isZoomOut, scale) {
+export function zoomModel(isZoomOut, scale) {
   if(isZoomOut === 1){
       controls.dollyIn(scale);
   }else{

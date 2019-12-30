@@ -1,0 +1,55 @@
+# Blender MTL File: 'computer.blend'
+# Material Count: 5
+
+newmtl default_white
+Ns 117.877537
+Ka 0.421429 0.421429 0.421429
+Kd 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.0 0.0 0.0
+Ni 1.450000
+d 1.000000
+illum 3
+
+newmtl indirect_light
+Ns 506.250000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.0 0.0 0.0
+Ni 1.000000
+d 1.000000
+illum 2
+
+newmtl legs
+Ns 650.249991
+Ka 1.000000 1.000000 1.000000
+Kd 0.157436 0.157436 0.157436
+Ks 0.130000 0.130000 0.130000
+Ke 0.0 0.0 0.0
+Ni 1.450000
+d 1.000000
+illum 2
+
+newmtl shiny
+Ns 323.999994
+Ka 0.692857 0.692857 0.692857
+Kd 0.198935 0.198935 0.198935
+Ks 0.621429 0.621429 0.621429
+Ke 0.0 0.0 0.0
+Ni 1.450000
+d 1.000000
+illum 3
+
+newmtl wooden_desk
+Ns 225.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.0 0.0 0.0
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd /Users/ben/Documents/projects/perso/portfolio 2019/desktop/hardwood2_diffuse.jpg
+map_Ks /Users/ben/Documents/projects/perso/portfolio 2019/desktop/hardwood2_bump.jpg
+map_Ns /Users/ben/Documents/projects/perso/portfolio 2019/desktop/hardwood2_roughness.jpg

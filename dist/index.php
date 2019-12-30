@@ -284,6 +284,7 @@
 								</ul>
 							<li>"Coding" environment: Assassin's Creed: Black Flag</li>
 							<li>"Design" environment: Deus Ex (Human Revolution & Mankind Divided), plus the Humming bird cafe in HCMC, Vietnam.</li>
+							<li>Timeline: it's inspired by the summary ending each mission in Detroit: Become Human</li>
 						</ul>
 						<p class="tl">The source code is accessibe on my GitHub:<br><a href="https://github.com/ben-richwood/">Portfolio2020</a></p>
 					</div>

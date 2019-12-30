@@ -1,4 +1,4 @@
-import { settings, keyboardMap, objectScene, scene, renderer, canvasEl, readyToLaunch, playAnimation, pauseAnimation } from './main.js'
+import { settings, keyboardMap, controls, zoomModel, objectScene, scene, renderer, canvasEl, readyToLaunch, playAnimation, pauseAnimation } from './main.js'
 import * as THREE from './build/three.module.js';
 
 export const Projects = [
@@ -164,6 +164,7 @@ export const Menu = new Vue({
       if(Popup.isMobile) settings.isPaused ? playAnimation() : pauseAnimation();
       // Sidebar.showSidebar = true;
       Sidebar.displaySidebar = !Sidebar.displaySidebar;
+      zoomModel(1, 4);
     }
   }
 });

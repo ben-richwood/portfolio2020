@@ -5,8 +5,10 @@
   "private": true,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "sass": "node-sass --include-path scss assets/scss/main.scss dist/assets/css/main.css",
-    "watch": "nodemon -e scss -x \"npm run sass\""
+    "sass": "node-sass --include-path scss src/assets/scss/main.scss dist/assets/css/main.css",
+    "watch": "nodemon -e scss -x \"npm run sass\"",
+    "dev": "webpack --mode=development",
+    "prod": "webpack --mode=production"
   },
   "keywords": [
     "vuejs",
@@ -18,6 +20,7 @@
   "devDependencies": {
     "node-sass": "^4.13.0",
     "nodemon": "^1.19.4",
+    "uglifyjs-webpack-plugin": "^2.2.0",
     "webpack": "^4.41.2",
     "webpack-cli": "^3.3.10"
   }
