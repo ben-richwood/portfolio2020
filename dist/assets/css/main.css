@@ -188,6 +188,7 @@ img {
 
 body {
   margin: 0;
+  height: 100%;
   background-color: #000;
   color: #fff;
   font-family: "Ubuntu", "Open Sans", "Segoe UI", "Helvetica Neue", "Droid Sans Serif", "Roboto", Arial, sans-serif;
@@ -195,7 +196,8 @@ body {
   font-size: 14px;
   letter-spacing: -0.007em;
   line-height: 20px;
-  transform: translate3d(0, 0, 0); }
+  transform: translate3d(0, 0, 0);
+  }
 
 h {
   font-family: "Avenir Next", "Nunito Sans", sans-serif; }

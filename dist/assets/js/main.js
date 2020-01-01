@@ -1,5 +1,8 @@
 // THREE JS MODULES
 import * as THREE from './build/three.module.js';
+// Custom lib
+import * as MAT from './libs/materialList.js'
+
 import Stats from './libs/stats.module.js';
 import { OrbitControls } from './libs/OrbitControls.js';
 import { WEBGL } from './libs/WebGL.js';
@@ -11,8 +14,13 @@ import { PMREMGenerator } from './libs/PMREMGenerator.js';
 import { PMREMCubeUVPacker } from './libs/PMREMCubeUVPacker.js';
 import { RectAreaLightUniformsLib } from './libs/RectAreaLightUniformsLib.js';
 
+import { CSS3DRenderer, CSS3DObject } from './libs/CSS3DRenderer.js';
+
 // VUS JS MODULE
 import { Popup, Sidebar } from './projects.js';
+
+// import { TWEEN } from './libs/tween.module.min.js';
+
 
 export const keyboardMap = {
   kb_default: {
@@ -69,6 +77,7 @@ let container, stats;
 export let controls
 export let canvasEl;
 export let scene, renderer;
+export let cssScene, rendererCSS; // 2nd "canvas", used by CSS3DRenderer to display DOM element in 3D env
 let time, clock, light, bgTexture, fog;
 let grid, groundMesh;
 export let camera;
@@ -88,9 +97,6 @@ var tempT = 0;
 let loaded = false;
 
 var orbSound = new Audio('assets/orb.mp3');
-
-
-
 
 let instanciateServer;
 let serverMaterial;
@@ -133,7 +139,7 @@ if (scene.children.length > 0){
 
 function init() {
   container = document.createElement( 'div' );
-  document.body.appendChild( container );
+  document.getElementById('canvasScene').appendChild( container );
   camera = new THREE.PerspectiveCamera( 35, window.innerWidth / window.innerHeight, 0.15, 90 );
   /* THREE.PerspectiveCamera PARAMS
   * fov — Camera frustum vertical field of view.
@@ -144,12 +150,19 @@ function init() {
   camera.position.set( 0.7, 1.35, 0.64 );
   camera.focus = 15;
   scene = new THREE.Scene();
+  cssScene = new THREE.Scene();
   if(settings.isDebugMode){
     window.scene = scene;
     window.THREE = THREE;
   }
   fog = new THREE.FogExp2( 0x3C5C4A, .09, 15 );
   scene.fog = null
+
+  rendererCSS = new CSS3DRenderer();
+  rendererCSS.setSize( window.innerWidth, window.innerHeight );
+  // rendererCSS.setPixelRatio( window.devicePixelRatio );
+  document.getElementById( 'domEl' ).appendChild( rendererCSS.domElement );
+
   // fogBg = new THREE.FogExp2( 0xefd1b5, 0.0025, .7 );
   new RGBELoader()
     .setDataType( THREE.UnsignedByteType )
@@ -198,8 +211,8 @@ function init() {
   */
 
   var geometry = new THREE.BoxGeometry( .2,.2,.2);
-  var material = new THREE.MeshBasicMaterial( { color: 0xff0000 } );
-  box = new THREE.Mesh( geometry, material );
+
+  box = new THREE.Mesh( geometry, MAT.boxMat );
   box.position.set(worldOrigin[0], worldOrigin[1], worldOrigin[2])
   scene.add( box );
   box.visible = false;
@@ -247,37 +260,48 @@ function init() {
   grid.visible = false;
   scene.add( grid );
 
+  // INIT CSS3DRenderer
+  var element = document.createElement( 'div' );
+  element.className = 'screenGraphic';
+  element.textContent = "Screen";
+  const screenGraphic = new CSS3DObject( element );
+  screenGraphic.position.set(0, 1.45, 0);
+  // screenGraphic.scale.set(.2, .2, .2);
+  screenGraphic.scale.multiplyScalar( .002 );
+  /*
+  screenGraphic.position.x = 0;
+  screenGraphic.position.y = 1.45;
+  screenGraphic.position.z = 0;
+  */
+  screenGraphic.rotation.order = 'YXZ';
+  screenGraphic.rotation.set(-( 2 * Math.PI/16) + Math.PI/32, Math.PI/2, 0);
+  // screenGraphic.rotation.x = -( 2 * Math.PI/16) + Math.PI/32;
+  // screenGraphic.rotation.y = Math.PI/2;
+  // screenGraphic.rotation.z = 0
+  screenGraphic.updateMatrix();
+  // add it to the css scene
+  cssScene.add(screenGraphic);
+
   // Add 2D textures
-  const imgLoader = new THREE.TextureLoader();
-  const screenTex = [
-    imgLoader.load('assets/img/textures/barry-room.gif')
-  ];
+  // const imgLoader = new THREE.TextureLoader();
+  // const screenTex = [
+  //   imgLoader.load('assets/img/textures/barry-room.gif')
+  // ];
+
+
+  /*
+  // BARRY IMAGE - INTO THE SCREEN
   const planeWidth = 1;
   const planeHeight = .6;
   const planeGeo = new THREE.PlaneBufferGeometry(planeWidth, planeHeight);
-  const planes = screenTex.map((screenTex) => {
+  const planes = MAT.screenTex.map((st) => {
     const planePivot = new THREE.Object3D();
     scene.add(planePivot);
-    screenTex.magFilter = THREE.NearestFilter;
-    const planeMat = new THREE.MeshBasicMaterial({
-      map: screenTex,
-      side: THREE.DoubleSide,
-    });
-    const mesh = new THREE.Mesh(planeGeo, planeMat);
+    st.magFilter = THREE.NearestFilter;
+    const mesh = new THREE.Mesh(planeGeo, MAT.planeMat);
     planePivot.add(mesh); // Should attach to another Mesh
     mesh.position.set(0, 1.45, 0);
-    // var a = new THREE.Euler(Math.PI, -Math.PI/8, 0, 'ZYX')
-    // var b = new THREE.Vector3(1,1,1);
-    // console.log(a);
-    // console.log(b);
-    // console.log(b.applyEuler(a));
-    // mesh.rotation.set(b.applyEuler(a));
-    // var a = new THREE.Euler(Math.PI, Math.PI/8, 0, 'ZYX');
-    // var b = new THREE.Vector3( mesh.position.x, mesh.position.y, mesh.position.z );
-    // mesh.position.set(b.applyEuler(a))
 
-    // mesh.rotation.set(new THREE.Euler(0, -Math.PI/8, Math.PI, 'ZYX' ));
-    // mesh.rotation.set(new THREE.Euler(Math.PI/2, 0, 0, 'YXZ' ));
     mesh.rotation.order = 'YXZ'; // mesh.eulerOrder = 'YXZ';
     mesh.rotation.x = -( 2 * Math.PI/16) + Math.PI/32;
     mesh.rotation.y = Math.PI/2;
@@ -285,6 +309,7 @@ function init() {
     mesh.updateMatrix();
     return planePivot;
   });
+  */
 
   /*
   const textMaterial = new THREE.MeshStandardMaterial();
@@ -366,26 +391,11 @@ function lateInit() {
     star.z = THREE.Math.randFloatSpread( 7 );
     partVert.vertices.push( star );
   }
-  const sparks = new THREE.TextureLoader().load("assets/img/spark1.png");
-  var starsMaterial = new THREE.PointsMaterial({
-    size: .04,
-    map: sparks,
-    blending: THREE.AdditiveBlending,
-    transparent: true,
-    color: 0xf2f2f2
-  });
 
-  var oceanMaterial = new THREE.PointsMaterial({
-    size: .12,
-    map: sparks,
-    blending: THREE.AdditiveBlending,
-    transparent: true,
-    color: 0xf2f2f2
-  });
-  var oceanWave = new THREE.Points( oceanVert, oceanMaterial );
+  var oceanWave = new THREE.Points( oceanVert, MAT.oceanMaterial );
   oceanWave.position.x = 28;
 
-  var airborneParticules = new THREE.Points( partVert, starsMaterial );
+  var airborneParticules = new THREE.Points( partVert, MAT.starsMaterial );
 
   scene.add( oceanWave );
   scene.add( airborneParticules );
@@ -457,79 +467,38 @@ function animate (time) {
   // var t = Date.now() * 0.0005;
   time *= 0.0006; // convert to seconds
 
-  if (settings.isConfigHigh) controls.update(); // only required if controls.enableDamping = true, or if controls.autoRotate = true
+  if (settings.isConfigHigh){
+    controls.update(); // only required if controls.enableDamping = true, or if controls.autoRotate = true
+    camera.lookAt( box.position );
+    // other way: camera.target.set( box.position.x, box.position.y, box.position.z );
+  }
 
-  let speedy = .08 * Math.cos( 3 * time )
+  let speedy = .08 * Math.cos( 3 * time );
   let xOffset = 0; // 1
   let easeFactor = .08;
   // if (idleTimer > 7000){
   if (true){
     box.position.y = easeFactor * speedy + 1.4;
     box.position.z = easeFactor * Math.sin( time ) - xOffset;
-    if (settings.isConfigHigh) camera.lookAt( box.position );
-    // camera.target.set( box.position.x, box.position.y, box.position.z );
-    // camera.lookAt( box.position );
   } else {
     idleTimer += 30;
   }
 
-  if (settings.isCameraFOVUpdates) {
-    console.log("camera.fov:", camera.fov);
-    // if (camera.fov < settings.FOVvalue)
-    const newTime = time * 0.08;
-    camera.fov += newTime * (-1 * settings.currentEnv);
-    // zoomModel(settings.isCameraFOVUpdates, newTime * 10)
-    camera.updateProjectionMatrix();
-    // if (camera.fov < settings.FOVvalue)) {
-    if (camera.fov >= 75 || camera.fov <= 35) {
-      settings.isCameraFOVUpdates = false;
-    }
-  }
-
-
-  /*
-  // get the position of the center of the cube
-  box.updateWorldMatrix(true, false);
-  box.getWorldPosition(tempV);
-
-  // get the normalized screen coordinate of that position
-  // x and y will be in the -1 to +1 range with x = -1 being
-  // on the left and y = -1 being on the bottom
-  tempV.project(camera);
-  // ask the raycaster for all the objects that intersect
-  // from the eye toward this object's position
-  raycaster.setFromCamera(tempV, camera);
-  const intersectedObjects = raycaster.intersectObjects(scene.children);
-  // We're visible if the first intersection is this object.
-  // const show = intersectedObjects.length && objectScene["screen_main"] === intersectedObjects[0].object;
-  const show = true;
-
-  if (!show || Math.abs(tempV.z) > 1) {
-    // hide the label
-    elem.style.display = 'none';
-  } else {
-    // unhide the label
-    elem.style.display = '';
-
-    // convert the normalized position to CSS coordinates
-    const x = (tempV.x *  10 + .5) * renderer.domElement.clientWidth;
-    const y = (tempV.y * -10 + .5) * renderer.domElement.clientHeight;
-
-    const z = controls.zoom0;
-    // const z = .8;
-
-    // console.log(z);
-    // console.log(controls.position0);
-
-    // move the elem to that position
-    elem.style.transform = `translate(-50%, -50%) translate(${x}px,${y}px) scale(${z})`;
-
-    // set the zIndex for sorting
-    elem.style.zIndex = (-tempV.z * .5 + .5) * 100000 | 0;
-  }
-  */
+  // if (settings.isCameraFOVUpdates) {
+  //   console.log("camera.fov:", camera.fov);
+  //   // if (camera.fov < settings.FOVvalue)
+  //   const newTime = time * 0.08;
+  //   camera.fov += newTime * (-1 * settings.currentEnv);
+  //   // zoomModel(settings.isCameraFOVUpdates, newTime * 10)
+  //   camera.updateProjectionMatrix();
+  //   // if (camera.fov < settings.FOVvalue)) {
+  //   if (camera.fov >= 75 || camera.fov <= 35) {
+  //     settings.isCameraFOVUpdates = false;
+  //   }
+  // }
 
   renderer.render( scene, camera );
+  rendererCSS.render( cssScene, camera );
   if (settings.isDebugMode) {
     stats.update();
   }
@@ -538,7 +507,7 @@ function animate (time) {
   if (loaded && curEnvVar != previousEnvVar) {
     switchEnvironment(curEnvVar)
   }
-
+  // TWEEN.update();
   requestAnimationFrame( animate );
   previousEnvVar = curEnvVar;
 }
@@ -599,9 +568,6 @@ manager.onLoad = function ( ) {
   // scene.add( starField );
   // objectScene.ocean.material = starsMaterial;
 
-
-
-
   // let tmpGeo = new THREE.BufferGeometry(objectScene["02_servers"].obj.geometry);
   let instanced = new THREE.BufferGeometry(objectScene["02_servers"].obj.geometry);
   // let instanced = new THREE.InstancedBufferGeometry().copy(objectScene["02_servers"].obj);
@@ -616,7 +582,7 @@ manager.onLoad = function ( ) {
   // const bufferServerGeometry = new THREE.InstancedBufferGeometry().copy(objectScene["02_servers"].obj);
   const bufferServerGeometry = objectScene["02_servers"].obj.geometry;
   // const bufferServerGeometry = new THREE.BufferGeometry(objectScene["02_servers"].obj.geometry);
-  var serverMat = new THREE.LineBasicMaterial( { color: 0x999999 } )
+
 
   let instanceIdx = 1;
 
@@ -629,15 +595,15 @@ manager.onLoad = function ( ) {
   makeInstancePlain(bufferServerGeometry, objectScene["02_servers"].obj.material,  [6, 0, -5]);
 
   // Additional servers
-  makeInstanceLine(bufferServerGeometry, serverMat, [9,0,-3]);
-  makeInstanceLine(bufferServerGeometry, serverMat, [10.5,0,-3]);
-  makeInstanceLine(bufferServerGeometry, serverMat, [12,0,-3]);
-  makeInstanceLine(bufferServerGeometry, serverMat, [9,0,2]);
-  makeInstanceLine(bufferServerGeometry, serverMat, [10.5,0,2]);
+  makeInstanceLine(bufferServerGeometry, MAT.serverMat, [9,0,-3]);
+  makeInstanceLine(bufferServerGeometry, MAT.serverMat, [10.5,0,-3]);
+  makeInstanceLine(bufferServerGeometry, MAT.serverMat, [12,0,-3]);
+  makeInstanceLine(bufferServerGeometry, MAT.serverMat, [9,0,2]);
+  makeInstanceLine(bufferServerGeometry, MAT.serverMat, [10.5,0,2]);
 
   // Additional afar servers
-  makeInstanceLine(bufferServerGeometry, serverMat, [13,0,-12]);
-  makeInstanceLine(bufferServerGeometry, serverMat, [25,1.5,-3]);
+  makeInstanceLine(bufferServerGeometry, MAT.serverMat, [13,0,-12]);
+  makeInstanceLine(bufferServerGeometry, MAT.serverMat, [25,1.5,-3]);
 
   // reposition server cables
   objectScene["02_server_cable001"].obj.position.x = 6;
@@ -656,12 +622,8 @@ manager.onLoad = function ( ) {
   var points = curve.getPoints( 50 );
   var geometry = new THREE.BufferGeometry().setFromPoints( points );
 
-  var material = new THREE.LineBasicMaterial( {
-    color : 0x00ff00,
-    linewidth: 30
-  } );
 
-  var curveObject = new THREE.Line( geometry, material );
+  var curveObject = new THREE.Line( geometry, MAT.curveMat );
   scene.add(curveObject);
 
 
@@ -694,21 +656,6 @@ manager.onLoad = function ( ) {
     return line;
   }
 
-
-  // ADD SERVER WITH LINES
-  // var edges = new THREE.EdgesGeometry( objectScene["02_servers"].obj.geometry ); // WireframeGeometry (triangles) or EdgesGeometry
-
-  // var line = new THREE.LineSegments( edges, serverMat );
-  // var line02 = new THREE.LineSegments( edges, serverMat );
-
-  // objectScene["02_instanciateServers"] = {
-  //   obj: line,
-  //   whichScene: -1
-  // }
-  // scene.add( objectScene["02_instanciateServers"].obj );
-  // scene.add( line02 );
-
-  // objectScene["02_servers"] = {obj: line, whichScene: -1};
   let selectedObject = scene.getObjectByName("02_servers");
   console.log("selectedObject", selectedObject);
   scene.remove( selectedObject );
@@ -783,6 +730,7 @@ function switchEnvironment(sign){
   // settings.isCameraFOVUpdates = true
 }
 
+// https://github.com/mrdoob/three.js/blob/master/examples/css3d_periodictable.html
 export function zoomModel(isZoomOut, scale) {
   if(isZoomOut === 1){
       controls.dollyIn(scale);

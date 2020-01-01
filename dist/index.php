@@ -8,6 +8,30 @@
 		<style type="text/css">
 			body{
 				perspective: 60em;
+				height: 100vh;
+			}
+			#canvasScene, #domEl{
+				position:absolute;
+				top:0;
+				left:0;
+				width:100%;
+				height:100%;
+				z-index: 10
+			}
+			div#domEl{
+				z-index: 20;
+				pointer-events: none;
+			}
+			div#domEl div.detail:hover{
+				color: red;
+				pointer-events: initial
+			}
+			div.screenGraphic{
+				font-size: 2rem;
+				opacity: .9;
+				color: #b7b7b7;
+				font-family: "Inter";
+				font-weight: 900;
 			}
 			#intro{
 				position:absolute;
@@ -116,6 +140,8 @@
 		<noscript>
 		 This website heavily uses javascript. You need to enable it if you want to use it properly
 		</noscript>
+		<div id="domEl"></div>
+		<div id="canvasScene"></div>
 		<div id="intro" :class="{ 'no-intro' : isIntroOff }">
 			<div class="popup highlight">
 				<div v-show="ieDetected">

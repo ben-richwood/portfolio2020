@@ -77,10 +77,15 @@
 			import { LineMaterial } from './assets/js/libs/LineMaterial.js';
 			import { LineGeometry } from './assets/js/libs/LineGeometry.js';
 			import { Line2 } from './assets/js/libs/Line2.js';
+			import { SVGLoader } from './assets/js/libs/SVGLoader.js';
+
+			import * as MAT from './assets/js/libs/materialList.js'
 
 
 			let camera, controls, scene, renderer;
 			let cssScene, rendererCSS; // 2nd "canvas", used by CSS3DRenderer to display DOM element in 3D env
+
+			const svgLoader = new SVGLoader();
 			init();
 			animate();
 
@@ -125,20 +130,67 @@
 					RIGHT: THREE.MOUSE.PAN
 				}
 
-				// Instanciate random cubes
-				var geometry = new THREE.BoxBufferGeometry( 1, 1, 1 );
-				geometry.translate( 0, 0.5, 0 );
-				var material = new THREE.MeshPhongMaterial( { color: 0xffffff, flatShading: true } );
-				var crossMaterial = new THREE.PointsMaterial({
-			    size: 150,
-			    map: new THREE.TextureLoader().load("assets/img/cross-frame.png"),
-					opacity: .4,
-			    blending: THREE.AdditiveBlending,
-			    transparent: true,
-			    color: 0x888888
-			  });
-
-				timeline_title.svg
+				function loadSVG ( url, name, sceneSign, pos, scaleFac, rot = [0,Math.PI/2,0], mat = undefined ) {
+				  svgLoader.load( url, function ( data ) {
+				    var paths = data.paths;
+				    var group = new THREE.Group();
+				    group.scale.multiplyScalar( scaleFac );
+				    group.position.set(pos[0], pos[1], pos[2]);
+				    // group.position.x = - 70;
+				    // group.position.y = 70;
+				    // group.scale.x = scaleFac;
+				    // group.scale.y = scaleFac;
+				    // group.scale.z = scaleFac;
+						// group.scale.set(scaleFac,scaleFac,scaleFac)
+				    group.rotation.set(rot[0], rot[1], rot[2]);
+				    for ( var i = 0; i < paths.length; i ++ ) {
+				      var path = paths[ i ];
+				      var fillColor = path.userData.style.fill;
+				      // var fillColor = 0x000000;
+				      if (mat === undefined) {
+				        mat = new THREE.MeshBasicMaterial({
+				          color: new THREE.Color().setStyle( fillColor ),
+				          opacity: path.userData.style.fillOpacity,
+				          transparent: path.userData.style.fillOpacity < 1,
+				          side: THREE.DoubleSide,
+				          depthWrite: true,
+				          // wireframe: guiData.fillShapesWireframe
+				        });
+				      }
+				      var shapes = path.toShapes( true );
+				      for ( var j = 0; j < shapes.length; j ++ ) {
+				        var shape = shapes[ j ];
+				        var geometry = new THREE.ShapeBufferGeometry( shape );
+				        var mesh = new THREE.Mesh( geometry, mat );
+				        group.add( mesh );
+				      }
+				      var strokeColor = path.userData.style.stroke;
+				      // var strokeColor = 0x000000;
+				      if (mat === undefined) {
+				        mat = new THREE.MeshBasicMaterial({
+				          color: new THREE.Color().setStyle( strokeColor ),
+				          opacity: path.userData.style.strokeOpacity,
+				          transparent: path.userData.style.strokeOpacity < 1,
+				          side: THREE.DoubleSide,
+				          depthWrite: true,
+				          // wireframe: guiData.strokesWireframe
+				        });
+				      }
+				      for ( var j = 0, jl = path.subPaths.length; j < jl; j ++ ) {
+				        var subPath = path.subPaths[ j ];
+				        var geometry = SVGLoader.pointsToStroke( subPath.getPoints(), path.userData.style );
+				        if ( geometry ) {
+				          var mesh = new THREE.Mesh( geometry, mat );
+				          group.add( mesh );
+				        }
+				      }
+				    }
+				    scene.add( group );
+				    return group;
+				  } );
+				}
+				// ( url, name, sceneSign, pos, scaleFac, rot = [0,Math.PI/2,0], mat = undefined )
+				const timelineHeading = loadSVG( './assets/img/timeline_title.svg', 'timeline', 1, [400, -950, -500], .6, [-Math.PI/2, Math.PI, Math.PI] );
 
 
 
@@ -323,13 +375,13 @@
 					for ( var j = 1; j < 15; j ++ ) { // horizontal loop
 				    var star = new THREE.Vector3();
 				    star.x = startingPoint + (yu * 2 * j);
-				    star.y = -800;
+				    star.y = -650;
 				    star.z = crossStartingZ + ( i * 400 );
 				    partVert.vertices.push( star );
 					}
 			  }
 				console.log("partVert", partVert);
-				const cross = new THREE.Points( partVert, crossMaterial );
+				const cross = new THREE.Points( partVert, MAT.crossMaterial );
 				cross.position.x = 0;
 				cross.position.y = 0;
 				cross.position.z = 0;
@@ -387,9 +439,7 @@
 					buildLine(timelineMaterial[cur.group], branching);
 
 					let planeGeometry = new THREE.PlaneBufferGeometry( 8, 8 );
-					let materialPlane = new THREE.MeshBasicMaterial( {color: 0x11517F, side: THREE.DoubleSide} );
-					materialPlane.blending  = THREE.NoBlending;
-					let plane = new THREE.Mesh( planeGeometry, materialPlane );
+					let plane = new THREE.Mesh( planeGeometry, MAT.materialPlane );
 					plane.position.x = startingPoint;
 					plane.rotation.x = Math.PI/2;
 					// plane.rotation.y = Math.PI;
@@ -455,7 +505,7 @@
 					curveObject.scale.set( 1, 1, 1 );
 					scene.add(curveObject);
 				}
-
+				/*
 				const timelineTitle = document.createElement( 'div' );
 				timelineTitle.className = 'timeline';
 				let hr = document.createElement( 'div' );
@@ -477,6 +527,7 @@
 				timelineTitlecssObject.rotation.z = Math.PI;
 				// add it to the css scene
 				cssScene.add(timelineTitlecssObject);
+				*/
 
 				// lights
 				var light = new THREE.DirectionalLight( 0xffffff );
