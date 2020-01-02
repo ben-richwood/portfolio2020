@@ -9,3 +9,10 @@
 ---
 
 ## All about performances
+
+### Hight Perf
+- ocean bg
+- more servers
+- camera - wiggle mouvments
+- Better lighting?
+- TweenMax animation? -> import + promise

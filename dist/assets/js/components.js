@@ -1,4 +1,4 @@
-import { settings, keyboardMap, controls, zoomModel, objectScene, scene, renderer, canvasEl, readyToLaunch, playAnimation, pauseAnimation } from './main.js'
+import { t0, settings, keyboardMap, controls, zoomModel, objectScene, scene, renderer, canvasEl, readyToLaunch, playAnimation, pauseAnimation } from './main.js'
 import * as THREE from './build/three.module.js';
 import Projects from './projects.js'
 
@@ -58,6 +58,8 @@ export const Popup = new Vue({
       this.displayConfig = false;
       settings.isConfigHigh = e;
       console.log("isConfigHigh: ", settings.isConfigHigh);
+      optionMenu.gpu = this.config;
+      settings.GPU = this.config;
       if (e == 1){
         if (settings.isConfigHigh) {
           settings.lateInit()
@@ -80,7 +82,7 @@ export const Popup = new Vue({
 export const Menu = new Vue({
   el: "#paradeAcross",
   data: {
-    projects: Projects.list,
+    projects: Projects.list.filter(e => e.onlyTimeline === false),
     currentProject: Projects.list[0].id,
     isDisplayed: true
   },
@@ -151,10 +153,14 @@ export const optionMenu = new Vue({
   data: {
     currentSubmenu: 0,
     optionsOpen: false,
-    kb_config: "kb_default"
+    kb_config: "kb_default",
+    t1: performance.now(),
+    gpu: "",
+    fullConfig: navigator
   },
   methods: {
     changeSubmenu: function (idx) {
+      if (idx === 3) this.t1 = ((performance.now() - t0) / 1000).toFixed(1) + "sec";
       this.currentSubmenu = idx;
     },
     close: function () {
@@ -190,6 +196,16 @@ export const optionMenu = new Vue({
     },
     muteSound: function () {
       settings.muteSound = !settings.muteSound;
+    }
+  },
+  filters: {
+    displayArr: function(e){
+      let txt = ""
+      console.log(e);
+      for(let c in e){
+        txt += c.toString() + ": " + e[c] + "  ";
+      }
+      return txt
     }
   }
 

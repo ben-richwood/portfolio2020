@@ -314,6 +314,9 @@
 						<h3 class="tc">Stats</h3>
 						<p class="tc">Some statistic about your current session</p>
 						<p class="tc"><b>Not any of these statistics are saved in any ways.</b></p>
+						<p>Ellapsed time from beginning of the session: {{ t1 }}</p>
+						<p>Your GPU: {{ gpu }}</p>
+						<p>Full config: {{ fullConfig | displayArr }}</p>
 					</div>
 					<div v-else-if="currentSubmenu == 4" id="credit">
 						<h3 class="tc">Credits</h3>
@@ -351,7 +354,6 @@
 
 		<script type="module">
 			import { Popup, Menu } from './assets/js/components.js'
-			// import Projects from './projects'
 
 			var canvasTest = document.createElement('canvas');
 			var gl;
@@ -410,6 +412,8 @@
 		<script type="module" src="./assets/js/main.js"></script>
 
 		<script type="module">
+			// import { settings } from './assets/js/main.js'
+			// settings.GPU = rendererEval;
 			// import { objectScene } from './assets/js/main.js';
 			// import { Menu } from './assets/js/projects.js'
 

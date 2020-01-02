@@ -22,6 +22,8 @@ import { Popup, Sidebar } from './components.js';
 
 // import { TWEEN } from './libs/tween.module.min.js';
 
+export const t0 = performance.now();
+
 
 export const keyboardMap = {
   kb_default: {
@@ -58,7 +60,8 @@ function Settings (e) {
 
     this.muteSound = false;
     this.linksNewTab = true;
-    this.keyboardConfig = {...keyboardMap.kb_default}
+    this.keyboardConfig = {...keyboardMap.kb_default},
+    this.GPU = "";
 
     this.lateInit = function() {
       highPerfInit();
@@ -224,21 +227,17 @@ function init() {
   renderer.setSize( window.innerWidth, window.innerHeight );
   renderer.gammaOutput = true;
   container.appendChild( renderer.domElement );
-
   canvasEl = container.getElementsByTagName('canvas')[0];
 
   controls = new OrbitControls( camera, renderer.domElement );
-  // controls.target.set( worldOrigin[0], worldOrigin[1], worldOrigin[2]);
   controls.target.set( worldOrigin[0], worldOrigin[1], worldOrigin[2] );
-  // auto rotate
   controls.autoRotate = false;
   controls.autoRotateSpeed = 1;
-  // controls.target = new THREE.Vector3(.5, .5, .5);
   // Disable panning
   controls.enablePan = false;
   controls.panningMode = 1; // default is 0 = ScreenSpacePanning versus HorizontalPanning
   controls.panSpeed = .2;
-  // inertia
+  // Inertia
   controls.enableDamping = true;
   controls.dampingFactor = 0.05;
   // Zom properties
@@ -249,12 +248,10 @@ function init() {
 
   // Constrain horizontal and vertical rotation
   controls.minPolarAngle = Math.PI/8;
-  // controls.maxPolarAngle = 2 * Math.PI/4 - (1 * Math.PI/16) ; // Math.PI/2 + Math.PI/8;
   controls.maxPolarAngle = 2 * Math.PI/4
   controls.minAzimuthAngle = - Math.PI/2 - Math.PI/8; //- Infinity; // radians
   controls.maxAzimuthAngle = Math.PI/2 - Math.PI/16; //Infinity; // radian
 
-  // var grid = new THREE.GridHelper( 20, 20, 0x000000, 0x000000 );
   grid = new THREE.GridHelper( 20, 20, 0x000000, 0x000000 );
   grid.material.opacity = 0.2;
   grid.material.transparent = true;
@@ -269,30 +266,12 @@ function init() {
   element.textContent = "Screen";
   const screenGraphic = new CSS3DObject( element );
   screenGraphic.position.set(-0.025, 1.41, .037);
-  // screenGraphic.scale.set(.2, .2, .2);
   screenGraphic.scale.multiplyScalar( .002 );
-  /*
-  screenGraphic.position.x = 0;
-  screenGraphic.position.y = 1.45;
-  screenGraphic.position.z = 0;
-  */
-  screenGraphic.rotation.order = 'YXZ';
+  screenGraphic.rotation.order = 'YXZ'; // Super important to have the correct rotation
   screenGraphic.rotation.set(-( 2 * Math.PI/16) + Math.PI/32, Math.PI/2, 0);
-  // screenGraphic.rotation.x = -( 2 * Math.PI/16) + Math.PI/32;
-  // screenGraphic.rotation.y = Math.PI/2;
-  // screenGraphic.rotation.z = 0
   screenGraphic.updateMatrix();
-  // add it to the css scene
   cssScene.add(screenGraphic);
-  /*
-  const textMaterial = new THREE.MeshStandardMaterial();
-  var Texttloader = new THREE.TextureLoader()
-        .setPath( 'assets/img/textures/' );
-    textMaterial.color = {b: .2, g: .2, r: .2 }
-    textMaterial.roughness = .2; // attenuates roughnessMap
-    textMaterial.metalness = 1; // attenuates metalnessMap
-    textMaterial.map = Texttloader.load( 'pedestrian_overpass_2k.hdr' );
-  */
+
   designLogo = loadSVG( 'assets/models/design.svg', 'design', 1, [-1, 3, 1.5], 0.005 ); // [2, 1.8, 1.5], 0.0025
   codeLogo = loadSVG( 'assets/models/code.svg', 'code', -1, [10, 5, .5], 0.01, [0,-Math.PI/2,0] ); // [2, 1.8, 1.5], 0.0025
 
@@ -391,18 +370,6 @@ function dumpObject(obj, lines = [], isLast = true, prefix = '') {
   return lines;
 }
 
-// function objStruct(obj, lines = [], isLast = true) {
-// 	const localPrefix = isLast ? '└─' : '├─';
-// 	// lines.push(`${obj.name || '*no-name*'}`);
-// 	lines.push(obj.name);
-// 	const lastNdx = obj.children.length - 1;
-// 	obj.children.forEach((child, ndx) => {
-// 		const isLast = ndx === lastNdx;
-// 		objStruct(child, lines, isLast);
-// 	});
-// 	return lines;
-// }
-
 function animate (time) {
   if (settings.isPaused) return
 // function animate () {
@@ -455,12 +422,9 @@ function animate (time) {
 }
 
 function onWindowResize() {
-
   var aspect = window.innerWidth / window.innerHeight;
-
   renderer.setSize(window.innerWidth, window.innerHeight);
   camera.aspect = aspect;
-
   camera.updateProjectionMatrix();
   renderer.setSize( window.innerWidth, window.innerHeight );
 }
@@ -484,7 +448,6 @@ export function distanceVector( v1, v2 ) {
 manager.onLoad = function ( ) {
   console.warn("loaded")
   Popup.isReadyToStart = true;
-  // add a condition to check if objects are not in the right child node.
   console.log("scene:", scene.children[scene.children.length - 1]);
   scene.children[scene.children.length - 1].children.forEach( function (obj) {
     let name = obj.name;
@@ -497,20 +460,9 @@ manager.onLoad = function ( ) {
     }
   });
   console.log("scene objs: ", objectScene);
-
   loaded = true;
-  // objectScene.design.obj.visible = false
   objectScene.code.obj.visible = false;
 
-  console.log("scene:",scene);
-
-  // For ocean in background
-  // var starsMaterial = new THREE.PointsMaterial( { color: 0xaaaaaa } );
-  // var starField = new THREE.Points( objectScene.ocean, starsMaterial );
-  // scene.add( starField );
-  // objectScene.ocean.material = starsMaterial;
-
-  // let tmpGeo = new THREE.BufferGeometry(objectScene["02_servers"].obj.geometry);
   let instanced = new THREE.BufferGeometry(objectScene["02_servers"].obj.geometry);
   // let instanced = new THREE.InstancedBufferGeometry().copy(objectScene["02_servers"].obj);
   instanced.maxInstancedCount = instances;

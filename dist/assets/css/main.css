@@ -188,7 +188,6 @@ img {
 
 body {
   margin: 0;
-  height: 100%;
   background-color: #000;
   color: #fff;
   font-family: "Ubuntu", "Open Sans", "Segoe UI", "Helvetica Neue", "Droid Sans Serif", "Roboto", Arial, sans-serif;
@@ -196,8 +195,7 @@ body {
   font-size: 14px;
   letter-spacing: -0.007em;
   line-height: 20px;
-  transform: translate3d(0, 0, 0);
-  }
+  transform: translate3d(0, 0, 0); }
 
 h {
   font-family: "Avenir Next", "Nunito Sans", sans-serif; }
@@ -213,7 +211,7 @@ h2 {
   animation-name: breathe;
   animation-duration: 2s;
   animation-timing-function: ease;
-  animation-delay: .7s;
+  animation-delay: 1.4s;
   animation-direction: normal;
   animation-iteration-count: 1;
   animation-fill-mode: forwards;
@@ -839,6 +837,37 @@ svg#keyboard {
 code {
   background-color: #9AA3AC;
   padding: 0 8px; }
+
+div.detail {
+  padding: .5rem 1rem;
+  background: #11507d;
+  background: linear-gradient(90deg, #11507d 0%, #1875bb 100%);
+  color: #FFF;
+  text-transform: uppercase;
+  border: 2px solid #217892; }
+
+div.year {
+  font-size: 2rem;
+  opacity: .9;
+  color: #b7b7b7;
+  font-family: "Inter";
+  font-weight: 900; }
+
+div.timeline {
+  color: #b7b7b7;
+  font-family: "Inter";
+  font-weight: 900;
+  font-size: 6rem;
+  /* position: relative; */ }
+
+div.containerTimeline {
+  position: relative; }
+  div.containerTimeline .hr {
+    width: 5rem;
+    background-color: #a1a1a1;
+    height: 12px;
+    position: absolute;
+    bottom: -4rem; }
 
 @media screen and (max-width: 768px) {
   #sidebar {
