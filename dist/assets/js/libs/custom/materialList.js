@@ -1,4 +1,4 @@
-import * as THREE from '../build/three.module.js';
+import * as THREE from '../../build/three.module.js';
 
 // camera's target
 export const boxMat = new THREE.MeshBasicMaterial( { color: 0xff0000 } );

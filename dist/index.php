@@ -32,6 +32,12 @@
 				color: #b7b7b7;
 				font-family: "Inter";
 				font-weight: 900;
+				/* border: 2px solid red; */
+				background-color: rgba(0,0,0,.97);
+				width: 498px;
+				height: 310px;
+				padding: 2rem;
+				box-sizing: border-box;
 			}
 			#intro{
 				position:absolute;
@@ -64,8 +70,17 @@
 				/* height:50%; */
 				left:50%;
 				top:50%;
-				transform: translate(-44%, -50%) translateZ(100px) rotateY(8deg) rotateX(6deg) scale(.92);
-				/* color: #777; */
+				/* transform: translate(-44%, -50%) translateZ(100px) rotateY(8deg) rotateX(6deg) scale(.92); */
+				animation-name: animatePopup3D;
+			  animation-duration: .7s;
+			  animation-timing-function: ease;
+			  animation-delay: .7s;
+			  animation-direction: normal;
+			  animation-iteration-count: 1;
+			  animation-fill-mode: forwards;
+			  animation-play-state: running;
+				transform: translate(-50%, -50%) translateZ(0) rotateY(0) rotateX(0) scale(1.15);
+				opacity: 0;
 			}
 			.popup .tagline p, #loadingText{
 				font-weight: 500;
@@ -74,6 +89,17 @@
 				line-height: 2;
 				text-align: center;
 				/* margin-bottom: 2rem; */
+			}
+			@keyframes animatePopup3D {
+				0% {
+					transform: translate(-50%, -50%) translateZ(0) rotateY(0) rotateX(0) scale(1.15);
+					opacity: 0;
+				}
+
+				100% {
+					transform: translate(-44%, -50%) translateZ(100px) rotateY(8deg) rotateX(6deg) scale(.92);
+					opacity: 1;
+				}
 			}
 			#loadingText{
 				font-family: 'Fira Code', 'Source Code Pro', 'consolas', 'DejaVu Sans Mono', 'Source Code Pro', 'Courier New', courier, monospace;
@@ -133,7 +159,6 @@
 				/* width: auto; */
 				box-sizing: content-box;
 			}
-			/* canvas{ filter: blur(7px); } */
 		</style>
 	</head>
 	<body>
@@ -201,8 +226,8 @@
 		<div id="sidebar" v-bind:class="{ showSidebar : displaySidebar }">
 			<div class="menu" :class="classAttribute">
 				<button class="closePanel" @click="close">close</button>
-				<h3>{{ content.title }}</h3>
-				<div v-html="content.body"></div>
+				<h3>{{ content.name }}</h3>
+				<div v-html="content.description"></div>
 				<div>
 					<h3>{{ content.specTitle }}</h3>
 				</div>
@@ -310,7 +335,8 @@
 								</ul>
 							<li>"Coding" environment: Assassin's Creed: Black Flag</li>
 							<li>"Design" environment: Deus Ex (Human Revolution & Mankind Divided), plus the Humming bird cafe in HCMC, Vietnam.</li>
-							<li>Timeline: it's inspired by the summary ending each mission in Detroit: Become Human</li>
+							<li>Timeline: it's largely inspired by the summary ending each mission in Detroit: Become Human</li>
+							<li>Lots of help and code snippets from <a href="https://threejs.org/" target="_blank" title="link to ThreeJS official documentation">ThreeJS official documentation</a> and <a href="https://threejsfundamentals.org/" target="_blank" title="link to threejsfundamentals">threejsfundamentals</a> </li>
 						</ul>
 						<p class="tl">The source code is accessibe on my GitHub:<br><a href="https://github.com/ben-richwood/">Portfolio2020</a></p>
 					</div>
@@ -324,7 +350,8 @@
 		<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TweenLite.min.js" type='text/javascript'></script> -->
 
 		<script type="module">
-			import { Projects, Popup, Menu } from './assets/js/projects.js'
+			import { Popup, Menu } from './assets/js/components.js'
+			// import Projects from './projects'
 
 			var canvasTest = document.createElement('canvas');
 			var gl;

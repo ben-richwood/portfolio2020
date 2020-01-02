@@ -79,7 +79,7 @@
 			import { Line2 } from './assets/js/libs/Line2.js';
 			import { SVGLoader } from './assets/js/libs/SVGLoader.js';
 
-			import * as MAT from './assets/js/libs/materialList.js'
+			import * as MAT from './assets/js/libs/custom/materialList.js'
 
 
 			let camera, controls, scene, renderer;

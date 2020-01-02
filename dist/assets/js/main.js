@@ -1,7 +1,8 @@
 // THREE JS MODULES
 import * as THREE from './build/three.module.js';
 // Custom lib
-import * as MAT from './libs/materialList.js'
+import * as MAT from './libs/custom/materialList.js'
+import * as TEST from './libs/custom/testing.js'
 
 import Stats from './libs/stats.module.js';
 import { OrbitControls } from './libs/OrbitControls.js';
@@ -17,7 +18,7 @@ import { RectAreaLightUniformsLib } from './libs/RectAreaLightUniformsLib.js';
 import { CSS3DRenderer, CSS3DObject } from './libs/CSS3DRenderer.js';
 
 // VUS JS MODULE
-import { Popup, Sidebar } from './projects.js';
+import { Popup, Sidebar } from './components.js';
 
 // import { TWEEN } from './libs/tween.module.min.js';
 
@@ -265,7 +266,7 @@ function init() {
   element.className = 'screenGraphic';
   element.textContent = "Screen";
   const screenGraphic = new CSS3DObject( element );
-  screenGraphic.position.set(0, 1.45, 0);
+  screenGraphic.position.set(-0.025, 1.41, .037);
   // screenGraphic.scale.set(.2, .2, .2);
   screenGraphic.scale.multiplyScalar( .002 );
   /*
@@ -281,36 +282,6 @@ function init() {
   screenGraphic.updateMatrix();
   // add it to the css scene
   cssScene.add(screenGraphic);
-
-  // Add 2D textures
-  // const imgLoader = new THREE.TextureLoader();
-  // const screenTex = [
-  //   imgLoader.load('assets/img/textures/barry-room.gif')
-  // ];
-
-
-  /*
-  // BARRY IMAGE - INTO THE SCREEN
-  const planeWidth = 1;
-  const planeHeight = .6;
-  const planeGeo = new THREE.PlaneBufferGeometry(planeWidth, planeHeight);
-  const planes = MAT.screenTex.map((st) => {
-    const planePivot = new THREE.Object3D();
-    scene.add(planePivot);
-    st.magFilter = THREE.NearestFilter;
-    const mesh = new THREE.Mesh(planeGeo, MAT.planeMat);
-    planePivot.add(mesh); // Should attach to another Mesh
-    mesh.position.set(0, 1.45, 0);
-
-    mesh.rotation.order = 'YXZ'; // mesh.eulerOrder = 'YXZ';
-    mesh.rotation.x = -( 2 * Math.PI/16) + Math.PI/32;
-    mesh.rotation.y = Math.PI/2;
-    mesh.rotation.z = 0;
-    mesh.updateMatrix();
-    return planePivot;
-  });
-  */
-
   /*
   const textMaterial = new THREE.MeshStandardMaterial();
   var Texttloader = new THREE.TextureLoader()
@@ -337,7 +308,7 @@ function init() {
   settings.isPaused = true; // To animate the first frame only
   if (!settings.isPaused){
     // console.log("scene: ", scene);
-    testing();
+    TEST.testing(scene);
 
     requestAnimationFrame( animate );
     // clock = new THREE.Clock();
@@ -361,7 +332,7 @@ export function playAnimation() {
   settings.isPaused = false;
   canvasEl.style.filter = "none";
   animate();
-  testing();
+  TEST.testing(scene);
   requestAnimationFrame( animate );
 }
 
@@ -402,38 +373,6 @@ function lateInit() {
   objectScene["02_ocean02"] = {obj: oceanWave, whichScene: -1};
   objectScene["airborneParticules"] = {obj: airborneParticules, whichScene: 0};
   // console.log("oceanWave:",oceanWave);
-}
-
-function testing(){
-  //axes
-  var axes = new THREE.AxesHelper(5);
-  scene.add(axes);
-
-  var dirX = new THREE.Vector3( 1, 0, 0 );
-  var dirY = new THREE.Vector3( 0, 1, 0 );
-  var dirZ = new THREE.Vector3( 0, 0, 1 );
-
-  //normalize the direction vector (convert to vector of length 1)
-  dirX.normalize();
-  dirY.normalize();
-  dirZ.normalize();
-  var origin = new THREE.Vector3( 0.13, 0, 0 );
-  var arrowHelperX = new THREE.ArrowHelper( dirX, origin, 1, 0xff0000 );
-  var arrowHelperY = new THREE.ArrowHelper( dirY, origin, 1, 0x00ff00 );
-  var arrowHelperZ = new THREE.ArrowHelper( dirZ, origin, 1, 0x0000ff );
-  scene.add( arrowHelperX );
-  scene.add( arrowHelperY );
-  scene.add( arrowHelperZ );
-
-  grid.material.opacity = 0.2;
-  grid.material.transparent = true;
-  scene.add( grid );
-
-  // Add light
-  light = new THREE.HemisphereLight( 0xffffff, 0x444444 );
-  light.position.set( 0, 200, 0 );
-  light = new THREE.AmbientLight( 0x404040 ); // soft white light
-  scene.add( light );
 }
 
 // To show hierarchy
