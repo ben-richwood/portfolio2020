@@ -2,6 +2,7 @@ import { settings, keyboardMap, controls, zoomModel, objectScene, scene, rendere
 import * as THREE from './build/three.module.js';
 import Projects from './projects.js'
 
+// loading sentences when loading
 const LoadingPhrases = [
   "Checking your browser capabilities",
   "Warming up your system",
@@ -20,6 +21,7 @@ const LoadingPhrases = [
   "Finetuning the experience"
 ];
 
+// Carousel when loading all the libs
 const tips = [
   "you can parade accross projects by using your keyboard arrow keys",
   "You can adapt the browsing settings in the option panel",
@@ -58,7 +60,7 @@ export const Popup = new Vue({
       console.log("isConfigHigh: ", settings.isConfigHigh);
       if (e == 1){
         if (settings.isConfigHigh) {
-          // settings.lateInit()
+          settings.lateInit()
         }
         // document.removeEventListener('keyup', (event) => {}, false);
         // console.log("settings:",settings);

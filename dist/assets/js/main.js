@@ -61,7 +61,7 @@ function Settings (e) {
     this.keyboardConfig = {...keyboardMap.kb_default}
 
     this.lateInit = function() {
-      lateInit();
+      highPerfInit();
     }
 
 };
@@ -259,6 +259,8 @@ function init() {
   grid.material.opacity = 0.2;
   grid.material.transparent = true;
   grid.visible = false;
+  grid.material.opacity = 0.2;
+  grid.material.transparent = true;
   scene.add( grid );
 
   // INIT CSS3DRenderer
@@ -341,38 +343,39 @@ export function pauseAnimation () {
   settings.isPaused = true;
 }
 
-function lateInit() {
-  console.log("%clateInit()", "background-color:orange;color:black;");
-  var oceanVert = new THREE.Geometry();
-  var partVert = new THREE.Geometry();
+// Building extra objects geometry for Hight Perf config
+// Such as ocean of dots, airborn particles
+function highPerfInit() {
+  console.log("%chighPerfInit()", "background-color:orange;color:black;");
+  const oceanVert = new THREE.Geometry();
+  const partVert = new THREE.Geometry();
 
-  var vertexPositions = objectScene["02_ocean"].obj.geometry.attributes.position.array;
+  const vertexPositions = objectScene["02_ocean"].obj.geometry.attributes.position.array;
 
   for ( var i = 0; i < vertexPositions.length - 3; i += 3 ) {
-    var vertices = new THREE.Vector3();
+    const vertices = new THREE.Vector3();
     vertices.x = vertexPositions[i];
     vertices.y = vertexPositions[i+1];
     vertices.z = vertexPositions[i+2];
     oceanVert.vertices.push( vertices );
   }
   for ( var i = 0; i < 100; i ++ ) {
-    var star = new THREE.Vector3();
-    star.x = THREE.Math.randFloatSpread( 7 );
-    star.y = THREE.Math.randFloatSpread( 7 );
-    star.z = THREE.Math.randFloatSpread( 7 );
-    partVert.vertices.push( star );
+    const particule = new THREE.Vector3();
+    particule.x = THREE.Math.randFloatSpread( 7 );
+    particule.y = THREE.Math.randFloatSpread( 7 );
+    particule.z = THREE.Math.randFloatSpread( 7 );
+    partVert.vertices.push( particule );
   }
 
-  var oceanWave = new THREE.Points( oceanVert, MAT.oceanMaterial );
+  const oceanWave = new THREE.Points( oceanVert, MAT.oceanMaterial );
   oceanWave.position.x = 28;
 
-  var airborneParticules = new THREE.Points( partVert, MAT.starsMaterial );
+  const airborneParticules = new THREE.Points( partVert, MAT.starsMaterial );
 
   scene.add( oceanWave );
   scene.add( airborneParticules );
   objectScene["02_ocean02"] = {obj: oceanWave, whichScene: -1};
   objectScene["airborneParticules"] = {obj: airborneParticules, whichScene: 0};
-  // console.log("oceanWave:",oceanWave);
 }
 
 // To show hierarchy
@@ -595,20 +598,20 @@ manager.onLoad = function ( ) {
     return line;
   }
 
+  // console.log("selectedObject", selectedObject);
   let selectedObject = scene.getObjectByName("02_servers");
-  console.log("selectedObject", selectedObject);
+  scene.remove( selectedObject );
+  selectedObject = scene.getObjectByName("02_ocean");
   scene.remove( selectedObject );
 
-  lateInit();
-  loadProjectImages()
-};
+  delete objectScene["02_servers"];
+  delete objectScene["02_ocean"];
+
+}; // end of manager.load
 
 function switchEnvironment(sign){
   settings.currentEnv = sign;
-  // objectScene.design.visible = !objectScene.design.visible;
-  // objectScene.code.visible = !objectScene.code.visible;
   Sidebar.switchEnv(sign);
-
   for (let obj in objectScene) {
     let ob = objectScene[obj];
     if(ob.whichScene === sign || ob.whichScene === 0){
@@ -617,8 +620,8 @@ function switchEnvironment(sign){
       ob.obj.visible = false;
     }
   }
-  objectScene["02_ocean"].obj.visible = false;
-  objectScene["02_servers"].obj.visible = false;
+  // objectScene["02_ocean"].obj.visible = false;
+  // objectScene["02_servers"].obj.visible = false;
 
   if (sign >= 0) {
     // settings.FOVvalue = 35;
@@ -630,41 +633,10 @@ function switchEnvironment(sign){
     grid.visible = true;
     // settings.FOVvalue = 75;
     // controls.dollyIn(400);
-    if (!settings.isConfigHigh) objectScene["02_ocean02"].obj.visible = false;
-    if (!settings.isConfigHigh) objectScene["airborneParticules"].obj.visible = false;
+    // if (!settings.isConfigHigh) objectScene["02_ocean02"].obj.visible = false;
+    // if (!settings.isConfigHigh) objectScene["airborneParticules"].obj.visible = false;
   }
-
   console.log("objectScene", objectScene);
-  /*
-  if (sign >= 0) { // Design env
-    grid.visible = false;
-    scene.fog = null
-    objectScene.servers.visible = false;
-    objectScene.wall.visible = true;
-    objectScene.new_ground.visible = true;
-    objectScene.server_cable001.visible = false;
-    settings.FOVvalue = 35;
-    if (settings.isConfigHigh) {
-      objectScene.ocean.visible = false;
-    }
-  } else { // Code env
-    orbSound.play();
-    grid.visible = true;
-    // scene.fog = fog;
-    // objectScene.servers.visible = true;
-    objectScene.wall.visible = false;
-    objectScene.new_ground.visible = false;
-    objectScene.server_cable001.visible = true;
-    console.log("settings.sidebarMenu:",settings.sidebarMenu);
-    // scene.fog = new THREE.FogExp2( 0xefd1b5, 0.0025, 10 );
-    // fogBg = new THREE.FogExp2( 0xefd1b5, 0.0025, .7 );
-    settings.FOVvalue = 75;
-    controls.dollyIn(400);
-    if (settings.isConfigHigh) {
-      objectScene.ocean.visible = true;
-    }
-  }
-  */
   // zoomModel(sign, 4)
   // settings.isCameraFOVUpdates = true
 }
@@ -676,15 +648,6 @@ export function zoomModel(isZoomOut, scale) {
   }else{
       controls.dollyOut(scale);
   }
-}
-
-function loadProjectImages() {
-  // load textures
-  const imgLoader01 = new THREE.TextureLoader();
-  // imgLoader.setPath
-  // const screenTex = [
-  //   imgLoader.load('textures/barry-room.gif')
-  // ];
 }
 
 function loadSVG ( url, name, sceneSign, pos, scaleFac, rot = [0,Math.PI/2,0], mat = undefined ) {

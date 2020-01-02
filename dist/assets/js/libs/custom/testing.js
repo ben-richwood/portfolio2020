@@ -19,13 +19,10 @@ export function testing(scene){
   scene.add( arrowHelperY );
   scene.add( arrowHelperZ );
 
-  grid.material.opacity = 0.2;
-  grid.material.transparent = true;
-  scene.add( grid );
-
   // Add light
-  light = new THREE.HemisphereLight( 0xffffff, 0x444444 );
+  let light = new THREE.HemisphereLight( 0xffffff, 0x444444 );
   light.position.set( 0, 200, 0 );
+  scene.add( light );
   light = new THREE.AmbientLight( 0x404040 ); // soft white light
   scene.add( light );
 }
