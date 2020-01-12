@@ -12,5 +12,13 @@ module.exports = {
   },
   optimization: {
     minimizer: [new UglifyJsPlugin()],
+  },
+
+  // Required for Vue
+  resolve: {
+      alias: {
+          vue: 'vue/dist/vue.js'
+      },
   }
+
 }

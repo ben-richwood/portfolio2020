@@ -21,13 +21,14 @@
   "license": "ISC",
   "dependencies": {
     "load-bmfont": "^1.4.0",
-    "three-bmfont-text": "^2.3.0"
+    "three-bmfont-text": "^2.3.0",
+    "vue": "^2.6.11"
   },
   "devDependencies": {
     "node-sass": "^4.13.0",
     "nodemon": "^1.19.4",
     "uglifyjs-webpack-plugin": "^2.2.0",
-    "webpack": "^4.41.2",
+    "webpack": "^4.41.5",
     "webpack-cli": "^3.3.10"
   }
 }
