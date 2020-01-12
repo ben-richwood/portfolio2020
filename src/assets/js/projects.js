@@ -14,7 +14,8 @@ export const Projects = [
     category: "Freelance",
     link: "http://www.peafowl-consulting.com/",
     path: "projects/peafowl",
-    img: ["homepage.png", "indesign_capture.png"]
+    img: ["homepage.jpg", "indesign_capture.png"],
+    screenImg: "homepage.jpg"
   }, {
     id: 1,
     name: 'Eneom',

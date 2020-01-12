@@ -1,6 +1,10 @@
-import { t0, settings, keyboardMap, controls, zoomModel, objectScene, scene, renderer, canvasEl, readyToLaunch, playAnimation, pauseAnimation } from './main.js'
-import * as THREE from './build/three.module.js';
+import { t0, settings, keyboardMap, controls, zoomModel, objectScene, scene, cssScene, renderer, rendererCSS, screenGraphic, canvasEl, readyToLaunch, playAnimation, pauseAnimation } from './main.js'
 import Projects from './projects.js'
+import { displayProjectImageOnScreen } from './libs/custom/miscellaneous.js'
+
+import * as THREE from './build/three.module.js';
+import { CSS3DRenderer, CSS3DObject } from './libs/CSS3DRenderer.js';
+
 
 // loading sentences when loading
 const LoadingPhrases = [
@@ -31,6 +35,10 @@ const tips = [
 ]
 
 let selectPerf = true;
+const URLPrefix = "../dist/assets/img/textures/projects/";
+const GPURegex = /rtx|gtx|Direct3D11/i;
+// Window computer ANGLE (Intel(R) UHD Graphics 620 Direct3D11 vs_5_0 ps_5_0)
+// Macbook pro Intel Iris Pro OpenGL Engine
 
 export const Popup = new Vue({
   el: "#intro",
@@ -47,17 +55,16 @@ export const Popup = new Vue({
   },
   methods: {
     whichConfig: function () {
-      let result = /^intel/i.test(this.config);
-      if (result) {
-        return "Low Performance"
-      } else {
+      // let result = /^intel/i.test(this.config);
+      if (GPURegex.test(this.config)){
         return "High Performance"
+      } else {
+        return "Low Performance"
       }
     },
     choosePerf: function (e) {
       this.displayConfig = false;
       settings.isConfigHigh = e;
-      console.log("isConfigHigh: ", settings.isConfigHigh);
       optionMenu.gpu = this.config;
       settings.GPU = this.config;
       if (e == 1){
@@ -79,24 +86,32 @@ export const Popup = new Vue({
   }
 });
 
+const tmpList = Projects.list.filter(e => e.onlyTimeline === false);
+console.log("tmpList", tmpList);
+
 export const Menu = new Vue({
   el: "#paradeAcross",
   data: {
-    projects: Projects.list.filter(e => e.onlyTimeline === false),
-    currentProject: Projects.list[0].id,
+    projects: [...tmpList],
+    currentProjectIdx: 0,
+    currentProject: tmpList[0],
     isDisplayed: true
   },
   methods: {
     changeProject: function (direction) {
-      this.currentProject += direction;
-      if(this.currentProject < 0) this.currentProject = this.projects.length - 1;
-      if(this.currentProject >= this.projects.length) this.currentProject = 0;
-      let e = this.projects[this.currentProject]
+      console.log(this.projects);
+      this.currentProjectIdx += parseInt(direction);
+      if(this.currentProjectIdx < 0){
+        this.currentProjectIdx = this.projects.length - 1;
+      } else if (this.currentProjectIdx >= this.projects.length){
+         this.currentProjectIdx = 0;
+      } else {
+
+      }
+      this.currentProject = this.projects[this.currentProjectIdx];
+      let e = this.projects[this.currentProjectIdx]
       Sidebar.content = {...e}
-      // Sidebar.content.title = e.name;
-      // Sidebar.content.body = e.description;
-      // Sidebar.content.code = e.code;
-      // Sidebar.content.design = e.design;
+
       Sidebar.content.speciality = settings.currentEnv === 1 ? e.design : e.code;
     },
     option: function () {
@@ -108,8 +123,17 @@ export const Menu = new Vue({
     readMore: function () {
       if(Popup.isMobile) settings.isPaused ? playAnimation() : pauseAnimation();
       // Sidebar.showSidebar = true;
+      // const screenImg = displayProjectImageOnScreen (screenGraphic, URLPrefix + "peafowl/"+this.currentProject.screenImg);
+
+      const screenImg = displayProjectImageOnScreen (screenGraphic, URLPrefix + "peafowl/"+this.currentProject.screenImg)
+      // Removing the first DOM element - the default screen
+      cssScene.children.splice(0,1);
+      // adding the new image to the CSS3DRenderer
+      cssScene.add(screenImg);
+      console.log("cssScene", cssScene);
+
+      if(!Sidebar.displaySidebar) zoomModel(1, 4);
       Sidebar.displaySidebar = !Sidebar.displaySidebar;
-      zoomModel(1, 4);
     }
   }
 });
@@ -119,14 +143,9 @@ export const Sidebar = new Vue({
   data: {
     showSidebar: false,
     content: {
-      ...Menu.projects[Menu.currentProject],
-      // title: Menu.projects[Menu.currentProject].name,
-      // body: Menu.projects[Menu.currentProject].description,
-      // code: Menu.projects[Menu.currentProject].code,
-      // design: Menu.projects[Menu.currentProject].design,
-      // speciality: Menu.projects[Menu.currentProject].design,
-      specTitle: "Design"
+      ...Menu.currentProject,
     },
+    specTitle: "Design",
     displaySidebar: false,
     classAttribute: "design"
   },
@@ -134,16 +153,21 @@ export const Sidebar = new Vue({
     switchEnv: function (sign){
       if(sign >= 0){
         this.content.speciality = this.content.design;
-        this.content.specTitle = "Design part";
+        this.specTitle = "Design part";
         this.classAttribute = "design";
       } else {
         this.content.speciality = this.content.code;
-        this.content.specTitle = "Coding part";
+        this.specTitle = "Coding part";
         this.classAttribute = "code";
       }
     },
     close: function () {
       Menu.readMore();
+    }
+  },
+  filters: {
+    arraySpan: function(arr) {
+      return arr.forEach(function(a){a + ", "});
     }
   }
 });
@@ -187,7 +211,7 @@ export const optionMenu = new Vue({
       settings.keyboardConfig = {...keyboardMap[this.kb_config]}
       console.log("fired", settings.keyboardConfig);
     },
-    linkBehavior: function () {
+    changeLinkBehavior: function () {
       const links = document.querySelectorAll('a[href^="http"]');
       links.forEach(function (e){
         e.target = settings.linksNewTab ? "_blank" : "_self";

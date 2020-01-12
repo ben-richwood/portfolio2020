@@ -26,18 +26,117 @@
 				color: red;
 				pointer-events: initial
 			}
+			.screenGraphic, .screenGraphicPic, div.screenGraphicDefault{
+				/* border: 2px solid red; */
+				width: 498px;
+				height: 310px;
+				box-sizing: border-box;
+			}
 			div.screenGraphic{
 				font-size: 2rem;
 				opacity: .9;
 				color: #b7b7b7;
 				font-family: "Inter";
 				font-weight: 900;
-				/* border: 2px solid red; */
-				background-color: rgba(0,0,0,.97);
-				width: 498px;
-				height: 310px;
 				padding: 2rem;
 				box-sizing: border-box;
+				background-color: rgba(0,0,0,.97);
+			}
+			div.screenGraphicDefault{
+				background-color: rgba(0,0,0,.97);
+			}
+			div.screenGraphicDefault > div{
+				position: relative;
+				width:100%;
+				height:100%;
+		    transform: scaleX(-1);
+			}
+			div.screenGraphicDefault h3{
+				transform: translateY(-50%) translateZ(2px);
+				z-index: 55;
+				position: absolute;
+				color: rgba(0,0,0,.7);
+				top:17%;
+				left:20%;
+				width:80%;
+			}
+			div.screenGraphicDefault div.sractchImg{
+				position: absolute;
+				z-index: 60;
+				width:100%;
+				height:100%;
+				background-image: url(./assets/img/textures/scratchTextures.png);
+				opacity: .2;
+			}
+			div.screenGraphicDefault img{
+				position: absolute;
+				max-width: 80%;
+				left:10%;
+				bottom: 10%;
+			}
+			div.screenGraphicDefault img:nth-of-type(1){
+				opacity: .7;
+				filter: blur(1.6px);
+			}
+			div.screenGraphicDefault img:last-child{
+				transform: translate(4px, -2px);
+			}
+			.movingStripe{
+				position:absolute;
+				z-index: 53;
+				top:10%;left:15%;
+				width:80%;
+				height: 18%;
+				background-color: #8EDFC5;
+				box-shadow: 0 0 12px #8EDFC5;
+				opacity: 0;
+				transform: translateY(50%);
+
+				animation-name: movingUpAndDown;
+			  animation-duration: 3s;
+			  animation-timing-function: ease;
+			  animation-delay: .7s;
+			  animation-direction: alternate;
+			  animation-iteration-count: infinite;
+			  animation-fill-mode: none;
+			  animation-play-state: running;
+
+				animation-direction: alternate;
+			  animation-iteration-count: infinite;
+			  animation-fill-mode: none;
+			  animation-play-state: running;
+			}
+			@keyframes movingUpAndDown {
+				0% {
+					opacity: 0;
+					transform: translateY(50%);
+				}
+				8% {
+					opacity: 1;
+				}
+				12% {
+					opacity: 0;
+				}
+				20% {
+					opacity: 1;
+				}
+				50% {
+					transform: translateY(50%);
+				}
+				55% {
+					transform: translateY(120%);
+				}
+				80%{opacity: 1;}
+				88% {
+					opacity: 0;
+				}
+				94% {
+					opacity: 1;
+				}
+				100% {
+					opacity: 0;
+					transform: translateY(120%);
+				}
 			}
 			#intro{
 				position:absolute;
@@ -129,13 +228,14 @@
 				width: 100px;
 				margin-right: 2rem;
 				flex-basis: 30%;
+				opacity: 0;
 
 				animation-name: blink;
-				animation-duration: .25s;
+				animation-duration: .2s;
+				animation-delay: 1.4s;
 				animation-timing-function: ease;
-				animation-delay: .5s;
 				animation-direction: normal;
-				animation-iteration-count: 3;
+				animation-iteration-count: 5;
 				animation-fill-mode: forwards;
 				animation-play-state: running;
 			}
@@ -227,22 +327,28 @@
 			<div class="menu" :class="classAttribute">
 				<button class="closePanel" @click="close">close</button>
 				<h3>{{ content.name }}</h3>
+				<span>{{content.category}}</span>
+				<div class="">{{ content.techno | arraySpan }}
+				</div>
+				<div class="">
+					<a :href="content.link">Website</a>
+				</div>
 				<div v-html="content.description"></div>
 				<div>
-					<h3>{{ content.specTitle }}</h3>
+					<h3>{{ specTitle }}</h3>
 				</div>
 				<div v-html="content.speciality"></div>
 			</div>
 		</div>
 
-		<div class="interactiveButtons" v-show="isDisplayed" id="paradeAcross">
+		<div class="interactiveButtons displayProjectNames" v-show="isDisplayed" id="paradeAcross">
 			<div class="tc"> Project </div>
 			<div class="parade-accross">
 				<div class="previous">
 					<button class="" @click="changeProject(-1)"><img src="./assets/img/arrow.svg" alt="previous project"></button>
 				</div>
 				<div class="project-title">
-					<button class="button" @click="readMore()"><span>{{ projects[currentProject].name }}</span></button>
+					<button class="button" @click="readMore()"><span>{{ currentProject.name }}</span></button>
 				</div>
 				<div class="next">
 					<button class="" @click="changeProject(1)"><img src="./assets/img/arrow.svg" alt="next project"></button>
@@ -273,7 +379,7 @@
 						<h3 class="tc">Config</h3>
 						<p class="tc">Adjust the general settings at your please</p>
 						<ul>
-							<li>Open all links in a new tab <button @click="linkBehavior">Switch</button></li>
+							<li>Open all links in a new tab <button @click="changeLinkBehavior">Switch</button></li>
 							<div class="inputGroup">
 						    <input id="radio1" name="radio" type="checkbox"/>
 						    <label for="radio1">Open all links in a new tab</label>
@@ -350,7 +456,6 @@
 
 		<!-- VUE -->
     <script src="https://unpkg.com/vue"></script>
-		<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TweenLite.min.js" type='text/javascript'></script> -->
 
 		<script type="module">
 			import { Popup, Menu } from './assets/js/components.js'
@@ -364,8 +469,7 @@
 
 			try {
 			  gl = canvasTest.getContext('webgl') || canvasTest.getContext('experimental-webgl');
-			} catch (e) {
-			}
+			} catch (e) {}
 
 			if (gl) {
 			  debugInfo = gl.getExtension('WEBGL_debug_renderer_info');

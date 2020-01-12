@@ -8,6 +8,12 @@
 
 ---
 
+## Animations
+
+Mix between CSS3, ThreeJS, Vue and TweenMax
+
+---
+
 ## All about performances
 
 ### Hight Perf

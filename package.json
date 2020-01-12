@@ -16,7 +16,10 @@
   ],
   "author": "Richwood",
   "license": "ISC",
-  "dependencies": {},
+  "dependencies": {
+    "load-bmfont": "^1.4.0",
+    "three-bmfont-text": "^2.3.0"
+  },
   "devDependencies": {
     "node-sass": "^4.13.0",
     "nodemon": "^1.19.4",

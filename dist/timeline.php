@@ -10,6 +10,7 @@
 				background-color: #ccc;
 				color: #000;
 				font-size: 10px;
+				height: 100vh;
 			}
 			a {
 				color: #f00;
@@ -62,12 +63,52 @@
 				position: absolute;
 				bottom: -4rem;
 			}
+			.legend{
+				position: fixed;
+				left: 3rem;
+				bottom: 3rem;
+				width:30%;
+				height: 20vh;
+				background: #f5f5f5;
+				z-index: 50;
+				padding:1rem;
+				box-sizing: border-box;
+				box-shadow:
+				  0 2.8px 2.2px rgba(0, 0, 0, 0.02),
+				  0 6.7px 5.3px rgba(0, 0, 0, 0.028),
+				  0 12.5px 10px rgba(0, 0, 0, 0.035),
+				  0 22.3px 17.9px rgba(0, 0, 0, 0.042),
+				  0 41.8px 33.4px rgba(0, 0, 0, 0.05),
+				  0 100px 80px rgba(0, 0, 0, 0.07);
+			}
+			.qub{
+				width: 20px;
+				height: 20px;
+				margin-right:1rem;
+			}
+			.qub.main{
+					background-color: #11517F;
+			}
+			.qub.work{
+					background-color: #00ffff;
+			}
 		</style>
 	</head>
 
 	<body>
 		<div id="timeline"></div>
 		<div id="domEl"></div>
+		<div class="legend">
+			<h3 style="margin-top:.3rem;">Legend</h3>
+			<div style="display:flex;justify-content:flex-start;flex-direction:row;margin-bottom:1rem;">
+				<div class="qub main"> </div>
+				<div class="text">Main thread</div>
+			</div>
+			<div style="display:flex;justify-content:flex-start;flex-direction:row">
+				<div class="qub work"> </div>
+				<div class="text">Work</div>
+			</div>
+		</div>
     <script src="https://unpkg.com/vue"></script>
 
 		<script type="module">

@@ -22,6 +22,16 @@ export const  starsMaterial = new THREE.PointsMaterial({
   color: 0xf2f2f2
 });
 
+
+export const  largeStarsMaterial = new THREE.PointsMaterial({
+  size: 2,
+  map: sparks,
+  opacity: .4,
+  blending: THREE.AdditiveBlending,
+  transparent: true,
+  color: 0xf2f2f2
+});
+
 export const oceanMaterial = new THREE.PointsMaterial({
   size: .12,
   map: sparks,

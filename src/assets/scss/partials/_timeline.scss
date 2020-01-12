@@ -1,0 +1,32 @@
+div.detail{
+  padding: .5rem 1rem;
+  background: rgb(17,80,125);
+  background: linear-gradient(90deg, rgba(17,80,125,1) 0%, rgba(24,117,187,1) 100%);
+  color: #FFF;
+  text-transform: uppercase;
+  border: 2px solid #217892;
+}
+div.year{
+  font-size: 2rem;
+  opacity: .9;
+  color: #b7b7b7;
+  font-family: "Inter";
+  font-weight: 900;
+}
+div.timeline{
+  color: #b7b7b7;
+  font-family: "Inter";
+  font-weight: 900;
+  font-size: 6rem;
+  /* position: relative; */
+}
+div.containerTimeline{
+  position: relative;
+  .hr{
+    width: 5rem;
+    background-color: #a1a1a1;
+    height: 12px;
+    position: absolute;
+    bottom: -4rem;
+  }
+}
