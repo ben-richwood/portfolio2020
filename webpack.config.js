@@ -7,7 +7,7 @@ module.exports = {
   entry: "./src/assets/js/main.js",
   // watch: true,
   output: {
-    path: path + "distTmp/",
+    path: path + "dist/assets/js",
     filename: "bundle.js"
   },
   optimization: {
