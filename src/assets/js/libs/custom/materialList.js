@@ -26,7 +26,7 @@ export const  starsMaterial = new THREE.PointsMaterial({
 export const  largeStarsMaterial = new THREE.PointsMaterial({
   size: 2,
   map: sparks,
-  opacity: .4,
+  opacity: .2,
   blending: THREE.AdditiveBlending,
   transparent: true,
   color: 0xf2f2f2

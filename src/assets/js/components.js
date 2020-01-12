@@ -4,6 +4,8 @@ import { t0, settings, keyboardMap, controls, zoomModel, objectScene, scene, css
 import Projects from './projects.js'
 import { displayProjectImageOnScreen } from './libs/custom/miscellaneous.js'
 
+// import THREELib from "three-js";
+// var THREE = THREELib(); // return THREE JS
 import * as THREE from './build/three.module.js';
 import { CSS3DRenderer, CSS3DObject } from './libs/CSS3DRenderer.js';
 

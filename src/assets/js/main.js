@@ -1,5 +1,8 @@
 // First, let's load THREE components
 import * as THREE from './build/three.module.js';
+// import THREELib from "three-js";
+// var THREE = THREELib(); // return THREE JS
+
 import Stats from './libs/stats.module.js'; // for testing only
 
 import { OrbitControls } from './libs/OrbitControls.js'; // Custom OrbitContrls
@@ -27,13 +30,11 @@ import Vue from 'vue';
 import { Popup, Sidebar } from './components.js';
 
 // TweenMax - for animation
-// import { TWEEN } from './libs/tween.module.min.js';
 let TWEEN;
+// import gsap from "gsap";
 
 // var createGeometry = require('three-bmfont-text');
 // var loadFont = require('load-bmfont');
-
-
 
 
 // For STATS screen (option menu) and performance measurement
