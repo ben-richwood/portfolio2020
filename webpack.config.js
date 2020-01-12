@@ -14,6 +14,11 @@ module.exports = {
     minimizer: [new UglifyJsPlugin()],
   },
 
+  devtool: false,
+  plugins: [
+    new webpack.SourceMapDevToolPlugin({})
+  ],
+
   // Required for Vue
   resolve: {
       alias: {
