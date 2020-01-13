@@ -267,6 +267,7 @@
 		</noscript>
 		<div id="domEl"></div>
 		<div id="canvasScene"></div>
+		<!-- <div id="timeline"></div> -->
 		<div id="intro" :class="{ 'no-intro' : isIntroOff }">
 			<div class="popup highlight">
 				<div v-show="ieDetected">
@@ -371,6 +372,7 @@
 						<li><button :class="currentSubmenu == 2 ? 'active' : ''" class="large-button left-align" @click="changeSubmenu(2)">Graphics</button></li>
 						<li><button :class="currentSubmenu == 3 ? 'active' : ''" class="large-button left-align" @click="changeSubmenu(3)">Stats</button></li>
 						<li><button :class="currentSubmenu == 4 ? 'active' : ''" class="large-button left-align" @click="changeSubmenu(4)">Credit</button></li>
+						<li><button :class="currentSubmenu == 5 ? 'active' : ''" class="large-button left-align" @click="timeline">{{ canvasMenu }}</button></li>
 						<li><button class="large-button left-align" @click="close"><img class="returnArrow" src="./assets/img/icons/return.svg" alt="back"> Back</button></li>
 					</ul>
 				</div>
@@ -452,7 +454,6 @@
 				</div>
 			</div>
 		</div>
-
 
 		<!-- VUE -->
     <!-- <script src="https://unpkg.com/vue"></script> -->

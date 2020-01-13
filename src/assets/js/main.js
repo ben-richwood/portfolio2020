@@ -19,6 +19,9 @@ import { PMREMCubeUVPacker } from './libs/PMREMCubeUVPacker.js';
 
 import { CSS3DRenderer, CSS3DObject } from './libs/CSS3DRenderer.js';
 
+
+// import * as Timeline from './timeline.js';
+
 // Custom lib
 import * as MAT from './libs/custom/materialList.js'
 import * as TEST from './libs/custom/testing.js'
@@ -70,6 +73,7 @@ function Settings (e) {
     this.isCameraFOVUpdates = false; // rendering FOV trnasition
     this.FOVvalue = 70;
     this.zoomLevel = 1;
+    this.isTimelineOn = false;
 
     // CONFIG
     this.isConfigHigh = false;
@@ -91,7 +95,7 @@ export const settings = new Settings({currentEnv: 1});
 const svgLoader = new SVGLoader()
 
 // All objects used for the THREE scene
-let container, stats;
+export let container, stats;
 export let controls
 export let canvasEl;
 export let scene, renderer;
@@ -254,7 +258,7 @@ function init() {
     } );
     */
     var loader = new GLTFLoader(manager).setPath( 'assets/models/' );
-    loader.load( 'computer_v8.4.glb', function ( gltf ) {
+    loader.load( 'computer_v8.5.glb', function ( gltf ) {
       gltf.scene.traverse( function ( child ) {
         // if ( child.isMesh ) {
         //   child.material.envMap = envMap;
@@ -493,14 +497,23 @@ export function readyToLaunch(){
 export function playAnimation() {
   settings.isPaused = false;
   canvasEl.style.filter = "none";
-  animate();
-  TEST.testing(scene);
-  requestAnimationFrame( animate );
+  if (settings.isTimelineOn){
+    Timeline.animate();
+  } else {
+    animate();
+    TEST.testing(scene);
+    // requestAnimationFrame( animate );
+  }
 }
 
 export function pauseAnimation () {
   canvasEl.style.filter = "blur(10px)";
   settings.isPaused = true;
+}
+
+export function playTimelineAnim () {
+  // settings.isTimelineOn
+  // requestAnimationFrame( Timeline.animate );
 }
 
 // Building extra objects geometry for Hight Perf config

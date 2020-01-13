@@ -11,13 +11,15 @@ module.exports = {
     filename: "bundle.js"
   },
   optimization: {
-    minimizer: [new UglifyJsPlugin()],
+    minimizer: [new UglifyJsPlugin(
+      {sourceMap: true}
+    )],
   },
 
-  devtool: false,
-  plugins: [
-    new webpack.SourceMapDevToolPlugin({})
-  ],
+  devtool: "cheap-eval-source-map",
+  // plugins: [
+  //   new webpack.SourceMapDevToolPlugin({})
+  // ],
 
   // Required for Vue
   resolve: {

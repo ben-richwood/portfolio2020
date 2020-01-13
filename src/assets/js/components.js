@@ -9,6 +9,8 @@ import { displayProjectImageOnScreen } from './libs/custom/miscellaneous.js'
 import * as THREE from './build/three.module.js';
 import { CSS3DRenderer, CSS3DObject } from './libs/CSS3DRenderer.js';
 
+import * as Timeline from './timeline.js';
+
 
 
 // loading sentences when loading
@@ -110,9 +112,7 @@ export const Menu = new Vue({
         this.currentProjectIdx = this.projects.length - 1;
       } else if (this.currentProjectIdx >= this.projects.length){
          this.currentProjectIdx = 0;
-      } else {
-
-      }
+      } else {}
       this.currentProject = this.projects[this.currentProjectIdx];
       let e = this.projects[this.currentProjectIdx]
       Sidebar.content = {...e}
@@ -122,6 +122,7 @@ export const Menu = new Vue({
     option: function () {
       optionMenu.open();
       this.isDisplayed = false;
+      Sidebar.displaySidebar = false;
       pauseAnimation();
       // if(Popup.isMobile) settings.isPaused ? playAnimation() : pauseAnimation();
     },
@@ -146,7 +147,6 @@ export const Menu = new Vue({
 export const Sidebar = new Vue({
   el: "#sidebar",
   data: {
-    showSidebar: false,
     content: {
       ...Menu.currentProject,
     },
@@ -185,7 +185,8 @@ export const optionMenu = new Vue({
     kb_config: "kb_default",
     t1: performance.now(),
     gpu: "",
-    fullConfig: navigator
+    fullConfig: navigator,
+    canvasMenu: "Timeline"
   },
   methods: {
     changeSubmenu: function (idx) {
@@ -200,6 +201,7 @@ export const optionMenu = new Vue({
     },
     open: function () {
       this.optionsOpen = true;
+      Sidebar.showSidebar = false;
       pauseAnimation();
     },
     toogle: function () {
@@ -209,6 +211,12 @@ export const optionMenu = new Vue({
         // this.open();
         Menu.option();
       }
+    },
+    timeline: function () {
+      settings.isTimelineOn = true;
+      this.canvasMenu = "Project"
+      Timeline.init();
+      Timeline.animate();
     },
     changeKbConfig: function(e) {
       this.kb_config = e;
