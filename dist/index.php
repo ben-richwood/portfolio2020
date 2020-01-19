@@ -19,8 +19,9 @@
 				z-index: 10
 			}
 			div#domEl{
-				z-index: 20;
+				z-index: 60;
 				pointer-events: none;
+				display: block;
 			}
 			div#domEl div.detail:hover{
 				color: red;
@@ -49,13 +50,14 @@
 				position: relative;
 				width:100%;
 				height:100%;
-		    transform: scaleX(-1);
+		    /* transform: scaleX(-1); */
 			}
 			div.screenGraphicDefault h3{
 				transform: translateY(-50%) translateZ(2px);
 				z-index: 55;
 				position: absolute;
-				color: rgba(0,0,0,.7);
+				/* color: rgba(0,0,0,.7); */
+				color: rgba(255,255,255,.7);
 				top:17%;
 				left:20%;
 				width:80%;
@@ -266,7 +268,9 @@
 		 This website heavily uses javascript. You need to enable it if you want to use it properly
 		</noscript>
 		<div id="domEl"></div>
-		<div id="canvasScene"></div>
+		<div id="canvasScene">
+			<canvas id="canvas"></canvas>
+		</div>
 		<!-- <div id="timeline"></div> -->
 		<div id="intro" :class="{ 'no-intro' : isIntroOff }">
 			<div class="popup highlight">
@@ -288,7 +292,8 @@
 						<button class="large-button" @click="choosePerf(true)" ref="highPerf">High Performance</button><button class="large-button" @click="choosePerf(false)" ref="lowPerf">Low Performance</button>
 					</div>
 					<div class="mt-30">
-						Choosing <span class="perf-class">High performance</span> turns on better lighting, particles, some post-processing effects and loads an additional library to improve parallel computation for GPU. So it will takes a bit more time to download and initiate.<br>
+						Choosing <span class="perf-class">High performance</span> turns on better lighting, shadows, particles, some post-processing effects and loads additional libraries. So it will takes a bit more time to download and initiate.<br>
+						You can tweak some of the values in the option menu (in the Graphics section).<br>
 						You can also reduce your browser's window size to improve performances.
 					</div>
 					<!-- <div>
@@ -349,10 +354,10 @@
 					<button class="" @click="changeProject(-1)"><img src="./assets/img/arrow.svg" alt="previous project"></button>
 				</div>
 				<div class="project-title">
-					<button class="button" @click="readMore()"><span>{{ currentProject.name }}</span></button>
+					<button class="button" @click="openProject()"><span>{{ currentProject.name }}</span></button>
 				</div>
 				<div class="next">
-					<button class="" @click="changeProject(1)"><img src="./assets/img/arrow.svg" alt="next project"></button>
+					<button class="button" @click="changeProject(1)"><img src="./assets/img/arrow.svg" alt="next project"></button>
 				</div>
 				<!-- <button class="previous" @click="changeProject(-1)"><</button> -->
 				<!-- <div class="project-title">{{ projects[currentProject].name }}</div> -->
@@ -372,30 +377,32 @@
 						<li><button :class="currentSubmenu == 2 ? 'active' : ''" class="large-button left-align" @click="changeSubmenu(2)">Graphics</button></li>
 						<li><button :class="currentSubmenu == 3 ? 'active' : ''" class="large-button left-align" @click="changeSubmenu(3)">Stats</button></li>
 						<li><button :class="currentSubmenu == 4 ? 'active' : ''" class="large-button left-align" @click="changeSubmenu(4)">Credit</button></li>
-						<li><button :class="currentSubmenu == 5 ? 'active' : ''" class="large-button left-align" @click="timeline">{{ canvasMenu }}</button></li>
+						<li><button :class="currentSubmenu == 5 ? 'active' : ''" class="large-button left-align" @click="timeline">{{ canvasMenuLabel }}</button></li>
 						<li><button class="large-button left-align" @click="close"><img class="returnArrow" src="./assets/img/icons/return.svg" alt="back"> Back</button></li>
 					</ul>
 				</div>
 				<div class="rightSettings">
 					<div v-if="currentSubmenu == 0" id="config">
 						<h3 class="tc">Config</h3>
-						<p class="tc">Adjust the general settings at your please</p>
+						<div class="notice">
+							<p class="tc">Adjust the general settings at your please</p>
+						</div>
 						<ul>
-							<li>Open all links in a new tab <button @click="changeLinkBehavior">Switch</button></li>
 							<div class="inputGroup">
-						    <input id="radio1" name="radio" type="checkbox"/>
+						    <input id="radio1" name="radio" @click="changeLinkBehavior" type="checkbox"/>
 						    <label for="radio1">Open all links in a new tab</label>
 						  </div>
 						  <div class="inputGroup">
-						    <input id="radio2" name="radio" type="checkbox"/>
+						    <input id="radio2" @click="muteSound" name="radio" type="checkbox"/>
 						    <label for="radio2">Mute sound</label>
 						  </div>
-							<li>Mute sound <button @click="muteSound">Switch</button></li>
 						</ul>
 					</div>
 					<div v-else-if="currentSubmenu == 1" id="controls">
 						<h3 class="tc">Controls</h3>
-						<p class="tc">Change the controls</p>
+						<div class="notice">
+							<p class="tc">Change the controls</p>
+						</div>
 						<div class="inputGroup">
 							<input id="kb_default" v-on:click="changeKbConfig('kb_default')" value="kb_default" name="radio" type="radio" v-model="kb_config"/>
 							<label for="kb_default">Default</label>
@@ -413,22 +420,40 @@
 					</div>
 					<div v-else-if="currentSubmenu == 2" id="graphics">
 						<h3 class="tc">Graphics</h3>
-						<p class="tc">You can switch to low performances if the animation is not smooth. To switch to high perf, please refresh the page</p>
+						<div class="notice">
+							<p class="tc">You can switch to low performances if the animation is not smooth. To switch to high perf, please refresh the page</p>
+						</div>
 						<ul>
 							<li>Switch to Low Resolution</li>
+							<div class="inputGroup">
+								<input id="antialias" v-on:click="changeConfig('antialias')" name="radio" type="checkbox" v-model="antialias" />
+								<label for="antialias">Antialias</label>
+							</div>
+							<div class="inputGroup">
+								<input id="precision" v-on:click="changeConfig('precision')" name="radio" type="checkbox" v-model="precision" />
+								<label for="precision">Enhanced shader precision</label>
+							</div>
+							<div class="inputGroup">
+								<input id="isShadowEnabled" v-on:click="toggleShadows()" name="radio" type="checkbox" v-model="isShadowEnabled" />
+								<label for="isShadowEnabled">Turn on/off shadows</label>
+							</div>
 						</ul>
 					</div>
 					<div v-else-if="currentSubmenu == 3" id="stat">
 						<h3 class="tc">Stats</h3>
-						<p class="tc">Some statistic about your current session</p>
-						<p class="tc"><b>Not any of these statistics are saved in any ways.</b></p>
+						<div class="notice">
+							<p class="tc">Some statistic about your current session</p>
+							<p class="tc"><b>Not any of these statistics are saved in any ways.</b></p>
+						</div>
 						<p>Ellapsed time from beginning of the session: {{ t1 }}</p>
 						<p>Your GPU: {{ gpu }}</p>
-						<p>Full config: {{ fullConfig | displayArr }}</p>
+						<p style="white-space: pre;">{{ fullConfig | displayArr }}</p>
 					</div>
 					<div v-else-if="currentSubmenu == 4" id="credit">
 						<h3 class="tc">Credits</h3>
-						<p class="tc">This portfolio is built on these technologies:</p>
+						<div class="notice">
+							<p class="tc">This portfolio is built on these technologies:</p>
+						</div>
 						<ul>
 							<li>ThreeJS</li>
 							<li>VueJs</li>

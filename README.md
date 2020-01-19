@@ -22,6 +22,22 @@ Mix between CSS3, ThreeJS, Vue and TweenMax
 
 ## All about performances
 
+### Tools & stack
+
+- Webpack
+- let user chooses high or low performances, with recommendations
+- 3D format: glb, with low texture
+- Blender flow (+texture atlas)
+- Vue
+- XHR and lazy loading
+- tps percu (rather than time spent): hints and tuto (cf parc asterix)
+- reduce draw calls
+- one canvas, 2 scene
+- instanciate & bufferGeometry
+- reduce amount of materials
+- prevent post processing
+
+
 ### Hight Perf
 - ocean bg
 - more servers
@@ -35,3 +51,10 @@ The 3D scene and all the 3D assets are built with Blender. I used few tricks to 
 
 - Using RGB channels to merge roughness & metalness maps into one image
 - Reducing image textures - cause an overload on memory usage. Using Atlas images as much as possible
+
+### Monitoring
+
+- [THREEX.rendererstats](https://github.com/jeromeetienne/threex.rendererstats)
+- Chrome DevTool - performance
+
+Draw calls

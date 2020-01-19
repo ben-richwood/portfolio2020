@@ -1003,12 +1003,12 @@ var OrbitControls = function ( object, domElement ) {
 
 	function onMouseWheel( event ) {
 
-		if ( scope.enabled === false || scope.enableZoom === false || ( state !== STATE.NONE && state !== STATE.ROTATE ) ) return;
+		if ( scope.enabled === false || scope.enableZoom === false || ( state !== STATE.NONE && state !== STATE.ROTATE ) || settings.isCameraTransiting ) return;
 
 		let d = distanceVector(camera.position, box.position);
 		// console.log("zoom level: ", d);
 		// console.log("camera position: ", camera.position);
-		settings.isCameraCloseEnough = d < 4 ? true : false
+		settings.isCameraCloseEnough = d < 6 ? true : false
 		if (settings.isCameraCloseEnough){
 			paradeAcross.classList.add("displayProjectNames");
 		} else {

@@ -25,16 +25,21 @@ import { CSS3DRenderer, CSS3DObject } from './libs/CSS3DRenderer.js';
 // Custom lib
 import * as MAT from './libs/custom/materialList.js'
 import * as TEST from './libs/custom/testing.js'
-import { logStyle, mobilecheck, msieversion, displayProjectImageOnScreen } from './libs/custom/miscellaneous.js'
+import { logStyle, mobilecheck, msieversion, displayProjectImageOnScreen, dayLight, nightLight } from './libs/custom/miscellaneous.js'
 
+import * as Timeline from './timeline.js'
 
 // VUS JS MODULE
 import Vue from 'vue';
 import { Popup, Sidebar } from './components.js';
 
-// TweenMax - for animation
-let TWEEN;
-// import gsap from "gsap";
+// TWEEN - for animation
+// import gsap as Tween from "gsap";
+import { TWEEN } from './libs/tween.module.min.js'
+// import { TWEEN } from './libs/TWEEN.min.js'
+// import { TweenMax } from "gsap/TWEEN";
+
+// let Tween;
 
 // var createGeometry = require('three-bmfont-text');
 // var loadFont = require('load-bmfont');
@@ -74,11 +79,16 @@ function Settings (e) {
     this.FOVvalue = 70;
     this.zoomLevel = 1;
     this.isTimelineOn = false;
+    this.isCameraTransiting = false;
+    this.isProjectOpen = false;
 
     // CONFIG
     this.isConfigHigh = false;
     this.isDebugMode = true;
-    this.isTweenMaxLoaded = false;
+    this.isTWEENLoaded = false;
+    this.antialias = false;
+    this.precision = 'mediump';
+    this.isShadowEnabled = false;
 
     // OPTIONS
     this.muteSound = false;
@@ -92,12 +102,13 @@ function Settings (e) {
 };
 export const settings = new Settings({currentEnv: 1});
 
+let rendererStats;
+
 const svgLoader = new SVGLoader()
 
 // All objects used for the THREE scene
-export let container, stats;
+export let container, canvasEl, stats;
 export let controls
-export let canvasEl;
 export let scene, renderer;
 export let cssScene, rendererCSS; // 2nd "canvas", used by CSS3DRenderer to display DOM element in 3D env
 let time, clock, bgTexture, fog;
@@ -138,10 +149,17 @@ export var objectScene = {};
 
 // used to position camera cand control target
 const worldOrigin = [0.1, 1, 0.1];
+const cameraDefaultPosition = [4.08, 2, 2.7];
 
 // testing graphic cards and user's config
 const canvasTest = document.createElement('canvas');
 let gl, debugInfo, vendor, rendererEval;
+
+// let updateTweenAnimation, onCompleteTweenAnimation;
+let cameraPosition;
+let tweenZoomIn;
+// const targetCameraTween = { x: 2, y: 1, z: 0 }; // To llok at the screen when opening a project
+export const targetCameraTween = new THREE.Vector3(2, 1.4, 0.7); // To llok at the screen when opening a project
 
 
 const paradeAcross = document.getElementById("paradeAcross");
@@ -158,6 +176,8 @@ function firstConfigCheck() {
     debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
     vendor = gl.getParameter(debugInfo.UNMASKED_VENDOR_WEBGL);
     rendererEval = gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL);
+    // gl.getParameter(debugInfo.MAX_TEXTURE_SIZE)
+    // In particular, note that usage of textures in vertex shaders is only possible if webgl.getParameter(webgl.MAX_VERTEX_TEXTURE_IMAGE_UNITS) is greater than zero. Typically, this fails on current mobile hardware.
   }
 
   let isMobile = mobilecheck();
@@ -200,9 +220,16 @@ if (scene.children.length > 0){
   console.log("scene obj: ", scene.children[9]);
 }
 
+export function switchBackToProject() {
+  canvasEl = renderer.domElement;
+}
 
+  /////////////////////////////////////////////////////////////////////////
+ //	           	 Initialize the scene, camera and renderer              //
+/////////////////////////////////////////////////////////////////////////
 function init() {
   container = document.getElementById('canvasScene');
+  canvasEl = container.getElementsByTagName('canvas')[0];
   camera = new THREE.PerspectiveCamera( 35, window.innerWidth / window.innerHeight, 0.15, 90 );
   /* THREE.PerspectiveCamera PARAMS
   * fov — Camera frustum vertical field of view.
@@ -210,7 +237,7 @@ function init() {
   * near — Camera frustum near plane.
   * far — Camera frustum far plane.
   */
-  camera.position.set( 0.7, 1.15, 0.8 );
+  camera.position.set( cameraDefaultPosition[0], cameraDefaultPosition[1], cameraDefaultPosition[2] );
   camera.focus = 15;
   scene = new THREE.Scene();
   cssScene = new THREE.Scene();
@@ -278,58 +305,24 @@ function init() {
       scene.background = texture;
     });
     */
+      /////////////////////////////////////////////////////////////////////////
+	   //	         	 Light it up! (from custom/miscellaneous.js)              //
+	  /////////////////////////////////////////////////////////////////////////
+    let date = new Date;
+    var hour = date.getHours();
+    let allLights;
+    if (hour > 18){
+      allLights = nightLight();
+    } else {
+      allLights = dayLight();
+    }
 
-    hemiLight = new THREE.HemisphereLight( 0xffffff, 0xffffff, 0.6 );
-		hemiLight.color.setHSL( 0.6, 1, 0.6 );
-		hemiLight.groundColor.setHSL( 0.095, 1, 0.75 );
-		hemiLight.position.set( 0, 2.5, 0 );
-		scene.add( hemiLight );
-		hemiLightHelper = new THREE.HemisphereLightHelper( hemiLight, 1 );
-		scene.add( hemiLightHelper );
+    if (allLights.length > 0) {
+      allLights.forEach(function(e) {
+        scene.add( e );
+      })
+    }
 
-    // hemiLightCode = new THREE.DirectionalLight( 0xffffff, 1 );
-		// hemiLightCode.color.setHSL( 0.6, 1, 0.6 );
-		// hemiLightCode.position.set( 4, 2, 0 );
-    // hemiLightCode.position.multiplyScalar( 3 );
-		// scene.add( hemiLightCode );
-    //
-    // geometry = new THREE.BoxGeometry( 2,2,2);
-    // var boxLight = new THREE.Mesh( geometry, MAT.boxMat );
-    // boxLight.position.set(12, 3, 0)
-    // scene.add( boxLight );
-    // // boxLight.visible = false;
-    // hemiLightCode.target = boxLight;
-    //
-		// hemiLightCodeHelper = new THREE.DirectionalLightHelper( hemiLightCode, 1 );
-		// scene.add( hemiLightCodeHelper );
-
-
-
-    dirLight = new THREE.DirectionalLight( 0xffffff, 1 );
-		dirLight.color.setHSL( 0.1, 1, 0.95 );
-		dirLight.position.set( 2, 1.3, 2 );
-		dirLight.position.multiplyScalar( 3 );
-		scene.add( dirLight );
-		dirLight.castShadow = true;
-		dirLight.shadow.mapSize.width = 2048;
-		dirLight.shadow.mapSize.height = 2048;
-		var d = 2;
-		dirLight.shadow.camera.left = - d;
-		dirLight.shadow.camera.right = d;
-		dirLight.shadow.camera.top = d;
-		dirLight.shadow.camera.bottom = - d;
-		dirLight.shadow.camera.far = 350;
-		dirLight.shadow.bias = - 0.0001;
-		dirLightHeper = new THREE.DirectionalLightHelper( dirLight, 1 );
-		scene.add( dirLightHeper );
-
-  // ground
-  /*
-  groundMesh = new THREE.Mesh( new THREE.PlaneBufferGeometry( 2000, 2000 ), new THREE.MeshPhongMaterial( { color: 0x999999, depthWrite: false } ) );
-  groundMesh.rotation.x = - Math.PI / 2;
-  groundMesh.receiveShadow = false;
-  scene.add( groundMesh );
-  */
 
   // The box is used as a camera target; easier to manipulate and debug
   var geometry = new THREE.BoxGeometry( .2,.2,.2);
@@ -338,13 +331,17 @@ function init() {
   scene.add( box );
   box.visible = false;
 
-  renderer = new THREE.WebGLRenderer( { antialias: false, stencil: false, precision: 'mediump', depth: true, preserveDrawingBuffer: true, premultipliedAlpha: false } );
+
+  // renderer = new THREE.WebGLRenderer( { antialias: false, stencil: false, precision: 'mediump', depth: true, preserveDrawingBuffer: true, premultipliedAlpha: false } );
+
+  renderer = new THREE.WebGLRenderer( { antialias: settings.antialias, canvas: canvasEl, stencil: false, precision: settings.precision, depth: true, preserveDrawingBuffer: true, premultipliedAlpha: false } );
+
   THREE.Cache.enabled = true;
   renderer.setPixelRatio( window.devicePixelRatio );
   renderer.setSize( window.innerWidth, window.innerHeight );
   renderer.gammaOutput = true;
-  container.appendChild( renderer.domElement );
-  canvasEl = container.getElementsByTagName('canvas')[0];
+  // container.appendChild( renderer.domElement );
+  // canvasEl = container.getElementsByTagName('canvas')[0];
 
   controls = new OrbitControls( camera, renderer.domElement );
   // position the camera
@@ -360,7 +357,7 @@ function init() {
   controls.dampingFactor = 0.05;
   // Zom properties
   controls.enableZoom = true;
-  controls.minDistance = .8;
+  controls.minDistance = 2.4; // .8
   controls.maxDistance = 20; // 7
   // controls.zoomSpeed = .40;
 
@@ -379,7 +376,7 @@ function init() {
   scene.add( grid );
 
   // INIT CSS3DRenderer
-  // initCSS3DRenderer();
+  initCSS3DRenderer();
 
   /*
   loadFont('../fonts/arial.fnt', function(err, font) {
@@ -411,6 +408,14 @@ function init() {
   controls.update();
   window.addEventListener( 'resize', onWindowResize, false );
   // document.addEventListener( 'mousemove', onDocumentMouseMove, false );
+
+
+  rendererStats	= new TEST.THREEx.RendererStats();
+  rendererStats.domElement.style.position   = 'absolute'
+  rendererStats.domElement.style.right  = '0px'
+  rendererStats.domElement.style.top    = '48px'
+  rendererStats.domElement.style.zIndex    = '100'
+  document.body.appendChild( rendererStats.domElement )
 
   // stats
   if (settings.isDebugMode) {
@@ -444,10 +449,11 @@ function initCSS3DRenderer() {
   var headingEl = document.createElement( 'h3' );
   headingEl.innerText = "Ben's\nportfolio";
   element.appendChild(headingEl);
+  /*
   var movingStripe = document.createElement( 'div' );
   movingStripe.className = "movingStripe";
   element.appendChild(movingStripe);
-
+  
   let scratchText = document.createElement( 'div' );
   scratchText.className = "sractchImg";
   element.appendChild(scratchText);
@@ -459,7 +465,7 @@ function initCSS3DRenderer() {
   barImg = document.createElement( 'img' );
   barImg.src = "./assets/img/textures/bars.svg";
   element.appendChild(barImg);
-
+  */
   elementContainer.appendChild(element);
 
   screenGraphic = new CSS3DObject( elementContainer );
@@ -483,19 +489,42 @@ export function readyToLaunch(){
   scene.remove( selectedObject );
   selectedObject = scene.getObjectByName("02_servers");
   scene.remove( selectedObject );
-  objectScene["01_new_ground"].obj.children[0].receiveShadow = true;
-  objectScene["01_new_ground"].obj.children[1].receiveShadow = true;
-  objectScene["01_new_ground"].obj.receiveShadow = true;
-  objectScene["desk_table"].obj.castShadow = true;
-  objectScene["desk_table"].obj.children[0].castShadow = true;
-  objectScene["desk_table"].obj.children[1].castShadow = true;
-  selectedObject = scene.getObjectByName("desk_table");
-  console.log(selectedObject)
+
+  // console.log(selectedObject)
+  // console.log(controls)
+  // console.log(camera.position)
   playAnimation();
+}
+
+export function castShadows() {
+  objectScene["01_new_ground"].obj.traverseVisible( function ( child ) {
+    if ( child instanceof THREE.Mesh ) {
+        child.receiveShadow = true;
+    }
+  });
+  objectScene["desk_table"].obj.traverseVisible( function ( child ) {
+    if ( child instanceof THREE.Mesh ) {
+        child.castShadow = true;
+        child.receiveShadow = true;
+    }
+  });
+  objectScene["screen_main"].obj.traverseVisible( function ( child ) {
+    if ( child instanceof THREE.Mesh ) {
+        child.castShadow = true;
+        // child.receiveShadow = true;
+    }
+  });
+  objectScene["01_Bowl"].obj.traverseVisible( function ( child ) {
+    if ( child instanceof THREE.Mesh ) {
+        child.castShadow = true;
+        // child.receiveShadow = true;
+    }
+  });
 }
 
 export function playAnimation() {
   settings.isPaused = false;
+  console.log(canvasEl);
   canvasEl.style.filter = "none";
   if (settings.isTimelineOn){
     Timeline.animate();
@@ -504,6 +533,10 @@ export function playAnimation() {
     TEST.testing(scene);
     // requestAnimationFrame( animate );
   }
+}
+
+export function switchToProject() {
+  // renderer
 }
 
 export function pauseAnimation () {
@@ -558,37 +591,125 @@ function highPerfInit() {
   scene.add( blurredAirborneParticules );
   objectScene["02_ocean02"] = {obj: oceanWave, whichScene: -1};
   objectScene["airborneParticules"] = {obj: airborneParticules, whichScene: 0};
-  // objectScene["blurredAirborneParticules"] = {obj: blurredAirborneParticules, whichScene: 0};
 
+  renderer.shadowMapEnabled = true;
+  renderer.shadowMapType = THREE.PCFSoftShadowMap;
+  castShadows();
+  // objectScene["blurredAirborneParticules"] = {obj: blurredAirborneParticules, whichScene: 0};
+  /*
   import('./libs/tween.module.min.js').then((tween) => {
-    console.log("%cTweenMax loaded successfully", "background-color:orange;color:black;");
-    settings.isTweenMaxLoaded = true;
-    TWEEN = tween;
+    console.log("%cTWEEN loaded successfully", "background-color:orange;color:black;");
+    settings.isTWEENLoaded = true;
+    // TWEEN = tween;
+    var Tween = new TWEEN.Tween(position).to(target, 2000);
   });
+  */
+  setupTween();
 }
 
-function animate (time) {
+function setupTween() {
+  console.log("setupTween()");
+  TWEEN.removeAll();
+}
+
+export function zoomInScreen() {
+  console.log("zoomInScreen()");
+  settings.isCameraTransiting = true;
+  controls.minDistance = .2; // .8
+  controls.enabled = false;
+
+  let currentCamPos = {
+      x: camera.position.x,
+      y: camera.position.y,
+      z: camera.position.z
+    };
+
+  const d = distanceVector(currentCamPos, targetCameraTween);
+
+  let destCamPos = {
+    x: targetCameraTween.x,
+    y: targetCameraTween.y,
+    z: targetCameraTween.z
+  };
+
+  let tween = new TWEEN.Tween(currentCamPos)
+  .to(destCamPos, Math.ceil(d * 450))
+  .delay(100)
+  .easing(TWEEN.Easing.Cubic.InOut)
+  .onUpdate(function() {
+    camera.position.set(this._object.x, this._object.y, this._object.z);
+    camera.lookAt( box.position );
+  })
+  .onComplete(function() {
+    settings.isCameraTransiting = false;
+    console.log("Tween Anim Done");
+    TWEEN.removeAll();
+  })
+  .start();
+}
+
+export function zoomOutScreen() {
+  console.log("zoomOutScreen()");
+  settings.isCameraTransiting = true;
+
+  let currentCamPos = {
+      x: camera.position.x,
+      y: camera.position.y,
+      z: camera.position.z
+    };
+
+  let destCamPos = {
+    x: cameraDefaultPosition[0],
+    y: cameraDefaultPosition[1],
+    z: cameraDefaultPosition[2]
+  };
+  const d = distanceVector(currentCamPos, destCamPos);
+
+  let tweenBack = new TWEEN.Tween(currentCamPos)
+  .to(destCamPos, Math.ceil(d * 450))
+  .delay(100)
+  .easing(TWEEN.Easing.Cubic.InOut)
+  .onUpdate(function() {
+    camera.position.set(this._object.x, this._object.y, this._object.z);
+    camera.lookAt( box.position );
+  })
+  .onComplete(function() {
+    settings.isCameraTransiting = false;
+    controls.minDistance = 2.4;
+    controls.enabled = true;
+    TWEEN.removeAll();
+  })
+  .start();
+}
+
+export function animate (time) {
   if (settings.isPaused) return
 // function animate () {
   // var t = Date.now() * 0.0005;
   time *= 0.0006; // convert to seconds
-
-  if (settings.isConfigHigh){
-    controls.update(); // only required if controls.enableDamping = true, or if controls.autoRotate = true
-    camera.lookAt( box.position );
-    // other way: camera.target.set( box.position.x, box.position.y, box.position.z );
-  }
-
   let speedy = .08 * Math.cos( 3 * time );
   let zOffset = -.3;
   let easeFactor = .08;
-  // if (idleTimer > 7000){
-  if (true){
-    box.position.y = easeFactor * speedy + 1.4;
-    box.position.z = easeFactor * Math.sin( time ) - zOffset;
+
+  if(settings.isCameraTransiting){
+    TWEEN.update();
+  } else {
+    if (settings.isConfigHigh){
+      box.position.y = easeFactor * speedy + 1.4;
+      box.position.z = easeFactor * Math.sin( time ) - zOffset;
+      controls.update(); // only required if controls.enableDamping = true, or if controls.autoRotate = true
+      camera.lookAt( box.position );
+      // other way: camera.target.set( box.position.x, box.position.y, box.position.z );
+    } else { }
+  }
+
+  /*
+  if (idleTimer > 7000){
+    //
   } else {
     idleTimer += 30;
   }
+  */
 
   // if (settings.isCameraFOVUpdates) {
   //   console.log("camera.fov:", camera.fov);
@@ -602,22 +723,27 @@ function animate (time) {
   //     settings.isCameraFOVUpdates = false;
   //   }
   // }
-
-  renderer.render( scene, camera );
-  // rendererCSS.render( cssScene, camera );
+  if (settings.isTimelineOn) {
+    Timeline.renderer.render( Timeline.scene, Timeline.camera );
+  } else {
+    renderer.render(scene, camera);
+    rendererCSS.render( cssScene, camera );
+  }
   if (settings.isDebugMode) {
     stats.update();
+    rendererStats.update(renderer);
   }
   curEnvVar = Math.sign(camera.position.x);
 
   if (loaded && curEnvVar != previousEnvVar) {
     switchEnvironment(curEnvVar)
   }
-  // if(settings.isTweenMaxLoaded && tween) TWEEN.update();
+
 
   requestAnimationFrame( animate );
   previousEnvVar = curEnvVar;
 }
+
 
 function onWindowResize() {
   var aspect = window.innerWidth / window.innerHeight;
@@ -780,7 +906,7 @@ function switchEnvironment(sign){
     // if (!settings.isConfigHigh) objectScene["02_ocean02"].obj.visible = false;
     // if (!settings.isConfigHigh) objectScene["airborneParticules"].obj.visible = false;
   }
-  console.log("objectScene", objectScene);
+  // console.log("objectScene", objectScene);
   // zoomModel(sign, 4)
   // settings.isCameraFOVUpdates = true
 }

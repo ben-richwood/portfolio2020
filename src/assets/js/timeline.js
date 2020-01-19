@@ -9,12 +9,12 @@ import { SVGLoader } from './libs/SVGLoader.js';
 import * as MAT from './libs/custom/materialList.js'
 
 import projects from "./projects.js";
-import { t0, settings, keyboardMap, zoomModel, objectScene, screenGraphic, canvasEl, readyToLaunch, playAnimation, pauseAnimation, stats } from './main.js'
+import { t0, settings, keyboardMap, zoomModel, objectScene, screenGraphic, container, canvasEl, readyToLaunch, playAnimation, pauseAnimation, stats } from './main.js'
 
 const timeline = projects.list.filter(e => e.onlyTimeline === true);
 
 
-export let camera, controls, scene, renderer, container;
+export let camera, controls, scene, renderer;
 export let cssScene, rendererCSS; // 2nd "canvas", used by CSS3DRenderer to display DOM element in 3D env
 const svgLoader = new SVGLoader();
 
@@ -22,15 +22,15 @@ const svgLoader = new SVGLoader();
 // animate();
 
 export function init() {
-  container = document.getElementById('canvasScene');
-  let canvasElm = container.getElementsByTagName('canvas')[0];
+  // container = document.getElementById('canvasScene');
+  // canvasEl = container.getElementsByTagName('canvas')[0];
   scene = new THREE.Scene();
   cssScene = new THREE.Scene();
   scene.background = new THREE.Color( 0xcccccc );
   // scene.fog = new THREE.FogExp2( 0xcccccc, 0.002 );
 
   // renderer = new THREE.WebGLRenderer( { antialias: true } );
-  renderer = new THREE.WebGLRenderer( { antialias: true, canvas: canvasElm } );
+  renderer = new THREE.WebGLRenderer( { antialias: true, canvas: canvasEl, stencil: false, precision: 'mediump', depth: true, preserveDrawingBuffer: true, premultipliedAlpha: false } );
   renderer.setPixelRatio( window.devicePixelRatio );
   renderer.setSize( window.innerWidth, window.innerHeight );
 
@@ -128,8 +128,6 @@ export function init() {
   // ( url, name, sceneSign, pos, scaleFac, rot = [0,Math.PI/2,0], mat = undefined )
   const timelineHeading = loadSVG( './assets/img/timeline_title.svg', 'timeline', 1, [400, -950, -500], .6, [-Math.PI/2, Math.PI, Math.PI] );
 
-
-
   // Variables to build the timeline - easier to tweak
   const unit = 20; // unit value for 1 month
   const zOffset = 40;
@@ -161,7 +159,6 @@ export function init() {
       partVert.vertices.push( star );
     }
   }
-  console.log("partVert", partVert);
   const cross = new THREE.Points( partVert, MAT.crossMaterial );
   cross.position.x = 0;
   cross.position.y = 0;
@@ -185,7 +182,7 @@ export function init() {
 
     var desc = document.createElement( 'div' );
     desc.className = 'desc';
-    desc.textContent = cur.label
+    desc.textContent = cur.name
     element.appendChild( desc );
 
     let len = cur.hasOwnProperty("len") ? cur.len : 1;

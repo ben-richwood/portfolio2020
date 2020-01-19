@@ -68,3 +68,65 @@ function dumpObject(obj, lines = [], isLast = true, prefix = '') {
   });
   return lines;
 }
+
+export function dayLight () {
+  let hemiLight, hemiLightHelper, dirLight, dirLightHeper;
+  hemiLight = new THREE.HemisphereLight( 0xffffff, 0xffffff, 0.6 );
+  hemiLight.color.setHSL( 0.6, 1, 0.6 );
+  hemiLight.groundColor.setHSL( 0.095, 1, 0.75 );
+  hemiLight.position.set( 0, 2.5, 0 );
+  // scene.add( hemiLight );
+  hemiLightHelper = new THREE.HemisphereLightHelper( hemiLight, 1 );
+
+  // hemiLightCode = new THREE.DirectionalLight( 0xffffff, 1 );
+  // hemiLightCode.color.setHSL( 0.6, 1, 0.6 );
+  // hemiLightCode.position.set( 4, 2, 0 );
+  // hemiLightCode.position.multiplyScalar( 3 );
+  // scene.add( hemiLightCode );
+  //
+  // geometry = new THREE.BoxGeometry( 2,2,2);
+  // var boxLight = new THREE.Mesh( geometry, MAT.boxMat );
+  // boxLight.position.set(12, 3, 0)
+  // scene.add( boxLight );
+  // // boxLight.visible = false;
+  // hemiLightCode.target = boxLight;
+  //
+  // hemiLightCodeHelper = new THREE.DirectionalLightHelper( hemiLightCode, 1 );
+  // scene.add( hemiLightCodeHelper );
+
+
+
+  dirLight = new THREE.DirectionalLight( 0xffffff, 1 );
+  dirLight.color.setHSL( 0.1, 1, 0.95 );
+  dirLight.position.set( 1.2, 1.3, 1.7 );
+  dirLight.position.multiplyScalar( 3 );
+  scene.add( dirLight );
+  dirLight.castShadow = true;
+  dirLight.shadow.mapSize.width = 2048;
+  dirLight.shadow.mapSize.height = 2048;
+
+  dirLight.shadowDarkness = 0.1;
+  dirLight.shadowCameraVisible = true;
+  var d = 2;
+  dirLight.shadow.camera.left = - d;
+  dirLight.shadow.camera.right = d;
+  dirLight.shadow.camera.top = d;
+  dirLight.shadow.camera.bottom = - d;
+  dirLight.shadow.camera.far = 35;
+  dirLight.shadow.bias = - 0.0001;
+  dirLightHeper = new THREE.DirectionalLightHelper( dirLight, 1 );
+
+  return [hemiLight, hemiLightHelper, dirLight, dirLightHeper]
+
+// ground
+/*
+groundMesh = new THREE.Mesh( new THREE.PlaneBufferGeometry( 2000, 2000 ), new THREE.MeshPhongMaterial( { color: 0x999999, depthWrite: false } ) );
+groundMesh.rotation.x = - Math.PI / 2;
+groundMesh.receiveShadow = false;
+scene.add( groundMesh );
+*/
+}
+
+export function nightLight () {
+  //
+}

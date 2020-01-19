@@ -1,6 +1,6 @@
 import Vue from 'vue';
 
-import { t0, settings, keyboardMap, controls, zoomModel, objectScene, scene, cssScene, renderer, rendererCSS, screenGraphic, canvasEl, readyToLaunch, playAnimation, pauseAnimation } from './main.js'
+import { t0, settings, keyboardMap, controls, zoomModel, objectScene, scene, cssScene, renderer, rendererCSS, screenGraphic, canvasEl, readyToLaunch, playAnimation, pauseAnimation, animate, zoomInScreen, zoomOutScreen, targetCameraTween, switchBackToProject, castShadows } from './main.js'
 import Projects from './projects.js'
 import { displayProjectImageOnScreen } from './libs/custom/miscellaneous.js'
 
@@ -11,7 +11,8 @@ import { CSS3DRenderer, CSS3DObject } from './libs/CSS3DRenderer.js';
 
 import * as Timeline from './timeline.js';
 
-
+import { TWEEN } from './libs/tween.module.min.js'
+// import { TweenMax } from "gsap/TweenMax";
 
 // loading sentences when loading
 const LoadingPhrases = [
@@ -126,23 +127,40 @@ export const Menu = new Vue({
       pauseAnimation();
       // if(Popup.isMobile) settings.isPaused ? playAnimation() : pauseAnimation();
     },
-    readMore: function () {
+    openProject: function () {
       if(Popup.isMobile) settings.isPaused ? playAnimation() : pauseAnimation();
-      // Sidebar.showSidebar = true;
+      if (settings.isProjectOpen) {
+        zoomOutScreen();
+        settings.isProjectOpen = false;
+      } else {
+        zoomInScreen();
+        settings.isProjectOpen = true;
+      }
+      Sidebar.displaySidebar = !Sidebar.displaySidebar;
       // const screenImg = displayProjectImageOnScreen (screenGraphic, URLPrefix + "peafowl/"+this.currentProject.screenImg);
 
+      /*
       const screenImg = displayProjectImageOnScreen (screenGraphic, URLPrefix + "peafowl/"+this.currentProject.screenImg)
       // Removing the first DOM element - the default screen
       cssScene.children.splice(0,1);
       // adding the new image to the CSS3DRenderer
       cssScene.add(screenImg);
       console.log("cssScene", cssScene);
+      */
 
-      if(!Sidebar.displaySidebar) zoomModel(1, 4);
-      Sidebar.displaySidebar = !Sidebar.displaySidebar;
+      // if(!Sidebar.displaySidebar) zoomModel(1, 4);
     }
   }
 });
+
+const selectedNavigator = {
+  platforn: navigator.platform,
+  vendor: navigator.vendor,
+  language: navigator.language,
+  hardwareConcurrency: navigator.hardwareConcurrency,
+  cookieEnabled: navigator.cookieEnabled,
+  doNotTrack: navigator.doNotTrack != null ? "DoNotTrack enabled" : "DoNotTrack not enabled"
+}
 
 export const Sidebar = new Vue({
   el: "#sidebar",
@@ -167,7 +185,7 @@ export const Sidebar = new Vue({
       }
     },
     close: function () {
-      Menu.readMore();
+      Menu.openProject();
     }
   },
   filters: {
@@ -185,8 +203,13 @@ export const optionMenu = new Vue({
     kb_config: "kb_default",
     t1: performance.now(),
     gpu: "",
-    fullConfig: navigator,
-    canvasMenu: "Timeline"
+    fullConfig: selectedNavigator,
+    canvasMenuLabel: "Timeline",
+    // config: {
+    // }
+    antialias: false,
+    precision: false,
+    isShadowEnabled: false
   },
   methods: {
     changeSubmenu: function (idx) {
@@ -213,16 +236,25 @@ export const optionMenu = new Vue({
       }
     },
     timeline: function () {
-      settings.isTimelineOn = true;
-      this.canvasMenu = "Project"
-      Timeline.init();
-      Timeline.animate();
+      if (settings.isTimelineOn) {
+        // animate();
+        Timeline.renderer.clear()
+        document.getElementById( 'domEl' ).style.display = "none";
+        this.canvasMenuLabel = "Timeline"
+        switchBackToProject();
+      } else {
+        this.canvasMenuLabel = "Project"
+        renderer.clear();
+        Timeline.init();
+        Timeline.animate();
+        this.close();
+        document.getElementById( 'domEl' ).style.display = "block";
+      }
+      settings.isTimelineOn = !settings.isTimelineOn;
     },
     changeKbConfig: function(e) {
       this.kb_config = e;
-      console.log(keyboardMap[this.kb_config]);
       settings.keyboardConfig = {...keyboardMap[this.kb_config]}
-      console.log("fired", settings.keyboardConfig);
     },
     changeLinkBehavior: function () {
       const links = document.querySelectorAll('a[href^="http"]');
@@ -233,14 +265,34 @@ export const optionMenu = new Vue({
     },
     muteSound: function () {
       settings.muteSound = !settings.muteSound;
+    },
+    changeConfig: function(e) {
+      console.log(e);
+      if (e === "antialias"){
+        this.antialias = !this.antialias;
+        renderer.antialias = this.antialias;
+      } else if (e === "precision") {
+        this.precision = !this.precision;
+        renderer.precision = this.precision ? "highp" : "mediump"
+      } else {}
+      console.log(renderer);
+    },
+    toggleShadows: function() {
+      settings.isShadowEnabled = !settings.isShadowEnabled;
+      this.isShadowEnabled = settings.isShadowEnabled;
+      renderer.shadowMapEnabled = this.isShadowEnabled;
+      if (this.isShadowEnabled) {
+        // renderer.shadowMapEnabled = true;
+        renderer.shadowMapType = THREE.PCFSoftShadowMap;
+        castShadows();
+      }
     }
   },
   filters: {
     displayArr: function(e){
-      let txt = ""
-      console.log(e);
+      let txt = "";
       for(let c in e){
-        txt += c.toString() + ": " + e[c] + "  ";
+        txt += c.toString() + ": " + e[c] + "\n";
       }
       return txt
     }
