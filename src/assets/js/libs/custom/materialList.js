@@ -4,6 +4,7 @@ import * as THREE from '../../build/three.module.js';
 export const boxMat = new THREE.MeshBasicMaterial( { color: 0xff0000 } );
 
 // computer material
+/*
 const imgLoader = new THREE.TextureLoader();
 export const screenTex = [
   imgLoader.load('assets/img/textures/barry-room.gif')
@@ -12,6 +13,7 @@ export const planeMat = new THREE.MeshBasicMaterial({
   map: screenTex,
   side: THREE.DoubleSide,
 });
+*/
 
 const sparks = new THREE.TextureLoader().load("assets/img/spark1.png");
 export const  starsMaterial = new THREE.PointsMaterial({

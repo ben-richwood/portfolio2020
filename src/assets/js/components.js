@@ -1,6 +1,6 @@
 import Vue from 'vue';
 
-import { t0, settings, keyboardMap, controls, zoomModel, objectScene, scene, cssScene, renderer, rendererCSS, screenGraphic, canvasEl, readyToLaunch, playAnimation, pauseAnimation, animate, zoomInScreen, zoomOutScreen, targetCameraTween, switchBackToProject, castShadows } from './main.js'
+import { t0, settings, keyboardMap, controls, zoomModel, objectScene, scene, cssScene, renderer, rendererCSS, screenGraphic, canvasEl, readyToLaunch, playAnimation, pauseAnimation, animate, zoomInScreen, zoomOutScreen, targetCameraTween, switchBackToProject, castShadows, domEl } from './main.js'
 import Projects from './projects.js'
 import { displayProjectImageOnScreen } from './libs/custom/miscellaneous.js'
 
@@ -43,7 +43,7 @@ const tips = [
 ]
 
 let selectPerf = true;
-const URLPrefix = "../dist/assets/img/textures/projects/";
+const URLPrefix = "../dist/assets/img/projects/";
 const GPURegex = /rtx|gtx|Direct3D11/i;
 // Window computer ANGLE (Intel(R) UHD Graphics 620 Direct3D11 vs_5_0 ps_5_0)
 // Macbook pro Intel Iris Pro OpenGL Engine
@@ -117,8 +117,8 @@ export const Menu = new Vue({
       this.currentProject = this.projects[this.currentProjectIdx];
       let e = this.projects[this.currentProjectIdx]
       Sidebar.content = {...e}
-
       Sidebar.content.speciality = settings.currentEnv === 1 ? e.design : e.code;
+      loadProjectImage();
     },
     option: function () {
       optionMenu.open();
@@ -136,22 +136,26 @@ export const Menu = new Vue({
         zoomInScreen();
         settings.isProjectOpen = true;
       }
+
+      if (!Sidebar.displaySidebar) {
+        loadProjectImage();
+      }
       Sidebar.displaySidebar = !Sidebar.displaySidebar;
-      // const screenImg = displayProjectImageOnScreen (screenGraphic, URLPrefix + "peafowl/"+this.currentProject.screenImg);
-
-      /*
-      const screenImg = displayProjectImageOnScreen (screenGraphic, URLPrefix + "peafowl/"+this.currentProject.screenImg)
-      // Removing the first DOM element - the default screen
-      cssScene.children.splice(0,1);
-      // adding the new image to the CSS3DRenderer
-      cssScene.add(screenImg);
-      console.log("cssScene", cssScene);
-      */
-
       // if(!Sidebar.displaySidebar) zoomModel(1, 4);
     }
   }
 });
+
+function loadProjectImage () {
+  const screenImg = displayProjectImageOnScreen (screenGraphic, `${URLPrefix}/${Menu.currentProject.slug}/${Menu.currentProject.screenImg}`)
+  // Removing the first DOM element - the default screen
+  // cssScene.children.splice(0,1);
+  let domElToDelete = document.querySelector('#domEl .frameContainer');
+  // domElToDelete.parentNode.removeChild( domElToDelete );
+  // adding the new image to the CSS3DRenderer
+  cssScene.add(screenImg);
+  // console.log("cssScene", cssScene);
+}
 
 const selectedNavigator = {
   platforn: navigator.platform,
@@ -205,6 +209,7 @@ export const optionMenu = new Vue({
     gpu: "",
     fullConfig: selectedNavigator,
     canvasMenuLabel: "Timeline",
+    linksNewTab: true,
     // config: {
     // }
     antialias: false,
@@ -220,11 +225,13 @@ export const optionMenu = new Vue({
       this.optionsOpen = false;
       Menu.isDisplayed = true;
       this.currentSubmenu = 0;
+      domEl.style.filter = "blur(0px)"
       playAnimation();
     },
     open: function () {
       this.optionsOpen = true;
       Sidebar.showSidebar = false;
+      domEl.style.filter = "blur(10px)"
       pauseAnimation();
     },
     toogle: function () {
@@ -239,7 +246,7 @@ export const optionMenu = new Vue({
       if (settings.isTimelineOn) {
         // animate();
         Timeline.renderer.clear()
-        document.getElementById( 'domEl' ).style.display = "none";
+        domEl.style.display = "none";
         this.canvasMenuLabel = "Timeline"
         switchBackToProject();
       } else {
@@ -248,7 +255,7 @@ export const optionMenu = new Vue({
         Timeline.init();
         Timeline.animate();
         this.close();
-        document.getElementById( 'domEl' ).style.display = "block";
+        domEl.style.display = "block";
       }
       settings.isTimelineOn = !settings.isTimelineOn;
     },

@@ -29,8 +29,11 @@ export function msieversion() {
 // Called in component.js
 export function displayProjectImageOnScreen (screenGraphic, url) {
   const divContainer = document.createElement( 'div' );
+  const divSubContainer = document.createElement( 'div' );
+  divSubContainer.className = "frameContainer";
+
   const picElement = document.createElement( 'picture' );
-  picElement.className = 'screenGraphicPic';
+  // picElement.className = 'screenGraphicPic';
   const type = ["webp", "jp2", "jpg"];
   type.forEach(function (e) {
     let sourceEl = document.createElement( 'source' );
@@ -39,11 +42,12 @@ export function displayProjectImageOnScreen (screenGraphic, url) {
     picElement.appendChild(sourceEl);
   })
   const imgEl = document.createElement( 'img' );
-  imgEl.className = 'screenGraphic';
+  imgEl.className = 'screenGraphicPic';
   imgEl.src = url;
   imgEl.alt = "project thumbnail";
   picElement.appendChild(imgEl);
-  divContainer.appendChild(picElement);
+  divSubContainer.appendChild(picElement);
+  divContainer.appendChild(divSubContainer);
 
   const screenImg = new CSS3DObject( divContainer );
 
@@ -54,19 +58,6 @@ export function displayProjectImageOnScreen (screenGraphic, url) {
   screenImg.updateMatrix();
 
   return screenImg;
-}
-
-// To show 3D elements hierarchy
-function dumpObject(obj, lines = [], isLast = true, prefix = '') {
-  const localPrefix = isLast ? '└─' : '├─';
-  lines.push(`${prefix}${prefix ? localPrefix : ''}${obj.name || '*no-name*'} [${obj.type}]`);
-  const newPrefix = prefix + (isLast ? '  ' : '│ ');
-  const lastNdx = obj.children.length - 1;
-  obj.children.forEach((child, ndx) => {
-    const isLast = ndx === lastNdx;
-    dumpObject(child, lines, isLast, newPrefix);
-  });
-  return lines;
 }
 
 export function dayLight () {
@@ -129,4 +120,17 @@ scene.add( groundMesh );
 
 export function nightLight () {
   //
+  // return []
+  return dayLight ();
+}
+
+  /////////////////////////////////////////////////////////////////////////
+ //	            	 Calculate distance between 2 ojbects                 //
+/////////////////////////////////////////////////////////////////////////
+// Used in OrbisControl to get the distance between the camera & the target
+export function distanceVector( v1, v2 ) {
+    var dx = v1.x - v2.x;
+    var dy = v1.y - v2.y;
+    var dz = v1.z - v2.z;
+    return Math.sqrt( dx * dx + dy * dy + dz * dz );
 }

@@ -19,7 +19,7 @@
 				z-index: 10
 			}
 			div#domEl{
-				z-index: 60;
+				z-index: 38;
 				pointer-events: none;
 				display: block;
 			}
@@ -27,11 +27,15 @@
 				color: red;
 				pointer-events: initial
 			}
-			.screenGraphic, .screenGraphicPic, div.screenGraphicDefault{
+			.screenGraphic, div.screenGraphicDefault{
 				/* border: 2px solid red; */
 				width: 498px;
 				height: 310px;
 				box-sizing: border-box;
+			}
+			.screenGraphicPic{
+				width: 100%;
+				height:auto;
 			}
 			div.screenGraphic{
 				font-size: 2rem;
@@ -46,12 +50,25 @@
 			div.screenGraphicDefault{
 				background-color: rgba(0,0,0,.97);
 			}
-			div.screenGraphicDefault > div{
+			div.screenGraphicDefault > div {
 				position: relative;
 				width:100%;
 				height:100%;
 		    /* transform: scaleX(-1); */
 			}
+			.frameContainer{
+				position: relative;
+				width: 468px;
+				height: 310px;
+				background: transparent url(./assets/img/windowFrame.svg) 0px 10px / 100% no-repeat
+			}
+			.frameContainer img{
+				position: absolute;
+				max-width: 90%;
+				top: 12%;
+				left: 6%;
+			}
+
 			div.screenGraphicDefault h3{
 				transform: translateY(-50%) translateZ(2px);
 				z-index: 55;
@@ -70,6 +87,7 @@
 				background-image: url(./assets/img/textures/scratchTextures.png);
 				opacity: .2;
 			}
+
 			div.screenGraphicDefault img{
 				position: absolute;
 				max-width: 80%;
@@ -77,8 +95,8 @@
 				bottom: 10%;
 			}
 			div.screenGraphicDefault img:nth-of-type(1){
-				opacity: .7;
-				filter: blur(1.6px);
+				/* opacity: .7; */
+				/* filter: blur(1.6px); */
 			}
 			div.screenGraphicDefault img:last-child{
 				transform: translate(4px, -2px);
@@ -337,11 +355,11 @@
 				<div class="">{{ content.techno | arraySpan }}
 				</div>
 				<div class="">
-					<a :href="content.link">Website</a>
+					<a class="link-call-to-action" :href="content.link">Visit the Website</a>
 				</div>
 				<div v-html="content.description"></div>
 				<div>
-					<h3>{{ specTitle }}</h3>
+					<h4>{{ specTitle }}</h4>
 				</div>
 				<div v-html="content.speciality"></div>
 			</div>
@@ -389,7 +407,7 @@
 						</div>
 						<ul>
 							<div class="inputGroup">
-						    <input id="radio1" name="radio" @click="changeLinkBehavior" type="checkbox"/>
+						    <input id="radio1" name="radio" @click="changeLinkBehavior" v-model="linksNewTab" type="checkbox"/>
 						    <label for="radio1">Open all links in a new tab</label>
 						  </div>
 						  <div class="inputGroup">

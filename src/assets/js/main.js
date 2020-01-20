@@ -25,7 +25,7 @@ import { CSS3DRenderer, CSS3DObject } from './libs/CSS3DRenderer.js';
 // Custom lib
 import * as MAT from './libs/custom/materialList.js'
 import * as TEST from './libs/custom/testing.js'
-import { logStyle, mobilecheck, msieversion, displayProjectImageOnScreen, dayLight, nightLight } from './libs/custom/miscellaneous.js'
+import { logStyle, mobilecheck, msieversion, displayProjectImageOnScreen, dayLight, nightLight, distanceVector } from './libs/custom/miscellaneous.js'
 
 import * as Timeline from './timeline.js'
 
@@ -111,6 +111,7 @@ export let container, canvasEl, stats;
 export let controls
 export let scene, renderer;
 export let cssScene, rendererCSS; // 2nd "canvas", used by CSS3DRenderer to display DOM element in 3D env
+export const domEl = document.getElementById( 'domEl' );
 let time, clock, bgTexture, fog;
 let grid, groundMesh;
 export let camera;
@@ -285,7 +286,7 @@ function init() {
     } );
     */
     var loader = new GLTFLoader(manager).setPath( 'assets/models/' );
-    loader.load( 'computer_v8.5.glb', function ( gltf ) {
+    loader.load( 'computer_v8.9.glb', function ( gltf ) {
       gltf.scene.traverse( function ( child ) {
         // if ( child.isMesh ) {
         //   child.material.envMap = envMap;
@@ -297,14 +298,14 @@ function init() {
     } );
 
   // Background environment for Coding scene
-  /*
+
   new RGBELoader()
     .setDataType( THREE.UnsignedByteType )
     .setPath( 'assets/img/textures/' )
     .load( 'bg.hdr', function ( texture ) {
       scene.background = texture;
     });
-    */
+
       /////////////////////////////////////////////////////////////////////////
 	   //	         	 Light it up! (from custom/miscellaneous.js)              //
 	  /////////////////////////////////////////////////////////////////////////
@@ -327,7 +328,7 @@ function init() {
   // The box is used as a camera target; easier to manipulate and debug
   var geometry = new THREE.BoxGeometry( .2,.2,.2);
   box = new THREE.Mesh( geometry, MAT.boxMat );
-  box.position.set(worldOrigin[0], worldOrigin[1], worldOrigin[2])
+  box.position.set(worldOrigin[0], worldOrigin[1]+.4, worldOrigin[2]+.205)
   scene.add( box );
   box.visible = false;
 
@@ -375,7 +376,6 @@ function init() {
   grid.material.transparent = true;
   scene.add( grid );
 
-  // INIT CSS3DRenderer
   initCSS3DRenderer();
 
   /*
@@ -402,31 +402,31 @@ function init() {
   })
   */
 
-  designLogo = loadSVG( 'assets/models/design.svg', 'design', 1, [-1, 3, 1.5], 0.005 ); // [2, 1.8, 1.5], 0.0025
-  codeLogo = loadSVG( 'assets/models/code.svg', 'code', -1, [10, 5, .5], 0.01, [0,-Math.PI/2,0] ); // [2, 1.8, 1.5], 0.0025
+  designLogo = loadSVG( 'assets/models/design.svg', 'design', 1, [-3, 3, 1.5], 0.005 ); // [2, 1.8, 1.5], 0.0025
+  codeLogo = loadSVG( 'assets/models/code.svg', 'code', -1, [14, 5.5, -0.5], 0.01, [0,-Math.PI/2,0] ); // [2, 1.8, 1.5], 0.0025
 
   controls.update();
   window.addEventListener( 'resize', onWindowResize, false );
   // document.addEventListener( 'mousemove', onDocumentMouseMove, false );
 
 
-  rendererStats	= new TEST.THREEx.RendererStats();
-  rendererStats.domElement.style.position   = 'absolute'
-  rendererStats.domElement.style.right  = '0px'
-  rendererStats.domElement.style.top    = '48px'
-  rendererStats.domElement.style.zIndex    = '100'
-  document.body.appendChild( rendererStats.domElement )
 
   // stats
   if (settings.isDebugMode) {
     stats = new Stats();
     container.appendChild( stats.dom );
+
+    rendererStats	= new TEST.THREEx.RendererStats();
+    rendererStats.domElement.style.position   = 'absolute'
+    rendererStats.domElement.style.right  = '0px'
+    rendererStats.domElement.style.top    = '48px'
+    rendererStats.domElement.style.zIndex    = '100'
+    document.body.appendChild( rendererStats.domElement )
   }
 
   // animate();
   settings.isPaused = true; // To animate the first frame only
   if (!settings.isPaused){
-    // console.log("scene: ", scene);
     TEST.testing(scene);
 
     requestAnimationFrame( animate );
@@ -434,26 +434,36 @@ function init() {
   }
 }
 
+  /////////////////////////////////////////////////////////////////////////
+ //  	             	 INITialize CSS3DRenderer scene                     //
+/////////////////////////////////////////////////////////////////////////
 function initCSS3DRenderer() {
   rendererCSS = new CSS3DRenderer();
   rendererCSS.setSize( window.innerWidth, window.innerHeight );
   // rendererCSS.setPixelRatio( window.devicePixelRatio );
-  document.getElementById( 'domEl' ).appendChild( rendererCSS.domElement );
+  domEl.appendChild( rendererCSS.domElement );
 
   // Container element - to push to CSS3dRenderer
   let elementContainer = document.createElement( 'div' );
   elementContainer.className = 'screenGraphicDefault ';
 
-  // heading + moving stripe
+  // heading
   var element = document.createElement( 'div' );
   var headingEl = document.createElement( 'h3' );
   headingEl.innerText = "Ben's\nportfolio";
   element.appendChild(headingEl);
+
+  // SCREEN FRAME
+  // var windowFrame = document.createElement( 'img' );
+  // windowFrame.src = "./assets/img/windowFrame.svg";
+  // element.appendChild(windowFrame);
+
+  // moving stripe
   /*
   var movingStripe = document.createElement( 'div' );
   movingStripe.className = "movingStripe";
   element.appendChild(movingStripe);
-  
+
   let scratchText = document.createElement( 'div' );
   scratchText.className = "sractchImg";
   element.appendChild(scratchText);
@@ -485,14 +495,20 @@ export function readyToLaunch(){
       ob.obj.visible = false;
     }
   };
-  let selectedObject = scene.getObjectByName("02_ocean");
+  // let selectedObject = scene.getObjectByName("02_ocean");
+  // scene.remove( selectedObject );
+  // selectedObject = scene.getObjectByName("02_servers");
+  // scene.remove( selectedObject );
+
+
+  let selectedObject = scene.getObjectByName("02_servers");
   scene.remove( selectedObject );
-  selectedObject = scene.getObjectByName("02_servers");
+  selectedObject = scene.getObjectByName("02_ocean");
   scene.remove( selectedObject );
 
-  // console.log(selectedObject)
-  // console.log(controls)
-  // console.log(camera.position)
+  delete objectScene["02_servers"];
+  delete objectScene["02_ocean"];
+
   playAnimation();
 }
 
@@ -604,6 +620,7 @@ function highPerfInit() {
     var Tween = new TWEEN.Tween(position).to(target, 2000);
   });
   */
+
   setupTween();
 }
 
@@ -727,7 +744,9 @@ export function animate (time) {
     Timeline.renderer.render( Timeline.scene, Timeline.camera );
   } else {
     renderer.render(scene, camera);
-    rendererCSS.render( cssScene, camera );
+    if (settings.currentEnv === 1){
+      rendererCSS.render( cssScene, camera );
+    }
   }
   if (settings.isDebugMode) {
     stats.update();
@@ -759,14 +778,6 @@ function onDocumentMouseMove() {
 
   // if (isIntroOn) return
   // idleTimer = 0;
-}
-
-// Used in OrbisControl to get the distance between the camera & the target
-export function distanceVector( v1, v2 ) {
-    var dx = v1.x - v2.x;
-    var dy = v1.y - v2.y;
-    var dz = v1.z - v2.z;
-    return Math.sqrt( dx * dx + dy * dy + dz * dz );
 }
 
 manager.onLoad = function ( ) {
@@ -818,7 +829,7 @@ manager.onLoad = function ( ) {
 
   // Additional afar servers
   makeInstanceLine(bufferServerGeometry, MAT.serverMat, [13,0,-12]);
-  makeInstanceLine(bufferServerGeometry, MAT.serverMat, [25,1.5,-3]);
+  makeInstanceLine(bufferServerGeometry, MAT.serverMat, [25,0,-3]); // 1.5
 
   // reposition server cables
   objectScene["02_server_cable001"].obj.position.x = 6;
@@ -869,13 +880,6 @@ manager.onLoad = function ( ) {
   }
 
   vertexPositions = objectScene["02_ocean"].obj.geometry.attributes.position.array;
-  let selectedObject = scene.getObjectByName("02_servers");
-  scene.remove( selectedObject );
-  selectedObject = scene.getObjectByName("02_ocean");
-  scene.remove( selectedObject );
-
-  delete objectScene["02_servers"];
-  delete objectScene["02_ocean"];
 
 }; // end of manager.load
 
@@ -890,17 +894,18 @@ function switchEnvironment(sign){
       ob.obj.visible = false;
     }
   }
-  // objectScene["02_ocean"].obj.visible = false;
-  // objectScene["02_servers"].obj.visible = false;
 
   if (sign >= 0) {
     // settings.FOVvalue = 35;
     // if (settings.isConfigHigh) {
     //   objectScene["02_ocean"].obj.visible = false;
     // }
+    domEl.style.display = "block";
   } else { // Code env
     if (!settings.muteSound) orbSound.play();
     grid.visible = true;
+    domEl.style.display = "none";
+
     // settings.FOVvalue = 75;
     // controls.dollyIn(400);
     // if (!settings.isConfigHigh) objectScene["02_ocean02"].obj.visible = false;

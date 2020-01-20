@@ -22,6 +22,12 @@ Mix between CSS3, ThreeJS, Vue and TweenMax
 
 ## All about performances
 
+Difficulty was to balances many performance concerns:
+- file size (JS, models, textures)
+- geometry (number of vertices)
+- memory usage and prevent memory leak (especially because of texture sizes)
+- canvas performances (limit number of draw calls)
+
 ### Tools & stack
 
 - Webpack
@@ -55,6 +61,8 @@ The 3D scene and all the 3D assets are built with Blender. I used few tricks to 
 ### Monitoring
 
 - [THREEX.rendererstats](https://github.com/jeromeetienne/threex.rendererstats)
-- Chrome DevTool - performance
+- Chrome DevTool
+  - performance panel
+  - Rendering tab: FPS meter
 
 Draw calls
