@@ -479,7 +479,7 @@ function initCSS3DRenderer() {
   elementContainer.appendChild(element);
 
   screenGraphic = new CSS3DObject( elementContainer );
-  screenGraphic.position.set(-0.0255, 1.41, .037);
+  screenGraphic.position.set(-0.027, 1.455, .037);
   screenGraphic.scale.multiplyScalar( .002 );
   screenGraphic.rotation.order = 'YXZ'; // Super important to have the correct rotation
   screenGraphic.rotation.set(-( 2 * Math.PI/16) + Math.PI/32, Math.PI/2, 0);
@@ -644,7 +644,7 @@ export function zoomInScreen() {
   const d = distanceVector(currentCamPos, targetCameraTween);
 
   let destCamPos = {
-    x: targetCameraTween.x,
+    x: settings.currentEnv * targetCameraTween.x,
     y: targetCameraTween.y,
     z: targetCameraTween.z
   };
@@ -676,7 +676,7 @@ export function zoomOutScreen() {
     };
 
   let destCamPos = {
-    x: cameraDefaultPosition[0],
+    x: settings.currentEnv * cameraDefaultPosition[0],
     y: cameraDefaultPosition[1],
     z: cameraDefaultPosition[2]
   };

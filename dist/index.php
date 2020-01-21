@@ -64,9 +64,9 @@
 			}
 			.frameContainer img{
 				position: absolute;
-				max-width: 90%;
-				top: 12%;
-				left: 6%;
+				max-width: 96%;
+				top: 11%;
+				left: 2.5%;
 			}
 
 			div.screenGraphicDefault h3{
@@ -354,7 +354,7 @@
 				<span>{{content.category}}</span>
 				<div class="">{{ content.techno | arraySpan }}
 				</div>
-				<div class="">
+				<div>
 					<a class="link-call-to-action" :href="content.link">Visit the Website</a>
 				</div>
 				<div v-html="content.description"></div>

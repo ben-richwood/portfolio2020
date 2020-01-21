@@ -147,10 +147,17 @@ export const Menu = new Vue({
 });
 
 function loadProjectImage () {
-  const screenImg = displayProjectImageOnScreen (screenGraphic, `${URLPrefix}/${Menu.currentProject.slug}/${Menu.currentProject.screenImg}`)
+  const oldFrames = domEl.querySelectorAll('.frameContainer');
+  // const oldFrames = domEl.querySelectorAll('.divContainer');
+  if (oldFrames && oldFrames.length > 0) {
+    oldFrames.forEach(function (e) {
+      // let parent = e.parentNode;
+      e.parentNode.removeChild( e );
+    })
+  };
+  const screenImg = displayProjectImageOnScreen (screenGraphic, `${URLPrefix}/${Menu.currentProject.slug}/${Menu.currentProject.screenImg}`, domEl)
   // Removing the first DOM element - the default screen
-  // cssScene.children.splice(0,1);
-  let domElToDelete = document.querySelector('#domEl .frameContainer');
+  // let domElToDelete = document.querySelector('#domEl .frameContainer');
   // domElToDelete.parentNode.removeChild( domElToDelete );
   // adding the new image to the CSS3DRenderer
   cssScene.add(screenImg);
@@ -195,6 +202,15 @@ export const Sidebar = new Vue({
   filters: {
     arraySpan: function(arr) {
       return arr.forEach(function(a){a + ", "});
+    },
+  },
+  computed: {
+    linkWebsite: function () {
+      if (this.content.link === ""){
+        return "Not link at the moment"
+      } else {
+        return `<a class="link-call-to-action" href="${this.content.link}">Visit the Website</a>`;
+      }
     }
   }
 });
@@ -304,7 +320,6 @@ export const optionMenu = new Vue({
       return txt
     }
   }
-
 })
 
 let phraseCounter = 0

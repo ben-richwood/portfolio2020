@@ -29,6 +29,7 @@ export function msieversion() {
 // Called in component.js
 export function displayProjectImageOnScreen (screenGraphic, url) {
   const divContainer = document.createElement( 'div' );
+  divContainer.className = "divContainer";
   const divSubContainer = document.createElement( 'div' );
   divSubContainer.className = "frameContainer";
 
@@ -51,8 +52,8 @@ export function displayProjectImageOnScreen (screenGraphic, url) {
 
   const screenImg = new CSS3DObject( divContainer );
 
-  screenImg.position.set(-0.025, 1.41, .037); // position sightly above the default screen
-  screenImg.scale.multiplyScalar( .002 );
+  screenImg.position.set(-0.025, 1.45, .037); // position sightly above the default screen
+  screenImg.scale.multiplyScalar( .0021 );
   screenImg.rotation.order = 'YXZ'; // Super important to have the correct rotation
   screenImg.rotation.set(-( 2 * Math.PI/16) + Math.PI/32, Math.PI/2, 0);
   screenImg.updateMatrix();
