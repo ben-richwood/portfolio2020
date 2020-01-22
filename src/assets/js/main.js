@@ -5,6 +5,8 @@ import * as THREE from './build/three.module.js';
 
 import Stats from './libs/stats.module.js'; // for testing only
 
+import { Popup, Sidebar, settings, keyboardMap } from './components.js';
+
 import { OrbitControls } from './libs/OrbitControls.js'; // Custom OrbitContrls
 import { WEBGL } from './libs/WebGL.js';
 import { GLTFLoader } from './libs/GLTFLoader.js'; // load the 3D model
@@ -31,7 +33,7 @@ import * as Timeline from './timeline.js'
 
 // VUS JS MODULE
 import Vue from 'vue';
-import { Popup, Sidebar } from './components.js';
+
 
 // TWEEN - for animation
 // import gsap as Tween from "gsap";
@@ -49,58 +51,7 @@ import { TWEEN } from './libs/tween.module.min.js'
 export const t0 = performance.now();
 
 // Keyboard config - CONTROL option menu
-export const keyboardMap = {
-  kb_default: {
-    prev: "ArrowLeft",
-    next: "ArrowRight",
-    accept: "Space",
-    option: "Escape"
-  },
-  kb_gamer: {
-    prev: "a",
-    next: "d",
-    accept: "e",
-    option: "Escape"
-  },
-  kb_vim: {
-    prev: "h",
-    next: "l",
-    accept: "Space",
-    option: "Escape"
-  },
-}
 
-function Settings (e) {
-    // STATES
-    this.isPaused = false;
-    this.currentEnv = e.currentEnv;
-    this.isCameraCloseEnough = true; // to display menu
-    this.isCameraFOVUpdates = false; // rendering FOV trnasition
-    this.FOVvalue = 70;
-    this.zoomLevel = 1;
-    this.isTimelineOn = false;
-    this.isCameraTransiting = false;
-    this.isProjectOpen = false;
-
-    // CONFIG
-    this.isConfigHigh = false;
-    this.isDebugMode = true;
-    this.isTWEENLoaded = false;
-    this.antialias = false;
-    this.precision = 'mediump';
-    this.isShadowEnabled = false;
-
-    // OPTIONS
-    this.muteSound = false;
-    this.linksNewTab = true;
-    this.keyboardConfig = {...keyboardMap.kb_default},
-    this.GPU = "";
-
-    this.lateInit = function() {
-      highPerfInit();
-    }
-};
-export const settings = new Settings({currentEnv: 1});
 
 let rendererStats;
 
@@ -228,7 +179,7 @@ export function switchBackToProject() {
   /////////////////////////////////////////////////////////////////////////
  //	           	 Initialize the scene, camera and renderer              //
 /////////////////////////////////////////////////////////////////////////
-function init() {
+export function init() {
   container = document.getElementById('canvasScene');
   canvasEl = container.getElementsByTagName('canvas')[0];
   camera = new THREE.PerspectiveCamera( 35, window.innerWidth / window.innerHeight, 0.15, 90 );
@@ -242,10 +193,10 @@ function init() {
   camera.focus = 15;
   scene = new THREE.Scene();
   cssScene = new THREE.Scene();
-  if(settings.isDebugMode){
+  //if(settings.isDebugMode){
     window.scene = scene;
     window.THREE = THREE;
-  }
+  // }
 
   // Fog
   // fog = new THREE.FogExp2( 0x3C5C4A, .09, 15 );
@@ -313,9 +264,9 @@ function init() {
     var hour = date.getHours();
     let allLights;
     if (hour > 18){
-      allLights = nightLight();
+      allLights = nightLight(settings);
     } else {
-      allLights = dayLight();
+      allLights = dayLight(settings);
     }
 
     if (allLights.length > 0) {
@@ -359,7 +310,7 @@ function init() {
   // Zom properties
   controls.enableZoom = true;
   controls.minDistance = 2.4; // .8
-  controls.maxDistance = 20; // 7
+  controls.maxDistance = settings.isDebugMode ? 20 : 7;
   // controls.zoomSpeed = .40;
 
   // Constrain horizontal and vertical rotation
@@ -426,7 +377,7 @@ function init() {
 
   // animate();
   settings.isPaused = true; // To animate the first frame only
-  if (!settings.isPaused){
+  if (!settings.isPaused && settings.isDebugMode){
     TEST.testing(scene);
 
     requestAnimationFrame( animate );
@@ -494,7 +445,7 @@ export function readyToLaunch(){
     if(ob.whichScene === -1){
       ob.obj.visible = false;
     }
-  };
+  }
   // let selectedObject = scene.getObjectByName("02_ocean");
   // scene.remove( selectedObject );
   // selectedObject = scene.getObjectByName("02_servers");
@@ -518,13 +469,13 @@ export function castShadows() {
         child.receiveShadow = true;
     }
   });
-  objectScene["desk_table"].obj.traverseVisible( function ( child ) {
+  objectScene["01_desk_table"].obj.traverseVisible( function ( child ) {
     if ( child instanceof THREE.Mesh ) {
         child.castShadow = true;
         child.receiveShadow = true;
     }
   });
-  objectScene["screen_main"].obj.traverseVisible( function ( child ) {
+  objectScene["scren_mac"].obj.traverseVisible( function ( child ) {
     if ( child instanceof THREE.Mesh ) {
         child.castShadow = true;
         // child.receiveShadow = true;
@@ -546,7 +497,9 @@ export function playAnimation() {
     Timeline.animate();
   } else {
     animate();
-    TEST.testing(scene);
+    if(settings.isDebugMode){
+      TEST.testing(scene);
+    }
     // requestAnimationFrame( animate );
   }
 }

@@ -28,47 +28,70 @@ export function msieversion() {
 // With next-gen img formats (webp & jp2000)
 // Called in component.js
 export function displayProjectImageOnScreen (screenGraphic, url) {
-  const divContainer = document.createElement( 'div' );
-  divContainer.className = "divContainer";
-  const divSubContainer = document.createElement( 'div' );
-  divSubContainer.className = "frameContainer";
-
-  const picElement = document.createElement( 'picture' );
-  // picElement.className = 'screenGraphicPic';
   const type = ["webp", "jp2", "jpg"];
-  type.forEach(function (e) {
-    let sourceEl = document.createElement( 'source' );
-    sourceEl.type = "image/" + e;
-    sourceEl.srcset = url.substring(0, url.length - 3) + e;
-    picElement.appendChild(sourceEl);
-  })
-  const imgEl = document.createElement( 'img' );
-  imgEl.className = 'screenGraphicPic';
-  imgEl.src = url;
-  imgEl.alt = "project thumbnail";
-  picElement.appendChild(imgEl);
-  divSubContainer.appendChild(picElement);
-  divContainer.appendChild(divSubContainer);
+  const oldFrame = domEl.querySelectorAll('.frameContainer');
+  if (oldFrame.length > 0) {
+    let picElement = oldFrame[0].firstChild;
+    // const sourceEl = picElement.getElementsByTagName('source');
+    const sourceEl = picElement.childNodes;
+    let counterType = 0;
+    sourceEl.forEach(function (e) {
+      if (e.className === "screenGraphicPic"){
+        e.src = url;
+      } else {
+        e.srcset = url.substring(0, url.length - 3) + type[counterType];
+      }
+      counterType++;
+    });
+    // picElement = oldFrame.getElementsByTagName('image')[0].src = url;
+    return null
+  } else {
+    const divContainer = document.createElement( 'div' );
+    divContainer.className = "divContainer";
+    const divSubContainer = document.createElement( 'div' );
+    divSubContainer.className = "frameContainer";
 
-  const screenImg = new CSS3DObject( divContainer );
+    const picElement = document.createElement( 'picture' );
+    // picElement.className = 'screenGraphicPic';
+    type.forEach(function (e) {
+      let sourceEl = document.createElement( 'source' );
+      sourceEl.type = "image/" + e;
+      sourceEl.srcset = url.substring(0, url.length - 3) + e;
+      picElement.appendChild(sourceEl);
+    })
+    const imgEl = document.createElement( 'img' );
+    imgEl.className = 'screenGraphicPic';
+    imgEl.src = url;
+    imgEl.alt = "project thumbnail";
+    picElement.appendChild(imgEl);
+    divSubContainer.appendChild(picElement);
+    divContainer.appendChild(divSubContainer);
 
-  screenImg.position.set(-0.025, 1.45, .037); // position sightly above the default screen
-  screenImg.scale.multiplyScalar( .0021 );
-  screenImg.rotation.order = 'YXZ'; // Super important to have the correct rotation
-  screenImg.rotation.set(-( 2 * Math.PI/16) + Math.PI/32, Math.PI/2, 0);
-  screenImg.updateMatrix();
+    const screenImg = new CSS3DObject( divContainer );
 
-  return screenImg;
+    screenImg.position.set(-0.025, 1.45, .037); // position sightly above the default screen
+    screenImg.scale.multiplyScalar( .0021 );
+    screenImg.rotation.order = 'YXZ'; // Super important to have the correct rotation
+    screenImg.rotation.set(-( 2 * Math.PI/16) + Math.PI/32, Math.PI/2, 0);
+    screenImg.updateMatrix();
+
+    return screenImg;
+  }
 }
 
-export function dayLight () {
+export function dayLight (s) {
   let hemiLight, hemiLightHelper, dirLight, dirLightHeper;
+  let allLights = []
   hemiLight = new THREE.HemisphereLight( 0xffffff, 0xffffff, 0.6 );
   hemiLight.color.setHSL( 0.6, 1, 0.6 );
   hemiLight.groundColor.setHSL( 0.095, 1, 0.75 );
   hemiLight.position.set( 0, 2.5, 0 );
+  allLights.push(hemiLight);
   // scene.add( hemiLight );
-  hemiLightHelper = new THREE.HemisphereLightHelper( hemiLight, 1 );
+  if(s.isDebugMode){
+    hemiLightHelper = new THREE.HemisphereLightHelper( hemiLight, 1 );
+    allLights.push(hemiLightHelper);
+  }
 
   // hemiLightCode = new THREE.DirectionalLight( 0xffffff, 1 );
   // hemiLightCode.color.setHSL( 0.6, 1, 0.6 );
@@ -106,9 +129,14 @@ export function dayLight () {
   dirLight.shadow.camera.bottom = - d;
   dirLight.shadow.camera.far = 35;
   dirLight.shadow.bias = - 0.0001;
-  dirLightHeper = new THREE.DirectionalLightHelper( dirLight, 1 );
+  allLights.push(dirLight);
+  if(s.isDebugMode){
+    dirLightHeper = new THREE.DirectionalLightHelper( dirLight, 1 );
+    allLights.push(dirLightHeper);
+  }
 
-  return [hemiLight, hemiLightHelper, dirLight, dirLightHeper]
+  // return [hemiLight, hemiLightHelper, dirLight, dirLightHeper]
+  return allLights;
 
 // ground
 /*

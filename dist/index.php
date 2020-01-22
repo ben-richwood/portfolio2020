@@ -349,16 +349,17 @@
 		</div>
 		<div id="sidebar" v-bind:class="{ showSidebar : displaySidebar }">
 			<div class="menu" :class="classAttribute">
-				<button class="closePanel" @click="close">close</button>
+				<button class="closePanel" @click="close"><img src="./assets/img/close.svg" alt="close icon" />close</button>
 				<h3>{{ content.name }}</h3>
 				<span>{{content.category}}</span>
 				<div class="">{{ content.techno | arraySpan }}
 				</div>
 				<div>
-					<a class="link-call-to-action" :href="content.link">Visit the Website</a>
+					<!-- <a class="link-call-to-action" :href="content.link">Visit the Website</a> -->
+					<div v-html="content.link"></div>
 				</div>
 				<div v-html="content.description"></div>
-				<div>
+				<div class="mt-30">
 					<h4>{{ specTitle }}</h4>
 				</div>
 				<div v-html="content.speciality"></div>
@@ -434,6 +435,22 @@
 							<label for="kb_vim">vim</label>
 						</div>
 						<?php echo file_get_contents("./assets/img/icons/keyboard.svg"); ?>
+						<div class="keyMap">
+							<div class="key">ESC</div>
+							<div class="keyFeature">Open/close option menu</div>
+						</div>
+						<div class="keyMap">
+							<div class="key">⟵</div>
+							<div class="keyFeature">Previous project</div>
+						</div>
+						<div class="keyMap">
+							<div class="key">⟶</div>
+							<div class="keyFeature">Next project</div>
+						</div>
+						<div class="keyMap">
+							<div class="key">SPC</div>
+							<div class="keyFeature">open project details</div>
+						</div>
 						<!-- <img src="./assets/img/icons/keyboard.svg" alt="keyboard configuration"> -->
 					</div>
 					<div v-else-if="currentSubmenu == 2" id="graphics">

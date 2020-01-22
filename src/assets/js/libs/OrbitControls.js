@@ -17,7 +17,8 @@ import {
 	Vector3
 } from "../build/three.module.js";
 
-import { camera, box, settings } from '../main.js'
+import { camera, box } from '../main.js'
+import { settings } from '../components.js'
 import { distanceVector } from './custom/miscellaneous.js'
 
 // This set of controls performs orbiting, dollying (zooming), and panning.

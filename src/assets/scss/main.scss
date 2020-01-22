@@ -357,14 +357,10 @@ h4{ // Motivations
   }
 }
 
-.link-call-to-action{
+.link-call-to-action, .closePanel{
   background-color: transparent;
   color: white;
   border: 0;
-  height: initial;
-  /* align-self: stretch; */
-  /* padding-left: 3rem; */
-  /* padding-right: 3rem; */
   padding: .4rem 1rem;
   display: block;
   align-self: stretch;
@@ -372,7 +368,8 @@ h4{ // Motivations
   width: 100%;
   max-width: 160px;
   margin: .7rem 0;
-  height: 100%;
+  // height: 100%;
+  height: initial;
   box-sizing: border-box;
   position: relative;
   z-index: 52;
@@ -397,6 +394,18 @@ h4{ // Motivations
       transition: background-color .3s ease-out;
       border: 1px solid #FF0;
     }
+  }
+}
+
+.closePanel {
+  position:absolute;
+  right: 2vw; top: 2vw;
+  max-width: initial;
+  width: initial;
+  display: inline-block;
+  img{
+    transform: translateY(3px);
+    margin-right: .4rem;
   }
 }
 
@@ -467,11 +476,6 @@ h4{ // Motivations
     -webkit-transform: transform .2s ease-in-out, visibility 0s linear, opacity .2s ease-in-out;
     /* animation: menuAnim .3s ease-out 0s 1 both running; */
   }
-}
-
-.closePanel {
-  position:absolute;
-  right: 2vw; top: 2vw;
 }
 
 .showSidebar{
@@ -811,6 +815,26 @@ svg#keyboard{
     #ESC{fill:$selectedKey}
     #Space{fill:$selectedKey}
   }
+}
+
+.keyMap{
+  @include displayFlex(start, row, center);
+  margin-bottom:.8rem;
+  .key{
+    margin-right: 23px;
+  }
+  .keyFeature{}
+}
+.key{
+  border: 4px solid #555;
+  border-radius: 6px;
+  width: 48px;
+  height: 38px;
+  background-color: rgba(255, 255, 255, 0.1);
+  text-align: right;
+  padding: .3rem;
+  padding-right: .7rem;
+  box-sizing: content-box;
 }
 
 // Radio

@@ -1,6 +1,6 @@
 import Vue from 'vue';
 
-import { t0, settings, keyboardMap, controls, zoomModel, objectScene, scene, cssScene, renderer, rendererCSS, screenGraphic, canvasEl, readyToLaunch, playAnimation, pauseAnimation, animate, zoomInScreen, zoomOutScreen, targetCameraTween, switchBackToProject, castShadows, domEl } from './main.js'
+import { t0, controls, zoomModel, objectScene, scene, cssScene, renderer, rendererCSS, screenGraphic, canvasEl, readyToLaunch, playAnimation, pauseAnimation, animate, zoomInScreen, zoomOutScreen, targetCameraTween, switchBackToProject, castShadows, domEl, init } from './main.js'
 import Projects from './projects.js'
 import { displayProjectImageOnScreen } from './libs/custom/miscellaneous.js'
 
@@ -43,10 +43,65 @@ const tips = [
 ]
 
 let selectPerf = true;
-const URLPrefix = "../dist/assets/img/projects/";
+const URLPrefix = "../dist/assets/img/projects";
 const GPURegex = /rtx|gtx|Direct3D11/i;
 // Window computer ANGLE (Intel(R) UHD Graphics 620 Direct3D11 vs_5_0 ps_5_0)
 // Macbook pro Intel Iris Pro OpenGL Engine
+
+export const keyboardMap = {
+  kb_default: {
+    prev: "ArrowLeft",
+    next: "ArrowRight",
+    accept: "Space",
+    option: "Escape"
+  },
+  kb_gamer: {
+    prev: "a",
+    next: "d",
+    accept: "e",
+    option: "Escape"
+  },
+  kb_vim: {
+    prev: "h",
+    next: "l",
+    accept: "Space",
+    option: "Escape"
+  },
+}
+
+
+
+function Settings (e) {
+    // STATES
+    this.isPaused = false;
+    this.currentEnv = e.currentEnv;
+    this.isCameraCloseEnough = true; // to display menu
+    this.isCameraFOVUpdates = false; // rendering FOV trnasition
+    this.FOVvalue = 70;
+    this.zoomLevel = 1;
+    this.isTimelineOn = false;
+    this.isCameraTransiting = false;
+    this.isProjectOpen = false;
+
+    // CONFIG
+    this.isConfigHigh = false;
+    this.isDebugMode = false;
+    this.isTWEENLoaded = false;
+    this.antialias = false;
+    this.precision = 'mediump';
+    this.isShadowEnabled = false;
+
+    // OPTIONS
+    this.muteSound = false;
+    this.linksNewTab = true;
+    this.keyboardConfig = {...keyboardMap.kb_default},
+    this.GPU = "";
+
+    this.lateInit = function() {
+      highPerfInit();
+    }
+};
+export const settings = new Settings({currentEnv: 1});
 
 export const Popup = new Vue({
   el: "#intro",
@@ -94,20 +149,18 @@ export const Popup = new Vue({
   }
 });
 
-const tmpList = Projects.list.filter(e => e.onlyTimeline === false);
-console.log("tmpList", tmpList);
+const filteredList = Projects.list.filter(e => e.onlyTimeline === false);
 
 export const Menu = new Vue({
   el: "#paradeAcross",
   data: {
-    projects: [...tmpList],
+    projects: [...filteredList],
     currentProjectIdx: 0,
-    currentProject: tmpList[0],
+    currentProject: filteredList[0],
     isDisplayed: true
   },
   methods: {
     changeProject: function (direction) {
-      console.log(this.projects);
       this.currentProjectIdx += parseInt(direction);
       if(this.currentProjectIdx < 0){
         this.currentProjectIdx = this.projects.length - 1;
@@ -117,6 +170,11 @@ export const Menu = new Vue({
       this.currentProject = this.projects[this.currentProjectIdx];
       let e = this.projects[this.currentProjectIdx]
       Sidebar.content = {...e}
+      if (e.link === "") {
+        Sidebar.content.link = `<div style="margin: 1rem 0;">Not online preview at the moment</div>`
+      } else {
+        Sidebar.content.link = `<a class="link-call-to-action" href="${e.link}">Visit the Website</a>`
+      }
       Sidebar.content.speciality = settings.currentEnv === 1 ? e.design : e.code;
       loadProjectImage();
     },
@@ -147,7 +205,7 @@ export const Menu = new Vue({
 });
 
 function loadProjectImage () {
-  const oldFrames = domEl.querySelectorAll('.frameContainer');
+  const oldFrames = domEl.querySelector('.frameContainer');
   // const oldFrames = domEl.querySelectorAll('.divContainer');
   if (oldFrames && oldFrames.length > 0) {
     oldFrames.forEach(function (e) {
@@ -160,8 +218,7 @@ function loadProjectImage () {
   // let domElToDelete = document.querySelector('#domEl .frameContainer');
   // domElToDelete.parentNode.removeChild( domElToDelete );
   // adding the new image to the CSS3DRenderer
-  cssScene.add(screenImg);
-  // console.log("cssScene", cssScene);
+  if (screenImg != null) cssScene.add(screenImg);
 }
 
 const selectedNavigator = {
@@ -178,6 +235,7 @@ export const Sidebar = new Vue({
   data: {
     content: {
       ...Menu.currentProject,
+      link: `<a class="link-call-to-action" href="${Menu.currentProject.link}">Visit the Website</a>`
     },
     specTitle: "Design",
     displaySidebar: false,
@@ -203,15 +261,6 @@ export const Sidebar = new Vue({
     arraySpan: function(arr) {
       return arr.forEach(function(a){a + ", "});
     },
-  },
-  computed: {
-    linkWebsite: function () {
-      if (this.content.link === ""){
-        return "Not link at the moment"
-      } else {
-        return `<a class="link-call-to-action" href="${this.content.link}">Visit the Website</a>`;
-      }
-    }
   }
 });
 
@@ -221,13 +270,15 @@ export const optionMenu = new Vue({
     currentSubmenu: 0,
     optionsOpen: false,
     kb_config: "kb_default",
+    keyMap: {}, // initialized during readyForLaunch()
     t1: performance.now(),
     gpu: "",
     fullConfig: selectedNavigator,
     canvasMenuLabel: "Timeline",
     linksNewTab: true,
-    // config: {
-    // }
+    keyMap: {
+      ...settings.keyboardConfig
+    },
     antialias: false,
     precision: false,
     isShadowEnabled: false
@@ -264,7 +315,8 @@ export const optionMenu = new Vue({
         Timeline.renderer.clear()
         domEl.style.display = "none";
         this.canvasMenuLabel = "Timeline"
-        switchBackToProject();
+        init();
+        // switchBackToProject();
       } else {
         this.canvasMenuLabel = "Project"
         renderer.clear();
@@ -290,7 +342,6 @@ export const optionMenu = new Vue({
       settings.muteSound = !settings.muteSound;
     },
     changeConfig: function(e) {
-      console.log(e);
       if (e === "antialias"){
         this.antialias = !this.antialias;
         renderer.antialias = this.antialias;
@@ -298,7 +349,7 @@ export const optionMenu = new Vue({
         this.precision = !this.precision;
         renderer.precision = this.precision ? "highp" : "mediump"
       } else {}
-      console.log(renderer);
+      // console.log(renderer);
     },
     toggleShadows: function() {
       settings.isShadowEnabled = !settings.isShadowEnabled;
@@ -336,8 +387,6 @@ document.addEventListener('keyup', (event) => {
   console.log(keyName);
   if (selectPerf) {
     if (keyName === settings.keyboardConfig.prev) {
-      console.log("left");
-      console.log(Popup.$refs.highPerf);
       Popup.$refs.highPerf.focus();
     } else if (keyName === settings.keyboardConfig.next) {
       Popup.$refs.lowPerf.focus();
