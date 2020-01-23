@@ -336,7 +336,7 @@ export function init() {
   */
 
   designLogo = loadSVG( 'assets/models/design.svg', 'design', 1, [-3, 3, 1.5], 0.005 ); // [2, 1.8, 1.5], 0.0025
-  codeLogo = loadSVG( 'assets/models/code.svg', 'code', -1, [14, 5.5, -0.5], 0.01, [0,-Math.PI/2,0] ); // [2, 1.8, 1.5], 0.0025
+  codeLogo = loadSVG( 'assets/models/code.svg', 'code', -1, [18, 6.5, -2], 0.01, [0,-Math.PI/2,0] ); // [2, 1.8, 1.5], 0.0025
 
   controls.update();
   window.addEventListener( 'resize', onWindowResize, false );
@@ -470,12 +470,8 @@ export function readyToLaunch(){
 
 
   dirLight = new THREE.DirectionalLight( 0xcccccc, .6 ); // color, intensity
-  dirLight.color.setHSL( 0.1, 1, 0.95 );
+  // dirLight.color.setHSL( 0.1, 1, 0.95 );
   dirLight.position.set( 5, 0, 1);
-  // dirLight.position.multiplyScalar( 1.5 );
-
-  // objectScene["02_coding_dirLight"] = {obj: dirLight, whichScene: -1}
-
   dirLight.target.position.set( 5, 1.5, .5 );
   scene.add (dirLight);
 
@@ -483,18 +479,10 @@ export function readyToLaunch(){
   light1.position.set( 3, 4, 0);
   scene.add (light1);
 
-  let light2 = new THREE.PointLight( 0xcccccc, .4, 12 ); // color, intensity, distance, decay
-  light2.position.set( -0.3, 3, 1);
-  // scene.add (light2);
-
-  objectScene["02_instanciateServers_1"].obj.material.metalness = 0.7;
-
   if(settings.isDebugMode){
     dirLightHeper = new THREE.DirectionalLightHelper( dirLight, 1 );
     scene.add(dirLightHeper);
   }
-
-
   // objectScene["02_coding_dirLight"] = {obj: dirLight, whichScene: -1}
   // scene.add (dirLight);
 
