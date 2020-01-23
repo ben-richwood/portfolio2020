@@ -467,37 +467,32 @@ export function readyToLaunch(){
   scene.add(targetObject);
   */
 
-  // var geometry = new THREE.BoxGeometry( .2,.2,.2);
-  let secondBox = new THREE.Mesh( new THREE.BoxGeometry( .2,.2,.2), MAT.boxMat );
-  secondBox.position.set(5, 1.5, .5)
-  scene.add( secondBox );
 
-  dirLight = new THREE.DirectionalLight( 0xffffff, 1 ); // color, intensity
+
+  dirLight = new THREE.DirectionalLight( 0xcccccc, .6 ); // color, intensity
   dirLight.color.setHSL( 0.1, 1, 0.95 );
-  dirLight.position.set( 1, 3, .5);
+  dirLight.position.set( 5, 0, 1);
   // dirLight.position.multiplyScalar( 1.5 );
 
   // objectScene["02_coding_dirLight"] = {obj: dirLight, whichScene: -1}
 
-  // dirLight.target = secondBox;
   dirLight.target.position.set( 5, 1.5, .5 );
   scene.add (dirLight);
 
-  let light1 = new THREE.PointLight( 0xffffaa, .3, 10 ); // color, intensity, distance, decay
-  light1.position.set( 6, 1.5, 0);
+  let light1 = new THREE.PointLight( 0x888888, .2, 6 ); // color, intensity, distance, decay
+  light1.position.set( 3, 4, 0);
+  scene.add (light1);
 
-  var light = new THREE.AmbientLight( 0x404040 ); // soft white light
-  scene.add( light );
+  let light2 = new THREE.PointLight( 0xcccccc, .4, 12 ); // color, intensity, distance, decay
+  light2.position.set( -0.3, 3, 1);
+  // scene.add (light2);
 
-  scene.add(light1);
+  objectScene["02_instanciateServers_1"].obj.material.metalness = 0.7;
 
-  // dirLightHeper = new THREE.DirectionalLightHelper( dirLight, 1 );
-  // dirLightHeper.position.set( 1, 3, .5);
-  // dirLightHeper.target.position.set( 5, 1.5, .5 );
-  //
-  // if(settings.isDebugMode){
-  // }
-  // scene.add(dirLightHeper);
+  if(settings.isDebugMode){
+    dirLightHeper = new THREE.DirectionalLightHelper( dirLight, 1 );
+    scene.add(dirLightHeper);
+  }
 
 
   // objectScene["02_coding_dirLight"] = {obj: dirLight, whichScene: -1}
@@ -858,7 +853,11 @@ manager.onLoad = function ( ) {
   scene.add(curveObject);
 
   function makeInstancePlain(geometry, material, pos, zRot = 0) {
-    const cube = new THREE.Mesh(geometry, material);
+    // material.metalness = 0.2;
+    // material.emissive = {r: 255,g: 255,b:255}
+    let newMat = new THREE.MeshPhongMaterial({color: 0x666666, metalness: 0.8, roughness: 0.7});
+    // const cube = new THREE.Mesh(geometry, material);
+    const cube = new THREE.Mesh(geometry, newMat);
     cube.position.x = pos[0];
     cube.position.y = pos[1];
     cube.position.z = pos[2];
@@ -867,6 +866,7 @@ manager.onLoad = function ( ) {
       whichScene: -1
     }
     instanceIdx++;
+    cube.material.metalness = 0.2;
     scene.add(cube);
     return cube;
   }
