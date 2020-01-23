@@ -436,19 +436,19 @@
 						</div>
 						<?php echo file_get_contents("./assets/img/icons/keyboard.svg"); ?>
 						<div class="keyMap">
-							<div class="key">ESC</div>
+							<div class="key">{{ keyMap.option[1] }}</div>
 							<div class="keyFeature">Open/close option menu</div>
 						</div>
 						<div class="keyMap">
-							<div class="key">⟵</div>
+							<div class="key">{{ keyMap.prev[1] }}</div>
 							<div class="keyFeature">Previous project</div>
 						</div>
 						<div class="keyMap">
-							<div class="key">⟶</div>
+							<div class="key">{{ keyMap.next[1] }}</div>
 							<div class="keyFeature">Next project</div>
 						</div>
 						<div class="keyMap">
-							<div class="key">SPC</div>
+							<div class="key">{{ keyMap.accept[1] }}</div>
 							<div class="keyFeature">open project details</div>
 						</div>
 						<!-- <img src="./assets/img/icons/keyboard.svg" alt="keyboard configuration"> -->

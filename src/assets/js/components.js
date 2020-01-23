@@ -50,22 +50,22 @@ const GPURegex = /rtx|gtx|Direct3D11/i;
 
 export const keyboardMap = {
   kb_default: {
-    prev: "ArrowLeft",
-    next: "ArrowRight",
-    accept: "Space",
-    option: "Escape"
+    prev: ["ArrowLeft", "⟵"],
+    next: ["ArrowRight", "⟶"],
+    accept: ["Space", "SPACE"],
+    option: ["Escape", "ESC"]
   },
   kb_gamer: {
-    prev: "a",
-    next: "d",
-    accept: "e",
-    option: "Escape"
+    prev: ["a", "A"],
+    next: ["d", "D"],
+    accept: ["e", "E"],
+    option: ["Escape", "ESC"]
   },
   kb_vim: {
-    prev: "h",
-    next: "l",
-    accept: "Space",
-    option: "Escape"
+    prev: ["h", "H"],
+    next: ["l", "L"],
+    accept: ["Space", "SPACE"],
+    option: ["Escape", "ESC"]
   },
 }
 
@@ -270,7 +270,6 @@ export const optionMenu = new Vue({
     currentSubmenu: 0,
     optionsOpen: false,
     kb_config: "kb_default",
-    keyMap: {}, // initialized during readyForLaunch()
     t1: performance.now(),
     gpu: "",
     fullConfig: selectedNavigator,
@@ -330,6 +329,8 @@ export const optionMenu = new Vue({
     changeKbConfig: function(e) {
       this.kb_config = e;
       settings.keyboardConfig = {...keyboardMap[this.kb_config]}
+      this.keyMap = {...keyboardMap[this.kb_config]};
+      // console.log();
     },
     changeLinkBehavior: function () {
       const links = document.querySelectorAll('a[href^="http"]');
@@ -386,23 +387,23 @@ document.addEventListener('keyup', (event) => {
   const keyName = event.key;
   console.log(keyName);
   if (selectPerf) {
-    if (keyName === settings.keyboardConfig.prev) {
+    if (keyName === settings.keyboardConfig.prev[0]) {
       Popup.$refs.highPerf.focus();
-    } else if (keyName === settings.keyboardConfig.next) {
+    } else if (keyName === settings.keyboardConfig.next[0]) {
       Popup.$refs.lowPerf.focus();
     } else {}
   } else {
     if (settings.isCameraCloseEnough) {
-      if (keyName === settings.keyboardConfig.prev) {
+      if (keyName === settings.keyboardConfig.prev[0]) {
         Menu.changeProject(-1)
-      } else if (keyName === settings.keyboardConfig.next) {
+      } else if (keyName === settings.keyboardConfig.next[0]) {
         Menu.changeProject(1)
       } else {}
     } else {
       // return
     }
   }
-  if (keyName === settings.keyboardConfig.option) {
+  if (keyName === settings.keyboardConfig.option[0]) {
     optionMenu.toogle();
   }
 }, false);
