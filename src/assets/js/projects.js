@@ -85,7 +85,7 @@ export default {
       "screenImg": "homepage.png",
       "slug": "datavis",
       "techno": ["vis.js", "VueJS"],
-      "link": "#",
+      "link": "",
       "category": "Personal",
       "onlyTimeline": false,
     }, {

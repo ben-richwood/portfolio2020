@@ -111,11 +111,11 @@ export function dayLight (s) {
 
 
 
-  dirLight = new THREE.DirectionalLight( 0xffffff, 1 );
+  dirLight = new THREE.DirectionalLight( 0xffffff, .6 ); // color, intensity
   dirLight.color.setHSL( 0.1, 1, 0.95 );
   dirLight.position.set( 1.2, 1.3, 1.7 );
   dirLight.position.multiplyScalar( 3 );
-  scene.add( dirLight );
+  allLights.push( dirLight );
   dirLight.castShadow = true;
   dirLight.shadow.mapSize.width = 2048;
   dirLight.shadow.mapSize.height = 2048;
@@ -147,10 +147,25 @@ scene.add( groundMesh );
 */
 }
 
-export function nightLight () {
-  //
-  // return []
-  return dayLight ();
+export function nightLight (s) {
+  let allLights = []
+  let light1 = new THREE.PointLight( 0xffffaa, .2, 10 ); // color, intensity, distance, decay
+  light1.position.set( -6.2, 1.3, -3.3 );
+  allLights.push(light1);
+
+  light1 = new THREE.PointLight( 0xffffdd, .2, 16 );
+  light1.position.set( 2, 2.5, -3.3 );
+  allLights.push(light1);
+
+if(s.isDebugMode){
+  var sphereSize = 1;
+  var pointLightHelper = new THREE.PointLightHelper( light1, sphereSize );
+  allLights.push(pointLightHelper);
+}
+
+	// scene.add( light1 );
+  return allLights
+  // return dayLight ();
 }
 
   /////////////////////////////////////////////////////////////////////////

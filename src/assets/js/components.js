@@ -1,6 +1,6 @@
 import Vue from 'vue';
 
-import { t0, controls, zoomModel, objectScene, scene, cssScene, renderer, rendererCSS, screenGraphic, canvasEl, readyToLaunch, playAnimation, pauseAnimation, animate, zoomInScreen, zoomOutScreen, targetCameraTween, switchBackToProject, castShadows, domEl, init } from './main.js'
+import { t0, controls, zoomModel, objectScene, scene, cssScene, renderer, rendererCSS, screenGraphic, canvasEl, readyToLaunch, playAnimation, pauseAnimation, animate, zoomInScreen, zoomOutScreen, targetCameraTween, switchBackToProject, castShadows, domEl, init, highPerfInit } from './main.js'
 import Projects from './projects.js'
 import { displayProjectImageOnScreen } from './libs/custom/miscellaneous.js'
 
@@ -85,11 +85,12 @@ function Settings (e) {
 
     // CONFIG
     this.isConfigHigh = false;
-    this.isDebugMode = false;
+    this.isDebugMode = true;
     this.isTWEENLoaded = false;
     this.antialias = false;
     this.precision = 'mediump';
     this.isShadowEnabled = false;
+    this.isItNight = e.isItNight;
 
     // OPTIONS
     this.muteSound = false;
@@ -101,7 +102,9 @@ function Settings (e) {
       highPerfInit();
     }
 };
-export const settings = new Settings({currentEnv: 1});
+const date = new Date;
+const hour = date.getHours();
+export const settings = new Settings({currentEnv: 1, isItNight: hour > 18 });
 
 export const Popup = new Vue({
   el: "#intro",

@@ -257,24 +257,6 @@ export function init() {
       scene.background = texture;
     });
 
-      /////////////////////////////////////////////////////////////////////////
-	   //	         	 Light it up! (from custom/miscellaneous.js)              //
-	  /////////////////////////////////////////////////////////////////////////
-    let date = new Date;
-    var hour = date.getHours();
-    let allLights;
-    if (hour > 18){
-      allLights = nightLight(settings);
-    } else {
-      allLights = dayLight(settings);
-    }
-
-    if (allLights.length > 0) {
-      allLights.forEach(function(e) {
-        scene.add( e );
-      })
-    }
-
 
   // The box is used as a camera target; easier to manipulate and debug
   var geometry = new THREE.BoxGeometry( .2,.2,.2);
@@ -439,17 +421,87 @@ function initCSS3DRenderer() {
 }
 
 export function readyToLaunch(){
-  console.log("ready To Launch",objectScene);
   for (let obj in objectScene) {
     let ob = objectScene[obj];
     if(ob.whichScene === -1){
       ob.obj.visible = false;
     }
   }
+    /////////////////////////////////////////////////////////////////////////
+   //	         	 Light it up! (from custom/miscellaneous.js)              //
+  /////////////////////////////////////////////////////////////////////////
+  // Generating Design lights
+  let allLights;
+  if (settings.isItNight){
+    allLights = nightLight(settings);
+  } else {
+    allLights = dayLight(settings);
+  }
+
+  if (allLights.length > 0) {
+    let idx = 0;
+    allLights.forEach(function(e) {
+      objectScene[`light-${idx}`] = {obj: e, whichScene: 1}
+      scene.add( e );
+      idx++;
+    })
+  }
+  // Dim the window lights emitter
+  if (settings.isItNight){
+    objectScene["01_Circlular_window_emitter"].obj.material.emissiveIntensity = .2;
+    objectScene["01_Circlular_window_emitter"].obj.material.color = {r: 1, g: 1,b: 0};
+    objectScene["01_wall_EMITTER"].obj.material.emissiveIntensity = .2;
+    objectScene["01_wall_EMITTER"].obj.material.color = {r: 1, g: 1,b: 0};
+  }
   // let selectedObject = scene.getObjectByName("02_ocean");
   // scene.remove( selectedObject );
   // selectedObject = scene.getObjectByName("02_servers");
   // scene.remove( selectedObject );
+
+
+  // generating Coding light
+  /*
+  let targetObject = new THREE.Object3D();
+  targetObject.position.set(5, 1.5, .5);
+  // targetObject.visible = false;
+  scene.add(targetObject);
+  */
+
+  // var geometry = new THREE.BoxGeometry( .2,.2,.2);
+  let secondBox = new THREE.Mesh( new THREE.BoxGeometry( .2,.2,.2), MAT.boxMat );
+  secondBox.position.set(5, 1.5, .5)
+  scene.add( secondBox );
+
+  dirLight = new THREE.DirectionalLight( 0xffffff, 1 ); // color, intensity
+  dirLight.color.setHSL( 0.1, 1, 0.95 );
+  dirLight.position.set( 1, 3, .5);
+  // dirLight.position.multiplyScalar( 1.5 );
+
+  // objectScene["02_coding_dirLight"] = {obj: dirLight, whichScene: -1}
+
+  // dirLight.target = secondBox;
+  dirLight.target.position.set( 5, 1.5, .5 );
+  scene.add (dirLight);
+
+  let light1 = new THREE.PointLight( 0xffffaa, .3, 10 ); // color, intensity, distance, decay
+  light1.position.set( 6, 1.5, 0);
+
+  var light = new THREE.AmbientLight( 0x404040 ); // soft white light
+  scene.add( light );
+
+  scene.add(light1);
+
+  // dirLightHeper = new THREE.DirectionalLightHelper( dirLight, 1 );
+  // dirLightHeper.position.set( 1, 3, .5);
+  // dirLightHeper.target.position.set( 5, 1.5, .5 );
+  //
+  // if(settings.isDebugMode){
+  // }
+  // scene.add(dirLightHeper);
+
+
+  // objectScene["02_coding_dirLight"] = {obj: dirLight, whichScene: -1}
+  // scene.add (dirLight);
 
 
   let selectedObject = scene.getObjectByName("02_servers");
@@ -459,6 +511,8 @@ export function readyToLaunch(){
 
   delete objectScene["02_servers"];
   delete objectScene["02_ocean"];
+
+  console.log("ready To Launch",scene);
 
   playAnimation();
 }
@@ -520,7 +574,7 @@ export function playTimelineAnim () {
 
 // Building extra objects geometry for Hight Perf config
 // Such as ocean of dots, airborn particles
-function highPerfInit() {
+export function highPerfInit() {
   console.log("%chighPerfInit()", "background-color:orange;color:black;");
   const oceanVert = new THREE.Geometry();
   const partVert = new THREE.Geometry();
