@@ -174,7 +174,7 @@ export default {
           "onlyTimeline": true,
           "level": 3
         }, {
-          "name": "Maitrise",
+          "name": "Maitrise (Pris Sorbonne, France)",
           "startingYear": 2012.7,
           "len": 1,
           "thread": "main",
@@ -185,7 +185,7 @@ export default {
         }
       ]
     }, {
-      "name": "Master",
+      "name": "Master (EMLyon & Centrale Lyon)",
       "startingYear": 2013.7,
       "len": 2,
       "thread": "main",

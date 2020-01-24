@@ -44,6 +44,9 @@ const sp = 0 // startingPoint - year 2009
 let startingPoint = sp;
 const yDepth = -50 // default depth
 
+const globalTimeline = document.createElement( 'div' );
+globalTimeline.className = "globalTimeline"
+
 export function init() {
   scene = new THREE.Scene();
   cssScene = new THREE.Scene();
@@ -113,7 +116,26 @@ export function init() {
     let startingPoint = (cur.startingYear - 2009) * yu;
     let len = cur.hasOwnProperty("len") ? cur.len : 1;
 
-    const divSubContainer = constructDOMEl(cur, 1);
+    if(cur.type === "event") {
+      continue;
+    }
+
+    let branching = [startingPoint, 0,  0];
+    let zPos = 0;
+    let yPos = 0;
+    let randZ = (cur.group === "work" ? 1 : -1) * Math.random() * 10
+    if (cur.thread === "second"){
+      zPos = zOffset * randZ;
+      // yPos = yDepth * (Math.random() * 10 - 5);
+      branching = [...branching,
+        startingPoint, 0,  zPos,
+        startingPoint, yPos, zPos
+      ]
+    }
+    // if (cur.thread === "main") zPos = -1 * (cur.level * 20);
+    branching = [...branching, startingPoint + 10, yPos, zPos]
+
+    const divSubContainer = constructDOMEl(cur, 1, [startingPoint, yPos, zPos]);
 
     DOMElTimeline.push({
       dom:divSubContainer,
@@ -125,34 +147,14 @@ export function init() {
       level: 1
     });
 
-
-    if(cur.type === "event") {
-      continue;
-    }
-    // console.log("previousXpos: ", previousXpos);
-    console.log("startingPoint - (2 * yu): ", startingPoint);
-    let branching = [startingPoint, 0,  0];
-    let zPos = 0;
-    let yPos = 0;
-    let randZ = (cur.group === "work" ? 1 : -1) * Math.random() * 10
-    if (cur.thread === "second"){
-      zPos = zOffset * randZ;
-      yPos = yDepth * (Math.random() * 10 - 5);
-      branching = [...branching,
-        startingPoint, 0,  zPos,
-        startingPoint, yPos, zPos
-      ]
-    }
-    // if (cur.thread === "main") zPos = -1 * (cur.level * 20);
-    branching = [...branching, startingPoint + 10, yPos, zPos]
-
     DOMElTimeline[DOMElTimeline.length-1].position.push(yPos, zPos);
 
     if (cur.hasOwnProperty("children") && cur.children.length > 0){
       cur.children.forEach(function(e){
         console.log("children", e);
         let newStartingPoint = (e.startingYear - 2009) * yu;
-        let subDivSubContainer = constructDOMEl(e, 2);
+        let subLevel = e.level ? e.level : 2;
+        let subDivSubContainer = constructDOMEl(e, subLevel, [newStartingPoint, 0, 0]);
 
         DOMElTimeline.push({
           dom:subDivSubContainer,
@@ -185,9 +187,11 @@ export function init() {
   for (var i = 0, j=DOMElTimeline.length; i < j; i++) {
     let el = DOMElTimeline[i];
     if (!el.hasOwnProperty("dom")) continue;
+    globalTimeline.appendChild(el.dom)
+
+    /*
     var cssObject = new CSS3DObject( el.dom );
     // we reference the same position and rotation
-    console.log("DOMElTimeline El", el);
     cssObject.position.x = el.position[0];
     cssObject.position.y = el.position[1];
     cssObject.position.z = el.position[2] + (-2 * (el.level * 20));
@@ -200,7 +204,20 @@ export function init() {
 
     // add it to the css scene
     cssScene.add(cssObject);
+    */
   }
+  const cssObjectGlobal = new CSS3DObject( globalTimeline );
+  cssObjectGlobal.position.x = 0;
+  cssObjectGlobal.position.y = 0;
+  cssObjectGlobal.position.z = 0;
+  // cssObject.rotation.order = 'YXZ';
+  // cssObject.rotation.set(Math.PI/2, Math.PI, Math.PI/2);
+
+  cssObjectGlobal.rotation.x = Math.PI/2;
+  cssObjectGlobal.rotation.y = Math.PI;
+  cssObjectGlobal.rotation.z = Math.PI;
+
+  cssScene.add(cssObjectGlobal)
 
   // Display year numbers
   for (var i = 2009; i < 2021; i++) {
@@ -291,7 +308,7 @@ function onWindowResize() {
 }
 export function animate() {
     requestAnimationFrame( animate );
-    // controls.update(); // only required if controls.enableDamping = true, or if controls.autoRotate = true
+    controls.update(); // only required if controls.enableDamping = true, or if controls.autoRotate = true
     render();
 }
 export function render() {
@@ -374,10 +391,17 @@ function buildLine(color, points,  mat = matLine){
   scene.add(curveObject);
 }
 
-function constructDOMEl (el, level) {
+function constructDOMEl (el, level, pos) {
   let len = el.hasOwnProperty("len") ? el.len : 1;
   const divSubContainer = document.createElement( 'div' );
   divSubContainer.className = `${el.thread === "main" ? "main-thread" : ""} detail`;
+  if (el.thread === "main") {
+    divSubContainer.style.cssText = `left: ${pos[0]}px; top: ${-1 * level * 40}px;`;
+  } else {
+    // let offset = el.group === "work" ? -1 : 1;
+    let offset = -1;
+    divSubContainer.style.cssText = `left: ${pos[0] + 10}px; top: ${pos[2] + (offset * 20)}px; transform: translate3D(0, 0, ${pos[1]})`;
+  }
 
   var element = document.createElement( 'div' );
   element.className = 'into-detail';
@@ -385,7 +409,7 @@ function constructDOMEl (el, level) {
   var desc = document.createElement( 'div' );
   desc.className = 'desc';
   desc.textContent = el.name
-  desc.style.width = `${len * yu}px`;
+  desc.style.width = `calc(${len * yu}px - .5rem)`;
 
   element.appendChild( desc );
   divSubContainer.appendChild( element );

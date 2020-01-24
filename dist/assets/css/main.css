@@ -1078,29 +1078,37 @@ div.containerTimeline {
 .qub.freelance {
   background-color: #8800ff; }
 
-div.detail div.into-detail {
-  background-image: url(../img/timeline/timeline_nw.svg), url(../img/timeline/timeline_ne.svg), url(../img/timeline/timeline_sw.svg), url(../img/timeline/timeline_se.svg);
-  background-position: 0 0, 100% 0, 0 100%, 100% 100%;
-  background-size: 12px 12px;
-  background-repeat: no-repeat;
-  padding: .55rem;
-  box-sizing: content-box; }
-  div.detail div.into-detail .desc {
-    padding: .35rem .7rem;
-    background: #11507d;
-    background: linear-gradient(90deg, #11507d 0%, #1875bb 100%);
-    color: #FFF;
-    text-transform: uppercase;
-    font-size: .6rem; }
+.globalTimeline {
+  position: relative; }
 
-div.detail.main-thread .into-detail {
-  padding: .25rem;
-  background-size: 7px 7px; }
-  div.detail.main-thread .into-detail .desc {
-    padding: .25rem .4rem;
-    background: #aaaaaa;
-    font-size: .4rem;
-    color: #777777; }
+div.detail {
+  position: absolute;
+  box-sizing: border-box; }
+  div.detail div.into-detail {
+    background-image: url(../img/timeline/timeline_nw.svg), url(../img/timeline/timeline_ne.svg), url(../img/timeline/timeline_sw.svg), url(../img/timeline/timeline_se.svg);
+    background-position: 0 0, 100% 0, 0 100%, 100% 100%;
+    background-size: 12px 12px;
+    background-repeat: no-repeat;
+    padding: .55rem;
+    box-sizing: border-box; }
+    div.detail div.into-detail .desc {
+      padding: .35rem .7rem;
+      background: #11507d;
+      background: linear-gradient(90deg, #11507d 0%, #1875bb 100%);
+      color: #FFF;
+      text-transform: uppercase;
+      font-size: .6rem;
+      box-sizing: border-box; }
+  div.detail.main-thread .into-detail {
+    padding: .25rem;
+    background-size: 7px 7px;
+    box-sizing: border-box; }
+    div.detail.main-thread .into-detail .desc {
+      padding: .25rem .4rem;
+      background: #aaaaaa;
+      font-size: .4rem;
+      color: #777777;
+      box-sizing: border-box; }
 
 div.year {
   font-size: 2rem;
@@ -1158,6 +1166,10 @@ div.containerTimeline {
       animation-delay: .6s;
       background-color: #3C61C7;
       transform: scale(0.6, 0.6); }
+    .wNContainer .blinkingDot .desc {
+      min-width: 100px; }
+  .wNContainer .detail {
+    position: static; }
 
 @keyframes blink {
   from {
