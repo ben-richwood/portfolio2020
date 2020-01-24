@@ -9,39 +9,53 @@ import { SVGLoader } from './libs/SVGLoader.js';
 import * as MAT from './libs/custom/materialList.js'
 
 import projects from "./projects.js";
-import { t0, settings, keyboardMap, zoomModel, objectScene, screenGraphic, container, canvasEl, readyToLaunch, playAnimation, pauseAnimation, stats } from './main.js'
+import { t0, keyboardMap, zoomModel, objectScene, screenGraphic, container, canvasEl, canvasTimeline, readyToLaunch, playAnimation, pauseAnimation, stats } from './main.js'
+
+import { settings } from './components.js'
 
 const timeline = projects.list.filter(e => e.onlyTimeline === true);
-
 
 export let camera, controls, scene, renderer;
 export let cssScene, rendererCSS; // 2nd "canvas", used by CSS3DRenderer to display DOM element in 3D env
 const svgLoader = new SVGLoader();
 
-// init();
-// animate();
+const timelineMaterial = {
+  perso: 0x11517F,
+  today: 0xff0000,
+  study: 0x11517F,
+  work: 0x00ffff,
+  freelance: 0x8800ff
+}
+
+// For timeline
+export const matLine = new LineMaterial( {
+  color: 0xffffff,
+  linewidth: .003, // in pixels
+  vertexColors: THREE.VertexColors,
+  //resolution:  // to be set by renderer, eventually
+  dashed: false
+} );
+
+// Variables to build the timeline - easier to tweak
+const unit = 20; // unit value for 1 month
+const zOffset = 40;
+const yu = unit * 12; // yearUnit
+const sp = 0 // startingPoint - year 2009
+let startingPoint = sp;
+const yDepth = -50 // default depth
 
 export function init() {
-  // container = document.getElementById('canvasScene');
-  // canvasEl = container.getElementsByTagName('canvas')[0];
   scene = new THREE.Scene();
   cssScene = new THREE.Scene();
   scene.background = new THREE.Color( 0xcccccc );
-  // scene.fog = new THREE.FogExp2( 0xcccccc, 0.002 );
-
-  // renderer = new THREE.WebGLRenderer( { antialias: true } );
-  renderer = new THREE.WebGLRenderer( { antialias: true, canvas: canvasEl, stencil: false, precision: 'mediump', depth: true, preserveDrawingBuffer: true, premultipliedAlpha: false } );
+  renderer = new THREE.WebGLRenderer( { antialias: true, canvas: canvasTimeline, stencil: false, precision: 'mediump', depth: true, preserveDrawingBuffer: true, premultipliedAlpha: false } );
   renderer.setPixelRatio( window.devicePixelRatio );
   renderer.setSize( window.innerWidth, window.innerHeight );
 
-  // container.appendChild( renderer.domElement );
-  // container.getElementsByTagName('canvas')[0] = renderer.domElement;
-
   rendererCSS = new CSS3DRenderer();
   rendererCSS.setSize( window.innerWidth, window.innerHeight );
-  document.getElementById( 'domEl' ).appendChild( rendererCSS.domElement );
+  document.getElementById( 'DOMElTimeline' ).appendChild( rendererCSS.domElement );
 
-  // camera = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 1, 1000 );
   camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 10000 );
   camera.position.set( 400, 1000, 100 );
   // controls
@@ -51,7 +65,7 @@ export function init() {
   controls.dampingFactor = 0.05;
   controls.screenSpacePanning = false;
   controls.minDistance = 100;
-  controls.maxDistance = 1000;
+  controls.maxDistance = settings.isDebugMode ? 2500 : 1000;
   controls.minAzimuthAngle = 0;
   controls.maxAzimuthAngle = controls.minAzimuthAngle
 
@@ -65,97 +79,22 @@ export function init() {
     MIDDLE: THREE.MOUSE.DOLLY,
     RIGHT: THREE.MOUSE.PAN
   }
-
-  function loadSVG ( url, name, sceneSign, pos, scaleFac, rot = [0,Math.PI/2,0], mat = undefined ) {
-    svgLoader.load( url, function ( data ) {
-      var paths = data.paths;
-      var group = new THREE.Group();
-      group.scale.multiplyScalar( scaleFac );
-      group.position.set(pos[0], pos[1], pos[2]);
-      // group.position.x = - 70;
-      // group.position.y = 70;
-      // group.scale.x = scaleFac;
-      // group.scale.y = scaleFac;
-      // group.scale.z = scaleFac;
-      // group.scale.set(scaleFac,scaleFac,scaleFac)
-      group.rotation.set(rot[0], rot[1], rot[2]);
-      for ( var i = 0; i < paths.length; i ++ ) {
-        var path = paths[ i ];
-        var fillColor = path.userData.style.fill;
-        // var fillColor = 0x000000;
-        if (mat === undefined) {
-          mat = new THREE.MeshBasicMaterial({
-            color: new THREE.Color().setStyle( fillColor ),
-            opacity: path.userData.style.fillOpacity,
-            transparent: path.userData.style.fillOpacity < 1,
-            side: THREE.DoubleSide,
-            depthWrite: true,
-            // wireframe: guiData.fillShapesWireframe
-          });
-        }
-        var shapes = path.toShapes( true );
-        for ( var j = 0; j < shapes.length; j ++ ) {
-          var shape = shapes[ j ];
-          var geometry = new THREE.ShapeBufferGeometry( shape );
-          var mesh = new THREE.Mesh( geometry, mat );
-          group.add( mesh );
-        }
-        var strokeColor = path.userData.style.stroke;
-        // var strokeColor = 0x000000;
-        if (mat === undefined) {
-          mat = new THREE.MeshBasicMaterial({
-            color: new THREE.Color().setStyle( strokeColor ),
-            opacity: path.userData.style.strokeOpacity,
-            transparent: path.userData.style.strokeOpacity < 1,
-            side: THREE.DoubleSide,
-            depthWrite: true,
-            // wireframe: guiData.strokesWireframe
-          });
-        }
-        for ( var j = 0, jl = path.subPaths.length; j < jl; j ++ ) {
-          var subPath = path.subPaths[ j ];
-          var geometry = SVGLoader.pointsToStroke( subPath.getPoints(), path.userData.style );
-          if ( geometry ) {
-            var mesh = new THREE.Mesh( geometry, mat );
-            group.add( mesh );
-          }
-        }
-      }
-      scene.add( group );
-      return group;
-    } );
-  }
   // ( url, name, sceneSign, pos, scaleFac, rot = [0,Math.PI/2,0], mat = undefined )
   const timelineHeading = loadSVG( './assets/img/timeline_title.svg', 'timeline', 1, [400, -950, -500], .6, [-Math.PI/2, Math.PI, Math.PI] );
 
-  // Variables to build the timeline - easier to tweak
-  const unit = 20; // unit value for 1 month
-  const zOffset = 40;
-  const yu = unit * 12; // yearUnit
-  const sp = 0 // startingPoint - year 2009
-  let startingPoint = sp;
-  const yDepth = -50 // default depth
-  const timelineMaterial = {
-    perso: 0x11517F,
-    today: 0xff0000,
-    study: 0x11517F,
-    work: 0x00ffff,
-    freelance: 0x8800ff
-  }
-
-
-  const domEl = [{}];
-
+  const DOMElTimeline = [{}];
   let partVert = new THREE.Geometry();
+  let crossStartingZ = -1200
 
-  let crossStartingZ = -900
-
+  /////////////////////////////////////////////////////////////////////////
+ //             	 Building the cross particle grid in bg               //
+/////////////////////////////////////////////////////////////////////////
   for ( var i = 1; i < 8; i ++ ) { // vertical loop
     for ( var j = 1; j < 15; j ++ ) { // horizontal loop
       var star = new THREE.Vector3();
-      star.x = startingPoint + (yu * 2 * j);
+      star.x = startingPoint + (yu * 2.6 * j);
       star.y = -650;
-      star.z = crossStartingZ + ( i * 400 );
+      star.z = crossStartingZ + ( i * 500 );
       partVert.vertices.push( star );
     }
   }
@@ -165,43 +104,37 @@ export function init() {
   cross.position.z = 0;
   scene.add( cross );
 
-  const matLine = new LineMaterial( {
-    color: 0xffffff,
-    linewidth: .003, // in pixels
-    vertexColors: THREE.VertexColors,
-    //resolution:  // to be set by renderer, eventually
-    dashed: false
-  } );
+  console.log("timeline: ", timeline);
+
+  let previousXpos = 0
 
   for(let i=0,j=timeline.length;i<j;i++){
     let cur = timeline[i];
     let startingPoint = (cur.startingYear - 2009) * yu;
-
-    var element = document.createElement( 'div' );
-    element.className = 'detail';
-
-    var desc = document.createElement( 'div' );
-    desc.className = 'desc';
-    desc.textContent = cur.name
-    element.appendChild( desc );
-
     let len = cur.hasOwnProperty("len") ? cur.len : 1;
 
-    domEl.push({
-      dom:element,
+    const divSubContainer = constructDOMEl(cur, 1);
+
+    DOMElTimeline.push({
+      dom:divSubContainer,
       position: [
         startingPoint + (yu * len)
       ],
-      rotation:0
+      rotation:0,
+      thread: cur.thread,
+      level: 1
     });
+
 
     if(cur.type === "event") {
       continue;
     }
+    // console.log("previousXpos: ", previousXpos);
+    console.log("startingPoint - (2 * yu): ", startingPoint);
     let branching = [startingPoint, 0,  0];
-    let randZ = Math.random() * 20 - 10;
     let zPos = 0;
     let yPos = 0;
+    let randZ = (cur.group === "work" ? 1 : -1) * Math.random() * 10
     if (cur.thread === "second"){
       zPos = zOffset * randZ;
       yPos = yDepth * (Math.random() * 10 - 5);
@@ -210,37 +143,66 @@ export function init() {
         startingPoint, yPos, zPos
       ]
     }
-    branching = [...branching, startingPoint + (yu * len), yPos, zPos]
+    // if (cur.thread === "main") zPos = -1 * (cur.level * 20);
+    branching = [...branching, startingPoint + 10, yPos, zPos]
 
-    domEl[domEl.length-1].position.push(yPos, zPos);
+    DOMElTimeline[DOMElTimeline.length-1].position.push(yPos, zPos);
+
+    if (cur.hasOwnProperty("children") && cur.children.length > 0){
+      cur.children.forEach(function(e){
+        console.log("children", e);
+        let newStartingPoint = (e.startingYear - 2009) * yu;
+        let subDivSubContainer = constructDOMEl(e, 2);
+
+        DOMElTimeline.push({
+          dom:subDivSubContainer,
+          position: [
+            newStartingPoint + (yu * len), 0, 0
+          ],
+          rotation:0,
+          thread: e.thread,
+          level: e.level ? e.level : 2
+        });
+      })
+    }
 
     buildLine(timelineMaterial[cur.group], branching);
 
+    // Add node dot
     let planeGeometry = new THREE.PlaneBufferGeometry( 8, 8 );
     let plane = new THREE.Mesh( planeGeometry, MAT.materialPlane );
     plane.position.x = startingPoint;
     plane.rotation.x = Math.PI/2;
-    // plane.rotation.y = Math.PI;
-    // plane.rotation.z = Math.PI;
+
     scene.add( plane );
+    previousXpos = startingPoint;
   }
 
-  // create the object3d for this element
-  for (var i = 0, j=domEl.length; i < j; i++) {
-    let el = domEl[i];
+
+  buildLine(timelineMaterial.perso, [0, 0, 0, 12 * yu, 0, 0]);
+
+  // create the object3d for each element
+  for (var i = 0, j=DOMElTimeline.length; i < j; i++) {
+    let el = DOMElTimeline[i];
     if (!el.hasOwnProperty("dom")) continue;
     var cssObject = new CSS3DObject( el.dom );
     // we reference the same position and rotation
+    console.log("DOMElTimeline El", el);
     cssObject.position.x = el.position[0];
     cssObject.position.y = el.position[1];
-    cssObject.position.z = el.position[2];
+    cssObject.position.z = el.position[2] + (-2 * (el.level * 20));
+    // cssObject.rotation.order = 'YXZ';
+    // cssObject.rotation.set(Math.PI/2, Math.PI, Math.PI/2);
+
     cssObject.rotation.x = Math.PI/2;
     cssObject.rotation.y = Math.PI;
     cssObject.rotation.z = Math.PI;
+
     // add it to the css scene
     cssScene.add(cssObject);
   }
 
+  // Display year numbers
   for (var i = 2009; i < 2021; i++) {
     var element = document.createElement( 'div' );
     element.className = 'year';
@@ -269,20 +231,40 @@ export function init() {
   } );
   buildLine(0xaaaaaa, [(2020 - 2009) * yu, 0, -200, (2020 - 2009) * yu, 0, 200], matLineDash);
 
-  function buildLine(color, points,  mat = matLine){
-    let geometry = new LineGeometry();
-    let kuler = new THREE.Color( color );
-    let kulers = [kuler.r, kuler.g, kuler.b];
-    for (let i = 3, j = points.length; i<j ;i+=3){
-      kulers = [...kulers, kuler.r, kuler.g, kuler.b];
-    }
-    geometry.setPositions( points ); // previously positions
-    geometry.setColors( kulers );
-    let curveObject = new Line2( geometry, mat );
-    curveObject.computeLineDistances();
-    curveObject.scale.set( 1, 1, 1 );
-    scene.add(curveObject);
-  }
+
+  /////////////////////////////////////////////////////////////////////////
+ //             	        WHAT's NEXT ELEMENT                           //
+/////////////////////////////////////////////////////////////////////////
+  // creating what's next
+  const WNContainer = document.createElement( 'div' );
+  WNContainer.className = "wNContainer";
+  const blinkingDot = document.createElement( 'div' );
+  blinkingDot.className = "blinkingDot";
+
+  const divSubContainer = document.createElement( 'div' );
+  divSubContainer.className = "detail";
+  var element = document.createElement( 'div' );
+  element.className = 'into-detail';
+
+  var desc = document.createElement( 'div' );
+  desc.className = 'desc';
+  desc.textContent = "What's next";
+
+  element.appendChild( desc );
+  divSubContainer.appendChild( element );
+  WNContainer.appendChild( blinkingDot );
+  WNContainer.appendChild( divSubContainer );
+
+  var cssObjectWN = new CSS3DObject( WNContainer );
+  cssObjectWN.position.x = 12 * yu; // 2021
+  cssObjectWN.position.y = 0;
+  cssObjectWN.position.z = 0;
+  cssObjectWN.rotation.x = Math.PI/2;
+  cssObjectWN.rotation.y = Math.PI;
+  cssObjectWN.rotation.z = Math.PI;
+  // add it to the css scene
+  cssScene.add(cssObjectWN);
+  buildLine(timelineMaterial.perso, [11 * yu, 0, 0, 12 * yu, 0, 0], matLineDash);
 
   // lights
   var light = new THREE.DirectionalLight( 0xffffff );
@@ -295,18 +277,118 @@ export function init() {
   scene.add( light );
   //
   window.addEventListener( 'resize', onWindowResize, false );
+  // animate();
 }
+
+
+  /////////////////////////////////////////////////////////////////////////
+ //                       	 THREE JS LIBS                              //
+/////////////////////////////////////////////////////////////////////////
 function onWindowResize() {
   camera.aspect = window.innerWidth / window.innerHeight;
   camera.updateProjectionMatrix();
   renderer.setSize( window.innerWidth, window.innerHeight );
 }
 export function animate() {
-  requestAnimationFrame( animate );
-  controls.update(); // only required if controls.enableDamping = true, or if controls.autoRotate = true
-  render();
+    requestAnimationFrame( animate );
+    // controls.update(); // only required if controls.enableDamping = true, or if controls.autoRotate = true
+    render();
 }
 export function render() {
   renderer.render( scene, camera );
   rendererCSS.render( cssScene, camera );
+}
+
+function loadSVG ( url, name, sceneSign, pos, scaleFac, rot = [0,Math.PI/2,0], mat = undefined ) {
+  svgLoader.load( url, function ( data ) {
+    var paths = data.paths;
+    var group = new THREE.Group();
+    group.scale.multiplyScalar( scaleFac );
+    group.position.set(pos[0], pos[1], pos[2]);
+    // group.position.x = - 70;
+    // group.position.y = 70;
+    // group.scale.x = scaleFac;
+    // group.scale.y = scaleFac;
+    // group.scale.z = scaleFac;
+    // group.scale.set(scaleFac,scaleFac,scaleFac)
+    group.rotation.set(rot[0], rot[1], rot[2]);
+    for ( var i = 0; i < paths.length; i ++ ) {
+      var path = paths[ i ];
+      var fillColor = path.userData.style.fill;
+      // var fillColor = 0x000000;
+      if (mat === undefined) {
+        mat = new THREE.MeshBasicMaterial({
+          color: new THREE.Color().setStyle( fillColor ),
+          opacity: path.userData.style.fillOpacity,
+          transparent: path.userData.style.fillOpacity < 1,
+          side: THREE.DoubleSide,
+          depthWrite: true,
+          // wireframe: guiData.fillShapesWireframe
+        });
+      }
+      var shapes = path.toShapes( true );
+      for ( var j = 0; j < shapes.length; j ++ ) {
+        var shape = shapes[ j ];
+        var geometry = new THREE.ShapeBufferGeometry( shape );
+        var mesh = new THREE.Mesh( geometry, mat );
+        group.add( mesh );
+      }
+      var strokeColor = path.userData.style.stroke;
+      // var strokeColor = 0x000000;
+      if (mat === undefined) {
+        mat = new THREE.MeshBasicMaterial({
+          color: new THREE.Color().setStyle( strokeColor ),
+          opacity: path.userData.style.strokeOpacity,
+          transparent: path.userData.style.strokeOpacity < 1,
+          side: THREE.DoubleSide,
+          depthWrite: true,
+          // wireframe: guiData.strokesWireframe
+        });
+      }
+      for ( var j = 0, jl = path.subPaths.length; j < jl; j ++ ) {
+        var subPath = path.subPaths[ j ];
+        var geometry = SVGLoader.pointsToStroke( subPath.getPoints(), path.userData.style );
+        if ( geometry ) {
+          var mesh = new THREE.Mesh( geometry, mat );
+          group.add( mesh );
+        }
+      }
+    }
+    scene.add( group );
+    return group;
+  } );
+}
+
+function buildLine(color, points,  mat = matLine){
+  let geometry = new LineGeometry();
+  let kuler = new THREE.Color( color );
+  let kulers = [kuler.r, kuler.g, kuler.b];
+  for (let i = 3, j = points.length; i<j ;i+=3){
+    kulers = [...kulers, kuler.r, kuler.g, kuler.b];
+  }
+  geometry.setPositions( points ); // previously positions
+  geometry.setColors( kulers );
+  let curveObject = new Line2( geometry, mat );
+  curveObject.computeLineDistances();
+  curveObject.scale.set( 1, 1, 1 );
+  scene.add(curveObject);
+}
+
+function constructDOMEl (el, level) {
+  let len = el.hasOwnProperty("len") ? el.len : 1;
+  const divSubContainer = document.createElement( 'div' );
+  divSubContainer.className = `${el.thread === "main" ? "main-thread" : ""} detail`;
+
+  var element = document.createElement( 'div' );
+  element.className = 'into-detail';
+
+  var desc = document.createElement( 'div' );
+  desc.className = 'desc';
+  desc.textContent = el.name
+  desc.style.width = `${len * yu}px`;
+
+  element.appendChild( desc );
+  divSubContainer.appendChild( element );
+
+  return divSubContainer;
 }

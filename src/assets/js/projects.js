@@ -147,38 +147,46 @@ export default {
       "group": "work",
       "type": "duration"
     }, {
-      "name": "geography",
-      "startingYear": 2009,
+      "name": "Geography studies",
+      "startingYear": 2009.7,
       "len": 4,
       "thread": "main",
       "group": "study",
       "type": "duration",
       "onlyTimeline": true,
-    }, {
-      "name": "certificate",
-      "startingYear": 2011,
-      "len": 1,
-      "thread": "second",
-      "group": "study",
-      "type": "duration",
-      "onlyTimeline": true,
-    }, {
-      "name": "Licence",
-      "startingYear": 2012,
-      "thread": "second",
-      "group": "study",
-      "type": "event"
-    }, {
-      "name": "Maitrise",
-      "startingYear": 2012,
-      "len": 1,
-      "thread": "second",
-      "group": "study",
-      "type": "duration",
-      "onlyTimeline": true,
+      "children": [
+        {
+          "name": "Licence (Paris Sorbonne, France)",
+          "startingYear": 2009.7,
+          "len": 3,
+          "thread": "main",
+          "group": "study",
+          "type": "duration",
+          "onlyTimeline": true,
+          "level": 2
+        }, {
+          "name": "certificate (Montreal, Canada)",
+          "startingYear": 2011.7,
+          "len": 1,
+          "thread": "main",
+          "group": "study",
+          "type": "duration",
+          "onlyTimeline": true,
+          "level": 3
+        }, {
+          "name": "Maitrise",
+          "startingYear": 2012.7,
+          "len": 1,
+          "thread": "main",
+          "group": "study",
+          "type": "duration",
+          "onlyTimeline": true,
+          "level": 2
+        }
+      ]
     }, {
       "name": "Master",
-      "startingYear": 2013,
+      "startingYear": 2013.7,
       "len": 2,
       "thread": "main",
       "group": "study",
@@ -280,14 +288,14 @@ export default {
       "group": "work",
       "type": "duration",
       "onlyTimeline": true,
-    }, {
-      "name": "What's next?",
-      "startingYear": 2020,
-      "len": 5,
-      "thread": "main",
-      "group": "perso",
-      "type": "duration",
-      "onlyTimeline": true,
+    // }, {
+    //   "name": "",
+    //   "startingYear": 2020,
+    //   "len": 1,
+    //   "thread": "main",
+    //   "group": "perso",
+    //   "type": "duration",
+    //   "onlyTimeline": true,
     }
   ]
 }

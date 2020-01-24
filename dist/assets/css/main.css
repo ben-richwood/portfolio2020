@@ -1001,7 +1001,7 @@ code {
   background-color: #9AA3AC;
   padding: 0 8px; }
 
-#timeline, #domEl {
+#DOMElTimeline, #DOMElMain {
   position: absolute;
   top: 0;
   left: 0;
@@ -1010,11 +1010,11 @@ code {
   z-index: 10;
   display: none; }
 
-div#domEl {
+div#DOMElTimeline {
   z-index: 20;
   pointer-events: none; }
 
-div#domEl div.detail:hover {
+div#DOMElTimeline div.detail:hover {
   color: red;
   pointer-events: initial; }
 
@@ -1044,15 +1044,22 @@ div.containerTimeline {
 
 .legend {
   position: fixed;
+  color: #666;
   left: 3rem;
   bottom: 3rem;
   width: 30%;
-  height: 20vh;
+  min-height: 20vh;
   background: #f5f5f5;
   z-index: 50;
   padding: 1rem;
   box-sizing: border-box;
   box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.02), 0 6.7px 5.3px rgba(0, 0, 0, 0.028), 0 12.5px 10px rgba(0, 0, 0, 0.035), 0 22.3px 17.9px rgba(0, 0, 0, 0.042), 0 41.8px 33.4px rgba(0, 0, 0, 0.05), 0 100px 80px rgba(0, 0, 0, 0.07); }
+
+.legend-row {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: row;
+  margin-bottom: 1rem; }
 
 .qub {
   width: 20px;
@@ -1065,13 +1072,35 @@ div.containerTimeline {
 .qub.work {
   background-color: #00ffff; }
 
-div.detail {
-  padding: .5rem 1rem;
-  background: #11507d;
-  background: linear-gradient(90deg, #11507d 0%, #1875bb 100%);
-  color: #FFF;
-  text-transform: uppercase;
-  border: 2px solid #217892; }
+.qub.study {
+  background-color: #11517F; }
+
+.qub.freelance {
+  background-color: #8800ff; }
+
+div.detail div.into-detail {
+  background-image: url(../img/timeline/timeline_nw.svg), url(../img/timeline/timeline_ne.svg), url(../img/timeline/timeline_sw.svg), url(../img/timeline/timeline_se.svg);
+  background-position: 0 0, 100% 0, 0 100%, 100% 100%;
+  background-size: 12px 12px;
+  background-repeat: no-repeat;
+  padding: .55rem;
+  box-sizing: content-box; }
+  div.detail div.into-detail .desc {
+    padding: .35rem .7rem;
+    background: #11507d;
+    background: linear-gradient(90deg, #11507d 0%, #1875bb 100%);
+    color: #FFF;
+    text-transform: uppercase;
+    font-size: .6rem; }
+
+div.detail.main-thread .into-detail {
+  padding: .25rem;
+  background-size: 7px 7px; }
+  div.detail.main-thread .into-detail .desc {
+    padding: .25rem .4rem;
+    background: #aaaaaa;
+    font-size: .4rem;
+    color: #777777; }
 
 div.year {
   font-size: 2rem;
@@ -1095,6 +1124,48 @@ div.containerTimeline {
     height: 12px;
     position: absolute;
     bottom: -4rem; }
+
+.wNContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex-direction: row; }
+  .wNContainer .blinkingDot {
+    position: relative;
+    margin-right: 30px;
+    height: 25px; }
+    .wNContainer .blinkingDot:before, .wNContainer .blinkingDot:after {
+      content: '';
+      width: 25px;
+      height: 25px;
+      border-radius: 50%;
+      position: absolute;
+      top: 0;
+      left: 50%; }
+    .wNContainer .blinkingDot:before {
+      background-color: #C4D4FF;
+      animation-name: blink;
+      animation-duration: 1s;
+      animation-timing-function: easeOutCubic;
+      animation-delay: 0s;
+      -webkit-animation-fill-mode: both;
+      /* Safari 4.0 - 8.0 */
+      animation-fill-mode: both;
+      animation-iteration-count: infinite;
+      animation-play-state: running;
+      animation-direction: alternate; }
+    .wNContainer .blinkingDot:after {
+      animation-delay: .6s;
+      background-color: #3C61C7;
+      transform: scale(0.6, 0.6); }
+
+@keyframes blink {
+  from {
+    opacity: 0;
+    transform: scale(0.3, 0.3); }
+  to {
+    opacity: 1;
+    transform: scale(1.6, 1.6); } }
 
 @media screen and (max-width: 768px) {
   #sidebar {

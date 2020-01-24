@@ -58,11 +58,11 @@ let rendererStats;
 const svgLoader = new SVGLoader()
 
 // All objects used for the THREE scene
-export let container, canvasEl, stats;
+export let container, canvasEl, canvasTimeline, stats;
 export let controls
 export let scene, renderer;
 export let cssScene, rendererCSS; // 2nd "canvas", used by CSS3DRenderer to display DOM element in 3D env
-export const domEl = document.getElementById( 'domEl' );
+export const DOMElMain = document.getElementById( 'DOMElMain' );
 let time, clock, bgTexture, fog;
 let grid, groundMesh;
 export let camera;
@@ -181,7 +181,8 @@ export function switchBackToProject() {
 /////////////////////////////////////////////////////////////////////////
 export function init() {
   container = document.getElementById('canvasScene');
-  canvasEl = container.getElementsByTagName('canvas')[0];
+  canvasEl = document.getElementById('mainScene');
+  canvasTimeline = document.getElementById('timeline');
   camera = new THREE.PerspectiveCamera( 35, window.innerWidth / window.innerHeight, 0.15, 90 );
   /* THREE.PerspectiveCamera PARAMS
   * fov — Camera frustum vertical field of view.
@@ -374,7 +375,7 @@ function initCSS3DRenderer() {
   rendererCSS = new CSS3DRenderer();
   rendererCSS.setSize( window.innerWidth, window.innerHeight );
   // rendererCSS.setPixelRatio( window.devicePixelRatio );
-  domEl.appendChild( rendererCSS.domElement );
+  DOMElMain.appendChild( rendererCSS.domElement );
 
   // Container element - to push to CSS3dRenderer
   let elementContainer = document.createElement( 'div' );
@@ -528,7 +529,6 @@ export function castShadows() {
 
 export function playAnimation() {
   settings.isPaused = false;
-  console.log(canvasEl);
   canvasEl.style.filter = "none";
   if (settings.isTimelineOn){
     Timeline.animate();
@@ -690,6 +690,7 @@ export function zoomOutScreen() {
 }
 
 export function animate (time) {
+  requestAnimationFrame( animate );
   if (settings.isPaused) return
 // function animate () {
   // var t = Date.now() * 0.0005;
@@ -710,26 +711,6 @@ export function animate (time) {
     } else { }
   }
 
-  /*
-  if (idleTimer > 7000){
-    //
-  } else {
-    idleTimer += 30;
-  }
-  */
-
-  // if (settings.isCameraFOVUpdates) {
-  //   console.log("camera.fov:", camera.fov);
-  //   // if (camera.fov < settings.FOVvalue)
-  //   const newTime = time * 0.08;
-  //   camera.fov += newTime * (-1 * settings.currentEnv);
-  //   // zoomModel(settings.isCameraFOVUpdates, newTime * 10)
-  //   camera.updateProjectionMatrix();
-  //   // if (camera.fov < settings.FOVvalue)) {
-  //   if (camera.fov >= 75 || camera.fov <= 35) {
-  //     settings.isCameraFOVUpdates = false;
-  //   }
-  // }
   if (settings.isTimelineOn) {
     Timeline.renderer.render( Timeline.scene, Timeline.camera );
   } else {
@@ -747,12 +728,8 @@ export function animate (time) {
   if (loaded && curEnvVar != previousEnvVar) {
     switchEnvironment(curEnvVar)
   }
-
-
-  requestAnimationFrame( animate );
   previousEnvVar = curEnvVar;
 }
-
 
 function onWindowResize() {
   var aspect = window.innerWidth / window.innerHeight;
@@ -760,14 +737,6 @@ function onWindowResize() {
   camera.aspect = aspect;
   camera.updateProjectionMatrix();
   renderer.setSize( window.innerWidth, window.innerHeight );
-}
-
-function onDocumentMouseMove() {
-  // display instruction - to move around
-  // let d = camera.distanceTo( box )
-
-  // if (isIntroOn) return
-  // idleTimer = 0;
 }
 
 manager.onLoad = function ( ) {
@@ -841,11 +810,7 @@ manager.onLoad = function ( ) {
   scene.add(curveObject);
 
   function makeInstancePlain(geometry, material, pos, zRot = 0) {
-    // material.metalness = 0.2;
-    // material.emissive = {r: 255,g: 255,b:255}
-    let newMat = new THREE.MeshPhongMaterial({color: 0x666666, metalness: 0.8, roughness: 0.7});
-    // const cube = new THREE.Mesh(geometry, material);
-    const cube = new THREE.Mesh(geometry, newMat);
+    const cube = new THREE.Mesh(geometry, MAT.newMat);
     cube.position.x = pos[0];
     cube.position.y = pos[1];
     cube.position.z = pos[2];
@@ -891,24 +856,12 @@ function switchEnvironment(sign){
   }
 
   if (sign >= 0) {
-    // settings.FOVvalue = 35;
-    // if (settings.isConfigHigh) {
-    //   objectScene["02_ocean"].obj.visible = false;
-    // }
-    domEl.style.display = "block";
+    DOMElMain.style.display = "block";
   } else { // Code env
     if (!settings.muteSound) orbSound.play();
     grid.visible = true;
-    domEl.style.display = "none";
-
-    // settings.FOVvalue = 75;
-    // controls.dollyIn(400);
-    // if (!settings.isConfigHigh) objectScene["02_ocean02"].obj.visible = false;
-    // if (!settings.isConfigHigh) objectScene["airborneParticules"].obj.visible = false;
+    DOMElMain.style.display = "none";
   }
-  // console.log("objectScene", objectScene);
-  // zoomModel(sign, 4)
-  // settings.isCameraFOVUpdates = true
 }
 
 // https://github.com/mrdoob/three.js/blob/master/examples/css3d_periodictable.html

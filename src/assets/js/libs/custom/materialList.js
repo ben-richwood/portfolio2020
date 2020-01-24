@@ -63,3 +63,6 @@ export const crossMaterial = new THREE.PointsMaterial({
   transparent: true,
   color: 0x888888
 });
+
+// For server instances
+export const newMat = new THREE.MeshPhongMaterial({color: 0x666666, metalness: 0.8, specular: 0x111177 });

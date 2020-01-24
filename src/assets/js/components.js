@@ -1,6 +1,6 @@
 import Vue from 'vue';
 
-import { t0, controls, zoomModel, objectScene, scene, cssScene, renderer, rendererCSS, screenGraphic, canvasEl, readyToLaunch, playAnimation, pauseAnimation, animate, zoomInScreen, zoomOutScreen, targetCameraTween, switchBackToProject, castShadows, domEl, init, highPerfInit } from './main.js'
+import { t0, controls, zoomModel, objectScene, scene, cssScene, renderer, rendererCSS, screenGraphic, canvasEl, canvasTimeline, DOMElMain, readyToLaunch, playAnimation, pauseAnimation, animate, zoomInScreen, zoomOutScreen, targetCameraTween, switchBackToProject, castShadows, init, highPerfInit } from './main.js'
 import Projects from './projects.js'
 import { displayProjectImageOnScreen } from './libs/custom/miscellaneous.js'
 
@@ -91,6 +91,7 @@ function Settings (e) {
     this.precision = 'mediump';
     this.isShadowEnabled = false;
     this.isItNight = e.isItNight;
+    this.isTimelineLoaded = false
 
     // OPTIONS
     this.muteSound = false;
@@ -208,7 +209,7 @@ export const Menu = new Vue({
 });
 
 function loadProjectImage () {
-  const oldFrames = domEl.querySelector('.frameContainer');
+  const oldFrames = DOMElMain.querySelector('.frameContainer');
   // const oldFrames = domEl.querySelectorAll('.divContainer');
   if (oldFrames && oldFrames.length > 0) {
     oldFrames.forEach(function (e) {
@@ -216,7 +217,7 @@ function loadProjectImage () {
       e.parentNode.removeChild( e );
     })
   };
-  const screenImg = displayProjectImageOnScreen (screenGraphic, `${URLPrefix}/${Menu.currentProject.slug}/${Menu.currentProject.screenImg}`, domEl)
+  const screenImg = displayProjectImageOnScreen (screenGraphic, `${URLPrefix}/${Menu.currentProject.slug}/${Menu.currentProject.screenImg}`, DOMElMain)
   // Removing the first DOM element - the default screen
   // let domElToDelete = document.querySelector('#domEl .frameContainer');
   // domElToDelete.parentNode.removeChild( domElToDelete );
@@ -292,15 +293,16 @@ export const optionMenu = new Vue({
     },
     close: function () {
       this.optionsOpen = false;
-      Menu.isDisplayed = true;
+      // Menu.isDisplayed = true;
       this.currentSubmenu = 0;
-      domEl.style.filter = "blur(0px)"
+      DOMElMain.style.filter = "blur(0px)"
+      // Menu.isDisplayed = true;
       playAnimation();
     },
     open: function () {
       this.optionsOpen = true;
       Sidebar.showSidebar = false;
-      domEl.style.filter = "blur(10px)"
+      DOMElMain.style.filter = "blur(10px)"
       pauseAnimation();
     },
     toogle: function () {
@@ -312,22 +314,35 @@ export const optionMenu = new Vue({
       }
     },
     timeline: function () {
-      if (settings.isTimelineOn) {
+      settings.isTimelineOn = !settings.isTimelineOn;
+      if (!settings.isTimelineOn) {
+        // init();
         // animate();
-        Timeline.renderer.clear()
-        domEl.style.display = "none";
+        // Timeline.renderer.clear()
+        if (settings.currentEnv === 1) DOMElMain.style.display = "block";
         this.canvasMenuLabel = "Timeline"
-        init();
+        canvasEl.style.display = "block";
+        canvasTimeline.style.display = "none";
+        DOMElTimeline.style.display = "none";
+        // animate();
+        Menu.isDisplayed = true;
+        this.close();
         // switchBackToProject();
       } else {
         this.canvasMenuLabel = "Project"
-        renderer.clear();
-        Timeline.init();
-        Timeline.animate();
+        Menu.isDisplayed = false;
+        // renderer.clear();
+        if (!settings.isTimelineLoaded) {
+          Timeline.init();
+          settings.isTimelineLoaded = true;
+        }
+        // Timeline.animate();
+        DOMElTimeline.style.display = "block";
+        canvasTimeline.style.display = "block";
+        DOMElMain.style.display = "none";
+        canvasEl.style.display = "none";
         this.close();
-        domEl.style.display = "block";
       }
-      settings.isTimelineOn = !settings.isTimelineOn;
     },
     changeKbConfig: function(e) {
       this.kb_config = e;

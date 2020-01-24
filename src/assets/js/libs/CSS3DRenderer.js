@@ -152,14 +152,14 @@ var CSS3DRenderer = function () {
 
 		if ( isIE ) {
 
-			return 'translate(-50%,-50%)' +
+			return 'translate(0%,-50%)' +
 				'translate(' + _widthHalf + 'px,' + _heightHalf + 'px)' +
 				cameraCSSMatrix +
 				matrix3d;
 
 		}
 
-		return 'translate(-50%,-50%)' + matrix3d;
+		return 'translate(0%,-50%)' + matrix3d;
 
 	}
 

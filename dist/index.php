@@ -10,7 +10,7 @@
 				perspective: 60em;
 				height: 100vh;
 			}
-			#canvasScene, #domEl{
+			#canvasScene, #DOMElMain{
 				position:absolute;
 				top:0;
 				left:0;
@@ -18,12 +18,12 @@
 				height:100%;
 				z-index: 10
 			}
-			div#domEl{
+			div#DOMElMain{
 				z-index: 38;
 				pointer-events: none;
 				display: block;
 			}
-			div#domEl div.detail:hover{
+			div#DOMElMain div.detail:hover{
 				color: red;
 				pointer-events: initial
 			}
@@ -285,9 +285,31 @@
 		<noscript>
 		 This website heavily uses javascript. You need to enable it if you want to use it properly
 		</noscript>
-		<div id="domEl"></div>
+		<div id="DOMElMain"></div>
+		<div id="DOMElTimeline">
+			<div class="legend">
+				<h3 style="margin-top:.3rem;">Legend</h3>
+				<div class="legend-row">
+					<div class="qub main"> </div>
+					<div class="text">Main thread</div>
+				</div>
+				<div class="legend-row">
+					<div class="qub work"> </div>
+					<div class="text">Work</div>
+				</div>
+				<div class="legend-row">
+					<div class="qub freelance"> </div>
+					<div class="text">Freelance</div>
+				</div>
+				<div class="legend-row">
+					<div class="qub study"> </div>
+					<div class="text">Study</div>
+				</div>
+			</div>
+		</div>
 		<div id="canvasScene">
-			<canvas id="canvas"></canvas>
+			<canvas id="mainScene"></canvas>
+			<canvas id="timeline"></canvas>
 		</div>
 		<!-- <div id="timeline"></div> -->
 		<div id="intro" :class="{ 'no-intro' : isIntroOff }">
