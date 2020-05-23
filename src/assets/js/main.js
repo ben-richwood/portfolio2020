@@ -22,8 +22,6 @@ import { PMREMCubeUVPacker } from './libs/PMREMCubeUVPacker.js';
 import { CSS3DRenderer, CSS3DObject } from './libs/CSS3DRenderer.js';
 
 
-// import * as Timeline from './timeline.js';
-
 // Custom lib
 import * as MAT from './libs/custom/materialList.js'
 import * as TEST from './libs/custom/testing.js'

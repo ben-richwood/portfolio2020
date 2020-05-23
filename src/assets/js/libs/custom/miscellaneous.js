@@ -27,9 +27,10 @@ export function msieversion() {
 // Create an <picture> DOM element for the CSS3DRenderer (to display in the desktop screen )
 // With next-gen img formats (webp & jp2000)
 // Called in component.js
-export function displayProjectImageOnScreen (screenGraphic, url) {
+export function displayProjectImageOnScreen (screenGraphic, url, domEl) {
   const type = ["webp", "jp2", "jpg"];
   const oldFrame = domEl.querySelectorAll('.frameContainer');
+  console.log(domEl, oldFrame);
   if (oldFrame.length > 0) {
     let picElement = oldFrame[0].firstChild;
     // const sourceEl = picElement.getElementsByTagName('source');

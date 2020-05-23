@@ -539,7 +539,7 @@
 
 		<!-- VUE -->
     <!-- <script src="https://unpkg.com/vue"></script> -->
-		<script type="module" src="./assets/js/bundle.js"></script>
+		<script type="module" src="./assets/js/bundle_original.js"></script>
 
 	</body>
 </html>

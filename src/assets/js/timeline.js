@@ -9,7 +9,8 @@ import { SVGLoader } from './libs/SVGLoader.js';
 import * as MAT from './libs/custom/materialList.js'
 
 import projects from "./projects.js";
-import { t0, keyboardMap, zoomModel, objectScene, screenGraphic, container, canvasEl, canvasTimeline, readyToLaunch, playAnimation, pauseAnimation, stats } from './main.js'
+// import { t0, keyboardMap, zoomModel, objectScene, screenGraphic, container, canvasEl, canvasTimeline, readyToLaunch, playAnimation, pauseAnimation, stats } from './main.js'
+import { t0, keyboardMap, zoomModel, objectScene, screenGraphic, container, canvasEl, canvasTimeline, readyToLaunch, playAnimation, pauseAnimation, stats } from './main_timeline.js'
 
 import { settings } from './components.js'
 

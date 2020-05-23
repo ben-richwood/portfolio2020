@@ -1,6 +1,7 @@
 import Vue from 'vue';
 
-import { t0, controls, zoomModel, objectScene, scene, cssScene, renderer, rendererCSS, screenGraphic, canvasEl, canvasTimeline, DOMElMain, readyToLaunch, playAnimation, pauseAnimation, animate, zoomInScreen, zoomOutScreen, targetCameraTween, switchBackToProject, castShadows, init, highPerfInit } from './main.js'
+// import { t0, controls, zoomModel, objectScene, scene, cssScene, renderer, rendererCSS, screenGraphic, canvasEl, canvasTimeline, DOMElMain, readyToLaunch, playAnimation, pauseAnimation, animate, zoomInScreen, zoomOutScreen, targetCameraTween, switchBackToProject, castShadows, init, highPerfInit } from './main.js'
+// import { t0, controls, zoomModel, objectScene, scene, cssScene, renderer, rendererCSS, screenGraphic, canvasEl, canvasTimeline, DOMElMain, readyToLaunch, playAnimation, pauseAnimation, animate, zoomInScreen, zoomOutScreen, targetCameraTween, switchBackToProject, castShadows, init, highPerfInit } from './main_timeline.js'
 import Projects from './projects.js'
 import { displayProjectImageOnScreen } from './libs/custom/miscellaneous.js'
 
@@ -11,7 +12,7 @@ import { CSS3DRenderer, CSS3DObject } from './libs/CSS3DRenderer.js';
 
 import * as Timeline from './timeline.js';
 
-import { TWEEN } from './libs/tween.module.min.js'
+// import { TWEEN } from './libs/tween.module.min.js'
 // import { TweenMax } from "gsap/TweenMax";
 
 // loading sentences when loading
@@ -69,8 +70,6 @@ export const keyboardMap = {
   },
 }
 
-
-
 function Settings (e) {
     // STATES
     this.isPaused = false;
@@ -79,7 +78,7 @@ function Settings (e) {
     this.isCameraFOVUpdates = false; // rendering FOV trnasition
     this.FOVvalue = 70;
     this.zoomLevel = 1;
-    this.isTimelineOn = false;
+    this.isTimelineOn = true;
     this.isCameraTransiting = false;
     this.isProjectOpen = false;
 
@@ -103,6 +102,7 @@ function Settings (e) {
       highPerfInit();
     }
 };
+
 const date = new Date;
 const hour = date.getHours();
 export const settings = new Settings({currentEnv: 1, isItNight: hour > 18 });
@@ -211,12 +211,14 @@ export const Menu = new Vue({
 function loadProjectImage () {
   const oldFrames = DOMElMain.querySelector('.frameContainer');
   // const oldFrames = domEl.querySelectorAll('.divContainer');
+  /*
   if (oldFrames && oldFrames.length > 0) {
     oldFrames.forEach(function (e) {
       // let parent = e.parentNode;
       e.parentNode.removeChild( e );
     })
   };
+  */
   const screenImg = displayProjectImageOnScreen (screenGraphic, `${URLPrefix}/${Menu.currentProject.slug}/${Menu.currentProject.screenImg}`, DOMElMain)
   // Removing the first DOM element - the default screen
   // let domElToDelete = document.querySelector('#domEl .frameContainer');

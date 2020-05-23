@@ -14,11 +14,11 @@ module.exports = (env, options) => {
     // module.exports = {
       // entry: "./src/assets/js/**/*.js",
       context: path,
-      entry: "./src/assets/js/main.js",
+      entry: "./src/assets/js/main_timeline.js",
       // watch: true,
       output: {
         path: path + "dist/assets/js",
-        filename: "bundle.js"
+        filename: "bundle_timeline.js"
       },
       optimization: {
         minimizer: [new UglifyJsPlugin(
