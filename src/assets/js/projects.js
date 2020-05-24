@@ -174,7 +174,7 @@ export default {
           "onlyTimeline": true,
           "level": 3
         }, {
-          "name": "Maitrise (Pris Sorbonne, France)",
+          "name": "Maitrise (Paris Sorbonne, France)",
           "startingYear": 2012.7,
           "len": 1,
           "thread": "main",

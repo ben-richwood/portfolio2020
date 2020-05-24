@@ -1,7 +1,7 @@
 import Vue from 'vue';
 
 // import { t0, controls, zoomModel, objectScene, scene, cssScene, renderer, rendererCSS, screenGraphic, canvasEl, canvasTimeline, DOMElMain, readyToLaunch, playAnimation, pauseAnimation, animate, zoomInScreen, zoomOutScreen, targetCameraTween, switchBackToProject, castShadows, init, highPerfInit } from './main.js'
-// import { t0, controls, zoomModel, objectScene, scene, cssScene, renderer, rendererCSS, screenGraphic, canvasEl, canvasTimeline, DOMElMain, readyToLaunch, playAnimation, pauseAnimation, animate, zoomInScreen, zoomOutScreen, targetCameraTween, switchBackToProject, castShadows, init, highPerfInit } from './main_timeline.js'
+import { highPerfInit } from './main_timeline.js'
 import Projects from './projects.js'
 import { displayProjectImageOnScreen } from './libs/custom/miscellaneous.js'
 
@@ -10,7 +10,7 @@ import { displayProjectImageOnScreen } from './libs/custom/miscellaneous.js'
 import * as THREE from './build/three.module.js';
 import { CSS3DRenderer, CSS3DObject } from './libs/CSS3DRenderer.js';
 
-import * as Timeline from './timeline.js';
+import * as Timeline from './main_timeline.js';
 
 // import { TWEEN } from './libs/tween.module.min.js'
 // import { TweenMax } from "gsap/TweenMax";
@@ -147,7 +147,7 @@ export const Popup = new Vue({
       this.isIntroOff = true;
       selectPerf = false;
       settings.isPaused = false;
-      readyToLaunch();
+      // readyToLaunch();
       // navigateProjects();
     }
   }
@@ -155,77 +155,6 @@ export const Popup = new Vue({
 
 const filteredList = Projects.list.filter(e => e.onlyTimeline === false);
 
-export const Menu = new Vue({
-  el: "#paradeAcross",
-  data: {
-    projects: [...filteredList],
-    currentProjectIdx: 0,
-    currentProject: filteredList[0],
-    isDisplayed: true
-  },
-  methods: {
-    changeProject: function (direction) {
-      this.currentProjectIdx += parseInt(direction);
-      if(this.currentProjectIdx < 0){
-        this.currentProjectIdx = this.projects.length - 1;
-      } else if (this.currentProjectIdx >= this.projects.length){
-         this.currentProjectIdx = 0;
-      } else {}
-      this.currentProject = this.projects[this.currentProjectIdx];
-      let e = this.projects[this.currentProjectIdx]
-      Sidebar.content = {...e}
-      if (e.link === "") {
-        Sidebar.content.link = `<div style="margin: 1rem 0;">Not online preview at the moment</div>`
-      } else {
-        Sidebar.content.link = `<a class="link-call-to-action" href="${e.link}">Visit the Website</a>`
-      }
-      Sidebar.content.speciality = settings.currentEnv === 1 ? e.design : e.code;
-      loadProjectImage();
-    },
-    option: function () {
-      optionMenu.open();
-      this.isDisplayed = false;
-      Sidebar.displaySidebar = false;
-      pauseAnimation();
-      // if(Popup.isMobile) settings.isPaused ? playAnimation() : pauseAnimation();
-    },
-    openProject: function () {
-      if(Popup.isMobile) settings.isPaused ? playAnimation() : pauseAnimation();
-      if (settings.isProjectOpen) {
-        zoomOutScreen();
-        settings.isProjectOpen = false;
-      } else {
-        zoomInScreen();
-        settings.isProjectOpen = true;
-      }
-
-      if (!Sidebar.displaySidebar) {
-        loadProjectImage();
-      }
-      Sidebar.displaySidebar = !Sidebar.displaySidebar;
-      // if(!Sidebar.displaySidebar) zoomModel(1, 4);
-    }
-  }
-});
-
-function loadProjectImage () {
-  const oldFrames = DOMElMain.querySelector('.frameContainer');
-  // const oldFrames = domEl.querySelectorAll('.divContainer');
-  /*
-  if (oldFrames && oldFrames.length > 0) {
-    oldFrames.forEach(function (e) {
-      // let parent = e.parentNode;
-      e.parentNode.removeChild( e );
-    })
-  };
-  */
-  const screenImg = displayProjectImageOnScreen (screenGraphic, `${URLPrefix}/${Menu.currentProject.slug}/${Menu.currentProject.screenImg}`, DOMElMain)
-  // Removing the first DOM element - the default screen
-  // let domElToDelete = document.querySelector('#domEl .frameContainer');
-  // domElToDelete.parentNode.removeChild( domElToDelete );
-  // adding the new image to the CSS3DRenderer
-  if (screenImg != null) cssScene.add(screenImg);
-}
 
 const selectedNavigator = {
   platforn: navigator.platform,
@@ -236,39 +165,6 @@ const selectedNavigator = {
   doNotTrack: navigator.doNotTrack != null ? "DoNotTrack enabled" : "DoNotTrack not enabled"
 }
 
-export const Sidebar = new Vue({
-  el: "#sidebar",
-  data: {
-    content: {
-      ...Menu.currentProject,
-      link: `<a class="link-call-to-action" href="${Menu.currentProject.link}">Visit the Website</a>`
-    },
-    specTitle: "Design",
-    displaySidebar: false,
-    classAttribute: "design"
-  },
-  methods: {
-    switchEnv: function (sign){
-      if(sign >= 0){
-        this.content.speciality = this.content.design;
-        this.specTitle = "Design part";
-        this.classAttribute = "design";
-      } else {
-        this.content.speciality = this.content.code;
-        this.specTitle = "Coding part";
-        this.classAttribute = "code";
-      }
-    },
-    close: function () {
-      Menu.openProject();
-    }
-  },
-  filters: {
-    arraySpan: function(arr) {
-      return arr.forEach(function(a){a + ", "});
-    },
-  }
-});
 
 export const optionMenu = new Vue({
   el: "#optionMenu",
@@ -299,20 +195,20 @@ export const optionMenu = new Vue({
       this.currentSubmenu = 0;
       DOMElMain.style.filter = "blur(0px)"
       // Menu.isDisplayed = true;
-      playAnimation();
+      Timeline.playAnimation();
     },
     open: function () {
       this.optionsOpen = true;
-      Sidebar.showSidebar = false;
+      // Sidebar.showSidebar = false;
       DOMElMain.style.filter = "blur(10px)"
-      pauseAnimation();
+      Timeline.pauseAnimation();
     },
     toogle: function () {
       if(this.optionsOpen){
         this.close();
       } else {
         // this.open();
-        Menu.option();
+        this.open();
       }
     },
     timeline: function () {

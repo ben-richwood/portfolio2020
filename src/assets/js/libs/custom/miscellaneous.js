@@ -24,6 +24,33 @@ export function msieversion() {
   }
 }
 
+// DEBOUNCE helper
+////////////////////////////////////////////////////////////////
+// Returns a function, that, as long as it continues to be invoked, will not
+// be triggered. The function will be called after it stops being called for
+// N milliseconds. If `immediate` is passed, trigger the function on the
+// leading edge, instead of the trailing.
+export function debounce(func, wait, immediate) {
+	var timeout;
+	return function() {
+		var context = this, args = arguments;
+		var later = function() {
+			timeout = null;
+			if (!immediate) func.apply(context, args);
+		};
+		var callNow = immediate && !timeout;
+		clearTimeout(timeout);
+		timeout = setTimeout(later, wait);
+		if (callNow) func.apply(context, args);
+	};
+};
+/* Usage:
+var myEfficientFn = debounce(function() {
+	// All the taxing stuff you do
+}, 250); // <- time in ms
+window.addEventListener('resize', myEfficientFn);
+*/
+
 // Create an <picture> DOM element for the CSS3DRenderer (to display in the desktop screen )
 // With next-gen img formats (webp & jp2000)
 // Called in component.js

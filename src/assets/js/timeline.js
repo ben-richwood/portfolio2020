@@ -8,6 +8,8 @@ import { SVGLoader } from './libs/SVGLoader.js';
 
 import * as MAT from './libs/custom/materialList.js'
 
+import * as Utilis from './libs/custom/miscellaneous.js'
+
 import projects from "./projects.js";
 // import { t0, keyboardMap, zoomModel, objectScene, screenGraphic, container, canvasEl, canvasTimeline, readyToLaunch, playAnimation, pauseAnimation, stats } from './main.js'
 import { t0, keyboardMap, zoomModel, objectScene, screenGraphic, container, canvasEl, canvasTimeline, readyToLaunch, playAnimation, pauseAnimation, stats } from './main_timeline.js'
@@ -47,6 +49,12 @@ const yDepth = -50 // default depth
 
 const globalTimeline = document.createElement( 'div' );
 globalTimeline.className = "globalTimeline"
+
+var onWindowResize = Utilis.debounce(function() {
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize( window.innerWidth, window.innerHeight );
+}, 100);
 
 export function init() {
   scene = new THREE.Scene();
@@ -302,11 +310,7 @@ export function init() {
   /////////////////////////////////////////////////////////////////////////
  //                       	 THREE JS LIBS                              //
 /////////////////////////////////////////////////////////////////////////
-function onWindowResize() {
-  camera.aspect = window.innerWidth / window.innerHeight;
-  camera.updateProjectionMatrix();
-  renderer.setSize( window.innerWidth, window.innerHeight );
-}
+
 export function animate() {
     requestAnimationFrame( animate );
     controls.update(); // only required if controls.enableDamping = true, or if controls.autoRotate = true
