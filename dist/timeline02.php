@@ -10,6 +10,9 @@
 				perspective: 60em;
 				height: 100vh;
 			}
+			#mainScene{
+			  display: none;
+			}
 			#canvasScene, #DOMElMain{
 				position:absolute;
 				top:0;

@@ -1,3 +1,14 @@
+// Chrome extension
+// JSX Adobe - PS script
+// BLISS leaflet - InDesign + AI + Ps
+// map isometric
+// Blender BLISS animation
+// Sketch - CCM & bot flow
+// webdesigns - PI, Tran Duaong & MMI
+// Kotlin - Tuborg mobile app
+// YoE - React
+
+
 export default {
   "list" : [
     {
