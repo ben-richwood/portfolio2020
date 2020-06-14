@@ -30,7 +30,16 @@ export default {
       "len": .3,
       "thread": "second",
       "group": "freelance",
-      "type": "duration"
+      "type": "duration",
+
+      "software": ["AI", "PS", "InDD", "Laser Cut"],
+      "stack": ["Bootstrap", "PHP"],
+      "language": {
+        "position": {x: 0, y: 0, z: 0}
+      },
+      "techno": {
+        "position": {x: 0, y: 0, z: 0}
+      }
     // }, {
     //   "id": 1,
     //   "name": "Eneom",
@@ -56,14 +65,21 @@ export default {
       "link": "https://www.gomekongevasion.fr/",
       "slug": "gme",
       "screenImg": "homepage.png",
-      "techno": ["Bootstrap", "PHP", "Wordpress"],
       "category": "Freelance",
       "onlyTimeline": false,
       "startingYear": 2018.2,
       "len": 1,
       "thread": "second",
       "group": "freelance",
-      "type": "duration"
+      "type": "duration",
+
+      "stack": ["Bootstrap", "PHP", "Wordpress"],
+      "language": {
+        "position": {x: 0, y: 0, z: 0}
+      },
+      "techno": {
+        "position": {x: 0, y: 0, z: 0}
+      }
     }, {
       "id": 3,
       "name": "ctOS",
@@ -75,7 +91,6 @@ export default {
       "software": ["AI", "PS"],
       "screenImg": "homepage.png",
       "slug": "ctos",
-      "techno": ["Mapbox", "PHP", "VueJS"],
       "link": "https://projets.richebois.fr/citadelle/map/mobile.php",
       "category": "Personal",
       "onlyTimeline": false,
@@ -83,7 +98,15 @@ export default {
       "len": 1.2,
       "thread": "second",
       "group": "perso",
-      "type": "duration"
+      "type": "duration",
+
+      "stack": ["Mapbox", "PHP", "VueJS"],
+      "language": {
+        "position": {x: 0, y: 0, z: 0}
+      },
+      "techno": {
+        "position": {x: 0, y: 0, z: 0}
+      }
     }, {
       "id": 4,
       "name": "Tool explorer",
@@ -92,13 +115,20 @@ export default {
       "description": "<p>Web tools are countless. And part of my job as a webdeveloper is to use the right tool at the right moment for the right job. It's hard to keep track of all of them; that why I started this tool. It intends to map all the tools I used or heard about and to display them in an comprehensive way, highlighting the relations between them.</p><h4>Motivations</h4><ul><li>HTMLCanvas</li><li>Working on data vizualization</li><li>A suitable tool to organize all softwares and libs</li></ul>",
       "code": "Since this is not a simple parent-children relation (which is a Tree), I opted for VisJS with its Graph and Network data structure - based on relations and groups rather than inheritance. And VueJS takes care of list rendering (again) and data biding.",
       "design": "Inspired by WestWorld UI graphic and their \"character response scenario\", I wanted to reproduce the navigation flow, with columns and left-to-right paths. However, usability was better with non-oriented flow.<br>And recently I found a project that interwines graph solver and ThreeJS; I'm considering migrating to unleash the potential of rendering graph in full 3D.",
-      "software": ["AI"],
       "screenImg": "homepage.png",
       "slug": "datavis",
-      "techno": ["vis.js", "VueJS"],
       "link": "",
       "category": "Personal",
       "onlyTimeline": false,
+
+      "software": ["AI"],
+      "stack": ["vis.js", "VueJS"],
+      "language": {
+        "position": {x: 0, y: 0, z: 0}
+      },
+      "techno": {
+        "position": {x: 0, y: 0, z: 0}
+      }
     }, {
       "id": 5,
       "name": "Takacorp Studio",
@@ -106,8 +136,6 @@ export default {
       "description": "<p>Takacorp is a e-commerce website that sell high quality manga figurines. For this website, I realized all the design and all the development.</p><p>Let’s face it: payment was a big challenge, on the ground that the website accepts 3 different types of payment (Stripe, Monetico and Paypal), by card, Paypal and with staggered payment for 2, 3, 4 and 10 months. Moreover, the website is also SCA compliant - the new European payment regulation. I learnt a lot about Stripe API, webhooks, routing, banking regulations and such.</p>",
       "design": "<p>There were two parts:<br>First I drew up a document that exposes the design intentions and principles.</p><p>Over a second phase, I realized the detailed design guideline document that contain the mockups of all the pages. It implies the design of all the individual components, plus the color and font system.</p><p>Regarding the guideline, I defined 2 main directions: staging the products and \"a website made by fans for fans\".<br> Manga is a visual medium; it's all about animation, storytelling and rhythm. The website had to use the same codes. The focus was to stage the products, through layout, animations and visuals.</p>",
       "code": "<p>I chose Ruby on Rails for its robustness and as a reliable backend framework; it offers many built-in tools for security, assets management, routing and optimisations.</p><h4>DevOps</h4><p>Takacorp is hosted on Heroku – a serverless solution easy to manage, to scale and affordable for starting businesses.<br>AWS is used for storage (S3) and MailGun for transactional emails. And source code is maintained with git on an independent repository.</p>",
-      "software": ["AI", "Photoshop"],
-      "techno": ["Ruby on Rails", "Turbolink"],
       "link": "https://takacorp.herokuapp.com",
       "screenImg": "homepage.png",
       "slug": "takacorp",
@@ -117,7 +145,16 @@ export default {
       "len": 1.2,
       "thread": "second",
       "group": "freelance",
-      "type": "duration"
+      "type": "duration",
+
+      "software": ["AI", "Photoshop"],
+      "stack": ["Ruby on Rails", "Turbolink"],
+      "language": {
+        "position": {x: 0, y: 0, z: 0}
+      },
+      "techno": {
+        "position": {x: 0, y: 0, z: 0}
+      }
     // }, {
     //   "id": 6,
     //   "name": "Portfolio",
@@ -145,8 +182,6 @@ export default {
       "year": 2019,
       "code": "TBC",
       "design": "TBC",
-      "software": [],
-      "techno": ["Python", "Flask", "Vue"],
       "link": "",
       "screenImg": "homepage.png",
       "slug": "uptime/",
@@ -156,7 +191,16 @@ export default {
       "len": .2,
       "thread": "second",
       "group": "work",
-      "type": "duration"
+      "type": "duration",
+
+      "software": [],
+      "stack": ["Python", "Flask", "Vue"],
+      "language": {
+        "position": {x: 0, y: 0, z: 0}
+      },
+      "techno": {
+        "position": {x: 0, y: 0, z: 0}
+      }
     }, {
       "name": "Geography studies",
       "startingYear": 2009.7,
@@ -215,13 +259,14 @@ export default {
     }, {
       "name": "Diplome Master",
       "startingYear": 2015,
+      "len": 2,
       "thread": "main",
       "group": "study",
       "type": "event",
       "onlyTimeline": true,
     }, {
       "name": "freelance",
-      "startingYear": 2015,
+      "startingYear": 2016,
       "len": 1,
       "thread": "main",
       "group": "work",
@@ -267,6 +312,14 @@ export default {
       "group": "work",
       "type": "duration",
       "onlyTimeline": true,
+
+      "stack": ["React"],
+      "language": {
+        "position": {x: 0, y: 0, z: 0}
+      },
+      "techno": {
+        "position": {x: 0, y: 0, z: 0}
+      },
     }, {
       "name": "CCM",
       "startingYear": 2019.4,
@@ -275,6 +328,14 @@ export default {
       "group": "work",
       "type": "duration",
       "onlyTimeline": true,
+
+      "stack": ["React", "JS"],
+      "language": {
+        "position": {x: 0, y: 0, z: 0}
+      },
+      "techno": {
+        "position": {x: 0, y: 0, z: 0}
+      },
     }, {
       "name": "Identidy and branding",
       "startingYear": 2019,
@@ -291,6 +352,14 @@ export default {
       "group": "freelance",
       "type": "duration",
       "onlyTimeline": true,
+
+      "stack": ["Ruby on Rails", "JS"],
+      "language": {
+        "position": {x: 0, y: 0, z: 0}
+      },
+      "techno": {
+        "position": {x: 0, y: 0, z: 0}
+      },
     }, {
       "name": "Uptime checker",
       "startingYear": 2019.1,
@@ -299,6 +368,14 @@ export default {
       "group": "work",
       "type": "duration",
       "onlyTimeline": true,
+
+      "stack": ["Python", "Flask", "Vue"],
+      "language": {
+        "position": {x: 0, y: 0, z: 0}
+      },
+      "techno": {
+        "position": {x: 0, y: 0, z: 0}
+      },
     // }, {
     //   "name": "",
     //   "startingYear": 2020,

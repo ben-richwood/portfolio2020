@@ -188,6 +188,7 @@ div.containerTimeline{
     position: static;
   }
 }
+
 @keyframes blink {
   from {
     opacity: 0;
@@ -198,3 +199,43 @@ div.containerTimeline{
     transform: scale(1.6, 1.6);
   }
 }
+
+.key-legend{
+  	position: fixed;
+  	bottom: 2rem;
+  	right: 2rem;
+  	display: flex;
+  	justify-content: flex-end;
+  	flex-direction: row;
+  	z-index: 10;
+    .key-block{
+      display: flex;
+      justify-content: flex-start;
+      flex-direction: row;
+      margin-left: 3rem;
+      align-items: center;
+      .key{
+        font-size: .8em;
+        box-shadow: 1px 0 1px 0 #eee,0 2px 0 2px #ccc,0 2px 0 3px #444;
+        -webkit-border-radius: 3px;
+        -moz-border-radius: 3px;
+        border-radius: 2px;
+        margin: 2px 3px;
+        padding: 1px 5px;
+        text-align: left;
+        white-space: nowrap;
+        margin-right: 1rem;
+        border: 1px solid #5555;
+        width: initial;
+        min-width: 28px;
+        color: #333;
+        height: 28px;
+        padding-right: 0.4rem;
+        background: rgba(255,255,255,0.4);
+      }
+      label{
+        color: #333;
+        padding-top: 0.3rem;
+      }
+    }
+  }

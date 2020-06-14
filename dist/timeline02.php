@@ -9,36 +9,26 @@
 			body{
 				perspective: 60em;
 				height: 100vh;
+				margin: 0;
+			  background-color: #000;
+			  color: #fff;
+			  font-family: 'Inter var', 'Ubuntu', 'Open Sans', 'Segoe UI', 'Helvetica Neue', 'Droid Sans Serif', 'Roboto', Arial, sans-serif;
+			  font-size: 14px;
+			  letter-spacing: -0.007em;
+			  line-height: 20px;
+			  /* For hardware acceleration */
+			  transform: translate3d(0, 0, 0);
 			}
 			#mainScene{
 			  display: none;
 			}
-			#canvasScene, #DOMElMain{
+			#canvasScene{
 				position:absolute;
 				top:0;
 				left:0;
 				width:100%;
 				height:100%;
 				z-index: 10
-			}
-			div#DOMElMain{
-				z-index: 38;
-				pointer-events: none;
-				display: block;
-			}
-			div#DOMElMain div.detail:hover{
-				color: red;
-				pointer-events: initial
-			}
-			.screenGraphic, div.screenGraphicDefault{
-				/* border: 2px solid red; */
-				width: 498px;
-				height: 310px;
-				box-sizing: border-box;
-			}
-			.screenGraphicPic{
-				width: 100%;
-				height:auto;
 			}
 			div.screenGraphic{
 				font-size: 2rem;
@@ -50,117 +40,17 @@
 				box-sizing: border-box;
 				background-color: rgba(0,0,0,.97);
 			}
-			div.screenGraphicDefault{
-				background-color: rgba(0,0,0,.97);
+			#optionMenu{
+				display:none;
 			}
-			div.screenGraphicDefault > div {
-				position: relative;
-				width:100%;
-				height:100%;
-		    /* transform: scaleX(-1); */
-			}
-			.frameContainer{
-				position: relative;
-				width: 468px;
-				height: 310px;
-				background: transparent url(./assets/img/windowFrame.svg) 0px 10px / 100% no-repeat
-			}
-			.frameContainer img{
-				position: absolute;
-				max-width: 96%;
-				top: 11%;
-				left: 2.5%;
+			.hide, .ieDetected{
+				display:none;
 			}
 
-			div.screenGraphicDefault h3{
-				transform: translateY(-50%) translateZ(2px);
-				z-index: 55;
-				position: absolute;
-				/* color: rgba(0,0,0,.7); */
-				color: rgba(255,255,255,.7);
-				top:17%;
-				left:20%;
-				width:80%;
-			}
-			div.screenGraphicDefault div.sractchImg{
-				position: absolute;
-				z-index: 60;
-				width:100%;
-				height:100%;
-				background-image: url(./assets/img/textures/scratchTextures.png);
-				opacity: .2;
+			.intro-second-part.hide{
+				display: block;
 			}
 
-			div.screenGraphicDefault img{
-				position: absolute;
-				max-width: 80%;
-				left:10%;
-				bottom: 10%;
-			}
-			div.screenGraphicDefault img:nth-of-type(1){
-				/* opacity: .7; */
-				/* filter: blur(1.6px); */
-			}
-			div.screenGraphicDefault img:last-child{
-				transform: translate(4px, -2px);
-			}
-			.movingStripe{
-				position:absolute;
-				z-index: 53;
-				top:10%;left:15%;
-				width:80%;
-				height: 18%;
-				background-color: #8EDFC5;
-				box-shadow: 0 0 12px #8EDFC5;
-				opacity: 0;
-				transform: translateY(50%);
-
-				animation-name: movingUpAndDown;
-			  animation-duration: 3s;
-			  animation-timing-function: ease;
-			  animation-delay: .7s;
-			  animation-direction: alternate;
-			  animation-iteration-count: infinite;
-			  animation-fill-mode: none;
-			  animation-play-state: running;
-
-				animation-direction: alternate;
-			  animation-iteration-count: infinite;
-			  animation-fill-mode: none;
-			  animation-play-state: running;
-			}
-			@keyframes movingUpAndDown {
-				0% {
-					opacity: 0;
-					transform: translateY(50%);
-				}
-				8% {
-					opacity: 1;
-				}
-				12% {
-					opacity: 0;
-				}
-				20% {
-					opacity: 1;
-				}
-				50% {
-					transform: translateY(50%);
-				}
-				55% {
-					transform: translateY(120%);
-				}
-				80%{opacity: 1;}
-				88% {
-					opacity: 0;
-				}
-				94% {
-					opacity: 1;
-				}
-				100% {
-					opacity: 0;
-					transform: translateY(120%);
-				}
-			}
 			#intro{
 				position:absolute;
 				top:0;
@@ -186,23 +76,26 @@
 				  0 0px 35px rgba(255, 242, 0, 0.1),
 					0 0px 117px rgba(255, 242, 0, 0.02);
 				  /* 0 0px 35.3px rgba(255, 242, 0, 0.1), */
-				padding: 3rem;
-				width: 60%;
-				max-width: 850px;
+				padding: 4rem;
+				width: 65%;
+				max-width: 700px;
 				/* height:50%; */
 				left:50%;
 				top:50%;
-				/* transform: translate(-44%, -50%) translateZ(100px) rotateY(8deg) rotateX(6deg) scale(.92); */
+
 				animation-name: animatePopup3D;
 			  animation-duration: .7s;
 			  animation-timing-function: ease;
-			  animation-delay: .7s;
+			  /* animation-delay: .3s; */
 			  animation-direction: normal;
 			  animation-iteration-count: 1;
 			  animation-fill-mode: forwards;
 			  animation-play-state: running;
 				transform: translate(-50%, -50%) translateZ(0) rotateY(0) rotateX(0) scale(1.15);
 				opacity: 0;
+			}
+			.tagline{
+				margin: 2rem auto;
 			}
 			.popup .tagline p, #loadingText{
 				font-weight: 500;
@@ -211,6 +104,14 @@
 				line-height: 2;
 				text-align: center;
 				/* margin-bottom: 2rem; */
+			}
+			.notice-intro{
+				font-size: .75rem;
+				line-height: 1.4rem;
+				margin: 1.5rem auto;
+			}
+			#ExploreWork-btn{
+				margin-top: 2rem;
 			}
 			@keyframes animatePopup3D {
 				0% {
@@ -238,14 +139,6 @@
 				line-height: 2;
 				color: #9e9e9e;
 			}
-			/* .popup div.tagline p span{
-				color: #777;
-				transition: color .6s ease;
-			}
-			.popup:hover div.tagline p span{
-				color: #dadada;
-				transition: color .6s ease;
-			} */
 			#content{/* display:none; */}
 			.warning-symbol{
 				width: 100px;
@@ -281,6 +174,7 @@
 				min-width: 110px;
 				/* width: auto; */
 				box-sizing: content-box;
+		    word-spacing: 0.1rem;
 			}
 		</style>
 	</head>
@@ -288,7 +182,6 @@
 		<noscript>
 		 This website heavily uses javascript. You need to enable it if you want to use it properly
 		</noscript>
-		<div id="DOMElMain"></div>
 		<div id="DOMElTimeline">
 			<div class="legend">
 				<h3 style="margin-top:.3rem;">Legend</h3>
@@ -317,10 +210,31 @@
 		<!-- <div id="timeline"></div> -->
 		<div id="intro" :class="{ 'no-intro' : isIntroOff }">
 			<div class="popup highlight">
-				<div v-show="ieDetected">
+
+				<div v-show="ieDetected" class="ieDetected">
 					Internet Explorer is not supported. Please switch to Chrome or Firefox.
 				</div>
-				<div v-if="displayConfig">
+
+				<div v-show="displayConfig">
+					<div>
+						<h2 class="tc">Ben's portfolio</h2>
+						<!-- <p class="mt-30 tc">Hey there, here's my portfolio</p> -->
+					</div>
+					<div class="tagline"><p>I'm <span class="highlight--tag">project manager</span> and <span class="highlight--tag">digital producer</span> who puts <span class="highlight--tag">code</span> and <span class="highlight--tag">design</span> into my daily work.</p></div>
+					<div>
+						<p>While my main job is Project manager and Digital Producer, I use code and design capabilities to prototype ideas, lead preliminary researches and feasibilities studies (<span class="abbr" title="Proof Of Concept">POC</span>), automate and improve internal tools.</p>
+						<p>I also do freelance work.</p>
+						<p>This portfolio has been designed with a single idea in mind: to show evidence and examples of project I made for every skills I state in my portfolio.</p>
+					</div>
+					<div id="readyToStart" v-show="isReadyToStart">
+						<div class="containerSheen">
+							<button id="ExploreWork-btn" @click="exploreWork" class="button button--sheen-l"><span>Enter</span></button>
+						</div>
+					</div>
+					<div id="notCompatible"></div>
+				</div>
+
+				<div :class="displayConfig ? '' : 'intro-second-part'" class="hide">
 					<h2 class="tc">Ben's portfolio</h2>
 					<h3 class="tc">Configuration</h3>
 					<div class="flex-row">
@@ -334,26 +248,10 @@
 					<div class="flex-row mt-30 middleBar">
 						<button class="large-button" @click="choosePerf(true)" ref="highPerf">High Performance</button><button class="large-button" @click="choosePerf(false)" ref="lowPerf">Low Performance</button>
 					</div>
-					<div class="mt-30">
+					<div class="notice-intro">
 						Choosing <span class="perf-class">High performance</span> turns on better lighting, shadows, particles, some post-processing effects and loads additional libraries. So it will takes a bit more time to download and initiate.<br>
 						You can tweak some of the values in the option menu (in the Graphics section).<br>
 						You can also reduce your browser's window size to improve performances.
-					</div>
-					<!-- <div>
-            <input type="checkbox" name="rememberPerfQuality" class="styled-checkbox" @click="cookie_config()">
-            <label for="remember_config">Remember my performance configuration.</label>
-					</div> -->
-					<div id="notCompatible"></div>
-				</div>
-				<div v-else>
-					<div>
-						<h2 class="tc">Ben's portfolio</h2>
-						<p class="mt-30 tc">Hey there, here's my portfolio</p>
-					</div>
-					<div class="tagline"><p>I'm <span class="highlight--tag">project manager and digital producer</span> who puts <span class="highlight--tag">code</span> and <span class="highlight--tag">design</span> into my daily work.</p></div>
-					<div>
-						<p>While my main job is Project manager and Digital Producer, I use code and design capabilities to prototype ideas, lead preliminary researches and feasibilities studies (<span class="abbr" title="Proof Of Concept">POC</span>), automate and improve internal tools ("+ see example")</p>
-						<p>I also do freelance work.</p>
 					</div>
 					<div id="loadingText">{{ loadingText }}</div>
 					<div id="loading">
@@ -361,19 +259,33 @@
 							<div ref="loadingBar" class="progressbar" v-bind:style="{ transform: 'scaleX(' + progress + ')' }"></div>
 						</div>
 					</div>
-					<div id="readyToStart" v-show="isReadyToStart">
-						<div class="containerSheen">
-							<button id="closingPopup" @click="closePopup" class="button button--sheen-l"><span>Explore my works</span></button>
-						</div>
-					</div>
 				</div>
 			</div>
 		</div>
+
+
 		<div id="info">
 			DEBUG
 		</div>
 
-
+		<div class="key-legend">
+		  <div class="key-block">
+		    <div class="key" style="padding-right:6rem;">Space bar</div>
+		    <label for="">Show/hide legend</label>
+		  </div>
+		  <div class="key-block">
+		    <div class="key">ESC</div>
+		    <label for="">menu</label>
+		  </div>
+		  <div class="key-block">
+		    <div class="key">C</div>
+		    <label for="">Console</label>
+		  </div>
+		  <div class="key-block">
+		    <div class="key">up</div>
+		    <label for="">Nav</label>
+		  </div>
+		</div>
 
 		<div id="optionMenu" v-show="optionsOpen">
 			<div class="menuContainer">

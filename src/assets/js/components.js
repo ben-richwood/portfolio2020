@@ -2,6 +2,7 @@ import Vue from 'vue';
 
 // import { t0, controls, zoomModel, objectScene, scene, cssScene, renderer, rendererCSS, screenGraphic, canvasEl, canvasTimeline, DOMElMain, readyToLaunch, playAnimation, pauseAnimation, animate, zoomInScreen, zoomOutScreen, targetCameraTween, switchBackToProject, castShadows, init, highPerfInit } from './main.js'
 import { highPerfInit } from './main_timeline.js'
+import { canvasEl } from './main_timeline.js'
 import Projects from './projects.js'
 import { displayProjectImageOnScreen } from './libs/custom/miscellaneous.js'
 
@@ -141,14 +142,15 @@ export const Popup = new Vue({
         // document.removeEventListener('keyup', (event) => {}, false);
         // console.log("settings:",settings);
       }
-    },
-    closePopup: function () {
-      window.clearInterval(intervalListener);
+      settings.isConfigHigh = e;
+      optionMenu.gpu = this.config;
+      settings.GPU = this.config;
       this.isIntroOff = true;
       selectPerf = false;
       settings.isPaused = false;
-      // readyToLaunch();
-      // navigateProjects();
+    },
+    exploreWork: function () {
+      this.displayConfig = false;
     }
   }
 });
@@ -193,14 +195,14 @@ export const optionMenu = new Vue({
       this.optionsOpen = false;
       // Menu.isDisplayed = true;
       this.currentSubmenu = 0;
-      DOMElMain.style.filter = "blur(0px)"
+      canvasEl.style.filter = "blur(0px)"
       // Menu.isDisplayed = true;
       Timeline.playAnimation();
     },
     open: function () {
       this.optionsOpen = true;
       // Sidebar.showSidebar = false;
-      DOMElMain.style.filter = "blur(10px)"
+      canvasEl.style.filter = "blur(10px)"
       Timeline.pauseAnimation();
     },
     toogle: function () {
@@ -209,37 +211,6 @@ export const optionMenu = new Vue({
       } else {
         // this.open();
         this.open();
-      }
-    },
-    timeline: function () {
-      settings.isTimelineOn = !settings.isTimelineOn;
-      if (!settings.isTimelineOn) {
-        // init();
-        // animate();
-        // Timeline.renderer.clear()
-        if (settings.currentEnv === 1) DOMElMain.style.display = "block";
-        this.canvasMenuLabel = "Timeline"
-        canvasEl.style.display = "block";
-        canvasTimeline.style.display = "none";
-        DOMElTimeline.style.display = "none";
-        // animate();
-        Menu.isDisplayed = true;
-        this.close();
-        // switchBackToProject();
-      } else {
-        this.canvasMenuLabel = "Project"
-        Menu.isDisplayed = false;
-        // renderer.clear();
-        if (!settings.isTimelineLoaded) {
-          Timeline.init();
-          settings.isTimelineLoaded = true;
-        }
-        // Timeline.animate();
-        DOMElTimeline.style.display = "block";
-        canvasTimeline.style.display = "block";
-        DOMElMain.style.display = "none";
-        canvasEl.style.display = "none";
-        this.close();
       }
     },
     changeKbConfig: function(e) {

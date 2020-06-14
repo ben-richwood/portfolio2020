@@ -59,7 +59,7 @@ export let container, canvasEl, canvasTimeline, stats;
 export let controls
 export let scene, renderer;
 export let cssScene, rendererCSS; // 2nd "canvas", used by CSS3DRenderer to display DOM element in 3D env
-export const DOMElMain = document.getElementById( 'DOMElMain' );
+// export const DOMElMain = document.getElementById( 'DOMElMain' );
 let time, clock, bgTexture, fog;
 let grid, groundMesh;
 export let camera;
