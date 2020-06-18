@@ -18,7 +18,7 @@ module.exports = (env, options) => {
       // watch: true,
       output: {
         path: path + "dist/assets/js",
-        filename: "bundle_timeline.js"
+        filename: "bundle_project.js"
       },
       optimization: {
         minimizer: [new UglifyJsPlugin(

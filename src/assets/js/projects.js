@@ -18,28 +18,30 @@ export default {
       "description": "<p>Peafowl Consulting is a company which offers tests and trainings to reinforce sale teams and colleagues' engagement.</p><p>Furthermore, Peafowl Consulting counts few side projects: Peafowl Foundation (charity project), PTalk (entrepreneur talks), Peafowl Cup (sponsored sport events) and punctual events.</p><p>I drew the graphic guideline and developed the website. I also worked on the logo of the two spin-off projects Peafowl Foundation & P-Talk.</p><p>Finally, I proposed layouts for training supports and internal documents.</p>",
       "design": "<p>I draw the graphic guideline and developed the website. I also worked on the logo of the two spin-off projects Peafowl Foundation & P-Talk.</p><p>Finally, I proposed layouts for training supports and internal documents.</p><p>For the kick-off event, I made few proposals and experimentations for the invitations. We wanted something prestigious and refined. After few attempts with the laser cut, I finally came for for a printed version, with golden letters; the laser cut was not properly calibrated to get satisfying results.</p>",
       "code": "The website is based on PHP and bootstrap.",
-      "software": ["AI", "PS", "InDD", "Laser Cut"],
-      "techno": ["Bootstrap", "PHP"],
-      "category": "Freelance",
       "link": "http://www.peafowl-consulting.com/",
+      "category": "Freelance",
+      "group": "freelance",
       "screenImg": "homepage.png",
       "slug": "peafowl",
       "img": ["homepage.png", "indesign_capture.png"],
-      "onlyTimeline": false,
-      "startingYear": 2016.7,
-      "len": .3,
-      "thread": "second",
-      "group": "freelance",
-      "type": "duration",
 
-      "software": ["AI", "PS", "InDD", "Laser Cut"],
-      "stack": ["Bootstrap", "PHP"],
-      "language": {
-        "position": {x: 0, y: 0, z: 0}
+      "software": {
+        "list": ["AI", "PS", "InDD", "Laser Cut"],
+        "position": {x: 800, y: 1, z: -100}
       },
       "techno": {
-        "position": {x: 0, y: 0, z: 0}
+        "list": ["Bootstrap", "PHP"],
+        "position": {x: 990, y: 1, z: -420}
+      },
+      "timeline": {
+        "onlyTimeline": false,
+        "startingYear": 2016.7,
+        "len": .3,
+        "thread": "second",
+        "type": "duration",
       }
+
+
     // }, {
     //   "id": 1,
     //   "name": "Eneom",
@@ -61,24 +63,28 @@ export default {
       "description": "<p>Go Mékong Evasion (GME) is a travel agency that bring travelers off the beaten track and go into Mekong depths.</p><h4>Motivations</h4><ul><li>Not only working on websdesign</li></ul>",
       "code": "The website is based on Wordpress, to allow the client to easily edit the content.",
       "design": "<p> For this client, I realized the graphic identity, through the webdesign and the few printed leaflets.</p><p> Since GME offers off the beaten track trips, I opted for these elements: \"gritty/muddy\", hand-drawing (traveler notebook), polaroid effect, maps and full size images. And I kept a touch of security to reassure the tourist. </p>",
-      "software": ["AI", "PS", "inDD", "hand drawing"],
       "link": "https://www.gomekongevasion.fr/",
       "slug": "gme",
       "screenImg": "homepage.png",
       "category": "Freelance",
-      "onlyTimeline": false,
-      "startingYear": 2018.2,
-      "len": 1,
-      "thread": "second",
       "group": "freelance",
-      "type": "duration",
-
-      "stack": ["Bootstrap", "PHP", "Wordpress"],
+      "timeline": {
+        "onlyTimeline": false,
+        "startingYear": 2018.2,
+        "len": 1,
+        "thread": "second",
+        "type": "duration",
+      },
       "language": {
-        "position": {x: 0, y: 0, z: 0}
+        "position": {x: 1, y: 1, z: 1}
+      },
+      "software": {
+        "list": ["AI", "PS", "inDD", "hand drawing"],
+        "position": {x: 1000, y: 1, z: 160}
       },
       "techno": {
-        "position": {x: 0, y: 0, z: 0}
+        "list": ["Bootstrap", "PHP", "Wordpress"],
+        "position": {x: 290, y: 1, z: -400}
       }
     }, {
       "id": 3,
@@ -88,25 +94,31 @@ export default {
       "description": "<p>This is a personal project to create my own map system – in place of Google Maps. The project includes the design of the elements and the coding.</p><h4>Motivations</h4><ul><li>Getting out of Google Maps</li><li>Geography and mapping</li><li>Mapbox and HTML Canvas</li><li>Learning VueJS</li></ul>",
       "code": "<p>Mapbox is used as the map engine, plus for the tileset (made with mapbox studio) and the dataset API.</p><p>VueJS on the other hand takes care of reactiveness, especially regarding the list rendering and filtering.</p><p>I used Webpack to minify and compress all the assets; however, since it's a personal project, I din't use Babel or try to use ES5 syntax specifically.</p>",
       "design": "<p>I designed all the map components (background, road hierarchy, rivers, marker, popup...) and all the interface elements (menus, listing, item, icons...).</p>Since it's a personal tool, I didn't want to go for a \"fancy\" and catchy interface, but much rather for a technical, terminal-based, effective and somewhat esoteric design. I went for a scify-inspired theme, with many influences coming from Arkham Knight, Cyberpunk 2077, the Martian, Tron, Oblivion or Halo Wars (actually many projects from GMUNK [+link] ).</p><p>An important part of the design was to build a consistent color, icon and shape system. They intend to convey states, hierarchy, triggers and expected actions</p>",
-      "software": ["AI", "PS"],
       "screenImg": "homepage.png",
       "slug": "ctos",
       "link": "https://projets.richebois.fr/citadelle/map/mobile.php",
       "category": "Personal",
-      "onlyTimeline": false,
-      "startingYear": 2018.8,
-      "len": 1.2,
-      "thread": "second",
       "group": "perso",
-      "type": "duration",
+      "timeline": {
+        "onlyTimeline": false,
+        "startingYear": 2018.8,
+        "len": 1.2,
+        "thread": "second",
+        "type": "duration"
+      },
 
-      "stack": ["Mapbox", "PHP", "VueJS"],
       "language": {
-        "position": {x: 0, y: 0, z: 0}
+        "position": {x: 1, y: 1, z: 1}
+      },
+      "software": {
+        "list": ["AI", "PS"],
+        "position": {x: -100, y: 1, z: 300}
       },
       "techno": {
-        "position": {x: 0, y: 0, z: 0}
+        "list": ["Mapbox", "PHP", "VueJS"],
+        "position": {x: 270, y: 1, z: 280}
       }
+
     }, {
       "id": 4,
       "name": "Tool explorer",
@@ -119,16 +131,22 @@ export default {
       "slug": "datavis",
       "link": "",
       "category": "Personal",
-      "onlyTimeline": false,
-
-      "software": ["AI"],
-      "stack": ["vis.js", "VueJS"],
+      "timeline": {
+        "onlyTimeline": false,
+      },
       "language": {
-        "position": {x: 0, y: 0, z: 0}
+        "position": {x: 1, y: 1, z: 1}
+      },
+      "software": {
+        "notRelevant": true,
+        "list": ["AI"],
+        "position": {x: 1, y: 1, z: 1}
       },
       "techno": {
-        "position": {x: 0, y: 0, z: 0}
+        "list": ["vis.js", "VueJS"],
+        "position": {x: 580, y: 1, z: -200}
       }
+
     }, {
       "id": 5,
       "name": "Takacorp Studio",
@@ -140,20 +158,24 @@ export default {
       "screenImg": "homepage.png",
       "slug": "takacorp",
       "category": "Personal",
-      "onlyTimeline": false,
-      "startingYear": 2018.7,
-      "len": 1.2,
-      "thread": "second",
       "group": "freelance",
-      "type": "duration",
-
-      "software": ["AI", "Photoshop"],
-      "stack": ["Ruby on Rails", "Turbolink"],
+      "timeline": {
+        "onlyTimeline": false,
+        "startingYear": 2018.7,
+        "len": 1.2,
+        "thread": "second",
+        "type": "duration"
+      },
       "language": {
-        "position": {x: 0, y: 0, z: 0}
+        "position": {x: 1, y: 1, z: 1}
+      },
+      "software": {
+        "list": ["AI", "Photoshop"],
+        "position": {x: -100, y: 1, z: -100}
       },
       "techno": {
-        "position": {x: 0, y: 0, z: 0}
+        "list": ["Ruby on Rails", "Turbolink"],
+        "position": {x: 900, y: -300, z: 200}
       }
     // }, {
     //   "id": 6,
@@ -186,204 +208,325 @@ export default {
       "screenImg": "homepage.png",
       "slug": "uptime/",
       "category": "BLISS",
-      "onlyTimeline": false,
-      "startingYear": 2019.4,
-      "len": .2,
-      "thread": "second",
       "group": "work",
-      "type": "duration",
-
-      "software": [],
-      "stack": ["Python", "Flask", "Vue"],
+      "timeline": {
+        "onlyTimeline": false,
+        "startingYear": 2019.4,
+        "len": .2,
+        "thread": "second",
+        "type": "duration",
+      },
       "language": {
-        "position": {x: 0, y: 0, z: 0}
+        "position": {x: 1, y: 1, z: 1}
+      },
+      "software": {
+        "list": [],
+        "position": {x: 1, y: 1, z: 1}
       },
       "techno": {
-        "position": {x: 0, y: 0, z: 0}
+        "list": ["Python", "Flask", "Vue"],
+        "position": {x: 250, y: 1, z: -200}
       }
     }, {
       "name": "Geography studies",
-      "startingYear": 2009.7,
-      "len": 4,
-      "thread": "main",
       "group": "study",
-      "type": "duration",
-      "onlyTimeline": true,
-      "children": [
-        {
-          "name": "Licence (Paris Sorbonne, France)",
-          "startingYear": 2009.7,
-          "len": 3,
-          "thread": "main",
-          "group": "study",
-          "type": "duration",
-          "onlyTimeline": true,
-          "level": 2
-        }, {
-          "name": "certificate (Montreal, Canada)",
-          "startingYear": 2011.7,
-          "len": 1,
-          "thread": "main",
-          "group": "study",
-          "type": "duration",
-          "onlyTimeline": true,
-          "level": 3
-        }, {
-          "name": "Maitrise (Paris Sorbonne, France)",
-          "startingYear": 2012.7,
-          "len": 1,
-          "thread": "main",
-          "group": "study",
-          "type": "duration",
-          "onlyTimeline": true,
-          "level": 2
-        }
-      ]
+      "timeline": {
+        "startingYear": 2009.7,
+        "len": 4,
+        "thread": "main",
+        "type": "duration",
+        "onlyTimeline": true,
+        "children": [
+          {
+            "name": "Licence (Paris Sorbonne, France)",
+            "startingYear": 2009.7,
+            "len": 3,
+            "thread": "main",
+            "group": "study",
+            "type": "duration",
+            "onlyTimeline": true,
+            "level": 2
+          }, {
+            "name": "certificate (Montreal, Canada)",
+            "startingYear": 2011.7,
+            "len": 1,
+            "thread": "main",
+            "group": "study",
+            "type": "duration",
+            "onlyTimeline": true,
+            "level": 3
+          }, {
+            "name": "Maitrise (Paris Sorbonne, France)",
+            "startingYear": 2012.7,
+            "len": 1,
+            "thread": "main",
+            "group": "study",
+            "type": "duration",
+            "onlyTimeline": true,
+            "level": 2
+          }
+        ]
+      }
     }, {
       "name": "Master (EMLyon & Centrale Lyon)",
-      "startingYear": 2013.7,
-      "len": 2,
-      "thread": "main",
       "group": "study",
-      "type": "duration",
-      "onlyTimeline": true,
+      "timeline": {
+        "startingYear": 2013.7,
+        "len": 2,
+        "thread": "main",
+        "type": "duration",
+        "onlyTimeline": true,
+      }
     }, {
       "name": "Internship - CAPSA Container",
       "description": "With essay", // DON't FORGET THE MEMOIRE
-      "startingYear": 2014.5,
-      "len": .5,
-      "thread": "second",
       "group": "work",
-      "type": "duration",
-      "onlyTimeline": true,
+      "timeline": {
+        "startingYear": 2014.5,
+        "len": .5,
+        "thread": "second",
+        "type": "duration",
+        "onlyTimeline": true,
+      },
+      "software": {
+        "list": ["AI", "Photoshop"],
+        "position": {x: 900, y: 1, z: -360}
+      }
+
     }, {
       "name": "Diplome Master",
-      "startingYear": 2015,
-      "len": 2,
-      "thread": "main",
       "group": "study",
-      "type": "event",
-      "onlyTimeline": true,
+      "timeline": {
+        "startingYear": 2015,
+        "len": 2,
+        "thread": "main",
+        "type": "event",
+        "onlyTimeline": true,
+      }
     }, {
       "name": "freelance",
-      "startingYear": 2016,
-      "len": 1,
-      "thread": "main",
       "group": "work",
-      "type": "duration",
-      "onlyTimeline": true,
+      "timeline": {
+        "startingYear": 2016,
+        "len": 1,
+        "thread": "main",
+        "type": "duration",
+        "onlyTimeline": true,
+      }
     }, {
       "name": "MonMentor",
-      "startingYear": 2015,
-      "len": .5,
-      "thread": "second",
       "group": "work",
-      "type": "duration",
-      "onlyTimeline": true,
+      "timeline": {
+        "startingYear": 2015,
+        "len": .5,
+        "thread": "second",
+        "type": "duration",
+        "onlyTimeline": true,
+      },
+      "language": {
+        "position": {x: 1, y: 1, z: 1}
+      },
+      "software": {
+        "list": ["AI"],
+        "position": {x: 40, y: 1, z: -80}
+      },
+      "techno": {
+        "list": ["Bootstrap", "JS", "Ruby on Rails"],
+        "position": {x: 1350, y: 1, z: 240}
+      }
     }, {
       "name": "Kicklaws",
-      "startingYear": 2015.5,
-      "len": .5,
-      "thread": "second",
       "group": "work",
-      "type": "duration",
-      "onlyTimeline": true,
+      "timeline": {
+        "startingYear": 2015.5,
+        "len": .5,
+        "thread": "second",
+        "type": "duration",
+        "onlyTimeline": true,
+      },
+      "language": {
+        "position": {x: 1, y: 1, z: 1}
+      },
+      "software": {
+        "list": [],
+        "position": {x: 1, y: 1, z: 1}
+      },
+      "techno": {
+        "list": ["Bootstrap", "PHP", "Ruby on rails"],
+        "position": {x: 1000, y: 1, z: -280}
+      }
     }, {
       "name": "Vietnam",
-      "startingYear": 2016,
-      "len": 3,
-      "thread": "main",
       "group": "perso",
-      "type": "duration",
-      "onlyTimeline": true,
+      "timeline": {
+        "startingYear": 2016,
+        "len": 3,
+        "thread": "main",
+        "type": "duration",
+        "onlyTimeline": true,
+      }
     }, {
       "name": "BLISS",
-      "startingYear": 2017,
-      "len": 3,
-      "thread": "main",
       "group": "work",
-      "type": "duration",
-      "onlyTimeline": true,
+      "timeline": {
+        "startingYear": 2017,
+        "len": 3,
+        "thread": "main",
+        "type": "duration",
+        "onlyTimeline": true,
+      }
     }, {
       "name": "Year of Engineering",
-      "startingYear": 2017.8,
-      "len": 1,
-      "thread": "second",
       "group": "work",
-      "type": "duration",
-      "onlyTimeline": true,
-
-      "stack": ["React"],
+      "timeline": {
+        "startingYear": 2017.8,
+        "len": 1,
+        "thread": "second",
+        "type": "duration",
+        "onlyTimeline": true,
+      },
       "language": {
-        "position": {x: 0, y: 0, z: 0}
+        "position": {x: 1, y: 1, z: 1}
+      },
+      "software": {
+        "list": ["AI"],
+        "position": {x: 1, y: 1, z: 1}
       },
       "techno": {
-        "position": {x: 0, y: 0, z: 0}
-      },
+        "list": ["React"],
+        "position": {x: 150, y: 150, z: 100}
+      }
     }, {
       "name": "CCM",
-      "startingYear": 2019.4,
-      "len": .6,
-      "thread": "second",
       "group": "work",
-      "type": "duration",
-      "onlyTimeline": true,
-
-      "stack": ["React", "JS"],
+      "timeline": {
+        "startingYear": 2019.4,
+        "len": .6,
+        "thread": "second",
+        "type": "duration",
+        "onlyTimeline": true,
+      },
       "language": {
-        "position": {x: 0, y: 0, z: 0}
+        "position": {x: 1, y: 1, z: 1}
+      },
+      "software": {
+        "list": ["AI"],
+        "position": {x: 200, y: 1, z: 60}
       },
       "techno": {
-        "position": {x: 0, y: 0, z: 0}
+        "list": ["React", "JS"],
+        "position": {x: 485, y: 1, z: 420}
       },
+      "language": {
+        "position": {x: 1, y: 1, z: 1}
+      }
     }, {
       "name": "Identidy and branding",
-      "startingYear": 2019,
-      "len": 1,
-      "thread": "second",
       "group": "work",
-      "type": "duration",
-      "onlyTimeline": true,
-    }, {
-      "name": "Takacorp Studio",
-      "startingYear": 2018.7,
-      "len": 1.2,
-      "thread": "second",
-      "group": "freelance",
-      "type": "duration",
-      "onlyTimeline": true,
-
-      "stack": ["Ruby on Rails", "JS"],
+      "timeline": {
+        "startingYear": 2019,
+        "len": 1,
+        "thread": "second",
+        "type": "duration",
+        "onlyTimeline": true,
+      },
       "language": {
-        "position": {x: 0, y: 0, z: 0}
+        "position": {x: 1, y: 1, z: 1}
+      },
+      "software": {
+        "list": ["AI", "PS", "InDD"],
+        "position": {x: 430, y: 1, z: -60}
       },
       "techno": {
-        "position": {x: 0, y: 0, z: 0}
-      },
+        "list": ["React"],
+        "position": {x: 1, y: 1, z: 1}
+      }
     }, {
-      "name": "Uptime checker",
-      "startingYear": 2019.1,
-      "len": .6,
-      "thread": "second",
+      "name": "Chrome Extension",
       "group": "work",
-      "type": "duration",
-      "onlyTimeline": true,
-
-      "stack": ["Python", "Flask", "Vue"],
+      "timeline": {
+        "startingYear": 2020.1,
+        "len": 0.4,
+        "thread": "second",
+        "type": "duration",
+        "onlyTimeline": false,
+      },
       "language": {
-        "position": {x: 0, y: 0, z: 0}
+        "position": {x: 1, y: 1, z: 1}
+      },
+      "software": {
+        "list": ["AI", "PS", "InDD", "Laser Cut"],
+        "position": {x: 1, y: 1, z: 1}
       },
       "techno": {
-        "position": {x: 0, y: 0, z: 0}
+        "list": ["JS", "Chrome"],
+        "position": {x: 800, y: 1, z: -110}
+      }
+    }, {
+      "name": "Family Medical Practice",
+      "group": "work",
+      "timeline": {
+        "startingYear": 2019.6,
+        "len": 1.2,
+        "thread": "second",
+        "type": "duration",
+        "onlyTimeline": false,
       },
-    // }, {
-    //   "name": "",
-    //   "startingYear": 2020,
-    //   "len": 1,
-    //   "thread": "main",
-    //   "group": "perso",
-    //   "type": "duration",
-    //   "onlyTimeline": true,
+      "language": {
+        "position": {x: 1, y: 1, z: 1}
+      },
+      "software": {
+        "list": ["AI", "PS"],
+        "position": {x: 320, y: 1, z: 290}
+      },
+      "techno": {
+        "list": ["React", "JS"],
+        "position": {x: 650, y: 1, z: 330}
+      }
     }
-  ]
+  ],
+  "symbols": {
+    "techno": [
+      {
+        "name": "Javascript",
+        "position": {x: 500, y: 200, z: 60},
+        "icon": "js.svg"
+      }, {
+        "name": "Python",
+        "position": {x: -165, y: 1, z: -310},
+        "icon": "python.svg"
+      }, {
+        "name": "Ruby on Rails",
+        "position": {x: 1150, y: 1, z: -40},
+        "icon": "ruby.svg"
+      }, {
+        "name": "PHP",
+        "position": {x: 600, y: 1, z: -440},
+        "icon": "php.svg"
+      },
+    ],
+    "software": [
+      {
+        "name": "Illustrator",
+        "position": {x: -165, y: 200, z: 120},
+        "icon": "illustrator.svg"
+      }, {
+        "name": "Sketch",
+        "position": {x: 0, y: 1, z: -320},
+        "icon": "sketch.svg"
+      }, {
+        "name": "InDesign",
+        "position": {x: 700, y: 1, z: -460},
+        "icon": "indesign.svg"
+      }, {
+        "name": "Photoshop",
+        "position": {x: 740, y: 1, z: 280},
+        "icon": "photoshop.svg"
+      }, {
+        "name": "Blender",
+        "position": {x: 1200, y: 1, z: -160},
+        "icon": "blender.svg"
+      }
+    ],
+  }
 }

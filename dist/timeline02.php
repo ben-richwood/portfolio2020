@@ -10,7 +10,9 @@
 				perspective: 60em;
 				height: 100vh;
 				margin: 0;
-			  background-color: #000;
+			  /* background-color: #000; */
+				background: rgb(237,237,237);
+				background: linear-gradient(90deg, rgba(237,237,237,1) 0%, rgba(171,171,171,1) 100%);
 			  color: #fff;
 			  font-family: 'Inter var', 'Ubuntu', 'Open Sans', 'Segoe UI', 'Helvetica Neue', 'Droid Sans Serif', 'Roboto', Arial, sans-serif;
 			  font-size: 14px;
@@ -22,6 +24,7 @@
 			#mainScene{
 			  display: none;
 			}
+			#timeline{ display: none; }
 			#canvasScene{
 				position:absolute;
 				top:0;
@@ -176,33 +179,75 @@
 				box-sizing: content-box;
 		    word-spacing: 0.1rem;
 			}
+			.element{
+				/* box-shadow: 0px 0px 12px rgba(0,255,255,0.75); */
+				border: 1px solid transparent;
+			}
+			.element:hover {
+				/* box-shadow: 0px 0px 12px rgba(0,255,255,0.75); */
+				border: 1px solid rgba(127,255,255,0.75);
+			}
 		</style>
 	</head>
 	<body>
 		<noscript>
 		 This website heavily uses javascript. You need to enable it if you want to use it properly
 		</noscript>
-		<div id="DOMElTimeline">
-			<div class="legend">
-				<h3 style="margin-top:.3rem;">Legend</h3>
-				<div class="legend-row">
-					<div class="qub main"> </div>
-					<div class="text">Main thread</div>
+		<div id="DOMElTimeline"></div>
+			<div id="legend">
+				<div class="legend" v-show="showLegend">
+					<h3 style="margin-top:.3rem;">Legend</h3>
+					<!-- <div class="legend-row">
+						<div class="qub main"> </div>
+						<div class="text">Main thread</div>
+					</div>
+					<div class="legend-row">
+						<div class="qub work"> </div>
+						<div class="text">Work</div>
+					</div>
+					<div class="legend-row">
+						<div class="qub freelance"> </div>
+						<div class="text">Freelance</div>
+					</div>
+					<div class="legend-row">
+						<div class="qub study"> </div>
+						<div class="text">Study</div>
+					</div> -->
+					<div class="">
+						<button @click="techno">Techno</button>
+					</div>
+					<div class="">
+						<button @click="software">Software</button>
+					</div>
+					<div class="">
+						<button @click="timeline">Timeline</button>
+					</div>
+					<div class="">
+						<button @click="all">All</button>
+					</div>
 				</div>
-				<div class="legend-row">
-					<div class="qub work"> </div>
-					<div class="text">Work</div>
+
+				<div class="key-legend">
+					<div class="key-block">
+						<div class="key" style="padding-right:6rem;">{{ keyMap.accept[0] }}</div>
+						<label for="">Show/hide legend</label>
+					</div>
+					<div class="key-block">
+						<div class="key">{{keyMap.option[0]}}</div>
+						<label for="">menu</label>
+					</div>
+					<div class="key-block">
+						<div class="key">C</div>
+						<label for="">Console</label>
+					</div>
+					<div class="key-block">
+						<div class="key">up</div>
+						<label for="">Nav</label>
+					</div>
 				</div>
-				<div class="legend-row">
-					<div class="qub freelance"> </div>
-					<div class="text">Freelance</div>
-				</div>
-				<div class="legend-row">
-					<div class="qub study"> </div>
-					<div class="text">Study</div>
-				</div>
+
+
 			</div>
-		</div>
 		<div id="canvasScene">
 			<canvas id="mainScene"></canvas>
 			<canvas id="timeline"></canvas>
@@ -268,24 +313,7 @@
 			DEBUG
 		</div>
 
-		<div class="key-legend">
-		  <div class="key-block">
-		    <div class="key" style="padding-right:6rem;">Space bar</div>
-		    <label for="">Show/hide legend</label>
-		  </div>
-		  <div class="key-block">
-		    <div class="key">ESC</div>
-		    <label for="">menu</label>
-		  </div>
-		  <div class="key-block">
-		    <div class="key">C</div>
-		    <label for="">Console</label>
-		  </div>
-		  <div class="key-block">
-		    <div class="key">up</div>
-		    <label for="">Nav</label>
-		  </div>
-		</div>
+
 
 		<div id="optionMenu" v-show="optionsOpen">
 			<div class="menuContainer">
@@ -414,7 +442,7 @@
 				</div>
 			</div>
 		</div>
-		<script type="module" src="./assets/js/bundle_timeline.js"></script>
+		<script type="module" src="./assets/js/bundle_project.js"></script>
 
 	</body>
 </html>

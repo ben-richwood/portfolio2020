@@ -1,3 +1,4 @@
+import * as THREE from '../../build/three.module.js';
 export function testing(scene){
   //axes
   var axes = new THREE.AxesHelper(5);
@@ -11,10 +12,10 @@ export function testing(scene){
   dirX.normalize();
   dirY.normalize();
   dirZ.normalize();
-  var origin = new THREE.Vector3( 0.13, 0, 0 );
-  var arrowHelperX = new THREE.ArrowHelper( dirX, origin, 1, 0xff0000 );
-  var arrowHelperY = new THREE.ArrowHelper( dirY, origin, 1, 0x00ff00 );
-  var arrowHelperZ = new THREE.ArrowHelper( dirZ, origin, 1, 0x0000ff );
+  var origin = new THREE.Vector3( 2019, 0, 0 );
+  var arrowHelperX = new THREE.ArrowHelper( dirX, origin, 30, 0xff0000 );
+  var arrowHelperY = new THREE.ArrowHelper( dirY, origin, 30, 0x00ff00 );
+  var arrowHelperZ = new THREE.ArrowHelper( dirZ, origin, 30, 0x0000ff );
   scene.add( arrowHelperX );
   scene.add( arrowHelperY );
   scene.add( arrowHelperZ );

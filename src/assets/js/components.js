@@ -12,6 +12,8 @@ import * as THREE from './build/three.module.js';
 import { CSS3DRenderer, CSS3DObject } from './libs/CSS3DRenderer.js';
 
 import * as Timeline from './main_timeline.js';
+import * as tl from './timeline.js';
+import { TWEEN } from './libs/tween.module.min.js'
 
 // import { TWEEN } from './libs/tween.module.min.js'
 // import { TweenMax } from "gsap/TweenMax";
@@ -54,7 +56,7 @@ export const keyboardMap = {
   kb_default: {
     prev: ["ArrowLeft", "⟵"],
     next: ["ArrowRight", "⟶"],
-    accept: ["Space", "SPACE"],
+    accept: ["Space bar", "SPACE"],
     option: ["Escape", "ESC"]
   },
   kb_gamer: {
@@ -66,7 +68,7 @@ export const keyboardMap = {
   kb_vim: {
     prev: ["h", "H"],
     next: ["l", "L"],
-    accept: ["Space", "SPACE"],
+    accept: ["Space bar", "SPACE"],
     option: ["Escape", "ESC"]
   },
 }
@@ -91,7 +93,9 @@ function Settings (e) {
     this.precision = 'mediump';
     this.isShadowEnabled = false;
     this.isItNight = e.isItNight;
-    this.isTimelineLoaded = false
+    this.isTimelineLoaded = false;
+    this.currFilter = "techno";
+    this.prevFilter = "techno";
 
     // OPTIONS
     this.muteSound = false;
@@ -261,6 +265,38 @@ export const optionMenu = new Vue({
   }
 })
 
+export const legendMenu = new Vue({
+  el: "#legend",
+  data: {
+    showLegend: true,
+    keyMap: {
+      ...settings.keyboardConfig
+    }
+  },
+  methods: {
+    techno: function () {
+      settings.prevFilter = settings.currFilter
+      settings.currFilter = "techno"
+      tl.transform( tl.targets.techno, 2000 );
+    },
+    software: function () {
+      settings.prevFilter = settings.currFilter
+      settings.currFilter = "software"
+      tl.transform( tl.targets.software, 2000 );
+    },
+    timeline: function () {
+      settings.prevFilter = settings.currFilter
+      settings.currFilter = "timeline"
+      tl.transform( tl.targets.timeline, 2000 );
+    },
+    all: function () {
+      settings.prevFilter = settings.currFilter
+      settings.currFilter = "all"
+      tl.transform( tl.targets.all, 2000 );
+    }
+  }
+})
+
 let phraseCounter = 0
 var intervalListener = self.setInterval(changeLoadingText, 5000);
 
@@ -272,7 +308,8 @@ function changeLoadingText() {
 
 document.addEventListener('keyup', (event) => {
   const keyName = event.key;
-  console.log(keyName);
+  const keyCode = event.code
+  console.log(keyName, keyCode);
   if (selectPerf) {
     if (keyName === settings.keyboardConfig.prev[0]) {
       Popup.$refs.highPerf.focus();
@@ -282,9 +319,9 @@ document.addEventListener('keyup', (event) => {
   } else {
     if (settings.isCameraCloseEnough) {
       if (keyName === settings.keyboardConfig.prev[0]) {
-        Menu.changeProject(-1)
+        // Menu.changeProject(-1)
       } else if (keyName === settings.keyboardConfig.next[0]) {
-        Menu.changeProject(1)
+        // Menu.changeProject(1)
       } else {}
     } else {
       // return
@@ -292,5 +329,8 @@ document.addEventListener('keyup', (event) => {
   }
   if (keyName === settings.keyboardConfig.option[0]) {
     optionMenu.toogle();
+  }
+  if (keyCode === settings.keyboardConfig.accept[0]) {
+    legendMenu.showLegend = !legendMenu.showLegend;
   }
 }, false);

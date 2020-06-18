@@ -19,7 +19,7 @@ import { PMREMGenerator } from './libs/PMREMGenerator.js';
 import { PMREMCubeUVPacker } from './libs/PMREMCubeUVPacker.js';
 // import { RectAreaLightUniformsLib } from './libs/RectAreaLightUniformsLib.js';
 
-import { CSS3DRenderer, CSS3DObject } from './libs/CSS3DRenderer.js';
+// import { CSS3DRenderer, CSS3DObject } from './libs/CSS3DRenderer.js';
 
 
 // import * as Timeline from './timeline.js';
@@ -29,20 +29,17 @@ import * as MAT from './libs/custom/materialList.js'
 import * as TEST from './libs/custom/testing.js'
 import { logStyle, mobilecheck, msieversion, displayProjectImageOnScreen, dayLight, nightLight, distanceVector } from './libs/custom/miscellaneous.js'
 
+// import * as Timeline from './timeline.js'
 import * as Timeline from './timeline.js'
 
 // VUS JS MODULE
 // import Vue from 'vue';
 
 // TWEEN - for animation
-// import gsap as Tween from "gsap";
 import { TWEEN } from './libs/tween.module.min.js'
-// import { TWEEN } from './libs/TWEEN.min.js'
-// import { TweenMax } from "gsap/TWEEN";
 
 
-// var createGeometry = require('three-bmfont-text');
-// var loadFont = require('load-bmfont');
+
 
 // For STATS screen (option menu) and performance measurement
 export const t0 = performance.now();
@@ -111,7 +108,7 @@ let tweenZoomIn;
 export const targetCameraTween = new THREE.Vector3(2, 1.4, 0.7); // To llok at the screen when opening a project
 
 
-const paradeAcross = document.getElementById("paradeAcross");
+// const paradeAcross = document.getElementById("paradeAcross");
 
 // init();
 
@@ -183,58 +180,7 @@ if ( WEBGL.isWebGLAvailable() ) {
  //	           	 Initialize the scene, camera and renderer              //
 ////////////////////////////////////////////////////////////////////////
 
-  /////////////////////////////////////////////////////////////////////////
- //  	             	 INITialize CSS3DRenderer scene                     //
-/////////////////////////////////////////////////////////////////////////
-function initCSS3DRenderer() {
-  rendererCSS = new CSS3DRenderer();
-  rendererCSS.setSize( window.innerWidth, window.innerHeight );
-  // rendererCSS.setPixelRatio( window.devicePixelRatio );
-  DOMElMain.appendChild( rendererCSS.domElement );
 
-  // Container element - to push to CSS3dRenderer
-  let elementContainer = document.createElement( 'div' );
-  elementContainer.className = 'screenGraphicDefault ';
-
-  // heading
-  var element = document.createElement( 'div' );
-  var headingEl = document.createElement( 'h3' );
-  headingEl.innerText = "Ben's\nportfolio";
-  element.appendChild(headingEl);
-
-  // SCREEN FRAME
-  // var windowFrame = document.createElement( 'img' );
-  // windowFrame.src = "./assets/img/windowFrame.svg";
-  // element.appendChild(windowFrame);
-
-  // moving stripe
-  /*
-  var movingStripe = document.createElement( 'div' );
-  movingStripe.className = "movingStripe";
-  element.appendChild(movingStripe);
-
-  let scratchText = document.createElement( 'div' );
-  scratchText.className = "sractchImg";
-  element.appendChild(scratchText);
-  // var scratchText = document.createElement( 'img' );
-  // scratchText.src = "./assets/img/textures/scratchTextures.jpg";
-  let barImg = document.createElement( 'img' );
-  barImg.src = "./assets/img/textures/bars.svg";
-  element.appendChild(barImg);
-  barImg = document.createElement( 'img' );
-  barImg.src = "./assets/img/textures/bars.svg";
-  element.appendChild(barImg);
-  */
-  elementContainer.appendChild(element);
-
-  screenGraphic = new CSS3DObject( elementContainer );
-  screenGraphic.position.set(-0.027, 1.455, .037);
-  screenGraphic.scale.multiplyScalar( .002 );
-  screenGraphic.rotation.order = 'YXZ'; // Super important to have the correct rotation
-  screenGraphic.rotation.set(-( 2 * Math.PI/16) + Math.PI/32, Math.PI/2, 0);
-  screenGraphic.updateMatrix();
-  cssScene.add(screenGraphic);
-}
 
 export function readyToLaunch(){
   for (let obj in objectScene) {
@@ -307,7 +253,7 @@ export function readyToLaunch(){
 
   console.log("ready To Launch",scene);
 
-  playAnimation();
+  // playAnimation();
 }
 
 
@@ -337,11 +283,11 @@ export function playTimelineAnim () {
 }
 
 
-
-function setupTween() {
-  console.log("setupTween()");
-  TWEEN.removeAll();
-}
+// TO BE DELETED
+// function setupTween() {
+//   console.log("setupTween()");
+//   TWEEN.removeAll();
+// }
 
 
 export function animate (time) {
