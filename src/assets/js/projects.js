@@ -26,14 +26,17 @@ export default {
       "img": ["homepage.png", "indesign_capture.png"],
 
       "software": {
+        "n/a": false,
         "list": ["AI", "PS", "InDD", "Laser Cut"],
         "position": {x: 800, y: 1, z: -100}
       },
       "techno": {
+        "n/a": false,
         "list": ["Bootstrap", "PHP"],
         "position": {x: 990, y: 1, z: -420}
       },
       "timeline": {
+        "n/a": false,
         "onlyTimeline": false,
         "startingYear": 2016.7,
         "len": .3,
@@ -69,20 +72,20 @@ export default {
       "category": "Freelance",
       "group": "freelance",
       "timeline": {
+        "n/a": false,
         "onlyTimeline": false,
         "startingYear": 2018.2,
         "len": 1,
         "thread": "second",
         "type": "duration",
       },
-      "language": {
-        "position": {x: 1, y: 1, z: 1}
-      },
       "software": {
+        "n/a": false,
         "list": ["AI", "PS", "inDD", "hand drawing"],
         "position": {x: 1000, y: 1, z: 160}
       },
       "techno": {
+        "n/a": false,
         "list": ["Bootstrap", "PHP", "Wordpress"],
         "position": {x: 290, y: 1, z: -400}
       }
@@ -94,7 +97,7 @@ export default {
       "description": "<p>This is a personal project to create my own map system – in place of Google Maps. The project includes the design of the elements and the coding.</p><h4>Motivations</h4><ul><li>Getting out of Google Maps</li><li>Geography and mapping</li><li>Mapbox and HTML Canvas</li><li>Learning VueJS</li></ul>",
       "code": "<p>Mapbox is used as the map engine, plus for the tileset (made with mapbox studio) and the dataset API.</p><p>VueJS on the other hand takes care of reactiveness, especially regarding the list rendering and filtering.</p><p>I used Webpack to minify and compress all the assets; however, since it's a personal project, I din't use Babel or try to use ES5 syntax specifically.</p>",
       "design": "<p>I designed all the map components (background, road hierarchy, rivers, marker, popup...) and all the interface elements (menus, listing, item, icons...).</p>Since it's a personal tool, I didn't want to go for a \"fancy\" and catchy interface, but much rather for a technical, terminal-based, effective and somewhat esoteric design. I went for a scify-inspired theme, with many influences coming from Arkham Knight, Cyberpunk 2077, the Martian, Tron, Oblivion or Halo Wars (actually many projects from GMUNK [+link] ).</p><p>An important part of the design was to build a consistent color, icon and shape system. They intend to convey states, hierarchy, triggers and expected actions</p>",
-      "screenImg": "homepage.png",
+      "images": ["ctos/homepage", "ctos/homepage", "ctos/homepage"],
       "slug": "ctos",
       "link": "https://projets.richebois.fr/citadelle/map/mobile.php",
       "category": "Personal",
@@ -106,17 +109,15 @@ export default {
         "thread": "second",
         "type": "duration"
       },
-
-      "language": {
-        "position": {x: 1, y: 1, z: 1}
-      },
       "software": {
+        "n/a": false,
         "list": ["AI", "PS"],
         "position": {x: -100, y: 1, z: 300}
       },
       "techno": {
+        "n/a": false,
         "list": ["Mapbox", "PHP", "VueJS"],
-        "position": {x: 270, y: 1, z: 280}
+        "position": {x: 270, y: 2500, z: 280}
       }
 
     }, {
@@ -134,17 +135,15 @@ export default {
       "timeline": {
         "onlyTimeline": false,
       },
-      "language": {
-        "position": {x: 1, y: 1, z: 1}
-      },
       "software": {
-        "notRelevant": true,
+        "n/a": true,
         "list": ["AI"],
         "position": {x: 1, y: 1, z: 1}
       },
       "techno": {
+        "n/a": false,
         "list": ["vis.js", "VueJS"],
-        "position": {x: 580, y: 1, z: -200}
+        "position": {x: 580, y: 2500, z: -200}
       }
 
     }, {
@@ -166,44 +165,22 @@ export default {
         "thread": "second",
         "type": "duration"
       },
-      "language": {
-        "position": {x: 1, y: 1, z: 1}
-      },
       "software": {
+        "n/a": false,
         "list": ["AI", "Photoshop"],
         "position": {x: -100, y: 1, z: -100}
       },
       "techno": {
+        "n/a": false,
         "list": ["Ruby on Rails", "Turbolink"],
-        "position": {x: 900, y: -300, z: 200}
+        "position": {x: 1100, y: 1000, z: 280}
       }
-    // }, {
-    //   "id": 6,
-    //   "name": "Portfolio",
-    //   "objectives": "ThreeJS, Webpack, advanced maths",
-    //   "year": 2019,
-    //   "description": "<p>TBC</p>",
-    //   "code": "TBC",
-    //   "design": "TBC",
-    //   "software": ["AI", "Photoshop"],
-    //   "techno": ["Ruby on Rails", "Turbolink"],
-    //   "link": "https://takacorp.herokuapp.com",
-    //   "screenImg": "homepage.png",
-    //   "slug": "portfolio/",
-    //   "category": "Personal",
-    //   "onlyTimeline": false,
-    //   "startingYear": 2018.7,
-    //   "len": 1.2,
-    //   "thread": "second",
-    //   "group": "freelance",
-    //   "type": "duration"
     }, {
       "id": 6,
       "name": "Uptime checker",
       "description": "<p>Uptime Checker is an internal tool to monitor and get notified if one of the website we're managing is down.</p><h4>Coding motivations</h4><ul><li>Learning Python + micro framework (Flask)</li><li>Reactive app and xhr calls</li></ul>",
       "year": 2019,
       "code": "TBC",
-      "design": "TBC",
       "link": "",
       "screenImg": "homepage.png",
       "slug": "uptime/",
@@ -216,18 +193,18 @@ export default {
         "thread": "second",
         "type": "duration",
       },
-      "language": {
-        "position": {x: 1, y: 1, z: 1}
-      },
       "software": {
+        "n/a": true,
         "list": [],
         "position": {x: 1, y: 1, z: 1}
       },
       "techno": {
+        "n/a": false,
         "list": ["Python", "Flask", "Vue"],
-        "position": {x: 250, y: 1, z: -200}
+        "position": {x: 250, y: 2500, z: -200}
       }
     }, {
+      "id": 7,
       "name": "Geography studies",
       "group": "study",
       "timeline": {
@@ -266,8 +243,18 @@ export default {
             "level": 2
           }
         ]
+      },
+      "software": {
+        "n/a": true,
+        "position": {x: 1, y: 1, z: 1}
+      },
+      "techno": {
+        "n/a": true,
+        "position": {x: 1, y: 1, z: 1}
       }
+
     }, {
+      "id": 8,
       "name": "Master (EMLyon & Centrale Lyon)",
       "group": "study",
       "timeline": {
@@ -276,8 +263,17 @@ export default {
         "thread": "main",
         "type": "duration",
         "onlyTimeline": true,
+      },
+      "software": {
+        "n/a": true,
+        "position": {x: 1, y: 1, z: 1}
+      },
+      "techno": {
+        "n/a": true,
+        "position": {x: 1, y: 1, z: 1}
       }
     }, {
+      "id": 9,
       "name": "Internship - CAPSA Container",
       "description": "With essay", // DON't FORGET THE MEMOIRE
       "group": "work",
@@ -289,11 +285,17 @@ export default {
         "onlyTimeline": true,
       },
       "software": {
+        "n/a": false,
         "list": ["AI", "Photoshop"],
         "position": {x: 900, y: 1, z: -360}
+      },
+      "techno": {
+        "n/a": true,
+        "position": {x: 580, y: 1, z: -200}
       }
 
     }, {
+      "id": 10,
       "name": "Diplome Master",
       "group": "study",
       "timeline": {
@@ -302,8 +304,17 @@ export default {
         "thread": "main",
         "type": "event",
         "onlyTimeline": true,
+      },
+      "software": {
+        "n/a": true,
+        "position": {x: 1, y: 1, z: 1}
+      },
+      "techno": {
+        "n/a": true,
+        "position": {x: 1, y: 1, z: 1}
       }
     }, {
+      "id": 11,
       "name": "freelance",
       "group": "work",
       "timeline": {
@@ -312,8 +323,17 @@ export default {
         "thread": "main",
         "type": "duration",
         "onlyTimeline": true,
+      },
+      "software": {
+        "n/a": true,
+        "position": {x: 1, y: 1, z: 1}
+      },
+      "techno": {
+        "n/a": true,
+        "position": {x: 1, y: 1, z: 1}
       }
     }, {
+      "id": 12,
       "name": "MonMentor",
       "group": "work",
       "timeline": {
@@ -323,18 +343,18 @@ export default {
         "type": "duration",
         "onlyTimeline": true,
       },
-      "language": {
-        "position": {x: 1, y: 1, z: 1}
-      },
       "software": {
+        "n/a": false,
         "list": ["AI"],
         "position": {x: 40, y: 1, z: -80}
       },
       "techno": {
+        "n/a": false,
         "list": ["Bootstrap", "JS", "Ruby on Rails"],
-        "position": {x: 1350, y: 1, z: 240}
+        "position": {x: 1500, y: 1, z: 240}
       }
     }, {
+      "id": 13,
       "name": "Kicklaws",
       "group": "work",
       "timeline": {
@@ -344,18 +364,17 @@ export default {
         "type": "duration",
         "onlyTimeline": true,
       },
-      "language": {
-        "position": {x: 1, y: 1, z: 1}
-      },
       "software": {
-        "list": [],
+        "n/a": true,
         "position": {x: 1, y: 1, z: 1}
       },
       "techno": {
+        "n/a": false,
         "list": ["Bootstrap", "PHP", "Ruby on rails"],
         "position": {x: 1000, y: 1, z: -280}
       }
     }, {
+      "id": 14,
       "name": "Vietnam",
       "group": "perso",
       "timeline": {
@@ -364,8 +383,17 @@ export default {
         "thread": "main",
         "type": "duration",
         "onlyTimeline": true,
+      },
+      "software": {
+        "n/a": true,
+        "position": {x: 1, y: 1, z: 1}
+      },
+      "techno": {
+        "n/a": true,
+        "position": {x: 1, y: 1, z: 1}
       }
     }, {
+      "id": 15,
       "name": "BLISS",
       "group": "work",
       "timeline": {
@@ -374,8 +402,17 @@ export default {
         "thread": "main",
         "type": "duration",
         "onlyTimeline": true,
+      },
+      "software": {
+        "n/a": true,
+        "position": {x: 1, y: 1, z: 1}
+      },
+      "techno": {
+        "n/a": true,
+        "position": {x: 1, y: 1, z: 1}
       }
     }, {
+      "id": 16,
       "name": "Year of Engineering",
       "group": "work",
       "timeline": {
@@ -385,18 +422,18 @@ export default {
         "type": "duration",
         "onlyTimeline": true,
       },
-      "language": {
-        "position": {x: 1, y: 1, z: 1}
-      },
       "software": {
+        "n/a": false,
         "list": ["AI"],
         "position": {x: 1, y: 1, z: 1}
       },
       "techno": {
+        "n/a": false,
         "list": ["React"],
-        "position": {x: 150, y: 150, z: 100}
+        "position": {x: 150, y: 2500, z: 100}
       }
     }, {
+      "id": 17,
       "name": "CCM",
       "group": "work",
       "timeline": {
@@ -406,21 +443,18 @@ export default {
         "type": "duration",
         "onlyTimeline": true,
       },
-      "language": {
-        "position": {x: 1, y: 1, z: 1}
-      },
       "software": {
+        "n/a": false,
         "list": ["AI"],
         "position": {x: 200, y: 1, z: 60}
       },
       "techno": {
+        "n/a": false,
         "list": ["React", "JS"],
-        "position": {x: 485, y: 1, z: 420}
-      },
-      "language": {
-        "position": {x: 1, y: 1, z: 1}
+        "position": {x: 485, y: 270, z: 420}
       }
     }, {
+      "id": 18,
       "name": "Identidy and branding",
       "group": "work",
       "timeline": {
@@ -430,19 +464,21 @@ export default {
         "type": "duration",
         "onlyTimeline": true,
       },
-      "language": {
-        "position": {x: 1, y: 1, z: 1}
-      },
       "software": {
+        "n/a": false,
         "list": ["AI", "PS", "InDD"],
         "position": {x: 430, y: 1, z: -60}
       },
       "techno": {
+        "n/a": true,
         "list": ["React"],
         "position": {x: 1, y: 1, z: 1}
       }
     }, {
+      "id": 19,
       "name": "Chrome Extension",
+      "description": "I built up a Chrome Extension to enhance an internal tool used for time management and tracking. The extension intended to overcome some missing features, such as the ability to color and filter bookings based upon defined Tags and Phases.",
+      "year": 2020,
       "group": "work",
       "timeline": {
         "startingYear": 2020.1,
@@ -451,19 +487,21 @@ export default {
         "type": "duration",
         "onlyTimeline": false,
       },
-      "language": {
-        "position": {x: 1, y: 1, z: 1}
-      },
       "software": {
-        "list": ["AI", "PS", "InDD", "Laser Cut"],
+        "n/a": true,
         "position": {x: 1, y: 1, z: 1}
       },
       "techno": {
+        "n/a": false,
         "list": ["JS", "Chrome"],
-        "position": {x: 800, y: 1, z: -110}
+        "position": {x: 800, y: 2400, z: -110}
       }
     }, {
+      "id": 20,
       "name": "Family Medical Practice",
+      "description": "FMP is a Vietnamese health provider. We revamp their website, both design and coding.",
+      "code": "Powered by React and NextJS (and Wagtail for the CMS), the new website intended to be reactive and dynamic. While I din't work on the set up, I developed a large part of the website and handled most of the later change requests.",
+      "design": "I design only few elements of the website. However, I built a large part of the website structure, coming up with sitemap, wireframes and flows",
       "group": "work",
       "timeline": {
         "startingYear": 2019.6,
@@ -472,16 +510,47 @@ export default {
         "type": "duration",
         "onlyTimeline": false,
       },
-      "language": {
-        "position": {x: 1, y: 1, z: 1}
-      },
       "software": {
+        "n/a": false,
         "list": ["AI", "PS"],
         "position": {x: 320, y: 1, z: 290}
       },
       "techno": {
+        "n/a": false,
         "list": ["React", "JS"],
-        "position": {x: 650, y: 1, z: 330}
+        "position": {x: 650, y: 2600, z: 330}
+      }
+    }, {
+      "id": 21,
+      "name": "Portfolio",
+      "objectives": "ThreeJS, Webpack, advanced maths",
+      "year": 2019,
+      "description": "<p>TBC</p>",
+      "code": "TBC",
+      "design": "TBC",
+      "link": "https://takacorp.herokuapp.com",
+      "screenImg": "homepage.png",
+      "slug": "portfolio/",
+      "category": "Personal",
+      "group": "freelance",
+      "timeline": {
+        "onlyTimeline": false,
+        "startingYear": 2018.7,
+        "len": 1.2,
+        "thread": "second",
+        "type": "duration",
+
+      },
+      "software": {
+        "n/a": false,
+        "list": ["AI", "PS"],
+        "position": {x: 320, y: 1, z: 290}
+      },
+      "techno": {
+        "n/a": false,
+        "techno": ["ThreeJS", "VueJS", "Webpack"],
+        "list": ["React", "JS"],
+        "position": {x: 900, y: 2600, z: 200}
       }
     }
   ],
@@ -489,7 +558,7 @@ export default {
     "techno": [
       {
         "name": "Javascript",
-        "position": {x: 500, y: 200, z: 60},
+        "position": {x: 500, y: 2600, z: 60},
         "icon": "js.svg"
       }, {
         "name": "Python",

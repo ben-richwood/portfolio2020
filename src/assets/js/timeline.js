@@ -329,13 +329,15 @@ export function init() {
   		let wrapper = document.createElement( 'div' );
   		wrapper.className = 'name title';
 
-  		// wrapper.textContent = el.name;
-  		wrapper.innerHTML = `${el.name}<br/>${el.position.x} / ${el.position.z}`;
-  		// element.appendChild( content );
+  		if (settings.isDebugMode) {
+        wrapper.innerHTML = `${el.name}<br/>${el.position.x} / ${el.position.z}`;
+      } else {
+        wrapper.textContent = el.name;
+      }
+
   		bg.appendChild( icon );
   		element.appendChild( bg );
   		element.appendChild( wrapper );
-
 
   		let object = new CSS3DObject( element );
       object.position.x = el.position.x;
@@ -347,28 +349,32 @@ export function init() {
   	}
   }
 
-  console.log("symbols", symbols);
-
 
   for ( let i = 0, j = projects.list.length; i < j; i++ ) {
     let el = projects.list[i];
 
 		let element = document.createElement( 'div' );
-		element.className = 'element detail';
+		element.className = 'element detail node';
+    element.setAttribute("data-id", el.id);
 		// element.style.backgroundColor = 'rgba(0,127,127,' + ( Math.random() * 0.5 + 0.25 ) + ')';
 
 		let wrapper = document.createElement( 'div' );
-		wrapper.className = 'name into-detail';
+		wrapper.className = 'name into-detail node';
+    wrapper.setAttribute("data-id", el.id);
 
 		let content = document.createElement( 'div' );
-		content.className = 'desc';
+		content.className = 'desc node';
     content.textContent = el.name;
+    content.setAttribute("data-id", el.id);
 
     let techno = document.createElement( 'div' );
     if (el.techno && el.techno.list) {
   		techno.className = 'techno';
-      // techno.textContent = el.techno.list.join(", ");
-      techno.textContent = el.techno.position.x + " / " + el.techno.position.z;
+      if (settings.isDebugMode) {
+        techno.textContent = el.techno.position.x + " / " + el.techno.position.z;
+      } else {
+        techno.textContent = el.techno.list.join(", ");
+      }
     }
 
 		wrapper.appendChild( content );
@@ -385,10 +391,14 @@ export function init() {
     object.rotation.x = -Math.PI/2;
 		cssScene.add( object );
 
-		objects.push( object );
+    let na = false;
+    if (el.techno && el.techno["n/a"] && el.techno["n/a"] === true) na = true
+
+		// objects.push( object );
+    objects.push( object );
 
     var object = new THREE.Object3D();
-    if (el.techno) {
+    if (el.techno && !el.techno["n/a"] && el.techno.position) {
       object.position.x = el.techno.position.x;
       object.position.z = el.techno.position.z;
     }  else {
@@ -396,22 +406,21 @@ export function init() {
       object.position.z = 0;
     }
     object.rotation.x = -Math.PI/2;
-    targets.techno.push( object );
+
+    targets.techno.push( {"n/a": na, obj: object} );
 	}
+  console.log(targets);
 
   // SOFTWARE
   var vector = new THREE.Vector3();
 
 	for ( var i = 0, l = objects.length; i < l; i ++ ) {
     let el = projects.list[i];
-
-		// var phi = Math.acos( - 1 + ( 2 * i ) / l );
-		// var theta = Math.sqrt( l * Math.PI ) * phi;
+    let na = false
+    if (el.software && el.software["n/a"] && el.software["n/a"] === true) na = true;
 
     if (el.software) {
   		var object = new THREE.Object3D();
-  		// object.position.setFromSphericalCoords( 800, phi, theta );
-  		// vector.copy( object.position ).multiplyScalar( 2 );
       object.position.x = el.software.position.x;
       object.position.z = el.software.position.z;
     } else {
@@ -420,7 +429,8 @@ export function init() {
     }
     object.rotation.x = -Math.PI/2;
     // object.lookAt( vector );
-    targets.software.push( object );
+    // targets.software.push( object );
+    targets.software.push( {"n/a": na, obj: object} );
 	}
 
   // ALL
@@ -449,7 +459,8 @@ export function init() {
 
     object.rotation.x = -Math.PI/2;
     // object.lookAt( vector );
-    targets.all.push( object );
+    targets.all.push( {"n/a": false, obj: object} );
+    // targets.all.push( object );
 
     previousPos = previousPos + distNode;
 	}
@@ -501,8 +512,6 @@ export function init() {
   scene.add( light );
   var light = new THREE.AmbientLight( 0x222222 );
   scene.add( light );
-
-  transform( targets.techno, 2000 );
   //
   window.addEventListener( 'resize', onWindowResize, false );
   // animate();
@@ -542,31 +551,51 @@ export function pauseAnimation() {
 }
 
 export function transform( targets, duration ) {
+
+  console.log(settings.currFilter, targets.length, objects.length);
+  console.log(targets);
+
 	TWEEN.removeAll();
   if (settings.currFilter !== "all"){
     if (settings.prevFilter != settings.currFilter){
-      for ( let i = 0, j = symbols[settings.prevFilter].length; i < j; i++ ) {
-        symbols[settings.prevFilter][i].element.classList.add("hide-symbol");
+      if (settings.prevFilter !== "all"){
+        for ( let i = 0, j = symbols[settings.prevFilter].length; i < j; i++ ) {
+          symbols[settings.prevFilter][i].element.classList.add("hide-symbol");
+        }
       }
       for ( let i = 0, j = symbols[settings.currFilter].length; i < j; i++ ) {
         if (symbols[settings.currFilter][i].element.classList.contains("hide-symbol")) symbols[settings.currFilter][i].element.classList.remove("hide-symbol");
       }
     }
+  } else {
+    for ( let i = 0, j = symbols[settings.prevFilter].length; i < j; i++ ) {
+      symbols[settings.prevFilter][i].element.classList.add("hide-symbol");
+    }
   }
 	for ( var i = 0; i < objects.length; i++ ) {
 		var object = objects[ i ];
-		var target = targets[ i ];
+		var target = targets[ i ].obj;
 
-		new TWEEN.Tween( object.position )
-			.to( { x: target.position.x, y: target.position.y, z: target.position.z }, Math.random() * duration + duration )
-			.easing( TWEEN.Easing.Exponential.InOut )
-			.start();
+    console.log(targets[ i ]["n/a"]);
 
-		new TWEEN.Tween( object.rotation )
-			.to( { x: target.rotation.x, y: target.rotation.y, z: target.rotation.z }, Math.random() * duration + duration )
-			.easing( TWEEN.Easing.Exponential.InOut )
-			.start();
+    if (targets[ i ]["n/a"] === true){
+      object.element.classList.add("hide-el");
+    } else {
+      // console.log("object", object);
+      if (object.element.classList.contains("hide-el")) object.element.classList.remove("hide-el");
+
+  		new TWEEN.Tween( object.position )
+  			.to( { x: target.position.x, y: target.position.y, z: target.position.z }, Math.random() * duration + duration )
+  			.easing( TWEEN.Easing.Exponential.InOut )
+  			.start();
+
+  		new TWEEN.Tween( object.rotation )
+  			.to( { x: target.rotation.x, y: target.rotation.y, z: target.rotation.z }, Math.random() * duration + duration )
+  			.easing( TWEEN.Easing.Exponential.InOut )
+  			.start();
+    }
 	}
+
 	new TWEEN.Tween( this )
 		.to( {}, duration * 2 )
 		.onUpdate( render )

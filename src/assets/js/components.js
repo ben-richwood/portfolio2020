@@ -56,7 +56,7 @@ export const keyboardMap = {
   kb_default: {
     prev: ["ArrowLeft", "⟵"],
     next: ["ArrowRight", "⟶"],
-    accept: ["Space bar", "SPACE"],
+    accept: ["Space", "SPACE"],
     option: ["Escape", "ESC"]
   },
   kb_gamer: {
@@ -68,7 +68,7 @@ export const keyboardMap = {
   kb_vim: {
     prev: ["h", "H"],
     next: ["l", "L"],
-    accept: ["Space bar", "SPACE"],
+    accept: ["Space", "SPACE"],
     option: ["Escape", "ESC"]
   },
 }
@@ -96,6 +96,7 @@ function Settings (e) {
     this.isTimelineLoaded = false;
     this.currFilter = "techno";
     this.prevFilter = "techno";
+    this.isDetailOpen = false;
 
     // OPTIONS
     this.muteSound = false;
@@ -152,6 +153,7 @@ export const Popup = new Vue({
       this.isIntroOff = true;
       selectPerf = false;
       settings.isPaused = false;
+      tl.transform( tl.targets.techno, 2000 );
     },
     exploreWork: function () {
       this.displayConfig = false;
@@ -265,13 +267,79 @@ export const optionMenu = new Vue({
   }
 })
 
+export const detailPopup = new Vue ({
+  el: "#details",
+  data: {
+    isOpen: false,
+    name: "",
+    icons: "",
+    data: "",
+    images: []
+  },
+  methods: {
+    open: function (id) {
+      settings.isDetailOpen = true;
+      let prj = Projects.list.find(e => e["id"] === parseInt(id) );
+      this.name = prj.name;
+      this.icons = "";
+      this.images = [];
+      let htmlToPrint = "";
+      if (prj.techno && prj.techno.list && prj.techno.list.length > 0) {
+        prj.techno.list.forEach((item, i) => {
+          this.icons += `<span class="techno-item">${item}</span>`
+        });
+      }
+
+      if (prj.year) {
+        htmlToPrint += `<p>${prj.year}</p>`
+      }
+      htmlToPrint += prj.description;
+
+      if (prj.code) {
+        htmlToPrint += `<h3>Code</h3>${prj.code}`
+      }
+      if (prj.design) {
+        htmlToPrint += `<h3>Design</h3>${prj.design}`
+      }
+      if (prj.link) {
+        htmlToPrint += `<div><a href="${prj.link}" ${settings.linksNewTab ? "target='_blank'" : ""} title="Link to ${prj.name}">See the website</a></div>`
+      }
+      this.data = htmlToPrint
+
+      if (prj.images && prj.images.length > 0) {
+        let counter = 0;
+        prj.images.forEach((item, i) => {
+          this.images.push({
+            id: counter,
+            src: item,
+            srcJpg: `assets/img/projects/${item}.jpg`,
+            srcJp2: `assets/img/projects/${item}.jp2`,
+            srcWebp: `assets/img/projects/${item}.webp`,
+          });
+          counter++;
+        });
+      }
+      console.log("this.images", this.images);
+      legendMenu.showLegendForDetail = true;
+      this.isOpen = true;
+    },
+    close: function () {
+      legendMenu.showLegend = false;
+      legendMenu.showLegendForDetail = false;
+      settings.isDetailOpen = false;
+      this.isOpen = false;
+    }
+  }
+})
+
 export const legendMenu = new Vue({
   el: "#legend",
   data: {
     showLegend: true,
     keyMap: {
       ...settings.keyboardConfig
-    }
+    },
+    showLegendForDetail: false
   },
   methods: {
     techno: function () {
@@ -306,6 +374,14 @@ function changeLoadingText() {
   if (phraseCounter >= LoadingPhrases.length) phraseCounter = 0;
 }
 
+document.getElementById("DOMElTimeline").addEventListener("click", evt => {
+  console.log(evt);
+  if (evt.target.classList.contains("node")){
+    let id = evt.target.getAttribute("data-id");
+    detailPopup.open(id);
+  }
+}, true)
+
 document.addEventListener('keyup', (event) => {
   const keyName = event.key;
   const keyCode = event.code
@@ -327,10 +403,14 @@ document.addEventListener('keyup', (event) => {
       // return
     }
   }
-  if (keyName === settings.keyboardConfig.option[0]) {
-    optionMenu.toogle();
-  }
+  // if (keyName === settings.keyboardConfig.option[0]) {
+  //   optionMenu.toogle();
+  // }
   if (keyCode === settings.keyboardConfig.accept[0]) {
-    legendMenu.showLegend = !legendMenu.showLegend;
+    if (settings.isDetailOpen) {
+      detailPopup.close();
+    } else {
+      legendMenu.showLegend = !legendMenu.showLegend;
+    }
   }
 }, false);
