@@ -17,6 +17,7 @@ $font-monospace: Menlo,Consolas,Monaco,Lucida Console,Liberation Mono,DejaVu San
 $highlightColor: #FFF200;
 $selectedKey: rgba(148, 246, 255, 0.7);
 $popupBgColor: #222833;
+$mainColor: #11517F;
 
 @import "partials/reset";
 @import "partials/_customClass";
@@ -953,6 +954,7 @@ code {
   padding: 0 8px;
 }
 
+@import "partials/_legend";
 @import "partials/_timeline";
 
 

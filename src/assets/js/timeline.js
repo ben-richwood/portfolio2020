@@ -329,11 +329,11 @@ export function init() {
   		let wrapper = document.createElement( 'div' );
   		wrapper.className = 'name title';
 
-  		if (settings.isDebugMode) {
-        wrapper.innerHTML = `${el.name}<br/>${el.position.x} / ${el.position.z}`;
-      } else {
+  		// if (settings.isDebugMode) {
+      //   wrapper.innerHTML = `${el.name}<br/>${el.position.x} / ${el.position.z}`;
+      // } else {
         wrapper.textContent = el.name;
-      }
+      // }
 
   		bg.appendChild( icon );
   		element.appendChild( bg );
@@ -370,11 +370,11 @@ export function init() {
     let techno = document.createElement( 'div' );
     if (el.techno && el.techno.list) {
   		techno.className = 'techno';
-      if (settings.isDebugMode) {
-        techno.textContent = el.techno.position.x + " / " + el.techno.position.z;
-      } else {
-        techno.textContent = el.techno.list.join(", ");
-      }
+      // if (settings.isDebugMode) {
+      //   techno.textContent = el.techno.position.x + " / " + el.techno.position.z;
+      // } else {
+        techno.innerHTML = el.techno.list.join(", ") + "<br/>" + el.summary;
+      // }
     }
 
 		wrapper.appendChild( content );
@@ -436,7 +436,7 @@ export function init() {
   // ALL
   var vector = new THREE.Vector3();
 
-  const distNode = 200
+  const distNode = 235
   let previousPos = -300
   let previousZ = -400;
 

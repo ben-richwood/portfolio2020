@@ -1,6 +1,6 @@
 <div id="legend">
   <div class="legend" v-show="showLegend">
-    <h3 style="margin-top:.3rem;">Legend</h3>
+    <h3 style="margin-top:.3rem;">Project filtering</h3>
     <!-- <div class="legend-row">
       <div class="qub main"> </div>
       <div class="text">Main thread</div>
@@ -17,23 +17,23 @@
       <div class="qub study"> </div>
       <div class="text">Study</div>
     </div> -->
-    <div class="">
-      <button @click="techno">Techno</button>
+    <div @click="techno" class="filter-item" :class="selectedFilter === 'techno' ? 'selected' : ''">
+      <button>Code</button>
     </div>
-    <div class="">
-      <button @click="software">Software</button>
+    <div @click="software" class="filter-item" :class="selectedFilter === 'software' ? 'selected' : ''">
+      <button>Design</button>
     </div>
-    <div class="">
-      <button @click="timeline">Timeline</button>
-    </div>
-    <div class="">
-      <button @click="all">All</button>
+    <!-- <div @click="timeline" class="filter-item" :class="selectedFilter ? 'selected' : ''">
+      <button>Timeline</button>
+    </div> -->
+    <div @click="all" class="filter-item" :class="selectedFilter === 'all' ? 'selected' : ''">
+      <button>All</button>
     </div>
   </div>
 
   <div class="key-legend" v-if="showLegendForDetail">
-    <div class="key-block">
-      <div class="key" style="padding-right:6rem;">{{ keyMap.accept[1] }}</div>
+    <div class="key-block openMenu">
+      <div class="key">{{ keyMap.option[1] }}</div>
       <label for="">Close detail</label>
     </div>
   </div>

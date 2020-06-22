@@ -14,6 +14,7 @@ export default {
     {
       "id": 0,
       "name": "Peafowl Consulting",
+      "summary": "Corporate website for a consulting company",
       "year": 2016,
       "description": "<p>Peafowl Consulting is a company which offers tests and trainings to reinforce sale teams and colleagues' engagement.</p><p>Furthermore, Peafowl Consulting counts few side projects: Peafowl Foundation (charity project), PTalk (entrepreneur talks), Peafowl Cup (sponsored sport events) and punctual events.</p><p>I drew the graphic guideline and developed the website. I also worked on the logo of the two spin-off projects Peafowl Foundation & P-Talk.</p><p>Finally, I proposed layouts for training supports and internal documents.</p>",
       "design": "<p>I draw the graphic guideline and developed the website. I also worked on the logo of the two spin-off projects Peafowl Foundation & P-Talk.</p><p>Finally, I proposed layouts for training supports and internal documents.</p><p>For the kick-off event, I made few proposals and experimentations for the invitations. We wanted something prestigious and refined. After few attempts with the laser cut, I finally came for for a printed version, with golden letters; the laser cut was not properly calibrated to get satisfying results.</p>",
@@ -62,6 +63,7 @@ export default {
     }, {
       "id": 2,
       "name": "Go Mékong Evasion",
+      "summary": "Wordpress website for a travel agency",
       "year": 2017,
       "description": "<p>Go Mékong Evasion (GME) is a travel agency that bring travelers off the beaten track and go into Mekong depths.</p><h4>Motivations</h4><ul><li>Not only working on websdesign</li></ul>",
       "code": "The website is based on Wordpress, to allow the client to easily edit the content.",
@@ -92,6 +94,7 @@ export default {
     }, {
       "id": 3,
       "name": "ctOS",
+      "summary": "Personal project to build my own map system",
       "objectives": "ES6, class constructor, VueJS",
       "year": 2018,
       "description": "<p>This is a personal project to create my own map system – in place of Google Maps. The project includes the design of the elements and the coding.</p><h4>Motivations</h4><ul><li>Getting out of Google Maps</li><li>Geography and mapping</li><li>Mapbox and HTML Canvas</li><li>Learning VueJS</li></ul>",
@@ -123,6 +126,7 @@ export default {
     }, {
       "id": 4,
       "name": "Tool explorer",
+      "summary": "Personal project to map useful web dev common services",
       "objectives": "Data vizualisation and Graph, VueJS, canvas",
       "year": 2019,
       "description": "<p>Web tools are countless. And part of my job as a webdeveloper is to use the right tool at the right moment for the right job. It's hard to keep track of all of them; that why I started this tool. It intends to map all the tools I used or heard about and to display them in an comprehensive way, highlighting the relations between them.</p><h4>Motivations</h4><ul><li>HTMLCanvas</li><li>Working on data vizualization</li><li>A suitable tool to organize all softwares and libs</li></ul>",
@@ -149,6 +153,7 @@ export default {
     }, {
       "id": 5,
       "name": "Takacorp Studio",
+      "summary": "E-commerce website for manga products",
       "year": 2018,
       "description": "<p>Takacorp is a e-commerce website that sell high quality manga figurines. For this website, I realized all the design and all the development.</p><p>Let’s face it: payment was a big challenge, on the ground that the website accepts 3 different types of payment (Stripe, Monetico and Paypal), by card, Paypal and with staggered payment for 2, 3, 4 and 10 months. Moreover, the website is also SCA compliant - the new European payment regulation. I learnt a lot about Stripe API, webhooks, routing, banking regulations and such.</p>",
       "design": "<p>There were two parts:<br>First I drew up a document that exposes the design intentions and principles.</p><p>Over a second phase, I realized the detailed design guideline document that contain the mockups of all the pages. It implies the design of all the individual components, plus the color and font system.</p><p>Regarding the guideline, I defined 2 main directions: staging the products and \"a website made by fans for fans\".<br> Manga is a visual medium; it's all about animation, storytelling and rhythm. The website had to use the same codes. The focus was to stage the products, through layout, animations and visuals.</p>",
@@ -178,6 +183,7 @@ export default {
     }, {
       "id": 6,
       "name": "Uptime checker",
+      "summary": "Internal tool to track uptime website and domain names",
       "description": "<p>Uptime Checker is an internal tool to monitor and get notified if one of the website we're managing is down.</p><h4>Coding motivations</h4><ul><li>Learning Python + micro framework (Flask)</li><li>Reactive app and xhr calls</li></ul>",
       "year": 2019,
       "code": "TBC",
@@ -206,6 +212,7 @@ export default {
     }, {
       "id": 7,
       "name": "Geography studies",
+      "summary": "Degree in Geography",
       "group": "study",
       "timeline": {
         "startingYear": 2009.7,
@@ -256,6 +263,7 @@ export default {
     }, {
       "id": 8,
       "name": "Master (EMLyon & Centrale Lyon)",
+      "summary": "Master degree in Entrepreneuship and Design",
       "group": "study",
       "timeline": {
         "startingYear": 2013.7,
@@ -275,6 +283,7 @@ export default {
     }, {
       "id": 9,
       "name": "Internship - CAPSA Container",
+      "summary": "Intership",
       "description": "With essay", // DON't FORGET THE MEMOIRE
       "group": "work",
       "timeline": {
@@ -297,6 +306,7 @@ export default {
     }, {
       "id": 10,
       "name": "Diplome Master",
+      "summary": "End of Master degree",
       "group": "study",
       "timeline": {
         "startingYear": 2015,
@@ -316,6 +326,7 @@ export default {
     }, {
       "id": 11,
       "name": "freelance",
+      "summary": "Various web development jobs",
       "group": "work",
       "timeline": {
         "startingYear": 2016,
@@ -335,6 +346,7 @@ export default {
     }, {
       "id": 12,
       "name": "MonMentor",
+      "summary": "Platform/marketplace to match mentors and learners",
       "group": "work",
       "timeline": {
         "startingYear": 2015,
@@ -356,6 +368,7 @@ export default {
     }, {
       "id": 13,
       "name": "Kicklaws",
+      "summary": "Web platform where opinions matter",
       "group": "work",
       "timeline": {
         "startingYear": 2015.5,
@@ -376,6 +389,7 @@ export default {
     }, {
       "id": 14,
       "name": "Vietnam",
+      "summary": "Work and life in Vietnam",
       "group": "perso",
       "timeline": {
         "startingYear": 2016,
@@ -414,6 +428,7 @@ export default {
     }, {
       "id": 16,
       "name": "Year of Engineering",
+      "summary": "UK government project to promote engineering",
       "group": "work",
       "timeline": {
         "startingYear": 2017.8,
@@ -435,6 +450,7 @@ export default {
     }, {
       "id": 17,
       "name": "CCM",
+      "summary": "Internal tool to manage creative process",
       "group": "work",
       "timeline": {
         "startingYear": 2019.4,
@@ -456,6 +472,7 @@ export default {
     }, {
       "id": 18,
       "name": "Identidy and branding",
+      "summary": "Developping company brand and culture",
       "group": "work",
       "timeline": {
         "startingYear": 2019,
@@ -477,6 +494,7 @@ export default {
     }, {
       "id": 19,
       "name": "Chrome Extension",
+      "summary": "Internal projet to enhance an existing booking management service",
       "description": "I built up a Chrome Extension to enhance an internal tool used for time management and tracking. The extension intended to overcome some missing features, such as the ability to color and filter bookings based upon defined Tags and Phases.",
       "year": 2020,
       "group": "work",
@@ -499,6 +517,7 @@ export default {
     }, {
       "id": 20,
       "name": "Family Medical Practice",
+      "summary": "Website revamping for the largest care provider in Vietnam",
       "description": "FMP is a Vietnamese health provider. We revamp their website, both design and coding.",
       "code": "Powered by React and NextJS (and Wagtail for the CMS), the new website intended to be reactive and dynamic. While I din't work on the set up, I developed a large part of the website and handled most of the later change requests.",
       "design": "I design only few elements of the website. However, I built a large part of the website structure, coming up with sitemap, wireframes and flows",
@@ -523,6 +542,7 @@ export default {
     }, {
       "id": 21,
       "name": "Portfolio",
+      "summary": "About this website",
       "objectives": "ThreeJS, Webpack, advanced maths",
       "year": 2019,
       "description": "<p>TBC</p>",

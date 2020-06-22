@@ -112,6 +112,7 @@ function Settings (e) {
 const date = new Date;
 const hour = date.getHours();
 export const settings = new Settings({currentEnv: 1, isItNight: hour > 18 });
+const domElTimeline = document.getElementById("DOMElTimeline");
 
 export const Popup = new Vue({
   el: "#intro",
@@ -321,9 +322,11 @@ export const detailPopup = new Vue ({
       }
       console.log("this.images", this.images);
       legendMenu.showLegendForDetail = true;
+      domElTimeline.classList.add("blurred")
       this.isOpen = true;
     },
     close: function () {
+      domElTimeline.classList.remove("blurred")
       legendMenu.showLegend = false;
       legendMenu.showLegendForDetail = false;
       settings.isDetailOpen = false;
@@ -339,27 +342,32 @@ export const legendMenu = new Vue({
     keyMap: {
       ...settings.keyboardConfig
     },
-    showLegendForDetail: false
+    showLegendForDetail: false,
+    selectedFilter: "techno"
   },
   methods: {
     techno: function () {
-      settings.prevFilter = settings.currFilter
+      settings.prevFilter = settings.currFilter;
       settings.currFilter = "techno"
+      this.selectedFilter = settings.currFilter;
       tl.transform( tl.targets.techno, 2000 );
     },
     software: function () {
-      settings.prevFilter = settings.currFilter
+      settings.prevFilter = settings.currFilter;
       settings.currFilter = "software"
+      this.selectedFilter = settings.currFilter;
       tl.transform( tl.targets.software, 2000 );
     },
     timeline: function () {
-      settings.prevFilter = settings.currFilter
+      settings.prevFilter = settings.currFilter;
       settings.currFilter = "timeline"
+      this.selectedFilter = settings.currFilter;
       tl.transform( tl.targets.timeline, 2000 );
     },
     all: function () {
-      settings.prevFilter = settings.currFilter
+      settings.prevFilter = settings.currFilter;
       settings.currFilter = "all"
+      this.selectedFilter = settings.currFilter;
       tl.transform( tl.targets.all, 2000 );
     }
   }
@@ -374,8 +382,8 @@ function changeLoadingText() {
   if (phraseCounter >= LoadingPhrases.length) phraseCounter = 0;
 }
 
-document.getElementById("DOMElTimeline").addEventListener("click", evt => {
-  console.log(evt);
+domElTimeline.addEventListener("click", evt => {
+  // console.log(evt);
   if (evt.target.classList.contains("node")){
     let id = evt.target.getAttribute("data-id");
     detailPopup.open(id);
@@ -403,12 +411,15 @@ document.addEventListener('keyup', (event) => {
       // return
     }
   }
-  // if (keyName === settings.keyboardConfig.option[0]) {
-  //   optionMenu.toogle();
-  // }
-  if (keyCode === settings.keyboardConfig.accept[0]) {
+  if (keyName === settings.keyboardConfig.option[0]) {
+    // optionMenu.toogle();
     if (settings.isDetailOpen) {
       detailPopup.close();
+    }
+  }
+  if (keyCode === settings.keyboardConfig.accept[0]) {
+    if (settings.isDetailOpen) {
+      // detailPopup.close();
     } else {
       legendMenu.showLegend = !legendMenu.showLegend;
     }

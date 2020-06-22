@@ -1,0 +1,117 @@
+.key-legend{
+  	position: fixed;
+  	bottom: 2rem;
+  	right: 2rem;
+  	display: flex;
+  	justify-content: flex-end;
+  	flex-direction: row;
+  	z-index: 55;
+    .key-block{
+      display: flex;
+      justify-content: flex-start;
+      flex-direction: row;
+      margin-left: 3rem;
+      align-items: center;
+      .key{
+        font-size: .8em;
+        box-shadow: 1px 0 1px 0 #eee,0 2px 0 2px #ccc,0 2px 0 3px #444;
+        -webkit-border-radius: 3px;
+        -moz-border-radius: 3px;
+        border-radius: 2px;
+        margin: 2px 3px;
+        padding: 1px 5px;
+        text-align: left;
+        white-space: nowrap;
+        margin-right: 1rem;
+        border: 1px solid #5555;
+        width: initial;
+        min-width: 28px;
+        color: #333;
+        height: 28px;
+        padding-right: 0.4rem;
+        background: rgba(235,235,235,0.9);
+      }
+      label{
+        color: #333;
+        padding-top: 0.3rem;
+      }
+      &.openMenu{
+        label{
+          color: #DDD;
+        }
+
+      }
+    }
+  }
+  .legend{
+    position: fixed;
+    color: #666;
+    left: 3rem;
+    bottom: 3rem;
+    // width:30%;
+    min-height: 20vh;
+    background: #f5f5f5;
+    z-index: 50;
+    padding:1rem;
+    box-sizing: border-box;
+    box-shadow:
+      0 2.8px 2.2px rgba(0, 0, 0, 0.02),
+      0 6.7px 5.3px rgba(0, 0, 0, 0.028),
+      0 12.5px 10px rgba(0, 0, 0, 0.035),
+      0 22.3px 17.9px rgba(0, 0, 0, 0.042),
+      0 41.8px 33.4px rgba(0, 0, 0, 0.05),
+      0 100px 80px rgba(0, 0, 0, 0.07);
+  }
+  .legend-row{
+    display:flex;justify-content:flex-start;flex-direction:row;margin-bottom:1rem;
+  }
+  .qub{
+    width: 20px;
+    height: 20px;
+    margin-right:1rem;
+    &.main{
+        background-color: $mainColor;
+    }
+    &.work{
+      background-color: #00ffff;
+    }
+    &.study{
+      background-color: #11517F;
+    }
+    &.freelance{
+      background-color: #8800ff;
+    }
+  }
+
+  .filter-item{
+    position: relative;
+    margin-bottom: .6rem;
+    cursor: pointer;
+    button{
+      background-color: transparent;
+      outline: 0;
+      color: #AAA;
+      border: 0;
+      padding: .4rem 4.5rem .4rem;
+      padding-left: 2.5rem;
+    }
+    &.selected{
+      button{
+        background-color: $mainColor;
+        color: white;
+      }
+      &:before{
+        border: 1px solid white;
+      }
+    }
+    &:before{
+      content: "";
+      position: absolute;
+      background-color: transparent;
+      width: 10px;
+      height: 10px;
+      left: .8rem;
+      top: 7px;
+      border: 1px solid $mainColor;
+    }
+  }
