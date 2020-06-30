@@ -8,18 +8,22 @@
   z-index: 10;
   // display: none;
 }
+#timeline{
+  // display: none;
+  top: 0;
+  left: 0;
+  position: absolute;
+  z-index: 1;
+}
 div#DOMElTimeline{
   z-index: 20;
+  background: url(../img/background.svg) 0 0 / cover no-repeat;
   // pointer-events: none;
-}
-div#DOMElTimeline div.detail:hover{
-  color: red;
-  pointer-events: initial
 }
 .blurred{
   filter: blur(7px);
 }
-div.year{
+div.year{ 
   font-size: 2rem;
   opacity: .9;
   color: #b7b7b7;
@@ -73,6 +77,26 @@ div.containerTimeline{
   position: relative;
 }
 
+.timeline-title{
+  & > *{
+    transform: scale(1.3);
+  }
+  h1{
+    font-size: 2.5rem;
+    color: black;
+    border-bottom: 2px solid #000;
+    padding-bottom: 1.4rem;
+    text-transform:uppercase;
+  }
+  h2{
+    font-size: 3.4rem;
+    text-transform:uppercase;
+    color: black;
+    margin-top: 0;
+    padding-top: 3rem;
+  }
+}
+
 div.detail{
   position: absolute;
   width: 200px;
@@ -80,6 +104,12 @@ div.detail{
   opacity: 1;
   transition: opacity 1s 1.5s;
   cursor: pointer;
+  // border: 1px solid transparent;
+  &:hover {
+    // border: 1px solid rgba(127,255,255,0.75);
+  }
+
+
   div.into-detail{
     // background-color: rgba(255,255,255,.02);
     background-image: url(../img/timeline/timeline_nw.svg), url(../img/timeline/timeline_ne.svg), url(../img/timeline/timeline_sw.svg), url(../img/timeline/timeline_se.svg);
@@ -173,6 +203,13 @@ div.symbol{
   }
 }
 
+.bond{
+  width: 5px;
+  background-color: #fff;
+  display: block;
+  height: 10px;
+}
+
 .wNContainer{
   position: relative;
   display: flex;
@@ -216,6 +253,11 @@ div.symbol{
   .detail{
     position: static;
   }
+}
+
+.case-link{
+  @include buttonStyle;
+  margin-top: 1rem;
 }
 
 @keyframes blink {
@@ -284,10 +326,6 @@ div.symbol{
       overflow-y: scroll;
       h2{ line-height: 1; margin-top: .4rem;}
       h3{margin-top: 1.2rem;}
-      ul{
-        list-style: disc;
-        padding-left: 1.4rem;
-      }
     }
   }
   .images{

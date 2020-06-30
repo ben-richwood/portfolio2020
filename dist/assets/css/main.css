@@ -40,9 +40,6 @@ body {
   line-height: 1;
   color: #FFF; }
 
-ol, ul {
-  list-style: none; }
-
 hr {
   border: 0;
   height: 2px;
@@ -91,6 +88,16 @@ body {
 img {
   max-width: 100%;
   /* width: 100%; */ }
+
+ul {
+  list-style: disc;
+  padding-left: 1.4rem; }
+  ul li {
+    margin-bottom: 1rem; }
+
+ul.no-list {
+  list-style: none;
+  padding-left: 0; }
 
 .mt-10 {
   margin-top: 1rem; }
@@ -1013,7 +1020,7 @@ code {
     display: flex;
     justify-content: flex-start;
     flex-direction: row;
-    margin-left: 3rem;
+    margin-left: 3vw;
     align-items: center; }
     .key-legend .key-block .key {
       font-size: .8em;
@@ -1044,12 +1051,14 @@ code {
   color: #666;
   left: 3rem;
   bottom: 3rem;
-  min-height: 20vh;
   background: #f5f5f5;
   z-index: 50;
-  padding: 1rem;
+  padding: 2rem;
   box-sizing: border-box;
-  box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.02), 0 6.7px 5.3px rgba(0, 0, 0, 0.028), 0 12.5px 10px rgba(0, 0, 0, 0.035), 0 22.3px 17.9px rgba(0, 0, 0, 0.042), 0 41.8px 33.4px rgba(0, 0, 0, 0.05), 0 100px 80px rgba(0, 0, 0, 0.07); }
+  box-shadow: 7px 7px 20px 0px #0002, 4px 4px 5px 0px #0001, inset 0px 0px 0px 0px #0001, inset 0px 0px 0px 0px #0001; }
+  .legend h3 {
+    margin-top: 0;
+    margin-bottom: 1.4rem; }
 
 .legend-row {
   display: flex;
@@ -1072,16 +1081,17 @@ code {
 
 .filter-item {
   position: relative;
-  margin-bottom: .6rem;
-  cursor: pointer; }
-  .filter-item button {
-    background-color: transparent;
-    outline: 0;
-    color: #AAA;
-    border: 0;
+  display: block;
+  border: 0;
+  cursor: pointer;
+  margin-bottom: .8rem;
+  outline: 0;
+  background-color: transparent; }
+  .filter-item span {
     padding: .4rem 4.5rem .4rem;
-    padding-left: 2.5rem; }
-  .filter-item.selected button {
+    color: #AAA;
+    padding-left: 2.8rem; }
+  .filter-item.selected span {
     background-color: #11517F;
     color: white; }
   .filter-item.selected:before {
@@ -1092,9 +1102,39 @@ code {
     background-color: transparent;
     width: 10px;
     height: 10px;
-    left: .8rem;
+    left: 1.15rem;
     top: 7px;
-    border: 1px solid #11517F; }
+    border: 1px solid #11517F;
+    transform: translateY(-4px); }
+
+.column-legend {
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-right: 2vw; }
+  .column-legend:nth-of-type(2) {
+    align-self: flex-start; }
+  .column-legend:last-child {
+    margin-right: 0; }
+  .column-legend .filter-item:last-child {
+    margin-bottom: 0; }
+
+.reset-camera {
+  border: 1px solid #11517F;
+  background: transparent;
+  outline: 0;
+  padding: .4rem .55rem; }
+
+.row-legend {
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-end; }
 
 #DOMElTimeline, #DOMElMain {
   position: absolute;
@@ -1104,12 +1144,15 @@ code {
   height: 100%;
   z-index: 10; }
 
-div#DOMElTimeline {
-  z-index: 20; }
+#timeline {
+  top: 0;
+  left: 0;
+  position: absolute;
+  z-index: 1; }
 
-div#DOMElTimeline div.detail:hover {
-  color: red;
-  pointer-events: initial; }
+div#DOMElTimeline {
+  z-index: 20;
+  background: url(../img/background.svg) 0 0/cover no-repeat; }
 
 .blurred {
   filter: blur(7px); }
@@ -1163,6 +1206,23 @@ div.containerTimeline {
 
 .globalTimeline {
   position: relative; }
+
+.timeline-title > * {
+  transform: scale(1.3); }
+
+.timeline-title h1 {
+  font-size: 2.5rem;
+  color: black;
+  border-bottom: 2px solid #000;
+  padding-bottom: 1.4rem;
+  text-transform: uppercase; }
+
+.timeline-title h2 {
+  font-size: 3.4rem;
+  text-transform: uppercase;
+  color: black;
+  margin-top: 0;
+  padding-top: 3rem; }
 
 div.detail {
   position: absolute;
@@ -1244,6 +1304,12 @@ div.symbol {
     opacity: 0;
     transition: opacity .75s .3s; }
 
+.bond {
+  width: 5px;
+  background-color: #fff;
+  display: block;
+  height: 10px; }
+
 .wNContainer {
   position: relative;
   display: flex;
@@ -1281,6 +1347,14 @@ div.symbol {
       min-width: 100px; }
   .wNContainer .detail {
     position: static; }
+
+.case-link {
+  display: inline-block;
+  background-color: #11517F;
+  color: white;
+  padding: .4rem .8rem;
+  color: #DDD;
+  margin-top: 1rem; }
 
 @keyframes blink {
   from {
@@ -1339,9 +1413,6 @@ div.symbol {
         margin-top: .4rem; }
       #details .text .bg-block h3 {
         margin-top: 1.2rem; }
-      #details .text .bg-block ul {
-        list-style: disc;
-        padding-left: 1.4rem; }
   #details .images {
     flex-basis: 55%;
     width: 100%;

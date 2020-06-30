@@ -2,7 +2,7 @@ import Vue from 'vue';
 
 // import { t0, controls, zoomModel, objectScene, scene, cssScene, renderer, rendererCSS, screenGraphic, canvasEl, canvasTimeline, DOMElMain, readyToLaunch, playAnimation, pauseAnimation, animate, zoomInScreen, zoomOutScreen, targetCameraTween, switchBackToProject, castShadows, init, highPerfInit } from './main.js'
 import { highPerfInit } from './main_timeline.js'
-import { canvasEl } from './main_timeline.js'
+import { container, canvasEl, canvasTimeline } from './main_timeline.js'
 import Projects from './projects.js'
 import { displayProjectImageOnScreen } from './libs/custom/miscellaneous.js'
 
@@ -202,14 +202,17 @@ export const optionMenu = new Vue({
       this.optionsOpen = false;
       // Menu.isDisplayed = true;
       this.currentSubmenu = 0;
-      canvasEl.style.filter = "blur(0px)"
+      // canvasEl.style.filter = "blur(0px)"
+      container.style.filter = "blur(0px)";
+      domElTimeline.style.filter = "blur(0px)";
       // Menu.isDisplayed = true;
       Timeline.playAnimation();
     },
     open: function () {
       this.optionsOpen = true;
       // Sidebar.showSidebar = false;
-      canvasEl.style.filter = "blur(10px)"
+      container.style.filter = "blur(10px)";
+      domElTimeline.style.filter = "blur(10px)";
       Timeline.pauseAnimation();
     },
     toogle: function () {
@@ -303,7 +306,7 @@ export const detailPopup = new Vue ({
         htmlToPrint += `<h3>Design</h3>${prj.design}`
       }
       if (prj.link) {
-        htmlToPrint += `<div><a href="${prj.link}" ${settings.linksNewTab ? "target='_blank'" : ""} title="Link to ${prj.name}">See the website</a></div>`
+        htmlToPrint += `<div><a href="${prj.link}" ${settings.linksNewTab ? "target='_blank'" : ""} class="case-link" title="Link to ${prj.name}">See the website</a></div>`
       }
       this.data = htmlToPrint
 
@@ -327,7 +330,7 @@ export const detailPopup = new Vue ({
     },
     close: function () {
       domElTimeline.classList.remove("blurred")
-      legendMenu.showLegend = false;
+      // legendMenu.showLegend = false;
       legendMenu.showLegendForDetail = false;
       settings.isDetailOpen = false;
       this.isOpen = false;
@@ -369,6 +372,9 @@ export const legendMenu = new Vue({
       settings.currFilter = "all"
       this.selectedFilter = settings.currFilter;
       tl.transform( tl.targets.all, 2000 );
+    },
+    resetCamera: function () {
+      //
     }
   }
 })
@@ -381,6 +387,9 @@ function changeLoadingText() {
   phraseCounter++;
   if (phraseCounter >= LoadingPhrases.length) phraseCounter = 0;
 }
+
+document.querySelector('#optionMenu > div').classList.remove("hide");
+document.querySelector('#intro > div').classList.remove("hide");
 
 domElTimeline.addEventListener("click", evt => {
   // console.log(evt);
@@ -412,16 +421,16 @@ document.addEventListener('keyup', (event) => {
     }
   }
   if (keyName === settings.keyboardConfig.option[0]) {
-    // optionMenu.toogle();
     if (settings.isDetailOpen) {
       detailPopup.close();
     }
   }
   if (keyCode === settings.keyboardConfig.accept[0]) {
-    if (settings.isDetailOpen) {
-      // detailPopup.close();
-    } else {
-      legendMenu.showLegend = !legendMenu.showLegend;
-    }
+    optionMenu.toogle();
+    // if (settings.isDetailOpen) {
+    // detailPopup.close();
+    // } else {
+      // legendMenu.showLegend = !legendMenu.showLegend;
+    // }
   }
 }, false);

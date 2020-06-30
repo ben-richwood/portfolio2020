@@ -1,7 +1,7 @@
 <div id="optionMenu" v-show="optionsOpen">
-  <div class="menuContainer">
+  <div class="menuContainer hide">
     <div class="leftSubmenuColumn">
-      <ul>
+      <ul class="no-list">
         <li><button :class="currentSubmenu == 0 ? 'active' : ''" class="large-button left-align" @click="changeSubmenu(0)">Config</button></li>
         <li><button :class="currentSubmenu == 1 ? 'active' : ''" class="large-button left-align" @click="changeSubmenu(1)">Controls</button></li>
         <li><button :class="currentSubmenu == 2 ? 'active' : ''" class="large-button left-align" @click="changeSubmenu(2)">Graphics</button></li>
@@ -104,9 +104,7 @@
           <li>ThreeJS</li>
           <li>VueJs</li>
           <li>SASS</li>
-          <li>Webpack - not fully implemented yet</li>
-          <li>GPU.js - not fully implemented yet</li>
-          <li>Draco - not fully implemented yet</li>
+          <li>Webpack 4</li>
         </ul>
         <p class="tc">This portfolio is inspired by these references</p>
         <ul>
@@ -121,6 +119,66 @@
           <li>Lots of help and code snippets from <a href="https://threejs.org/" target="_blank" title="link to ThreeJS official documentation">ThreeJS official documentation</a> and <a href="https://threejsfundamentals.org/" target="_blank" title="link to threejsfundamentals">threejsfundamentals</a> </li>
         </ul>
         <p class="tl">The source code is accessibe on my GitHub:<br><a href="https://github.com/ben-richwood/">Portfolio2020</a></p>
+        <h3>Stack</h3>
+        <ul>
+          <li>Linux Debian 10</li>
+        </ul>
+        <h3>Dev</h3>
+        <ul>
+          <li>Atom</li>
+          <li>Firefox Developer Edition</li>
+          <li></li>
+          <li></li>
+        </ul>
+        <h3>Framework / Stack</h3>
+        <ul>
+          <li>
+            javascript
+            <ul>
+              <li>Node.JS & NPM</li>
+              <li>VueJS</li>
+              <li>React</li>
+              <li>ThreeJS</li>
+            </ul>
+          </li>
+          <li>
+            Ruby
+            <ul>
+              <li>Ruby on Rails</li>
+              <li>ActiveAdmin</li>
+            </ul>
+          </li>
+          <li>
+            Python
+            <ul>
+              <li>Flask</li>
+            </ul>
+          </li>
+        </ul>
+        <h3>Design</h3>
+        <ul>
+          <li>Adobe Photoshop (want to migrate to Gimp)</li>
+          <li>Adobe Illustrator (want to migrate to InkScape)</li>
+          <li>Adobe inDesign</li>
+          <li>Adobe After Effect</li>
+          <li>Sketch</li>
+        </ul>
+        <h3>Services</h3>
+        <ul>
+          <li>Heroku</li>
+          <li>GitLab</li>
+        </ul>
+        <h3>Misc</h3>
+        <ul>
+          <li>Blender (EEVEE & Cycle)</li>
+        </ul>
+        <?php /*
+        https://uses.tech/
+
+        https://brandonclapp.com/uses/
+        https://gist.github.com/diurivj/78ca931c4b20dca1e1e13982fa9c309d
+        https://stephfh.dev/uses/
+        */ ?>
       </div>
     </div>
   </div>

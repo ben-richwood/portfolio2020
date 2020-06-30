@@ -9,14 +9,14 @@ import { Popup, Sidebar, settings, keyboardMap } from './components.js';
 
 // import { OrbitControls } from './libs/OrbitControls.js'; // Custom OrbitContrls
 import { WEBGL } from './libs/WebGL.js';
-import { GLTFLoader } from './libs/GLTFLoader.js'; // load the 3D model
-import { SVGLoader } from './libs/SVGLoader.js';
+// import { GLTFLoader } from './libs/GLTFLoader.js'; // load the 3D model
+// import { SVGLoader } from './libs/SVGLoader.js';
 
 // For HDR background image and illumination
-import { RGBELoader } from './libs/RGBELoader.js';
-import { EquirectangularToCubeGenerator } from './libs/EquirectangularToCubeGenerator.js';
-import { PMREMGenerator } from './libs/PMREMGenerator.js';
-import { PMREMCubeUVPacker } from './libs/PMREMCubeUVPacker.js';
+// import { RGBELoader } from './libs/RGBELoader.js';
+// import { EquirectangularToCubeGenerator } from './libs/EquirectangularToCubeGenerator.js';
+// import { PMREMGenerator } from './libs/PMREMGenerator.js';
+// import { PMREMCubeUVPacker } from './libs/PMREMCubeUVPacker.js';
 // import { RectAreaLightUniformsLib } from './libs/RectAreaLightUniformsLib.js';
 
 // import { CSS3DRenderer, CSS3DObject } from './libs/CSS3DRenderer.js';
@@ -49,7 +49,7 @@ export const t0 = performance.now();
 
 let rendererStats;
 
-const svgLoader = new SVGLoader()
+// const svgLoader = new SVGLoader()
 
 // All objects used for the THREE scene
 export let container, canvasEl, canvasTimeline, stats;
@@ -114,7 +114,7 @@ export const targetCameraTween = new THREE.Vector3(2, 1.4, 0.7); // To llok at t
 
 function init (){
   firstConfigCheck();
-  // container = document.getElementById('canvasScene');
+  container = document.getElementById('canvasScene');
   canvasEl = document.getElementById('mainScene');
   canvasTimeline = document.getElementById('timeline');
   Timeline.init();
@@ -257,39 +257,7 @@ export function readyToLaunch(){
 }
 
 
-export function playAnimation() {
-  settings.isPaused = false;
-  canvasEl.style.filter = "none";
-  if (settings.isTimelineOn){
-    Timeline.animate();
-  } else {
-    animate();
-    if(settings.isDebugMode){
-      TEST.testing(scene);
-    }
-    // requestAnimationFrame( animate );
-  }
-}
-
-
-export function pauseAnimation () {
-  canvasEl.style.filter = "blur(10px)";
-  settings.isPaused = true;
-}
-
-export function playTimelineAnim () {
-  // settings.isTimelineOn
-  // requestAnimationFrame( Timeline.animate );
-}
-
-
-// TO BE DELETED
-// function setupTween() {
-//   console.log("setupTween()");
-//   TWEEN.removeAll();
-// }
-
-
+/*
 export function animate (time) {
   requestAnimationFrame( animate );
   if (settings.isPaused) return
@@ -331,6 +299,7 @@ export function animate (time) {
   }
   previousEnvVar = curEnvVar;
 }
+*/
 
 function onWindowResize() {
   var aspect = window.innerWidth / window.innerHeight;

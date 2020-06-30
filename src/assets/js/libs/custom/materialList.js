@@ -34,20 +34,6 @@ export const  largeStarsMaterial = new THREE.PointsMaterial({
   color: 0xf2f2f2
 });
 
-export const oceanMaterial = new THREE.PointsMaterial({
-  size: .12,
-  map: sparks,
-  blending: THREE.AdditiveBlending,
-  transparent: true,
-  color: 0xf2f2f2
-});
-
-export const serverMat = new THREE.LineBasicMaterial( { color: 0x999999 } )
-
-export const curveMat = new THREE.LineBasicMaterial( {
-  color : 0x00ff00,
-  linewidth: 30
-} );
 
 export const materialPlane = new THREE.MeshBasicMaterial( {
   color: 0x11517F,
@@ -56,12 +42,12 @@ export const materialPlane = new THREE.MeshBasicMaterial( {
 });
 
 export const crossMaterial = new THREE.PointsMaterial({
-  size: 150,
+  size: 250,
   map: new THREE.TextureLoader().load("assets/img/cross-frame.png"),
-  opacity: .4,
+  opacity: .8,
   blending: THREE.AdditiveBlending,
   transparent: true,
-  color: 0x888888
+  color: 0x444444
 });
 
 // For server instances

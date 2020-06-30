@@ -25,7 +25,8 @@ const timeline = projects.list.filter(e => e.onlyTimeline === true);
 
 export let camera, controls, scene, renderer;
 export let cssScene, rendererCSS; // 2nd "canvas", used by CSS3DRenderer to display DOM element in 3D env
-const svgLoader = new SVGLoader();
+
+// const svgLoader = new SVGLoader();
 
 const timelineMaterial = {
   perso: 0x11517F,
@@ -54,7 +55,7 @@ export var symbols = { techno: [], software: [], skills: []};
 const unit = 20; // unit value for 1 month
 const zOffset = 40;
 const yu = unit * 12; // yearUnit
-const sp = 0 // startingPoint - year 2009
+const sp = -2400 // startingPoint - year 2009
 let startingPoint = sp;
 const yDepth = -50 // default depth
 
@@ -72,8 +73,10 @@ var onWindowResize = Utilis.debounce(function() {
 export function init() {
   scene = new THREE.Scene();
   cssScene = new THREE.Scene();
-  scene.background = new THREE.Color( 0xcccccc );
-  renderer = new THREE.WebGLRenderer( { antialias: true, canvas: canvasTimeline, stencil: false, precision: 'mediump', depth: true, preserveDrawingBuffer: true, premultipliedAlpha: false } );
+  // scene.background = new THREE.Color( 0xcccccc );
+  // scene.background = null;
+  renderer = new THREE.WebGLRenderer( { antialias: true, canvas: canvasTimeline, stencil: false, precision: 'mediump', depth: true, preserveDrawingBuffer: true, premultipliedAlpha: false, alpha: true } );
+  renderer.setClearColor( 0x000000, 0 ); // default
   renderer.setPixelRatio( window.devicePixelRatio );
   renderer.setSize( window.innerWidth, window.innerHeight );
 
@@ -82,7 +85,11 @@ export function init() {
   document.getElementById( 'DOMElTimeline' ).appendChild( rendererCSS.domElement );
 
   camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 10000 );
-  camera.position.set( 400, 1000, 100 );
+  camera.position.set( -1500, 1770, 327 );
+  camera.position.x = -1500;
+  camera.position.y = 1770;
+  camera.position.z = 327;
+  camera.lookAt(new THREE.Vector3(600,0,327));
   // controls
   controls = new OrbitControls( camera, rendererCSS.domElement );
   //controls.addEventListener( 'change', render ); // call this only in static scenes (i.e., if there is no animation loop)
@@ -90,35 +97,38 @@ export function init() {
   controls.dampingFactor = 0.05;
   controls.screenSpacePanning = false;
   controls.minDistance = 100;
-  controls.maxDistance = settings.isDebugMode ? 2500 : 1000;
+  // controls.maxDistance = settings.isDebugMode ? 2500 : 1000;
+  controls.maxDistance = 2000;
   controls.minAzimuthAngle = 0;
   controls.maxAzimuthAngle = controls.minAzimuthAngle
 
   controls.minPolarAngle = 0;
-  controls.maxPolarAngle =  Math.PI / 16; // alternative: Math.PI / 16;
+  controls.maxPolarAngle =  Math.PI / 12; // alternative: Math.PI / 16;
   // FOR TESTING
   // controls.maxPolarAngle =  Math.PI / 2;
   // controls.maxAzimuthAngle = Infinity;
   controls.mouseButtons = {
-    LEFT: THREE.MOUSE.PAN, // initial -> THREE.MOUSE.ROTATE,
-    MIDDLE: THREE.MOUSE.DOLLY,
+    // LEFT: THREE.MOUSE.PAN, // initial -> THREE.MOUSE.ROTATE,
+    LEFT: null, // Keep it for click
+    // MIDDLE: THREE.MOUSE.DOLLY,
     RIGHT: THREE.MOUSE.PAN
   }
-  // ( url, name, sceneSign, pos, scaleFac, rot = [0,Math.PI/2,0], mat = undefined )
-  const timelineHeading = loadSVG( './assets/img/timeline_title.svg', 'timeline', 1, [400, -950, -500], .6, [-Math.PI/2, Math.PI, Math.PI] );
+  // loadSVG( url, name, sceneSign, pos, scaleFac, rot = [0,Math.PI/2,0], mat = undefined )
+  // const timelineHeading = loadSVG( './assets/img/timeline_title.svg', 'timeline', 1, [400, -950, -500], .6, [-Math.PI/2, Math.PI, Math.PI] );
 
   const DOMElTimeline = [{}];
-  let partVert = new THREE.Geometry();
-  let crossStartingZ = -1200
 
   /////////////////////////////////////////////////////////////////////////
  //             	 Building the cross particle grid in bg               //
 /////////////////////////////////////////////////////////////////////////
+
+  let partVert = new THREE.Geometry();
+  let crossStartingZ = -2000
   for ( var i = 1; i < 8; i ++ ) { // vertical loop
     for ( var j = 1; j < 15; j ++ ) { // horizontal loop
       var star = new THREE.Vector3();
       star.x = startingPoint + (yu * 2.6 * j);
-      star.y = -650;
+      star.y = -350;
       star.z = crossStartingZ + ( i * 500 );
       partVert.vertices.push( star );
     }
@@ -129,8 +139,11 @@ export function init() {
   cross.position.z = 0;
   scene.add( cross );
 
-  console.log("timeline: ", timeline);
 
+  /////////////////////////////////////////////////////////////////////////
+ //             	            Building timeline                         //
+/////////////////////////////////////////////////////////////////////////
+/*
   let previousXpos = 0
   for(let i=0,j=timeline.length;i<j;i++){
     continue;
@@ -201,11 +214,27 @@ export function init() {
     scene.add( plane );
     previousXpos = startingPoint;
   }
+  */
 
+  /////////////////////////////////////////////////////////////////////////
+ //             	      Building bonds between nodes                    //
+/////////////////////////////////////////////////////////////////////////
 
+{
+  // function buildLine(color, points,  mat = matLine)
+  let branching = [
+    600, 1, 60,
+    800, 0, -140
+  ]
+  // buildLine(timelineMaterial.perso, branching);
+}
+
+  //time Line
   // buildLine(timelineMaterial.perso, [0, 0, 0, 12 * yu, 0, 0]);
 
-  // create the object3d for each element
+  buildLine(timelineMaterial.perso, [0, 0, -800, 0, 0, 800]);
+
+  // create the object3d for each project
   for (var i = 0, j=DOMElTimeline.length; i < j; i++) {
     continue;
     let el = DOMElTimeline[i];
@@ -349,6 +378,144 @@ export function init() {
   	}
   }
 
+  {
+    let element = document.createElement( 'div' );
+    element.className = `timeline-title`;
+    let title = document.createElement( 'h1' );
+    title.textContent = "Portfolio"
+    let subtitle = document.createElement( 'h2' );
+    subtitle.textContent = "Projects"
+    element.appendChild( title );
+    element.appendChild( subtitle );
+    let object = new CSS3DObject( element );
+
+    object.position.x = -480;
+    object.position.z = -600;
+    object.position.y = 1;
+    object.rotation.x = -Math.PI/2;
+    cssScene.add( object );
+  }
+
+  let jsArr = [2, 3, 5, 15, 16, 18, 19, 20];
+  for (var i = 0, j = jsArr.length; i < j; i++) {
+    let k = jsArr[i];
+    projects.bounds.techno.push({
+      start: {...projects.symbols.techno[0].position},
+      end: {...projects.list[k].techno.position}
+    })
+  }
+  let pyArr = [5];
+  for (var i = 0, j = pyArr.length; i < j; i++) {
+    let k = pyArr[i];
+    projects.bounds.techno.push({
+      start: {...projects.symbols.techno[1].position},
+      end: {...projects.list[k].techno.position}
+    })
+  }
+  let rorArr = [4, 11, 12];
+  for (var i = 0, j = rorArr.length; i < j; i++) {
+    let k = rorArr[i];
+    projects.bounds.techno.push({
+      start: {...projects.symbols.techno[2].position},
+      end: {...projects.list[k].techno.position}
+    })
+  }
+  let phpArr = [0, 1, 3];
+  for (var i = 0, j = phpArr.length; i < j; i++) {
+    let k = phpArr[i];
+    projects.bounds.techno.push({
+      start: {...projects.symbols.techno[3].position},
+      end: {...projects.list[k].techno.position}
+    })
+  }
+
+  console.log("projects.bounds", projects.bounds);
+  // BONDS
+	for ( var i = 0, j = projects.bounds.techno.length; i < j; i++ ) {
+    var tmpVec1 = new THREE.Vector3();
+    var tmpVec2 = new THREE.Vector3();
+    var tmpVec3 = new THREE.Vector3();
+    var tmpVec4 = new THREE.Vector3();
+    // var offset = new THREE.Vector3();
+
+    var start = new THREE.Vector3();
+    var end = new THREE.Vector3();
+    let el = projects.bounds.techno[i].start
+    let elPlus = projects.bounds.techno[i].end
+		start.x = el.x + 120;
+		start.y = el.y - 10;
+		start.z = el.z;
+
+    end.x = elPlus.x + 100;
+		end.y = elPlus.y - 10;
+		end.z = elPlus.z - 35;
+
+		// start.multiplyScalar( 75 );
+		// end.multiplyScalar( 75 );
+
+		tmpVec1.subVectors( end, start );
+		var bondLength = tmpVec1.length(); // - 50
+
+    var bond = document.createElement( 'div' );
+		bond.className = "bond";
+		bond.style.height = bondLength + "px";
+
+		var object = new CSS3DObject( bond );
+		object.position.copy( start );
+		object.position.lerp( end, 0.5 );
+
+		// object.userData.bondLengthShort = bondLength + "px";
+		// object.userData.bondLengthFull = ( bondLength + 55 ) + "px";
+
+    var axis = tmpVec2.set( 0, 1, 0 ).cross( tmpVec1 );
+    var radians = Math.acos( tmpVec3.set( 0, 1, 0 ).dot( tmpVec4.copy( tmpVec1 ).normalize() ) );
+
+		var objMatrix = new THREE.Matrix4().makeRotationAxis( axis.normalize(), radians );
+		object.matrix = objMatrix;
+		object.quaternion.setFromRotationMatrix( object.matrix );
+
+		object.matrixAutoUpdate = false;
+		object.updateMatrix();
+
+    object.rotation.z = Math.PI / 2;
+    object.rotation.y = Math.PI / 2;
+
+		cssScene.add( object );
+
+		// objects.push( object );
+
+    var bond = document.createElement( 'div' );
+		bond.className = "bond";
+		bond.style.height = bondLength + "px";
+
+		var joint = new THREE.Object3D( bond );
+		joint.position.copy( start );
+		joint.position.lerp( end, 0.5 );
+
+		joint.matrix.copy( objMatrix );
+		joint.quaternion.setFromRotationMatrix( joint.matrix );
+
+		joint.matrixAutoUpdate = false;
+		joint.updateMatrix();
+
+		var object = new CSS3DObject( bond );
+		object.rotation.y = Math.PI / 2;
+
+		object.matrixAutoUpdate = false;
+		object.updateMatrix();
+
+		// object.userData.bondLengthShort = bondLength + "px";
+		// object.userData.bondLengthFull = ( bondLength + 55 ) + "px";
+
+		object.userData.joint = joint;
+
+		joint.add( object );
+		cssScene.add( joint );
+
+		// objects.push( object );
+    }
+
+
 
   for ( let i = 0, j = projects.list.length; i < j; i++ ) {
     let el = projects.list[i];
@@ -440,7 +607,7 @@ export function init() {
   let previousPos = -300
   let previousZ = -400;
 
-  console.log("objects.length", objects.length, objects.length % 6);
+  console.log("objects.length", objects.length);
 	for ( var i = 0, l = objects.length; i < l; i ++ ) {
     let el = projects.list[i];
     if (i % 6 === 0){
@@ -535,7 +702,7 @@ export function animate() {
   }
 }
 export function render() {
-  // renderer.render( scene, camera );
+  renderer.render( scene, camera );
   rendererCSS.render( cssScene, camera );
 }
 
@@ -576,8 +743,6 @@ export function transform( targets, duration ) {
 		var object = objects[ i ];
 		var target = targets[ i ].obj;
 
-    console.log(targets[ i ]["n/a"]);
-
     if (targets[ i ]["n/a"] === true){
       object.element.classList.add("hide-el");
     } else {
@@ -602,66 +767,6 @@ export function transform( targets, duration ) {
 		.start();
 }
 
-function loadSVG ( url, name, sceneSign, pos, scaleFac, rot = [0,Math.PI/2,0], mat = undefined ) {
-  svgLoader.load( url, function ( data ) {
-    var paths = data.paths;
-    var group = new THREE.Group();
-    group.scale.multiplyScalar( scaleFac );
-    group.position.set(pos[0], pos[1], pos[2]);
-    // group.position.x = - 70;
-    // group.position.y = 70;
-    // group.scale.x = scaleFac;
-    // group.scale.y = scaleFac;
-    // group.scale.z = scaleFac;
-    // group.scale.set(scaleFac,scaleFac,scaleFac)
-    group.rotation.set(rot[0], rot[1], rot[2]);
-    for ( var i = 0; i < paths.length; i ++ ) {
-      var path = paths[ i ];
-      var fillColor = path.userData.style.fill;
-      // var fillColor = 0x000000;
-      if (mat === undefined) {
-        mat = new THREE.MeshBasicMaterial({
-          color: new THREE.Color().setStyle( fillColor ),
-          opacity: path.userData.style.fillOpacity,
-          transparent: path.userData.style.fillOpacity < 1,
-          side: THREE.DoubleSide,
-          depthWrite: true,
-          // wireframe: guiData.fillShapesWireframe
-        });
-      }
-      var shapes = path.toShapes( true );
-      for ( var j = 0; j < shapes.length; j ++ ) {
-        var shape = shapes[ j ];
-        var geometry = new THREE.ShapeBufferGeometry( shape );
-        var mesh = new THREE.Mesh( geometry, mat );
-        group.add( mesh );
-      }
-      var strokeColor = path.userData.style.stroke;
-      // var strokeColor = 0x000000;
-      if (mat === undefined) {
-        mat = new THREE.MeshBasicMaterial({
-          color: new THREE.Color().setStyle( strokeColor ),
-          opacity: path.userData.style.strokeOpacity,
-          transparent: path.userData.style.strokeOpacity < 1,
-          side: THREE.DoubleSide,
-          depthWrite: true,
-          // wireframe: guiData.strokesWireframe
-        });
-      }
-      for ( var j = 0, jl = path.subPaths.length; j < jl; j ++ ) {
-        var subPath = path.subPaths[ j ];
-        var geometry = SVGLoader.pointsToStroke( subPath.getPoints(), path.userData.style );
-        if ( geometry ) {
-          var mesh = new THREE.Mesh( geometry, mat );
-          group.add( mesh );
-        }
-      }
-    }
-    scene.add( group );
-    return group;
-  } );
-}
-
 function buildLine(color, points,  mat = matLine){
   let geometry = new LineGeometry();
   let kuler = new THREE.Color( color );
@@ -675,30 +780,4 @@ function buildLine(color, points,  mat = matLine){
   curveObject.computeLineDistances();
   curveObject.scale.set( 1, 1, 1 );
   scene.add(curveObject);
-}
-
-function constructDOMEl (el, level, pos) {
-  let len = el.hasOwnProperty("len") ? el.len : 1;
-  const divSubContainer = document.createElement( 'div' );
-  divSubContainer.className = `${el.thread === "main" ? "main-thread" : ""} detail`;
-  if (el.thread === "main") {
-    divSubContainer.style.cssText = `left: ${pos[0]}px; top: ${-1 * level * 40}px;`;
-  } else {
-    // let offset = el.group === "work" ? -1 : 1;
-    let offset = -1;
-    divSubContainer.style.cssText = `left: ${pos[0] + 10}px; top: ${pos[2] + (offset * 20)}px; transform: translate3D(0, 0, ${pos[1]})`;
-  }
-
-  var element = document.createElement( 'div' );
-  element.className = 'into-detail';
-
-  var desc = document.createElement( 'div' );
-  desc.className = 'desc';
-  desc.textContent = el.name
-  desc.style.width = `calc(${len * yu}px - .5rem)`;
-
-  element.appendChild( desc );
-  divSubContainer.appendChild( element );
-
-  return divSubContainer;
 }

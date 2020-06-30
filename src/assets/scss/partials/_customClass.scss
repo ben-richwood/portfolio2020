@@ -3,6 +3,18 @@ img{
 	/* width: 100%; */
 }
 
+ul{
+	list-style: disc;
+	padding-left: 1.4rem;
+	li {
+		margin-bottom: 1rem;
+	}
+}
+ul.no-list{
+	list-style: none;
+	padding-left: 0;
+}
+
 .mt-10{margin-top:1rem;}
 .mt-30{margin-top:3rem;}
 .mt-50{margin-top: 7.4rem;}

@@ -23,3 +23,11 @@
 	-webkit-align-items: $ai; /* Safari 7.0+ */
 	align-items: $ai;
 }
+
+@mixin buttonStyle(){
+  display: inline-block;
+  background-color: #11517F;
+  color: white;
+  padding: .4rem .8rem;
+  color: #DDD;
+}

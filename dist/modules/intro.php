@@ -1,6 +1,5 @@
 <div id="intro" :class="{ 'no-intro' : isIntroOff }">
-  <div class="popup highlight">
-
+  <div class="popup highlight hide">
     <div v-show="ieDetected" class="ieDetected">
       Internet Explorer is not supported. Please switch to Chrome or Firefox.
     </div>
