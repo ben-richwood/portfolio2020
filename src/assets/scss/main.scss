@@ -98,9 +98,11 @@ h4{ // Motivations
   margin: .6rem 0;
 }
 
+.visuallyhidden{
+  visibility: hidden;
+}
+
 // TO BE REWORKED
-
-
 #info, #notCompatible {
 	position: absolute;
 	top: 0px;

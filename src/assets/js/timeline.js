@@ -343,9 +343,15 @@ export function init() {
   		let bg = document.createElement( 'div' );
   		bg.className = 'bg';
 
-      let icon = document.createElement( 'img' );
-  		icon.src = `assets/img/techno-icons/${el.icon}`;
+
+      // To use Symbol as "Sprite SVG"
+      // https://css-tricks.com/svg-symbol-good-choice-icons/
+      var icon = document.createElementNS("http://www.w3.org/2000/svg", "svg");
   		icon.alt = name + " icon";
+      let use = document.createElementNS("http://www.w3.org/2000/svg", "use");
+      use.setAttributeNS('http://www.w3.org/1999/xlink', 'href', `#${el.icon}`);
+      use.setAttribute('href', `#${el.icon}`);
+      icon.appendChild( use );
 
   		let wrapper = document.createElement( 'div' );
   		wrapper.className = 'name title';

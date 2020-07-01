@@ -647,42 +647,43 @@ export default {
       {
         "name": "Javascript",
         "position": {x: 500, y: 1, z: 60},
-        "icon": "js.svg"
+        "icon": "js"
       }, {
         "name": "Python",
         "position": {x: -165, y: 1, z: -310},
-        "icon": "python.svg"
+        "icon": "python"
       }, {
         "name": "Ruby on Rails",
         "position": {x: 1500, y: 1, z: -40},
-        "icon": "ruby.svg"
+        "icon": "ruby"
       }, {
         "name": "PHP",
         "position": {x: 600, y: 400, z: -440},
-        "icon": "php.svg"
+        "icon": "php"
       },
     ],
     "software": [
       {
         "name": "Illustrator",
         "position": {x: -165, y: 200, z: 120},
-        "icon": "illustrator.svg"
+        "icon": "illustrator"
+        // "icon": "illustrator.svg"
       }, {
         "name": "Sketch",
         "position": {x: 0, y: 1, z: -320},
-        "icon": "sketch.svg"
+        "icon": "sketch"
       }, {
         "name": "InDesign",
         "position": {x: 700, y: 1, z: -460},
-        "icon": "indesign.svg"
+        "icon": "indesign"
       }, {
         "name": "Photoshop",
         "position": {x: 740, y: 1, z: 280},
-        "icon": "photoshop.svg"
+        "icon": "photoshop"
       }, {
         "name": "Blender",
         "position": {x: 1200, y: 1, z: -160},
-        "icon": "blender.svg"
+        "icon": "blender"
       }
     ],
   },

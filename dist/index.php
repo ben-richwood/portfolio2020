@@ -180,6 +180,12 @@
 		</style>
 	</head>
 	<body>
+		<div class="visuallyhidden">
+		  <!-- inject:svg --><!-- endinject -->
+			<!-- <img src="./assets/img/techno-icons.svg" alt="SVG all compressed" />
+		-->
+		<?php include("./assets/img/techno-icons.svg"); ?>
+		</div>
 		<noscript>
 		 This website heavily uses javascript. You need to enable it if you want to use it properly
 		</noscript>
@@ -202,9 +208,7 @@
 
 		<?php include "./modules/job-detail.php" ?>
 
-		<div class="visuallyhidden">
-		  <!-- inject:svg --><!-- endinject -->
-		</div>
+
 
 
 		<script type="module" src="./assets/js/bundle_project.js"></script>
