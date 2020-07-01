@@ -199,6 +199,13 @@ var OrbitControls = function ( object, domElement ) {
 
 				scope.target.addScaledVector( panOffset, scope.dampingFactor );
 
+				// to limit panning
+				var minPan = new Vector3( -500, -1200, -650 );
+				var maxPan = new Vector3( 1500, 1200, 550 );
+
+				scope.target.clamp( minPan, maxPan );
+
+
 			} else {
 
 				scope.target.add( panOffset );
