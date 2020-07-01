@@ -44,10 +44,10 @@ export const materialPlane = new THREE.MeshBasicMaterial( {
 export const crossMaterial = new THREE.PointsMaterial({
   size: 250,
   map: new THREE.TextureLoader().load("assets/img/cross-frame.png"),
-  opacity: .8,
+  opacity: .6,
   blending: THREE.AdditiveBlending,
   transparent: true,
-  color: 0x444444
+  color: 0xAAAAAA
 });
 
 // For server instances

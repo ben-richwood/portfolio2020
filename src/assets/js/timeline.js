@@ -48,6 +48,7 @@ export const matLine = new LineMaterial( {
 var objects = [];
 export var targets = { techno: [], software: [], skills: [], all: []};
 export var symbols = { techno: [], software: [], skills: []};
+export var bounds = { techno: [], software: []};
 
 
 
@@ -108,8 +109,8 @@ export function init() {
   // controls.maxPolarAngle =  Math.PI / 2;
   // controls.maxAzimuthAngle = Infinity;
   controls.mouseButtons = {
-    // LEFT: THREE.MOUSE.PAN, // initial -> THREE.MOUSE.ROTATE,
-    LEFT: null, // Keep it for click
+    LEFT: THREE.MOUSE.PAN, // initial -> THREE.MOUSE.ROTATE,
+    // LEFT: null, // Keep it for click
     // MIDDLE: THREE.MOUSE.DOLLY,
     RIGHT: THREE.MOUSE.PAN
   }
@@ -217,17 +218,8 @@ export function init() {
   */
 
   /////////////////////////////////////////////////////////////////////////
- //             	      Building bonds between nodes                    //
+ //             	      Building timeline elements                      //
 /////////////////////////////////////////////////////////////////////////
-
-{
-  // function buildLine(color, points,  mat = matLine)
-  let branching = [
-    600, 1, 60,
-    800, 0, -140
-  ]
-  // buildLine(timelineMaterial.perso, branching);
-}
 
   //time Line
   // buildLine(timelineMaterial.perso, [0, 0, 0, 12 * yu, 0, 0]);
@@ -370,6 +362,7 @@ export function init() {
 
   		let object = new CSS3DObject( element );
       object.position.x = el.position.x;
+      object.position.y = el.position.y;
       object.position.z = el.position.z;
       object.rotation.x = -Math.PI/2;
   		cssScene.add( object );
@@ -377,7 +370,7 @@ export function init() {
       symbols[prop].push( object );
   	}
   }
-
+  // Add title
   {
     let element = document.createElement( 'div' );
     element.className = `timeline-title`;
@@ -391,11 +384,12 @@ export function init() {
 
     object.position.x = -480;
     object.position.z = -600;
-    object.position.y = 1;
+    object.position.y = -200;
     object.rotation.x = -Math.PI/2;
     cssScene.add( object );
   }
 
+  // Techno
   let jsArr = [2, 3, 5, 15, 16, 18, 19, 20];
   for (var i = 0, j = jsArr.length; i < j; i++) {
     let k = jsArr[i];
@@ -428,95 +422,146 @@ export function init() {
       end: {...projects.list[k].techno.position}
     })
   }
+  // Software
+  let psArr = [0, 1, 8, 11, 17, 19, 21, 22];
+  for (var i = 0, j = psArr.length; i < j; i++) {
+    let k = psArr[i];
+    projects.bounds.software.push({
+      start: {...projects.symbols.software[3].position},
+      end: {...projects.list[k].software.position}
+    })
+  }
+  let inddArr = [0, 1, 8, 17];
+  for (var i = 0, j = inddArr.length; i < j; i++) {
+    let k = inddArr[i];
+    projects.bounds.software.push({
+      start: {...projects.symbols.software[2].position},
+      end: {...projects.list[k].software.position}
+    })
+  }
+  let aiArr = [0, 1, 2, 4, 8, 15, 16, 17, 19];
+  for (var i = 0, j = aiArr.length; i < j; i++) {
+    let k = aiArr[i];
+    projects.bounds.software.push({
+      start: {...projects.symbols.software[0].position},
+      end: {...projects.list[k].software.position}
+    })
+  }
+  let skArr = [16];
+  for (var i = 0, j = skArr.length; i < j; i++) {
+    let k = skArr[i];
+    projects.bounds.software.push({
+      start: {...projects.symbols.software[1].position},
+      end: {...projects.list[k].software.position}
+    })
+  }
+  let BlArr = [17];
+  for (var i = 0, j = BlArr.length; i < j; i++) {
+    let k = BlArr[i];
+    projects.bounds.software.push({
+      start: {...projects.symbols.software[1].position},
+      end: {...projects.list[k].software.position}
+    })
+  }
 
-  console.log("projects.bounds", projects.bounds);
+
   // BONDS
-	for ( var i = 0, j = projects.bounds.techno.length; i < j; i++ ) {
-    var tmpVec1 = new THREE.Vector3();
-    var tmpVec2 = new THREE.Vector3();
-    var tmpVec3 = new THREE.Vector3();
-    var tmpVec4 = new THREE.Vector3();
-    // var offset = new THREE.Vector3();
+  // Largely taken from https://threejs.org/examples/?q=molecu#css3d_molecules
+  // I still don't understand the math behind...
+  for (const [prop, value] of Object.entries(projects.bounds)) {
+  	for ( var i = 0, j = value.length; i < j; i++ ) {
+      var tmpVec1 = new THREE.Vector3();
+      var tmpVec2 = new THREE.Vector3();
+      var tmpVec3 = new THREE.Vector3();
+      var tmpVec4 = new THREE.Vector3();
+      // var offset = new THREE.Vector3();
 
-    var start = new THREE.Vector3();
-    var end = new THREE.Vector3();
-    let el = projects.bounds.techno[i].start
-    let elPlus = projects.bounds.techno[i].end
-		start.x = el.x + 120;
-		start.y = el.y - 10;
-		start.z = el.z;
+      var start = new THREE.Vector3();
+      var end = new THREE.Vector3();
+      let el = value[i].start
+      let elPlus = value[i].end
+  		start.x = el.x + 140;
+  		start.y = el.y - 10;
+  		start.z = el.z;
 
-    end.x = elPlus.x + 100;
-		end.y = elPlus.y - 10;
-		end.z = elPlus.z - 35;
+      end.x = elPlus.x + 200;
+      // end.x = elPlus.x + (elPlus.x > el.x ? -100 : 100);
+  		end.y = elPlus.y - 10;
+  		end.z = elPlus.z + 35; // -35
+  		// end.z = elPlus.z + (elPlus.z > el.z ? -35 : 35); // -35
 
-		// start.multiplyScalar( 75 );
-		// end.multiplyScalar( 75 );
+  		// start.multiplyScalar( 75 );
+  		// end.multiplyScalar( 75 );
 
-		tmpVec1.subVectors( end, start );
-		var bondLength = tmpVec1.length(); // - 50
+  		tmpVec1.subVectors( end, start );
+  		var bondLength = tmpVec1.length(); // - 50
 
-    var bond = document.createElement( 'div' );
-		bond.className = "bond";
-		bond.style.height = bondLength + "px";
+      var bond = document.createElement( 'div' );
+  		bond.className = "bond hide-bounds";
+      bond.setAttribute("data-symbol", prop);
+  		bond.style.height = bondLength + "px";
 
-		var object = new CSS3DObject( bond );
-		object.position.copy( start );
-		object.position.lerp( end, 0.5 );
+  		var object = new CSS3DObject( bond );
+  		object.position.copy( start );
+  		object.position.lerp( end, 0.5 );
 
-		// object.userData.bondLengthShort = bondLength + "px";
-		// object.userData.bondLengthFull = ( bondLength + 55 ) + "px";
+  		// object.userData.bondLengthShort = bondLength + "px";
+  		// object.userData.bondLengthFull = ( bondLength + 55 ) + "px";
 
-    var axis = tmpVec2.set( 0, 1, 0 ).cross( tmpVec1 );
-    var radians = Math.acos( tmpVec3.set( 0, 1, 0 ).dot( tmpVec4.copy( tmpVec1 ).normalize() ) );
+      var axis = tmpVec2.set( 0, 1, 0 ).cross( tmpVec1 );
+      var radians = Math.acos( tmpVec3.set( 0, 1, 0 ).dot( tmpVec4.copy( tmpVec1 ).normalize() ) );
 
-		var objMatrix = new THREE.Matrix4().makeRotationAxis( axis.normalize(), radians );
-		object.matrix = objMatrix;
-		object.quaternion.setFromRotationMatrix( object.matrix );
+  		var objMatrix = new THREE.Matrix4().makeRotationAxis( axis.normalize(), radians );
+  		object.matrix = objMatrix;
+  		object.quaternion.setFromRotationMatrix( object.matrix );
 
-		object.matrixAutoUpdate = false;
-		object.updateMatrix();
+  		object.matrixAutoUpdate = false;
+  		object.updateMatrix();
 
-    object.rotation.z = Math.PI / 2;
-    object.rotation.y = Math.PI / 2;
+      object.rotation.z = Math.PI / 2;
+      object.rotation.y = Math.PI / 2;
 
-		cssScene.add( object );
+      bounds[prop].push( {obj: object} );
 
-		// objects.push( object );
+  		cssScene.add( object );
 
-    var bond = document.createElement( 'div' );
-		bond.className = "bond";
-		bond.style.height = bondLength + "px";
+  		// objects.push( object );
 
-		var joint = new THREE.Object3D( bond );
-		joint.position.copy( start );
-		joint.position.lerp( end, 0.5 );
+      var bond = document.createElement( 'div' );
+  		bond.className = "bond hide-bounds";
+      bond.setAttribute("data-symbol", prop);
+  		bond.style.height = bondLength + "px";
 
-		joint.matrix.copy( objMatrix );
-		joint.quaternion.setFromRotationMatrix( joint.matrix );
+  		var joint = new THREE.Object3D( bond );
+  		joint.position.copy( start );
+  		joint.position.lerp( end, 0.5 );
 
-		joint.matrixAutoUpdate = false;
-		joint.updateMatrix();
+  		joint.matrix.copy( objMatrix );
+  		joint.quaternion.setFromRotationMatrix( joint.matrix );
 
-		var object = new CSS3DObject( bond );
-		object.rotation.y = Math.PI / 2;
+  		joint.matrixAutoUpdate = false;
+  		joint.updateMatrix();
 
-		object.matrixAutoUpdate = false;
-		object.updateMatrix();
+  		var object = new CSS3DObject( bond );
+  		object.rotation.y = Math.PI / 2;
 
-		// object.userData.bondLengthShort = bondLength + "px";
-		// object.userData.bondLengthFull = ( bondLength + 55 ) + "px";
+  		object.matrixAutoUpdate = false;
+  		object.updateMatrix();
 
-		object.userData.joint = joint;
+  		// object.userData.bondLengthShort = bondLength + "px";
+  		// object.userData.bondLengthFull = ( bondLength + 55 ) + "px";
 
-		joint.add( object );
-		cssScene.add( joint );
+  		object.userData.joint = joint;
 
-		// objects.push( object );
+  		joint.add( object );
+      bounds[prop].push( {obj: object} );
+
+  		cssScene.add( joint );
     }
+  }
 
 
-
+  // Add projects
   for ( let i = 0, j = projects.list.length; i < j; i++ ) {
     let el = projects.list[i];
 
@@ -567,6 +612,7 @@ export function init() {
     var object = new THREE.Object3D();
     if (el.techno && !el.techno["n/a"] && el.techno.position) {
       object.position.x = el.techno.position.x;
+      object.position.y = el.techno.position.y;
       object.position.z = el.techno.position.z;
     }  else {
       object.position.x = 0;
@@ -694,6 +740,8 @@ export function animate() {
     requestAnimationFrame( animate );
     TWEEN.update();
     controls.update(); // only required if controls.enableDamping = true, or if controls.autoRotate = true
+    // var newX = this.target.x + pan.x;
+    // var newY = this.target.y + pan.y;
     if (settings.isDebugMode) {
       stats.update();
       rendererStats.update(renderer);
@@ -720,6 +768,7 @@ export function pauseAnimation() {
 export function transform( targets, duration ) {
 
   console.log(settings.currFilter, targets.length, objects.length);
+  console.log(settings.prevFilter, settings.currFilter);
   console.log(targets);
 
 	TWEEN.removeAll();
@@ -733,10 +782,28 @@ export function transform( targets, duration ) {
       for ( let i = 0, j = symbols[settings.currFilter].length; i < j; i++ ) {
         if (symbols[settings.currFilter][i].element.classList.contains("hide-symbol")) symbols[settings.currFilter][i].element.classList.remove("hide-symbol");
       }
+      // hide previous bonds
+      for ( let i = 0, j = bounds[settings.prevFilter].length; i < j; i++ ) {
+        bounds[settings.prevFilter][i].obj.element.classList.add("hide-bounds");
+      }
+      // show the new bonds
+      for ( let i = 0, j = bounds[settings.currFilter].length; i < j; i++ ) {
+        if (bounds[settings.currFilter][i].obj.element.classList.contains("hide-bounds")) bounds[settings.currFilter][i].obj.element.classList.remove("hide-bounds");
+      }
+    } else { // settings.prevFilter === settings.currFilter
+      console.log("bounds[settings.currFilter].length", bounds[settings.currFilter].length);
+      for ( let i = 0, j = bounds[settings.currFilter].length; i < j; i++ ) {
+        bounds[settings.currFilter][i].obj.element.classList.remove("hide-symbol");
+      }
     }
+  // != all
   } else {
     for ( let i = 0, j = symbols[settings.prevFilter].length; i < j; i++ ) {
       symbols[settings.prevFilter][i].element.classList.add("hide-symbol");
+    }
+    let allBounds = [...bounds.techno, ...bounds.software];
+    for ( let i = 0, j = allBounds.length; i < j; i++ ) {
+      allBounds[i].obj.element.classList.add("hide-bounds");
     }
   }
 	for ( var i = 0; i < objects.length; i++ ) {

@@ -113,10 +113,13 @@
               <li>A mix of Cyberpunk 2077 & Assassin's Creed: Black Flag </li>
               <li><a href="https://codepen.io/BuddyLReno/pen/boGRPO" title="Pen from Buddy Reno">Codepen</a>: material design-inspired checkboxes</li>
             </ul>
-          <li>"Coding" environment: Assassin's Creed: Black Flag</li>
-          <li>"Design" environment: Deus Ex (Human Revolution & Mankind Divided), plus the Humming bird cafe in HCMC, Vietnam.</li>
+          <li>Option menu: Assassin's Creed: Black Flag</li>
+          <?php /*
+          <li>"Design" environment: Deus Ex (Human Revolution & Mankind Divided), plus the Humming bird cafe in HCMC, Vietnam.</li> */ ?>
           <li>Timeline: it's largely inspired by the summary ending each mission in Detroit: Become Human</li>
           <li>Lots of help and code snippets from <a href="https://threejs.org/" target="_blank" title="link to ThreeJS official documentation">ThreeJS official documentation</a> and <a href="https://threejsfundamentals.org/" target="_blank" title="link to threejsfundamentals">threejsfundamentals</a> </li>
+          <li>For the layout and in the element animations, I got inspired by <a href="https://threejs.org/examples/?q=period#css3d_periodictable" title="ThreeJS example - molecules">the excellent periodic table</a> from the ThreeJS website.</li>
+          <li>For the bounds, I used the <a href="https://threejs.org/examples/?q=molecu#css3d_molecules" title="ThreeJS example - molecules">molecule sample from the THREEJS examples</a></li>
         </ul>
         <p class="tl">The source code is accessibe on my GitHub:<br><a href="https://github.com/ben-richwood/">Portfolio2020</a></p>
         <h3>Stack</h3>

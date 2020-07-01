@@ -34,7 +34,7 @@ export default {
       "techno": {
         "n/a": false,
         "list": ["Bootstrap", "PHP"],
-        "position": {x: 990, y: 1, z: -420}
+        "position": {x: 990, y: 400, z: -620}
       },
       "timeline": {
         "n/a": false,
@@ -89,7 +89,7 @@ export default {
       "techno": {
         "n/a": false,
         "list": ["Bootstrap", "PHP", "Wordpress"],
-        "position": {x: 290, y: 1, z: -400}
+        "position": {x: 190, y: 400, z: -680}
       }
     }, {
       "id": 3,
@@ -147,7 +147,7 @@ export default {
       "techno": {
         "n/a": false,
         "list": ["vis.js", "VueJS"],
-        "position": {x: 580, y: 1, z: -200}
+        "position": {x: 580, y: 1, z: -400}
       }
 
     }, {
@@ -178,7 +178,7 @@ export default {
       "techno": {
         "n/a": false,
         "list": ["Ruby on Rails", "Turbolink"],
-        "position": {x: 1100, y: 1, z: 280}
+        "position": {x: 1300, y: 1, z: 280}
       }
     }, {
       "id": 6,
@@ -207,7 +207,7 @@ export default {
       "techno": {
         "n/a": false,
         "list": ["Python", "Flask", "Vue"],
-        "position": {x: 250, y: 1, z: -200}
+        "position": {x: 110, y: 1, z: -200}
       }
     }, {
       "id": 7,
@@ -363,7 +363,7 @@ export default {
       "techno": {
         "n/a": false,
         "list": ["Bootstrap", "JS", "Ruby on Rails"],
-        "position": {x: 1500, y: 1, z: 240}
+        "position": {x: 1700, y: 1, z: 240}
       }
     }, {
       "id": 13,
@@ -384,7 +384,7 @@ export default {
       "techno": {
         "n/a": false,
         "list": ["Bootstrap", "PHP", "Ruby on rails"],
-        "position": {x: 1000, y: 1, z: -280}
+        "position": {x: 1200, y: 1, z: -280}
       }
     }, {
       "id": 14,
@@ -445,7 +445,7 @@ export default {
       "techno": {
         "n/a": false,
         "list": ["React"],
-        "position": {x: 150, y: 1, z: 100}
+        "position": {x: 0, y: 1, z: 130}
       }
     }, {
       "id": 17,
@@ -514,7 +514,7 @@ export default {
       "techno": {
         "n/a": false,
         "list": ["JS", "Chrome"],
-        "position": {x: 800, y: 1, z: -110}
+        "position": {x: 880, y: 1, z: -110}
       }
     }, {
       "id": 20,
@@ -548,8 +548,8 @@ export default {
       "objectives": "ThreeJS, Webpack, advanced maths",
       "year": 2019,
       "description": "<p>TBC</p>",
-      "code": "TBC",
-      "design": "TBC",
+      "code": "<p>I modified the original Orbit.js file, in order to limit the camera movement and to allow more interaction with zoom (mousewheel)</p><p>I used <a href=\"https://css-tricks.com/svg-symbol-good-choice-icons/\">SVGstore</a> to concat all SVG as one big file, allowing then to display them with &lt;symbol&gt; elements (via Gulp)</p><p>Webpack is used resolve <code>import</code> and <code>requires</code>, plus to minify and \"Tree shaking\" (for dead-code elimination).</p><p>Finally, TweenMax (GSAP) animate projects when changing the filters.</p>",
+      "design": "<p>I initially prototype on Illustrator to get the right design.</p>",
       "link": "https://richebois.fr",
       "screenImg": "homepage.png",
       "slug": "portfolio/",
@@ -606,6 +606,40 @@ export default {
         "list": [],
         "position": {x: 900, y: 1, z: 200}
       }
+    }, {
+      "id": 23,
+      "name": "Tran Duong",
+      "summary": "Minh Minh Nhut supplies, manufactures paper bags/boxes and label tags industry.",
+      "description": "I revamped their web design.",
+      "design": "I took inspiration from the print industry: bleeds and print mark, paper texture and Material Design (from Google) for the metaphor of texture.",
+      "objectives": null,
+      "year": 2020,
+      "description": "<p>TBC</p>",
+      "code": "TBC",
+      "design": "TBC",
+      "link": "https://minhminhnhut.com/",
+      "screenImg": "homepage.png",
+      "slug": "tranduong/",
+      "category": "Freelance",
+      "group": "freelance",
+      "timeline": {
+        "onlyTimeline": false,
+        "startingYear": 2020.3,
+        "len": 0.2,
+        "thread": "second",
+        "type": "duration",
+      },
+      "software": {
+        "n/a": false,
+        "list": ["PS"],
+        "position": {x: 880, y: 1, z: 480}
+      },
+      "techno": {
+        "n/a": true,
+        "techno": [],
+        "list": [],
+        "position": {x: 900, y: 1, z: 200}
+      }
     }
   ],
   "symbols": {
@@ -620,11 +654,11 @@ export default {
         "icon": "python.svg"
       }, {
         "name": "Ruby on Rails",
-        "position": {x: 1150, y: 1, z: -40},
+        "position": {x: 1500, y: 1, z: -40},
         "icon": "ruby.svg"
       }, {
         "name": "PHP",
-        "position": {x: 600, y: 1, z: -440},
+        "position": {x: 600, y: 400, z: -440},
         "icon": "php.svg"
       },
     ],
@@ -653,6 +687,7 @@ export default {
     ],
   },
   "bounds": {
-    "techno": []
+    "techno": [],
+    "software": []
   }
 }

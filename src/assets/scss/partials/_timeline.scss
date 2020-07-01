@@ -23,7 +23,7 @@ div#DOMElTimeline{
 .blurred{
   filter: blur(7px);
 }
-div.year{ 
+div.year{
   font-size: 2rem;
   opacity: .9;
   color: #b7b7b7;
@@ -105,8 +105,11 @@ div.detail{
   transition: opacity 1s 1.5s;
   cursor: pointer;
   // border: 1px solid transparent;
-  &:hover {
+  // transition: transform .2s ease-in;
+  &:hover .into-detail{
     // border: 1px solid rgba(127,255,255,0.75);
+    transform: translate(50%, 50%) scale(1.12);
+    transition: transform .15s ease-in;
   }
 
 
@@ -118,6 +121,8 @@ div.detail{
     background-repeat: no-repeat;
     padding: .55rem;
     box-sizing: border-box;
+    transform: translate(50%, 50%);
+    transition: transform .15s ease-in;
     .desc{
       padding: .35rem .7rem;
       background: rgb(17,80,125);
@@ -151,6 +156,8 @@ div.detail{
   }
   div.techno{
     font-size: .6rem;
+    background-color: #85aed3;
+    padding: .4rem;
   }
   &.hide-el{
     opacity: 0;
@@ -205,9 +212,15 @@ div.symbol{
 
 .bond{
   width: 5px;
-  background-color: #fff;
+  background-color: $mainColor;
   display: block;
   height: 10px;
+  opacity: 1;
+  transition: opacity .75s .3s;
+  &.hide-bounds{
+    opacity: 0;
+    transition: opacity .75s .3s;
+  }
 }
 
 .wNContainer{
@@ -243,7 +256,7 @@ div.symbol{
     }
     &:after{
       animation-delay: .6s;
-      background-color: #3C61C7;
+      background-color: $mainColor;
       transform: scale(.6, .6);
     }
     .desc{
