@@ -25,6 +25,7 @@ module.exports = (env, options) => {
         minimizer: [new UglifyJsPlugin(
           {sourceMap: true}
         )],
+        usedExports: true,
       },
       target: "web",
       devtool: "cheap-eval-source-map",

@@ -3,6 +3,8 @@ const gulp = require('gulp');
 const webp = require('gulp-webp');
 var gulpCopy = require('gulp-copy');
 
+var sass = require('gulp-sass');
+
 var svgstore = require('gulp-svgstore');
 var svgmin = require('gulp-svgmin');
 var inject = require('gulp-inject');
@@ -57,3 +59,9 @@ gulp.task('img', () =>
     .pipe(webp())
     .pipe(gulp.dest('dist/assets/img/all-projects'))
 );
+
+gulp.task('sass', function () {
+ return gulp.src('./src/assets/scss/main.scss')
+   .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
+   .pipe(gulp.dest('./dist/assets/css/'));
+});
