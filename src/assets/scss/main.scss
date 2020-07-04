@@ -309,11 +309,11 @@ h4{ // Motivations
   	/* padding: 1.3rem 0 0.8rem; */
   	content: '';
   	position: absolute;
-    transform: skewX(-16deg) !important;
+    // transform: skewX(-16deg) !important;
   	top: 0;
   	left:0;
   	height: 100%;
-  	width: 100%;
+  	width: 96%;
     background-color: rgba(255,255,255,.2);
   	/* left: calc(-100% - 40px); */
   	/* width: calc(100% + 20px); */
@@ -338,11 +338,21 @@ h4{ // Motivations
     padding-left: 2rem;
     color: #fff;
     outline:none;
-    margin-bottom: 1rem;
+    // margin-bottom: 1rem;
+    position: relative;
     &.active{
       &:before {
         opacity: 1;
         background-color: rgba(255, 242, 0, .3);
+      }
+      &:after{
+        content: "";
+        position: absolute;
+        right: calc(0% - 2vw);
+        top: 50%;
+        height: 1px;
+        width: 2vw;
+        background-color: rgba(255,255,255,.4);
       }
     }
     &:before {
@@ -722,40 +732,6 @@ h4{ // Motivations
   }
 }
 
-#optionMenu{
-  position: absolute;
-  // overflow: hidden;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  transform-style: preserve-3d;
-  z-index: 500;
-  background-color: rgba(0,0,0,.45);
-  // overflow: hidden;
-  &:before, &:after{
-    content: '';
-    background-color: #000000;
-    position: absolute;
-    width: 100%;
-    height: 15vh;
-    z-index: 70;
-  }
-  &:after{
-    transform-origin: 0 100%;
-    bottom: 0;
-    left: 0;
-    transform: skewY(6deg);
-    transition: transform .4s ease-in;
-  }
-  &:before{
-    transform-origin: 100% 0%;
-    top: 0;
-    right: 0;
-    transform: skewY(7deg) translateY(-40px);
-    transition: transform .4s ease-in;
-  }
-}
 .menuContainer{
   @include displayFlex(flex-start, row, center);
   width: 96%;
@@ -764,20 +740,22 @@ h4{ // Motivations
   top: 5%;
   left: 5%;
   z-index: 75;
-  transform: translateX(3%) translateZ(100px) rotateY(8deg) rotateX(6deg) scale(0.82);
+  // transform: translateX(3%) translateZ(100px) rotateY(8deg) rotateX(6deg) scale(0.82);
 }
 .leftSubmenuColumn{
   flex-basis: 30%;
   height: 100%;
+  margin-right: 2vw;
 }
 .rightSettings {
   flex-basis: 70%;
   height: 100%;
   max-height: 100%;
   overflow-y: scroll;
-  padding-left: 5vw;
+  padding-left: 1vw;
   padding-right: 3vw;
   box-sizing: border-box;
+  border-left: 1px solid rgba(255,255,255,0.2);
   h3{
     margin-top: 0;
     margin-bottom: 2rem;
@@ -791,58 +769,10 @@ h4{ // Motivations
   padding:.7rem;
   margin-bottom: 4rem;
 }
-
-.returnArrow{
-  display: inline-block;
-  width: 30px;
-  margin-right: 1rem;
-  transform: translateY(7px);
-}
-
-svg#keyboard{
-  margin: 5rem auto;
-  display: block;
-  path{
-    fill: rgba(255,255,255,.2);
+.option-menu-list{
+  li{
+    margin-bottom: 0;
   }
-  &.kb_default{
-    #leftArrow{fill:$selectedKey}
-    #rightArrow{fill:$selectedKey}
-    #ESC{fill:$selectedKey}
-    #Space{fill:$selectedKey}
-  }
-  &.kb_gamer{
-    #a{fill:$selectedKey}
-    #d{fill:$selectedKey}
-    #ESC{fill:$selectedKey}
-    #e{fill:$selectedKey}
-  }
-  &.kb_vim{
-    #h{fill:$selectedKey}
-    #l{fill:$selectedKey}
-    #ESC{fill:$selectedKey}
-    #Space{fill:$selectedKey}
-  }
-}
-
-.keyMap{
-  @include displayFlex(start, row, center);
-  margin-bottom:.8rem;
-  .key{
-    margin-right: 23px;
-  }
-  .keyFeature{}
-}
-.key{
-  border: 4px solid #555;
-  border-radius: 6px;
-  width: 48px;
-  height: 38px;
-  background-color: rgba(255, 255, 255, 0.1);
-  text-align: right;
-  padding: .3rem;
-  padding-right: .7rem;
-  box-sizing: content-box;
 }
 
 // Radio
@@ -958,6 +888,7 @@ code {
 
 @import "partials/_legend";
 @import "partials/_timeline";
+@import "partials/_option-menu";
 
 
 @media screen and (max-width: 768px) {

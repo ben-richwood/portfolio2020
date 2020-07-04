@@ -27,7 +27,19 @@
 @mixin buttonStyle(){
   display: inline-block;
   background-color: #11517F;
-  color: white;
   padding: .4rem .8rem;
   color: #DDD;
+}
+
+@mixin major(){
+  background-color: #11517F;
+  color: white;
+  opacity: 1.2;
+  font-size: 1.2rem;
+}
+@mixin minor(){
+  background-color: #11517F;
+  color: white;
+  opacity: .8;
+  font-size: .8rem;
 }

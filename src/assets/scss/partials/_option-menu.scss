@@ -1,0 +1,90 @@
+#optionMenu{
+  position: absolute;
+  // overflow: hidden;
+  width: 100%;
+  height: 100%;
+  max-height: 100vh;
+  overflow: hidden;
+  top: 0;
+  left: 0;
+  transform-style: preserve-3d;
+  z-index: 50;
+  background-color: rgba(0,0,0,.45);
+  // overflow: hidden;
+  &:before, &:after{
+    content: '';
+    background-color: #000000;
+    position: absolute;
+    width: 100%;
+    height: 15vh;
+    z-index: 70;
+  }
+  &:after{
+    transform-origin: 0 100%;
+    bottom: 0;
+    left: 0;
+    transform: skewY(2deg) translateY(100px);
+    transition: transform .4s ease-in;
+  }
+  &:before{
+    transform-origin: 100% 0%;
+    top: 0;
+    right: 0;
+    transform: skewY(3deg) translateY(-100px);
+    transition: transform .4s ease-in;
+  }
+}
+
+.returnArrow{
+  display: inline-block;
+  width: 30px;
+  max-height: 27px;
+  margin-right: 1rem;
+  transform: translateY(7px);
+}
+
+svg#keyboard{
+  margin: 5rem auto;
+  display: block;
+  path{
+    fill: rgba(255,255,255,.2);
+  }
+  &.kb_default{
+    #leftArrow{fill:$selectedKey}
+    #rightArrow{fill:$selectedKey}
+    #ESC{fill:$selectedKey}
+    #Space{fill:$selectedKey}
+  }
+  &.kb_gamer{
+    #a{fill:$selectedKey}
+    #d{fill:$selectedKey}
+    #ESC{fill:$selectedKey}
+    #e{fill:$selectedKey}
+  }
+  &.kb_vim{
+    #h{fill:$selectedKey}
+    #l{fill:$selectedKey}
+    #ESC{fill:$selectedKey}
+    #Space{fill:$selectedKey}
+  }
+}
+
+.keyMap{
+  @include displayFlex(start, row, center);
+  margin-bottom:.8rem;
+  .key{
+    margin-right: 23px;
+  }
+  .keyFeature{}
+}
+.key{
+  border: 4px solid #555;
+  border-radius: 6px;
+  width: 48px;
+  height: 38px;
+  background-color: rgba(255, 255, 255, 0.1);
+  text-align: right;
+  padding: .3rem;
+  padding-right: .7rem;
+  box-sizing: content-box;
+}

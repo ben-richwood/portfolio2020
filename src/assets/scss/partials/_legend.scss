@@ -100,6 +100,18 @@
     }
   }
 
+  .major{
+    @include major();
+  }
+  .minor{
+    @include minor();
+  }
+  .minor, .major{
+    padding: .4rem .4rem;
+    margin-bottom: .6rem;
+    transform: scale(.85);
+  }
+
   .filter-item{
     position: relative;
     display: block;
@@ -161,6 +173,18 @@
     background: transparent;
     outline: 0;
     padding: .4rem .55rem;
+    max-height: 40px;
+    display: -webkit-flex;
+    display: -ms-flex;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: center;
+    svg{
+      max-height: 30px;
+      width: 30px;
+      margin-right: .6rem;
+    }
   }
 
   .row-legend{
