@@ -200,6 +200,7 @@ export const optionMenu = new Vue({
     },
     close: function () {
       this.optionsOpen = false;
+      detailPopup.blurred = false;
       // Menu.isDisplayed = true;
       this.currentSubmenu = 0;
       // canvasEl.style.filter = "blur(0px)"
@@ -210,6 +211,7 @@ export const optionMenu = new Vue({
     },
     open: function () {
       this.optionsOpen = true;
+      detailPopup.blurred = true;
       // Sidebar.showSidebar = false;
       container.style.filter = "blur(10px)";
       domElTimeline.style.filter = "blur(10px)";
@@ -278,7 +280,8 @@ export const detailPopup = new Vue ({
     name: "",
     icons: "",
     data: "",
-    images: []
+    images: [],
+    blurred: false
   },
   methods: {
     open: function (id) {
@@ -290,7 +293,19 @@ export const detailPopup = new Vue ({
       let htmlToPrint = "";
       if (prj.techno && prj.techno.list && prj.techno.list.length > 0) {
         prj.techno.list.forEach((item, i) => {
-          this.icons += `<span class="techno-item">${item}</span>`
+          // this.icons += `<span class="techno-item">${item}</span>`
+          // this.icons += `<span class="techno-item">${item}</span>`
+          var icon = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+          icon.setAttribute("preserveAspectRatio","xMidYMid meet");
+          let use = document.createElementNS("http://www.w3.org/2000/svg", "use");
+          use.setAttributeNS('http://www.w3.org/1999/xlink', 'href', `#${item}`);
+          use.setAttribute('href', `#${item}`);
+          icon.appendChild( use );
+          this.icon += icon
+
+          // <svg class="" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+          //   <use xlink:href="#camera"/>
+          // </svg>
         });
       }
 
@@ -374,7 +389,7 @@ export const legendMenu = new Vue({
       tl.transform( tl.targets.all, 2000 );
     },
     resetCamera: function () {
-      //
+      tl.resetCamera(1200 );
     }
   }
 })

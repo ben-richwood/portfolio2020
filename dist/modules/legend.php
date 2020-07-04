@@ -33,11 +33,15 @@
         </button>
       </div>
       <div class="column-legend">
-        <div class=""> Major projects </div>
-        <div class=""> Minor projects </div>
+        <div class="major"> Major projects </div>
+        <div class="minor"> Minor projects </div>
       </div>
       <div class="column-legend">
-        <button @click="resetCamera" class="reset-camera" type="button" name="button">Reset camera</button>
+        <button @click="resetCamera" class="reset-camera" type="button" name="button">
+          <svg class="" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+            <use xlink:href="#camera"/>
+          </svg>
+          <span>Reset camera</span></button>
       </div>
     </div>
   </div>
@@ -53,14 +57,14 @@
       <div class="key" style="padding-right:4.5rem;">{{ keyMap.accept[1] }}</div>
       <label for="">Open/close menu</label>
     </div>
-    <div class="key-block">
+    <!-- <div class="key-block">
       <div class="key">{{keyMap.option[1]}}</div>
       <label for="">menu</label>
-    </div>
-    <div class="key-block">
+    </div> -->
+    <!-- <div class="key-block">
       <div class="key">C</div>
       <label for="">Console</label>
-    </div>
+    </div> -->
     <div class="key-block">
       <div class="key">up</div>
       <label for="">Nav</label>

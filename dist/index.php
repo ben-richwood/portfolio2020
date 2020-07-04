@@ -143,12 +143,12 @@
 			.warning-symbol{
 				width: 100px;
 				margin-right: 2rem;
-				flex-basis: 30%;
+				flex-basis: 20%;
 				opacity: 0;
 
 				animation-name: blink;
 				animation-duration: .2s;
-				animation-delay: 1.4s;
+				animation-delay: .7s;
 				animation-timing-function: ease;
 				animation-direction: normal;
 				animation-iteration-count: 5;
@@ -180,15 +180,12 @@
 		</style>
 	</head>
 	<body>
-		<div class="visuallyhidden">
-		  <!-- inject:svg --><!-- endinject -->
-			<!-- <img src="./assets/img/techno-icons.svg" alt="SVG all compressed" />
-		-->
-		<?php include("./assets/img/techno-icons.svg"); ?>
-		</div>
 		<noscript>
 		 This website heavily uses javascript. You need to enable it if you want to use it properly
 		</noscript>
+		<div class="visuallyhidden">
+			<?php include("./assets/img/techno-icons.svg"); ?>
+		</div>
 		<div id="DOMElTimeline"></div>
 		<?php include "./modules/legend.php" ?>
 		<div id="canvasScene">
@@ -207,9 +204,6 @@
 		<?php include "./modules/option-menu.php" ?>
 
 		<?php include "./modules/job-detail.php" ?>
-
-
-
 
 		<script type="module" src="./assets/js/bundle_project.js"></script>
 

@@ -1,4 +1,4 @@
-<div id="details" v-show="isOpen">
+<div id="details" v-show="isOpen" :class="blurred ? 'blurred' : ''">
   <div class="details-wrapper">
     <div class="text">
       <div class="bg-block">

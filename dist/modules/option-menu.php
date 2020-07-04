@@ -1,14 +1,20 @@
 <div id="optionMenu" v-show="optionsOpen">
   <div class="menuContainer hide">
     <div class="leftSubmenuColumn">
-      <ul class="no-list">
+      <ul class="no-list option-menu-list">
         <li><button :class="currentSubmenu == 0 ? 'active' : ''" class="large-button left-align" @click="changeSubmenu(0)">Config</button></li>
         <li><button :class="currentSubmenu == 1 ? 'active' : ''" class="large-button left-align" @click="changeSubmenu(1)">Controls</button></li>
         <li><button :class="currentSubmenu == 2 ? 'active' : ''" class="large-button left-align" @click="changeSubmenu(2)">Graphics</button></li>
         <li><button :class="currentSubmenu == 3 ? 'active' : ''" class="large-button left-align" @click="changeSubmenu(3)">Stats</button></li>
         <li><button :class="currentSubmenu == 4 ? 'active' : ''" class="large-button left-align" @click="changeSubmenu(4)">Credit</button></li>
         <!-- <li><button :class="currentSubmenu == 5 ? 'active' : ''" class="large-button left-align" @click="timeline">{{ canvasMenuLabel }}</button></li> -->
-        <li><button class="large-button left-align" @click="close"><img class="returnArrow" src="./assets/img/icons/return.svg" alt="back"> Back</button></li>
+        <li><button class="large-button left-align" @click="close">
+          <!-- <img class="returnArrow" src="./assets/img/icons/return.svg" alt="back"> Back -->
+          <svg class="returnArrow" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+            <use xlink:href="#return"/>
+          </svg>
+           <span>Back</span>
+        </button></li>
       </ul>
     </div>
     <div class="rightSettings">

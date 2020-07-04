@@ -16,6 +16,7 @@ export default {
       "name": "Peafowl Consulting",
       "summary": "Corporate website for a consulting company",
       "year": 2016,
+      "major": false,
       "description": "<p>Peafowl Consulting is a company which offers tests and trainings to reinforce sale teams and colleagues' engagement.</p><p>Furthermore, Peafowl Consulting counts few side projects: Peafowl Foundation (charity project), PTalk (entrepreneur talks), Peafowl Cup (sponsored sport events) and punctual events.</p><p>I drew the graphic guideline and developed the website. I also worked on the logo of the two spin-off projects Peafowl Foundation & P-Talk.</p><p>Finally, I proposed layouts for training supports and internal documents.</p>",
       "design": "<p>I drew the graphic guideline and developed the website. I also worked on the logo of the two spin-off projects Peafowl Foundation & P-Talk.</p><p>Finally, I proposed layouts for training supports and internal documents.</p><p>For the kick-off event, I made few proposals and experimentations for the invitations. We wanted something prestigious and refined. After few attempts with the laser cut, I finally came for for a printed version, with golden letters; the laser cut was not properly calibrated to get satisfying results.</p>",
       "code": "The website is based on PHP and bootstrap.",
@@ -65,6 +66,7 @@ export default {
       "name": "Go Mékong Evasion",
       "summary": "Wordpress website for a travel agency",
       "year": 2017,
+      "major": false,
       "description": "<p>Go Mékong Evasion (GME) is a travel agency that bring travelers off the beaten track and go into Mekong depths.</p>",
       "code": "The website is based on Wordpress, to allow the client to easily edit the content.",
       "design": "<p> For this client, I realized the graphic identity, through the webdesign and the few printed leaflets.</p><p> Since GME offers off the beaten track trips, I opted for these elements: \"gritty/muddy\", hand-drawing (traveler notebook), polaroid effect, maps and full size images. And I kept a touch of security to reassure the tourist. </p>",
@@ -94,6 +96,7 @@ export default {
     }, {
       "id": 3,
       "name": "ctOS",
+      "major": false,
       "summary": "Personal project to build my own map system",
       "objectives": "ES6, class constructor, VueJS",
       "year": 2018,
@@ -126,6 +129,7 @@ export default {
     }, {
       "id": 4,
       "name": "Tool explorer",
+      "major": false,
       "summary": "Personal project to map useful web dev common services",
       "objectives": "Data vizualisation and Graph, VueJS, canvas",
       "year": 2019,
@@ -153,6 +157,7 @@ export default {
     }, {
       "id": 5,
       "name": "Takacorp Studio",
+      "major": true,
       "summary": "E-commerce website for manga products",
       "year": 2018,
       "description": "<p>Takacorp is a e-commerce website that sell high quality manga figurines. For this website, I realized all the design and all the development.</p><p>Let’s face it: payment was a big challenge, on the ground that the website accepts 3 different types of payment (Stripe, Monetico and Paypal), by card, Paypal and with staggered payment for 2, 3, 4 and 10 months. Moreover, the website is also SCA compliant - the new European payment regulation. I learnt a lot about Stripe API, webhooks, routing, banking regulations and such.</p>",
@@ -173,7 +178,7 @@ export default {
       "software": {
         "n/a": false,
         "list": ["AI", "Photoshop"],
-        "position": {x: -100, y: 1, z: -100}
+        "position": {x: -100, y: 1, z: -600}
       },
       "techno": {
         "n/a": false,
@@ -183,6 +188,7 @@ export default {
     }, {
       "id": 6,
       "name": "Uptime checker",
+      "major": false,
       "summary": "Internal tool to track uptime website and domain names",
       "description": "<p>Uptime Checker is an internal tool to monitor and get notified if one of the website we're managing is down.</p><h4>Coding motivations</h4><ul><li>Learning Python + micro framework (Flask)</li><li>Reactive app and xhr calls</li></ul>",
       "year": 2019,
@@ -212,6 +218,7 @@ export default {
     }, {
       "id": 7,
       "name": "Geography studies",
+      "major": false,
       "summary": "Degree in Geography",
       "group": "study",
       "timeline": {
@@ -263,6 +270,7 @@ export default {
     }, {
       "id": 8,
       "name": "Master (EMLyon & Centrale Lyon)",
+      "major": false,
       "summary": "Master degree in Entrepreneuship and Design",
       "group": "study",
       "timeline": {
@@ -296,7 +304,7 @@ export default {
       "software": {
         "n/a": false,
         "list": ["AI", "Photoshop"],
-        "position": {x: 900, y: 1, z: -360}
+        "position": {x: 900, y: 300, z: -360}
       },
       "techno": {
         "n/a": true,
@@ -306,6 +314,7 @@ export default {
     }, {
       "id": 10,
       "name": "Diplome Master",
+      "major": false,
       "summary": "End of Master degree",
       "group": "study",
       "timeline": {
@@ -326,6 +335,7 @@ export default {
     }, {
       "id": 11,
       "name": "freelance",
+      "major": false,
       "summary": "Various web development jobs",
       "group": "work",
       "timeline": {
@@ -346,6 +356,7 @@ export default {
     }, {
       "id": 12,
       "name": "MonMentor",
+      "major": false,
       "summary": "Platform/marketplace to match mentors and learners",
       "group": "work",
       "timeline": {
@@ -368,6 +379,7 @@ export default {
     }, {
       "id": 13,
       "name": "Kicklaws",
+      "major": false,
       "summary": "Web platform where opinions matter",
       "group": "work",
       "timeline": {
@@ -389,6 +401,7 @@ export default {
     }, {
       "id": 14,
       "name": "Vietnam",
+      "major": false,
       "summary": "Work and life in Vietnam",
       "group": "perso",
       "timeline": {
@@ -409,6 +422,7 @@ export default {
     }, {
       "id": 15,
       "name": "BLISS",
+      "major": true,
       "group": "work",
       "timeline": {
         "startingYear": 2017,
@@ -428,6 +442,7 @@ export default {
     }, {
       "id": 16,
       "name": "Year of Engineering",
+      "major": false,
       "summary": "UK government project to promote engineering",
       "group": "work",
       "timeline": {
@@ -440,7 +455,7 @@ export default {
       "software": {
         "n/a": false,
         "list": ["AI"],
-        "position": {x: 1, y: 1, z: 1}
+        "position": {x: -300, y: 1, z: 600}
       },
       "techno": {
         "n/a": false,
@@ -450,8 +465,9 @@ export default {
     }, {
       "id": 17,
       "name": "CCM",
+      "major": false,
       "summary": "Internal tool to manage creative process",
-      "description": "<p>This is another internall too, developed to manage creative process. I worked as Project Manager on this job, and as secondary developer - for minor tasks and adapting feedback.</p><p>I also wrote all the documentation to facilitate team's onboarding - and to keep track of the changes. I used to <span class=\"abbr\" title=\"Facebook's documentation library, based on React\">Docusaursu</span> to handle the documentation.</p>",
+      "description": "<p>This is another internal too, developed to manage creative process. I worked as Project Manager on this job, and as secondary developer - for minor tasks and adapting feedback.</p><p>I also wrote all the documentation to facilitate team's onboarding - and to keep track of the changes. I used to <span class=\"abbr\" title=\"Facebook's documentation library, based on React\">Docusaursu</span> to handle the documentation.</p>",
       "group": "work",
       "code": "It's based on Laravel for backend and on React (+ Next) for the FE.",
       "timeline": {
@@ -464,7 +480,7 @@ export default {
       "software": {
         "n/a": false,
         "list": ["AI"],
-        "position": {x: 200, y: 1, z: 60}
+        "position": {x: -365, y: 200, z: 120}
       },
       "techno": {
         "n/a": false,
@@ -473,7 +489,8 @@ export default {
       }
     }, {
       "id": 18,
-      "name": "Identidy and branding",
+      "name": "BLISS - Identidy and branding",
+      "major": true,
       "summary": "Developping company brand and culture",
       "group": "work",
       "timeline": {
@@ -486,7 +503,7 @@ export default {
       "software": {
         "n/a": false,
         "list": ["AI", "PS", "InDD"],
-        "position": {x: 430, y: 1, z: -60}
+        "position": {x: 430, y: 300, z: -60}
       },
       "techno": {
         "n/a": true,
@@ -496,6 +513,7 @@ export default {
     }, {
       "id": 19,
       "name": "Chrome Extension",
+      "major": false,
       "summary": "Internal projet to enhance an existing booking management service",
       "description": "I built up a Chrome Extension to enhance an internal tool used for time management and tracking. The extension intended to overcome some missing features, such as the ability to color and filter bookings based upon defined Tags and Phases.",
       "year": 2020,
@@ -519,6 +537,7 @@ export default {
     }, {
       "id": 20,
       "name": "Family Medical Practice",
+      "major": true,
       "summary": "Website revamping for the largest care provider in Vietnam",
       "description": "FMP is a Vietnamese health provider. We revamp their website, both design and coding.",
       "code": "Powered by React and NextJS (and Wagtail for the CMS), the new website intended to be reactive and dynamic. While I din't work on the set up, I developed a large part of the website and handled most of the later change requests.",
@@ -544,6 +563,7 @@ export default {
     }, {
       "id": 21,
       "name": "Portfolio",
+      "major": false,
       "summary": "About this website",
       "objectives": "ThreeJS, Webpack, advanced maths",
       "year": 2019,
@@ -566,7 +586,7 @@ export default {
       "software": {
         "n/a": false,
         "list": ["AI", "PS"],
-        "position": {x: 320, y: 1, z: 290}
+        "position": {x: 220, y: 1, z: 490}
       },
       "techno": {
         "n/a": false,
@@ -577,6 +597,7 @@ export default {
     }, {
       "id": 22,
       "name": "Tran Duong",
+      "major": false,
       "summary": "A Vietnamese supplyer and constructer of high-class wallpaper and curtains",
       "objectives": null,
       "year": 2020,
@@ -598,17 +619,18 @@ export default {
       "software": {
         "n/a": false,
         "list": ["PS"],
-        "position": {x: 880, y: 1, z: 480}
+        "position": {x: 780, y: 1, z: 480}
       },
       "techno": {
         "n/a": true,
         "techno": [],
         "list": [],
-        "position": {x: 900, y: 1, z: 200}
+        "position": {x: 800, y: 1, z: 200}
       }
     }, {
       "id": 23,
-      "name": "Tran Duong",
+      "name": "Minh Minh Nhut",
+      "major": false,
       "summary": "Minh Minh Nhut supplies, manufactures paper bags/boxes and label tags industry.",
       "description": "I revamped their web design.",
       "design": "I took inspiration from the print industry: bleeds and print mark, paper texture and Material Design (from Google) for the metaphor of texture.",
@@ -632,7 +654,7 @@ export default {
       "software": {
         "n/a": false,
         "list": ["PS"],
-        "position": {x: 880, y: 1, z: 480}
+        "position": {x: 1200, y: 1, z: 330}
       },
       "techno": {
         "n/a": true,
@@ -665,16 +687,16 @@ export default {
     "software": [
       {
         "name": "Illustrator",
-        "position": {x: -165, y: 200, z: 120},
+        "position": {x: 200, y: 280, z: -160},
         "icon": "illustrator"
         // "icon": "illustrator.svg"
       }, {
         "name": "Sketch",
-        "position": {x: 0, y: 1, z: -320},
+        "position": {x: -400, y: 200, z: -80},
         "icon": "sketch"
       }, {
         "name": "InDesign",
-        "position": {x: 700, y: 1, z: -460},
+        "position": {x: 700, y: 1, z: -760},
         "icon": "indesign"
       }, {
         "name": "Photoshop",
@@ -682,7 +704,7 @@ export default {
         "icon": "photoshop"
       }, {
         "name": "Blender",
-        "position": {x: 1200, y: 1, z: -160},
+        "position": {x: 1400, y: 350, z: -160},
         "icon": "blender"
       }
     ],

@@ -26,6 +26,8 @@ const timeline = projects.list.filter(e => e.onlyTimeline === true);
 export let camera, controls, scene, renderer;
 export let cssScene, rendererCSS; // 2nd "canvas", used by CSS3DRenderer to display DOM element in 3D env
 
+const cameraInitialPosition = { x: -1500, y: 1770, z: 327 }
+
 // const svgLoader = new SVGLoader();
 
 const timelineMaterial = {
@@ -86,10 +88,10 @@ export function init() {
   document.getElementById( 'DOMElTimeline' ).appendChild( rendererCSS.domElement );
 
   camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 10000 );
-  camera.position.set( -1500, 1770, 327 );
-  camera.position.x = -1500;
-  camera.position.y = 1770;
-  camera.position.z = 327;
+  camera.position.set( cameraInitialPosition.x, cameraInitialPosition.y, cameraInitialPosition.z );
+  camera.position.x = cameraInitialPosition.x;
+  camera.position.y = cameraInitialPosition.y;
+  camera.position.z = cameraInitialPosition.z;
   camera.lookAt(new THREE.Vector3(600,0,327));
   // controls
   controls = new OrbitControls( camera, rendererCSS.domElement );
@@ -109,8 +111,8 @@ export function init() {
   // controls.maxPolarAngle =  Math.PI / 2;
   // controls.maxAzimuthAngle = Infinity;
   controls.mouseButtons = {
-    LEFT: THREE.MOUSE.PAN, // initial -> THREE.MOUSE.ROTATE,
-    // LEFT: null, // Keep it for click
+    // LEFT: THREE.MOUSE.PAN, // initial -> THREE.MOUSE.ROTATE,
+    LEFT: null, // Keep it for click
     // MIDDLE: THREE.MOUSE.DOLLY,
     RIGHT: THREE.MOUSE.PAN
   }
@@ -331,7 +333,7 @@ export function init() {
   // cssScene.add(cssObjectWN);
   // buildLine(timelineMaterial.perso, [11 * yu, 0, 0, 12 * yu, 0, 0], matLineDash);
 
-
+  // Add symbols
   for (const [prop, value] of Object.entries(projects.symbols)) {
     for ( let i = 0, j = value.length; i < j; i++ ) {
       let el = value[i];
@@ -347,7 +349,7 @@ export function init() {
       // To use Symbol as "Sprite SVG"
       // https://css-tricks.com/svg-symbol-good-choice-icons/
       var icon = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-  		icon.alt = name + " icon";
+      icon.setAttribute("preserveAspectRatio","xMidYMid meet");
       let use = document.createElementNS("http://www.w3.org/2000/svg", "use");
       use.setAttributeNS('http://www.w3.org/1999/xlink', 'href', `#${el.icon}`);
       use.setAttribute('href', `#${el.icon}`);
@@ -388,7 +390,7 @@ export function init() {
     element.appendChild( subtitle );
     let object = new CSS3DObject( element );
 
-    object.position.x = -480;
+    object.position.x = -680;
     object.position.z = -600;
     object.position.y = -200;
     object.rotation.x = -Math.PI/2;
@@ -461,11 +463,11 @@ export function init() {
       end: {...projects.list[k].software.position}
     })
   }
-  let BlArr = [17];
+  let BlArr = [8, 17];
   for (var i = 0, j = BlArr.length; i < j; i++) {
     let k = BlArr[i];
     projects.bounds.software.push({
-      start: {...projects.symbols.software[1].position},
+      start: {...projects.symbols.software[4].position},
       end: {...projects.list[k].software.position}
     })
   }
@@ -511,6 +513,8 @@ export function init() {
   		object.position.copy( start );
   		object.position.lerp( end, 0.5 );
 
+      object.element.style.backgroundColor = `hsl(${ Math.random() * (214 - 200) + 200 }), 77%, 41%`;
+
   		// object.userData.bondLengthShort = bondLength + "px";
   		// object.userData.bondLengthFull = ( bondLength + 55 ) + "px";
 
@@ -550,6 +554,8 @@ export function init() {
 
   		var object = new CSS3DObject( bond );
   		object.rotation.y = Math.PI / 2;
+      object.element.style.backgroundColor = `hsl(${ Math.random() * (214 - 200) + 200 }), 77%, 41%`;
+      // hsl(206, 77%, 41%)
 
   		object.matrixAutoUpdate = false;
   		object.updateMatrix();
@@ -572,12 +578,12 @@ export function init() {
     let el = projects.list[i];
 
 		let element = document.createElement( 'div' );
-		element.className = 'element detail node';
+		element.className = `element detail node`;
     element.setAttribute("data-id", el.id);
 		// element.style.backgroundColor = 'rgba(0,127,127,' + ( Math.random() * 0.5 + 0.25 ) + ')';
 
 		let wrapper = document.createElement( 'div' );
-		wrapper.className = 'name into-detail node';
+		wrapper.className = `name into-detail node ${el.major ? "major" : "minor"}`;
     wrapper.setAttribute("data-id", el.id);
 
 		let content = document.createElement( 'div' );
@@ -587,7 +593,8 @@ export function init() {
 
     let techno = document.createElement( 'div' );
     if (el.techno && el.techno.list) {
-  		techno.className = 'techno';
+  		techno.className = 'techno node';
+      techno.setAttribute("data-id", el.id);
       // if (settings.isDebugMode) {
       //   techno.textContent = el.techno.position.x + " / " + el.techno.position.z;
       // } else {
@@ -641,6 +648,7 @@ export function init() {
     if (el.software) {
   		var object = new THREE.Object3D();
       object.position.x = el.software.position.x;
+      object.position.y = el.software.position.y;
       object.position.z = el.software.position.z;
     } else {
       object.position.x = 0;
@@ -674,6 +682,7 @@ export function init() {
 		// object.position.setFromSphericalCoords( 800, phi, theta );
 		// vector.copy( object.position ).multiplyScalar( 2 );
     object.position.x = previousPos + distNode;
+    object.position.y = Math.random() * 150 - 150;
     object.position.z = previousZ;
 
     object.rotation.x = -Math.PI/2;
@@ -833,6 +842,20 @@ export function transform( targets, duration ) {
   			.start();
     }
 	}
+
+	new TWEEN.Tween( this )
+		.to( {}, duration * 2 )
+		.onUpdate( render )
+		.start();
+}
+
+export function resetCamera (duration ) {
+  // TWEEN.removeAll();
+
+	new TWEEN.Tween( camera.position )
+		.to( cameraInitialPosition, Math.random() * duration + duration )
+		.easing( TWEEN.Easing.Exponential.InOut )
+		.start();
 
 	new TWEEN.Tween( this )
 		.to( {}, duration * 2 )

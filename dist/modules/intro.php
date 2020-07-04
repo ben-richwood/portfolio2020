@@ -1,5 +1,5 @@
 <div id="intro" :class="{ 'no-intro' : isIntroOff }">
-  <div class="popup highlight hide">
+  <div class="popup highlight">
     <div v-show="ieDetected" class="ieDetected">
       Internet Explorer is not supported. Please switch to Chrome or Firefox.
     </div>
@@ -28,7 +28,9 @@
       <h3 class="tc">Configuration</h3>
       <div class="flex-row">
 
-        <img src="./assets/img/warning.svg" alt="warning icon" class="warning-symbol">
+        <svg class="warning-symbol" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+          <use xlink:href="#info"/>
+        </svg>
         <div style="flex-basis: auto;">
           The website has an intensive usage of Javascript - reactive layout and real-time 3d rendering.<br><span class="highlight--tag">{{ config }}</span> (your <span class="abbr" title="Graphics Processing Unit - aka your graphic card">GPU</span>) has been detected on your computer; regarding this, <span class="highlight--tag">{{ whichConfig() }}</span> is recommended for rendering.<br>
           <div v-show="isMobile">Morevoer, you're on mobile or tablet, which will make the animation less smooth.</div>

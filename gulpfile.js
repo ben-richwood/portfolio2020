@@ -11,7 +11,7 @@ var inject = require('gulp-inject');
 
 gulp.task('svgstore', function () {
   return gulp
-    .src('dist/assets/img/techno-icons/*.svg')
+    .src('src/assets/img/techno-icons/*.svg')
     .pipe(svgmin(function (file) {
       var prefix = path.basename(file.relative, path.extname(file.relative));
       return {
@@ -23,35 +23,10 @@ gulp.task('svgstore', function () {
         }]
       }
     }))
-    .pipe(svgstore())
+    .pipe(svgstore({inlineSvg: true}))
     .pipe(gulp.dest('dist/assets/img'));
 });
 
-gulp.task('svgstore-inject', function () {
-  var svgs = gulp
-    .src('dist/assets/img/techno-icons/*.svg')
-    .pipe(svgmin(function (file) {
-      var prefix = path.basename(file.relative, path.extname(file.relative));
-      return {
-        plugins: [{
-          cleanupIDs: {
-            prefix: prefix + '-',
-            minify: true
-          }
-        }]
-      }
-    }))
-    .pipe(svgstore({ inlineSvg: true }));
-
-    function fileContents (filePath, file) {
-        return file.contents.toString();
-    }
-
-    return gulp
-      .src('dist/timeline02.php')
-      .pipe(inject(svgs, { transform: fileContents }))
-      .pipe(gulp.dest('dist/export'));
-});
 
 gulp.task('img', () =>
   gulp.src('src/assets/img/projects/**/*.jpg')
