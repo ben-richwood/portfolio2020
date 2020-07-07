@@ -48,15 +48,15 @@ export const matLine = new LineMaterial( {
 } );
 
 var objects = [];
-export var targets = { techno: [], software: [], skills: [], all: []};
-export var symbols = { techno: [], software: [], skills: []};
+export var targets = { techno: [], software: [], skills: [], all: [], timeline: []};
+export var symbols = { techno: [], software: [], skills: [], timeline: []};
 export var bounds = { techno: [], software: []};
 
 
 
 // Variables to build the timeline - easier to tweak
 const unit = 20; // unit value for 1 month
-const zOffset = 40;
+let zOffset = 40;
 const yu = unit * 12; // yearUnit
 const sp = -2400 // startingPoint - year 2009
 let startingPoint = sp;
@@ -64,8 +64,8 @@ const yDepth = -50 // default depth
 
 let stats, rendererStats;
 
-const globalTimeline = document.createElement( 'div' );
-globalTimeline.className = "globalTimeline"
+// const globalTimeline = document.createElement( 'div' );
+// globalTimeline.className = "globalTimeline"
 
 var onWindowResize = Utilis.debounce(function() {
   camera.aspect = window.innerWidth / window.innerHeight;
@@ -223,35 +223,21 @@ export function init() {
  //             	      Building timeline elements                      //
 /////////////////////////////////////////////////////////////////////////
 
-  //time Line
-  // buildLine(timelineMaterial.perso, [0, 0, 0, 12 * yu, 0, 0]);
+  // X axis
+  buildLine(timelineMaterial.perso, [-1000, 0, 0, (12 * yu) - 1000, 0, 0]);
 
-  buildLine(timelineMaterial.perso, [0, 0, -800, 0, 0, 800]);
+  // Year 2009
+  buildLine(timelineMaterial.perso, [-1000, 0, -800, -1000, 0, 800]);
 
   // create the object3d for each project
+  /*
   for (var i = 0, j=DOMElTimeline.length; i < j; i++) {
     continue;
     let el = DOMElTimeline[i];
     if (!el.hasOwnProperty("dom")) continue;
     globalTimeline.appendChild(el.dom)
-
-    /*
-    var cssObject = new CSS3DObject( el.dom );
-    // we reference the same position and rotation
-    cssObject.position.x = el.position[0];
-    cssObject.position.y = el.position[1];
-    cssObject.position.z = el.position[2] + (-2 * (el.level * 20));
-    // cssObject.rotation.order = 'YXZ';
-    // cssObject.rotation.set(Math.PI/2, Math.PI, Math.PI/2);
-
-    cssObject.rotation.x = Math.PI/2;
-    cssObject.rotation.y = Math.PI;
-    cssObject.rotation.z = Math.PI;
-
-    // add it to the css scene
-    cssScene.add(cssObject);
-    */
   }
+  */
 
   // const cssObjectGlobal = new CSS3DObject( globalTimeline );
   // cssObjectGlobal.position.x = 0;
@@ -268,19 +254,20 @@ export function init() {
 
   // Display year numbers
   for (var i = 2009; i < 2021; i++) {
-    continue;
     var element = document.createElement( 'div' );
-    element.className = 'year';
+    element.className = `year element symbol hide-symbol`;
     element.textContent = i.toString();
 
     var cssObject = new CSS3DObject( element );
     // we reference the same position and rotation
-    cssObject.position.x = (i - 2009) * yu;
+    cssObject.position.x = ((i - 2009) * yu) - 1000;
     cssObject.position.y = -50;
     cssObject.position.z = 40;
     cssObject.rotation.x = Math.PI/2;
     cssObject.rotation.y = Math.PI;
     cssObject.rotation.z = Math.PI;
+
+    symbols.timeline.push( cssObject );
     // add it to the css scene
     cssScene.add(cssObject);
   }
@@ -512,8 +499,7 @@ export function init() {
   		var object = new CSS3DObject( bond );
   		object.position.copy( start );
   		object.position.lerp( end, 0.5 );
-
-      object.element.style.backgroundColor = `hsl(${ Math.random() * (214 - 200) + 200 }), 77%, 41%`;
+      object.element.style.backgroundColor = `hsl(${ Math.random() * (215 - 185) + 185 }, 77%, 41%)`;
 
   		// object.userData.bondLengthShort = bondLength + "px";
   		// object.userData.bondLengthFull = ( bondLength + 55 ) + "px";
@@ -635,11 +621,75 @@ export function init() {
 
     targets.techno.push( {"n/a": na, obj: object} );
 	}
-  console.log(targets);
 
-  // SOFTWARE
+  // TIMELINE
   var vector = new THREE.Vector3();
 
+  let letspanOfPreviousJob = 0;
+
+  for ( var i = 0, l = objects.length; i < l; i ++ ) {
+    let el = projects.list[i];
+    if(el.timeline.type === "event") {
+      continue;
+    }
+    let na = false
+
+    let startingPoint = ((el.timeline.startingYear - 2009) * yu) - 1000;
+    let len = el.timeline.hasOwnProperty("len") ? el.timeline.len : 1;
+
+    let zPos = 0;
+    let yPos = 0;
+    if ((len + startingPoint) < (letspanOfPreviousJob + 50)){
+      zOffset += 800;
+    } else {
+      zOffset = 40;
+    }
+    if (el.timeline.level) zOffset * (el.timeline.level * 20)
+    // let randZ = (el.timeline.group === "work" ? 1 : -1) * Math.random() * 10
+    let coeff = el.timeline.thread === "main" ? 1 : -1
+    if (el.timeline.thread === "second"){
+      zPos = zOffset * coeff;
+    }
+    // } else if (el.timeline.thread === "main") {
+    //   zPos = -1 * (el.timeline.level * 20) + letspanOfPreviousJob
+    // }
+
+    // if (cur.hasOwnProperty("children") && cur.children.length > 0){
+    //   cur.children.forEach(function(e){
+    //     console.log("children", e);
+    //     let newStartingPoint = (e.timeline.startingYear - 2009) * yu;
+    //     let subLevel = e.level ? e.level : 2;
+    //     let subDivSubContainer = constructDOMEl(e, subLevel, [newStartingPoint, 0, 0]);
+    //
+    //     DOMElTimeline.push({
+    //       dom:subDivSubContainer,
+    //       position: [
+    //         newStartingPoint + (yu * len), 0, 0
+    //       ],
+    //       rotation:0,
+    //       thread: e.thread,
+    //       level: e.level ? e.level : 2
+    //     });
+    //   })
+    // }
+
+    var object = new THREE.Object3D();
+    if (el.timeline) {
+      if (el.timeline["n/a"] && el.timeline["n/a"] === true) na = true;
+      object.position.x = startingPoint;
+      object.position.y = Math.random() * 100 - 50;
+      object.position.z = zPos;
+    } else {
+      object.position.x = 0;
+      object.position.z = 0;
+    }
+    object.rotation.x = -Math.PI/2;
+    targets.timeline.push( {"n/a": na, obj: object} );
+
+    letspanOfPreviousJob = len + startingPoint;
+  }
+
+  // SOFTWARE
 	for ( var i = 0, l = objects.length; i < l; i ++ ) {
     let el = projects.list[i];
     let na = false
@@ -655,14 +705,10 @@ export function init() {
       object.position.z = 0;
     }
     object.rotation.x = -Math.PI/2;
-    // object.lookAt( vector );
-    // targets.software.push( object );
     targets.software.push( {"n/a": na, obj: object} );
 	}
 
   // ALL
-  var vector = new THREE.Vector3();
-
   const distNode = 235
   let previousPos = -300
   let previousZ = -400;
@@ -680,7 +726,6 @@ export function init() {
 
 		var object = new THREE.Object3D();
 		// object.position.setFromSphericalCoords( 800, phi, theta );
-		// vector.copy( object.position ).multiplyScalar( 2 );
     object.position.x = previousPos + distNode;
     object.position.y = Math.random() * 150 - 150;
     object.position.z = previousZ;
@@ -694,25 +739,26 @@ export function init() {
 	}
 
   // TIMELINE
-  var vector = new THREE.Vector3();
-
-	for ( var i = 0, l = objects.length; i < l; i ++ ) {
-    let el = projects.list[i];
-
-		var object = new THREE.Object3D();
-    if (el.timeline) {
-      object.position.x = (el.timeline.startingYear - 2009) * yu;
-  		object.position.z = (Math.random() * 400) - 200;
-    } else {
-      object.position.x = 0;
-      object.position.z = 0;
-    }
-
-    object.rotation.x = -Math.PI/2;
-		targets.software.push( object );
-	}
+  // var vector = new THREE.Vector3();
+  //
+	// for ( var i = 0, l = objects.length; i < l; i ++ ) {
+  //   let el = projects.list[i];
+  //
+	// 	var object = new THREE.Object3D();
+  //   if (el.timeline) {
+  //     object.position.x = (el.timeline.startingYear - 2009) * yu;
+  // 		object.position.z = (Math.random() * 400) - 200;
+  //   } else {
+  //     object.position.x = 0;
+  //     object.position.z = 0;
+  //   }
+  //
+  //   object.rotation.x = -Math.PI/2;
+	// 	targets.software.push( object );
+	// }
 
   console.log("targets", targets);
+  console.log("symbols", symbols);
   TEST.testing(scene);
 
   // stats
@@ -729,18 +775,15 @@ export function init() {
 
   }
 
-
-
   // lights
-  var light = new THREE.DirectionalLight( 0xffffff );
-  light.position.set( 1, 1, 1 );
-  scene.add( light );
-  var light = new THREE.DirectionalLight( 0x002288 );
-  light.position.set( - 1, - 1, - 1 );
-  scene.add( light );
-  var light = new THREE.AmbientLight( 0x222222 );
-  scene.add( light );
-  //
+  // var light = new THREE.DirectionalLight( 0xffffff );
+  // light.position.set( 1, 1, 1 );
+  // scene.add( light );
+  // var light = new THREE.DirectionalLight( 0x002288 );
+  // light.position.set( - 1, - 1, - 1 );
+  // scene.add( light );
+  // var light = new THREE.AmbientLight( 0x222222 );
+  // scene.add( light );
   window.addEventListener( 'resize', onWindowResize, false );
   // animate();
 }
@@ -802,8 +845,10 @@ export function transform( targets, duration ) {
         bounds[settings.prevFilter][i].obj.element.classList.add("hide-bounds");
       }
       // show the new bonds
-      for ( let i = 0, j = bounds[settings.currFilter].length; i < j; i++ ) {
-        if (bounds[settings.currFilter][i].obj.element.classList.contains("hide-bounds")) bounds[settings.currFilter][i].obj.element.classList.remove("hide-bounds");
+      if (bounds[settings.currFilter] && bounds[settings.currFilter].length > 0){
+        for ( let i = 0, j = bounds[settings.currFilter].length; i < j; i++ ) {
+          if (bounds[settings.currFilter][i].obj.element.classList.contains("hide-bounds")) bounds[settings.currFilter][i].obj.element.classList.remove("hide-bounds");
+        }
       }
     } else { // settings.prevFilter === settings.currFilter
       console.log("bounds[settings.currFilter].length", bounds[settings.currFilter].length);
@@ -811,7 +856,7 @@ export function transform( targets, duration ) {
         bounds[settings.currFilter][i].obj.element.classList.remove("hide-symbol");
       }
     }
-  // != all
+  // === all
   } else {
     for ( let i = 0, j = symbols[settings.prevFilter].length; i < j; i++ ) {
       symbols[settings.prevFilter][i].element.classList.add("hide-symbol");

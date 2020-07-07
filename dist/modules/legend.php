@@ -25,9 +25,9 @@
         <button @click="software" class="filter-item" :class="selectedFilter === 'software' ? 'selected' : ''">
           <span>Design</span>
         </button>
-          <!-- <div @click="timeline" class="filter-item" :class="selectedFilter ? 'selected' : ''">
-          <button>Timeline</button>
-        </div> -->
+        <button @click="timeline" class="filter-item" :class="selectedFilter === 'timeline' ? 'selected' : ''">
+          <span>Timeline</span>
+        </button>
         <button @click="all" class="filter-item" :class="selectedFilter === 'all' ? 'selected' : ''">
           <span>All</span>
         </button>

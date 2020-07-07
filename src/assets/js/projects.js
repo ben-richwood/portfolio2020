@@ -222,11 +222,11 @@ export default {
       "summary": "Degree in Geography",
       "group": "study",
       "timeline": {
+        "onlyTimeline": true,
         "startingYear": 2009.7,
         "len": 4,
         "thread": "main",
         "type": "duration",
-        "onlyTimeline": true,
         "children": [
           {
             "name": "Licence (Paris Sorbonne, France)",
@@ -577,7 +577,7 @@ export default {
       "group": "freelance",
       "timeline": {
         "onlyTimeline": false,
-        "startingYear": 2018.7,
+        "startingYear": 2019.7,
         "len": 1.2,
         "thread": "second",
         "type": "duration",
@@ -711,6 +711,7 @@ export default {
   },
   "bounds": {
     "techno": [],
-    "software": []
+    "software": [],
+    "timeline": [],
   }
 }
