@@ -3,7 +3,8 @@
     <div class="text">
       <div class="bg-block">
         <h2>{{ name }}</h2>
-        <div class="techno-item-container" v-html="icons"></div>
+        <svg-symbol v-for="icon in icons"  v-bind:use="icon"></svg-symbol>
+        <!-- <div class="techno-item-container" v-html="icons"></div> -->
         <div v-html="data"></div>
       </div>
     </div>

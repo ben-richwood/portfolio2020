@@ -40,9 +40,9 @@ div.timeline{
 div.year{
   font-size: 2rem;
   opacity: .9;
-  color: #b7b7b7;
+  color: #9b9b9b;
   font-family: "Inter";
-  font-weight: 900;
+  font-weight: 700;
 }
 div.timeline{
   color: #b7b7b7;
@@ -121,6 +121,17 @@ div.detail{
     // border: 1px solid rgba(127,255,255,0.75);
     transform: translate(50%, 50%) scale(1.12);
     transition: transform .15s ease-in;
+  }
+
+  .length-bar{
+    position: absolute;
+    top:-28px;
+    left:0;
+    height: 15px;
+    width: 100%;
+    background-color: grey;
+    transform-origin: 0 50%;
+    transform: scale(0);
   }
 
 

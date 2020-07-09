@@ -60,6 +60,7 @@ let zOffset = 40;
 const yu = unit * 12; // yearUnit
 const sp = -2400 // startingPoint - year 2009
 let startingPoint = sp;
+let xOffset = -1000
 const yDepth = -50 // default depth
 
 let stats, rendererStats;
@@ -224,10 +225,10 @@ export function init() {
 /////////////////////////////////////////////////////////////////////////
 
   // X axis
-  buildLine(timelineMaterial.perso, [-1000, 0, 0, (12 * yu) - 1000, 0, 0]);
+  buildLine(timelineMaterial.perso, [xOffset, 0, 0, (12 * yu) + xOffset, 0, 0]);
 
   // Year 2009
-  buildLine(timelineMaterial.perso, [-1000, 0, -800, -1000, 0, 800]);
+  buildLine(timelineMaterial.perso, [xOffset, 0, -800, xOffset, 0, 800]);
 
   // create the object3d for each project
   /*
@@ -253,14 +254,14 @@ export function init() {
   // cssScene.add(cssObjectGlobal)
 
   // Display year numbers
-  for (var i = 2009; i < 2021; i++) {
+  for (var i = 2009; i < 2022; i++) {
     var element = document.createElement( 'div' );
     element.className = `year element symbol hide-symbol`;
     element.textContent = i.toString();
 
     var cssObject = new CSS3DObject( element );
     // we reference the same position and rotation
-    cssObject.position.x = ((i - 2009) * yu) - 1000;
+    cssObject.position.x = ((i - 2009) * yu) + xOffset;
     cssObject.position.y = -50;
     cssObject.position.z = 40;
     cssObject.rotation.x = Math.PI/2;
@@ -577,6 +578,9 @@ export function init() {
     content.textContent = el.name;
     content.setAttribute("data-id", el.id);
 
+    let lengthBar = document.createElement( 'div' );
+		lengthBar.className = 'length-bar';
+
     let techno = document.createElement( 'div' );
     if (el.techno && el.techno.list) {
   		techno.className = 'techno node';
@@ -588,6 +592,7 @@ export function init() {
       // }
     }
 
+		wrapper.appendChild( lengthBar );
 		wrapper.appendChild( content );
     if (el.techno && el.techno.list) {
   		wrapper.appendChild( techno );
@@ -625,7 +630,7 @@ export function init() {
   // TIMELINE
   var vector = new THREE.Vector3();
 
-  let letspanOfPreviousJob = 0;
+  let spanOfPreviousJob = 0;
 
   for ( var i = 0, l = objects.length; i < l; i ++ ) {
     let el = projects.list[i];
@@ -634,24 +639,25 @@ export function init() {
     }
     let na = false
 
-    let startingPoint = ((el.timeline.startingYear - 2009) * yu) - 1000;
+    let startingPoint = ((el.timeline.startingYear - 2009) * yu) + xOffset;
     let len = el.timeline.hasOwnProperty("len") ? el.timeline.len : 1;
 
     let zPos = 0;
     let yPos = 0;
-    if ((len + startingPoint) < (letspanOfPreviousJob + 50)){
-      zOffset += 800;
+    if ( (len + startingPoint) < (spanOfPreviousJob + 50) ){
+      zOffset += 200;
     } else {
+      spanOfPreviousJob = len + startingPoint;
       zOffset = 40;
     }
     if (el.timeline.level) zOffset * (el.timeline.level * 20)
     // let randZ = (el.timeline.group === "work" ? 1 : -1) * Math.random() * 10
     let coeff = el.timeline.thread === "main" ? 1 : -1
-    if (el.timeline.thread === "second"){
+    // if (el.timeline.thread === "second"){
       zPos = zOffset * coeff;
-    }
+    // }
     // } else if (el.timeline.thread === "main") {
-    //   zPos = -1 * (el.timeline.level * 20) + letspanOfPreviousJob
+    //   zPos = -1 * (el.timeline.level * 20) + spanOfPreviousJob
     // }
 
     // if (cur.hasOwnProperty("children") && cur.children.length > 0){
@@ -686,7 +692,6 @@ export function init() {
     object.rotation.x = -Math.PI/2;
     targets.timeline.push( {"n/a": na, obj: object} );
 
-    letspanOfPreviousJob = len + startingPoint;
   }
 
   // SOFTWARE

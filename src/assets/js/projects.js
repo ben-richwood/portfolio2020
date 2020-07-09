@@ -90,7 +90,7 @@ export default {
       },
       "techno": {
         "n/a": false,
-        "list": ["Bootstrap", "PHP", "Wordpress"],
+        "list": ["PHP", "Wordpress", "Bootstrap"],
         "position": {x: 190, y: 400, z: -680}
       }
     }, {
@@ -122,7 +122,7 @@ export default {
       },
       "techno": {
         "n/a": false,
-        "list": ["Mapbox", "PHP", "VueJS"],
+        "list": ["Mapbox", "PHP", "Vue"],
         "position": {x: 270, y: 1, z: 280}
       }
 
@@ -150,7 +150,7 @@ export default {
       },
       "techno": {
         "n/a": false,
-        "list": ["vis.js", "VueJS"],
+        "list": ["vis", "Vue"],
         "position": {x: 580, y: 1, z: -400}
       }
 
@@ -182,7 +182,7 @@ export default {
       },
       "techno": {
         "n/a": false,
-        "list": ["Ruby on Rails", "Turbolink"],
+        "list": ["ruby", "js"],
         "position": {x: 1300, y: 1, z: 280}
       }
     }, {
@@ -459,7 +459,7 @@ export default {
       },
       "techno": {
         "n/a": false,
-        "list": ["React"],
+        "list": ["JS", "React"],
         "position": {x: 0, y: 1, z: 130}
       }
     }, {
@@ -484,7 +484,7 @@ export default {
       },
       "techno": {
         "n/a": false,
-        "list": ["React", "JS"],
+        "list": ["JS", "React"],
         "position": {x: 485, y: 1, z: 420}
       }
     }, {
@@ -507,7 +507,7 @@ export default {
       },
       "techno": {
         "n/a": true,
-        "list": ["React"],
+        "list": ["JS", "React", "Chrome"],
         "position": {x: 1, y: 1, z: 1}
       }
     }, {
@@ -557,7 +557,7 @@ export default {
       },
       "techno": {
         "n/a": false,
-        "list": ["React", "JS"],
+        "list": ["JS", "React"],
         "position": {x: 650, y: 1, z: 330}
       }
     }, {
@@ -590,8 +590,8 @@ export default {
       },
       "techno": {
         "n/a": false,
-        "techno": ["ThreeJS", "VueJS", "Webpack"],
-        "list": ["React", "JS"],
+        // "techno": ["ThreeJS", "vue", "Webpack"],
+        "list": ["JS", "vue", "webpack"],
         "position": {x: 900, y: 1, z: 200}
       }
     }, {

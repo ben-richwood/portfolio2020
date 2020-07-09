@@ -1117,9 +1117,9 @@ div.timeline {
 div.year {
   font-size: 2rem;
   opacity: .9;
-  color: #b7b7b7;
+  color: #9b9b9b;
   font-family: "Inter";
-  font-weight: 900; }
+  font-weight: 700; }
 
 div.timeline {
   color: #b7b7b7;
@@ -1186,6 +1186,15 @@ div.detail {
   div.detail:hover .into-detail {
     transform: translate(50%, 50%) scale(1.12);
     transition: transform .15s ease-in; }
+  div.detail .length-bar {
+    position: absolute;
+    top: -28px;
+    left: 0;
+    height: 15px;
+    width: 100%;
+    background-color: grey;
+    transform-origin: 0 50%;
+    transform: scale(0); }
   div.detail div.into-detail {
     background-image: url(../img/timeline/timeline_nw.svg), url(../img/timeline/timeline_ne.svg), url(../img/timeline/timeline_sw.svg), url(../img/timeline/timeline_se.svg);
     background-position: 0 0, 100% 0, 0 100%, 100% 100%;
@@ -1449,10 +1458,15 @@ div.symbol {
 .returnArrow {
   display: inline-block;
   width: 30px;
-  max-height: 30px;
+  max-height: 27px;
   margin-right: 1rem;
-  transform: translateY(7px);
-  }
+  transform: translateY(7px); }
+
+.techno-svg {
+  display: inline-block;
+  width: 40px;
+  max-height: 30px;
+  margin-right: .4rem; }
 
 svg#keyboard {
   margin: 5rem auto;

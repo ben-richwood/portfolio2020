@@ -114,6 +114,13 @@ const hour = date.getHours();
 export const settings = new Settings({currentEnv: 1, isItNight: hour > 18 });
 const domElTimeline = document.getElementById("DOMElTimeline");
 
+Vue.component('svg-symbol', {
+  props: ['use'],
+  template: `<svg class="techno-svg" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+    <use :xlink:href="use"/>
+  </svg>`
+})
+
 export const Popup = new Vue({
   el: "#intro",
   data: {
@@ -283,18 +290,21 @@ export const detailPopup = new Vue ({
     images: [],
     blurred: false
   },
+  // template: 'svg-symbol',
   methods: {
     open: function (id) {
       settings.isDetailOpen = true;
       let prj = Projects.list.find(e => e["id"] === parseInt(id) );
       this.name = prj.name;
-      this.icons = "";
+      legendMenu.showLegend = false;
+      this.icons = [];
       this.images = [];
       let htmlToPrint = "";
       if (prj.techno && prj.techno.list && prj.techno.list.length > 0) {
         prj.techno.list.forEach((item, i) => {
           // this.icons += `<span class="techno-item">${item}</span>`
           // this.icons += `<span class="techno-item">${item}</span>`
+          /*
           var icon = document.createElementNS("http://www.w3.org/2000/svg", "svg");
           icon.setAttribute("preserveAspectRatio","xMidYMid meet");
           let use = document.createElementNS("http://www.w3.org/2000/svg", "use");
@@ -302,6 +312,9 @@ export const detailPopup = new Vue ({
           use.setAttribute('href', `#${item}`);
           icon.appendChild( use );
           this.icon += icon
+          */
+          console.log("item", item);
+          this.icons.push(`#${item.toLowerCase()}`);
 
           // <svg class="" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
           //   <use xlink:href="#camera"/>
@@ -347,6 +360,7 @@ export const detailPopup = new Vue ({
       domElTimeline.classList.remove("blurred")
       // legendMenu.showLegend = false;
       legendMenu.showLegendForDetail = false;
+      legendMenu.showLegend = true;
       settings.isDetailOpen = false;
       this.isOpen = false;
     }
