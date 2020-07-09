@@ -590,8 +590,7 @@ export default {
       },
       "techno": {
         "n/a": false,
-        // "techno": ["ThreeJS", "vue", "Webpack"],
-        "list": ["JS", "vue", "webpack"],
+        "list": ["JS", "vue", "webpack", "three",  "greensock"],
         "position": {x: 900, y: 1, z: 200}
       }
     }, {

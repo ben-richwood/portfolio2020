@@ -1,19 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg version="1.1"
-	 id="svg12" inkscape:version="0.92.2 (5c3e80d, 2017-08-06)" sodipodi:docname="js_webpack-ar21.svg" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:svg="http://www.w3.org/2000/svg" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="52.5px" height="60px" viewBox="0 0 52.5 60" enable-background="new 0 0 52.5 60" xml:space="preserve" preserveAspectRatio="xMinYMin meet">
-<sodipodi:namedview  inkscape:window-maximized="1" inkscape:window-x="-9" inkscape:current-layer="svg12" inkscape:window-height="1001" inkscape:pageshadow="2" inkscape:window-y="-9" inkscape:window-width="1920" inkscape:pageopacity="0" inkscape:cy="25.11724" id="namedview14" bordercolor="#666666" inkscape:cx="159.94447" showgrid="false" inkscape:zoom="2.7701736" pagecolor="#ffffff" gridtolerance="10" guidetolerance="10" borderopacity="1" objecttolerance="10">
-	</sodipodi:namedview>
-<title  id="title2">logo-on-white-bg</title>
-<g id="g905" transform="matrix(0.96789115,0,0,0.96789115,1.4635726,0.9632655)">
-	<path id="path6-0" inkscape:connector-curvature="0" fill="#8ED6FB" d="M50.098,45.587l-23.335,13.2V48.509l14.54-8.001
-		L50.098,45.587z M51.696,44.141V16.539l-8.536,4.933v17.744L51.696,44.141z M1.378,45.587l23.335,13.2V48.509l-14.547-8.001
-		L1.378,45.587z M-0.221,44.141V16.539l8.535,4.933v17.744L-0.221,44.141z M0.781,14.749L24.713,1.212v9.935L9.378,19.583
-		l-0.123,0.069L0.781,14.749z M50.694,14.749L26.762,1.212v9.935l15.335,8.429l0.123,0.069L50.694,14.749z"/>
-	<path id="path8-8" inkscape:connector-curvature="0" fill="#1C78C0" d="M24.713,46.62l-14.349-7.894V23.101l14.349,8.284V46.62z
-		 M26.762,46.62l14.348-7.886V23.101l-14.348,8.284V46.62z M11.336,21.296l14.402-7.916l14.401,7.916L25.738,29.61L11.336,21.296z"
-		/>
-</g>
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+	 width="200px" height="200px" viewBox="0.5 400.5 200 200" preserveAspectRatio="xMinYMin meet" ><path id="path6-0" style="fill:#8ED6FB;" d="M161.71,540.17l-58.63,33.17v-25.83l36.54-20.1L161.71,540.17z M165.73,536.53v-69.35
+	l-21.45,12.4v44.58L165.73,536.53z M39.29,540.17l58.63,33.17v-25.83l-36.55-20.1L39.29,540.17z M35.27,536.53v-69.35l21.45,12.4
+	v44.58L35.27,536.53z M37.79,462.68l60.13-34.01v24.96l-38.53,21.2L59.08,475L37.79,462.68z M163.21,462.68l-60.13-34.01v24.96
+	l38.53,21.18l0.31,0.18L163.21,462.68z"/>
+<path id="path8-8" style="fill:#1C78C0;" d="M97.93,542.76l-36.06-19.83v-39.27l36.06,20.82V542.76z M103.07,542.76l36.05-19.82
+	v-39.28l-36.05,20.82V542.76z M64.31,479.13l36.19-19.89l36.19,19.89l-36.19,20.89L64.31,479.13z"/>
 </svg>

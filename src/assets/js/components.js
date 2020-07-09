@@ -114,9 +114,10 @@ const hour = date.getHours();
 export const settings = new Settings({currentEnv: 1, isItNight: hour > 18 });
 const domElTimeline = document.getElementById("DOMElTimeline");
 
+// The only way I found to embed <symbols> with Vue is with components
 Vue.component('svg-symbol', {
   props: ['use'],
-  template: `<svg class="techno-svg" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+  template: `<svg :title="use" class="techno-svg" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
     <use :xlink:href="use"/>
   </svg>`
 })
