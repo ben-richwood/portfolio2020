@@ -47,6 +47,79 @@ ul.no-list{
   }
 }
 
+.flex{
+	display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
+	display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
+	display: -ms-flexbox;      /* TWEENER - IE 10 */
+	display: -webkit-flex;     /* NEW - Chrome */
+	display: flex;             /* NEW, Spec - Opera 12.1, Firefox 20+ */
+
+	-webkit-align-items: center; /* Safari 7.0+ */
+	align-items: center;
+
+	&.f-start{
+		-webkit-justify-content: flex-start; /* Safari 6.1+ */
+		justify-content: flex-start;
+	}
+	&.f-center{
+		-webkit-justify-content: center; /* Safari 6.1+ */
+		justify-content: center;
+	}
+	&.f-between{
+		-webkit-justify-content: space-between; /* Safari 6.1+ */
+		justify-content: space-between;
+	}
+
+	&.f-row{
+		flex-direction: row;
+		-webkit-flex-direction: row;
+		// orientation($dir);
+	}
+	&.f-column{
+		flex-direction: column;
+		-webkit-flex-direction: column;
+		// orientation($dir);
+	}
+	&.f-align-start{
+		-webkit-align-items: flex-start; /* Safari 7.0+ */
+		align-items: flex-start;
+	}
+}
+
+.corners{
+	background-image: url(../img/timeline/timeline_nw.svg), url(../img/timeline/timeline_ne.svg), url(../img/timeline/timeline_sw.svg), url(../img/timeline/timeline_se.svg);
+	background-position: 0 0, 100% 0, 0 100%, 100% 100%;
+	background-size: 12px 12px;
+	background-repeat: no-repeat;
+}
+
+.key{
+  font-size: .8em;
+  box-shadow: 1px 0 1px 0 #eee,0 2px 0 2px #ccc,0 2px 0 3px #444;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 2px;
+  margin: 2px 3px;
+  padding: 1px 5px;
+  text-align: left;
+  white-space: nowrap;
+  margin-right: 1rem;
+  border: 1px solid #5555;
+  width: initial;
+  min-width: 28px;
+  color: #333;
+  height: 28px;
+  padding-right: 0.4rem;
+  background: rgba(235,235,235,0.9);
+}
+
+.scrollbar{
+  overflow-y: auto;
+  height: 100%;
+  padding-right: 1rem;
+  @include scrollbar();
+}
+
 @media (max-width: 575.98px) {}
 
 @media (min-width: 576px) and (max-width: 767.98px) {}

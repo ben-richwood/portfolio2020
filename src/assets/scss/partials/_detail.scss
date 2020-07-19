@@ -23,15 +23,17 @@
     background-position: 0 0, 100% 0, 0 100%, 100% 100%;
     background-size: 12px 12px;
     background-repeat: no-repeat;
+
+    padding: .9rem;
+    padding-right: .5rem;
+
   }
   .text{
     flex-shrink: 2;
-    padding: .9rem;
     box-sizing: border-box;
     // height: 45vh;
     margin-right: 2vw;
     width: 60%;
-    overflow-y: scroll;
     .bg-block:last-child{
       margin-bottom:0;
     }
@@ -40,9 +42,8 @@
     flex-basis: 55%;
     width: 100%;
     flex-grow: 2;
-    overflow-y: scroll;
-    padding: .9rem;
     box-sizing: border-box;
+    overflow-y: hidden;
     img {
       margin: 0 auto .4rem;
       display: block;
@@ -58,4 +59,15 @@
   font-size: .85rem;
   color: #BBB;
   margin: 1.8rem 1rem .8rem;
+}
+
+.extra_job-info{
+  > div:first-child{
+    flex-basis: auto;
+    margin-right: .6rem;
+  }
+  > div:last-child{
+    flex-basis: auto;
+    flex-grow: 2;
+  }
 }

@@ -33,15 +33,15 @@
         </button>
       </div>
       <div class="column-legend">
-        <div class="major"> Major projects </div>
-        <div class="minor"> Minor projects </div>
+        <div class="major legend-item"> Major projects </div>
+        <div class="minor legend-item"> Minor projects </div>
       </div>
       <div class="column-legend">
         <button @click="resetCamera" class="reset-camera" type="button" name="button">
           <svg class="" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
             <use xlink:href="#camera"/>
           </svg>
-          <span>Reset camera</span></button>
+          <span>Reset</span></button>
       </div>
     </div>
   </div>

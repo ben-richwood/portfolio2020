@@ -156,14 +156,13 @@ div.detail{
       display: none;
     }
   }
+  &.ignore{
+    display: none !important;
+  }
 
 
   div.into-detail{
     // background-color: rgba(255,255,255,.02);
-    background-image: url(../img/timeline/timeline_nw.svg), url(../img/timeline/timeline_ne.svg), url(../img/timeline/timeline_sw.svg), url(../img/timeline/timeline_se.svg);
-    background-position: 0 0, 100% 0, 0 100%, 100% 100%;
-    background-size: 12px 12px;
-    background-repeat: no-repeat;
     padding: .55rem;
     box-sizing: border-box;
     &.major{
@@ -171,7 +170,7 @@ div.detail{
       transition: transform .15s ease-in;
       .desc{
         // background: rgb(17,80,125);
-        background: linear-gradient(90deg, rgba(17,80,125,1) 0%, rgba(24,117,187,1) 100%);
+        @include gradient();
       }
       div.techno{
         @include major();
@@ -182,7 +181,7 @@ div.detail{
       transform: translate(50%, 50%) scale(.8);
       transition: transform .15s ease-in;
       .desc{
-        // background: #DDD;
+        background: #6d9aba;
       }
       div.techno{
         @include minor();
@@ -337,6 +336,7 @@ div.symbol{
 
 .case-link{
   @include buttonStyle;
+  @include gradient();
   margin-top: 1rem;
 }
 

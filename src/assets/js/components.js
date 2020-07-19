@@ -212,7 +212,6 @@ export const optionMenu = new Vue({
       if(this.optionsOpen){
         this.close();
       } else {
-        // this.open();
         this.open();
       }
     },
@@ -275,6 +274,7 @@ export const detailPopup = new Vue ({
     data: "",
     images: [],
     year: null,
+    category: null,
     blurred: false
   },
   // template: 'svg-symbol',
@@ -293,9 +293,11 @@ export const detailPopup = new Vue ({
         });
       }
 
-      // if (prj.year) {
-        this.year = prj.year
-      // }
+      this.year = prj.year
+
+      if (prj.category) {
+        this.category = prj.category;
+      }
       this.description = prj.description;
 
       if (prj.code) {
@@ -348,6 +350,15 @@ export const detailPopup = new Vue ({
       legendMenu.showLegend = true;
       settings.isDetailOpen = false;
       this.isOpen = false;
+
+      this.name = "";
+      this.description = "";
+      this.link = "";
+      this.icons = "";
+      this.data = "";
+      this.images = [];
+      this.year = null;
+      this.category = null;
     }
   }
 })
@@ -433,13 +444,15 @@ document.addEventListener('keyup', (event) => {
     if (settings.isDetailOpen) {
       detailPopup.close();
     }
+    if (optionMenu.optionsOpen) {
+      legendMenu.showLegend = false;
+    } else {
+      legendMenu.showLegend = true;
+  //   detailPopup.close();
+    }
   }
   if (keyCode === settings.keyboardConfig.accept[0]) {
     optionMenu.toogle();
-    // if (settings.isDetailOpen) {
-    // detailPopup.close();
-    // } else {
-      // legendMenu.showLegend = !legendMenu.showLegend;
-    // }
+    // dispay/hide the legend menu
   }
 }, false);

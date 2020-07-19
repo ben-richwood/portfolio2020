@@ -20,12 +20,12 @@ export default {
       "software": {
         "n/a": false,
         "list": ["photoshop", "illustrator", "indesign"],
-        "position": {x: 800, y: 1, z: -100}
+        "position": {x: 220, y: 1, z: -600}
       },
       "techno": {
         "n/a": false,
         "list": ["Bootstrap", "PHP"],
-        "position": {x: 990, y: 400, z: -620}
+        "position": {x: 990, y: 200, z: -720}
       },
       "timeline": {
         "n/a": false,
@@ -76,12 +76,12 @@ export default {
       "software": {
         "n/a": false,
         "list": ["photoshop", "illustrator", "indesign"],
-        "position": {x: 1000, y: 1, z: 160}
+        "position": {x: 1200, y: 1, z: 20}
       },
       "techno": {
         "n/a": false,
         "list": ["PHP", "Wordpress", "Bootstrap"],
-        "position": {x: 190, y: 400, z: -680}
+        "position": {x: 190, y: 200, z: -780}
       }
     }, {
       "id": 3,
@@ -156,7 +156,7 @@ export default {
       "link": "https://takacorp.herokuapp.com",
       "images": ["Taka_webdesign_homepage",{url:"Taka_webdesign",caption:"I started with a \"Design Principle\"  document, and then turned it into a proper webdesign guideline"}, {url:"UI_page",caption:"UI components of the pages"}],
       "slug": "taka",
-      "category": "Personal",
+      "category": "Personal - Full stack",
       "group": "freelance",
       "timeline": {
         "onlyTimeline": false,
@@ -168,7 +168,7 @@ export default {
       "software": {
         "n/a": false,
         "list": ["illustrator", "Photoshop"],
-        "position": {x: -100, y: 1, z: -600}
+        "position": {x: -200, y: 1, z: -400}
       },
       "techno": {
         "n/a": false,
@@ -180,13 +180,13 @@ export default {
       "name": "Uptime checker",
       "major": false,
       "summary": "Internal tool to track uptime website and domain names",
-      "description": "<p>Uptime Checker is an internal tool to monitor and get notified if one of the website we're managing is down.</p><h4>Coding motivations</h4><ul><li>Learning Python + micro framework (Flask)</li><li>Reactive app and xhr calls</li></ul>",
+      "description": "<p>Uptime Checker is an internal tool to monitor and get notified if one of the website we're managing is down.</p>",
       "year": 2019,
-      "code": "I was familiar with Vue already, so I opted for this techno since it's mainly llist management (with filtering).</p><p>Backend was limited, and only required simple routing and API-like response with sqlite queires returned as JSON.</p><p>For the uptime tool itsellf, it's all written in Python3 (using request, sqlite3 and STMP for notification email), set on a CRON job running every 15min.</p>",
+      "code": "I was familiar with Vue already, so I opted for this techno since it's mainly llist management (with filtering).</p><p>Backend was limited, and only required simple routing and API-like response with sqlite queires returned as JSON.</p><p>For the uptime tool itsellf, it's all written in Python3 (using request, sqlite3 and STMP for notification email), set on a CRON job running every 15min.</p><h4>Coding motivations</h4><ul><li>Learning Python scripts</li><li>Experimenting a micro framework (Flask)</li><li>Reactive app and xhr calls</li></ul>",
       "link": "",
       "slug": "uptime",
       "images": ["screenshot", "popup", {url:"flow",caption:"Flow of the webapp - to have a clear overview before starting development"}],
-      "category": "BLISS",
+      "category": "Work - internal tool",
       "group": "work",
       "timeline": {
         "onlyTimeline": false,
@@ -284,9 +284,14 @@ export default {
       }
     }, {
       "id": 9,
-      "name": "Internship - CAPSA Container",
+      "name": "CAPSA Container - Internship",
       "summary": "Intership",
+      "category": "Intership",
+      "year": 2014,
       "description": "With essay", // DON't FORGET THE MEMOIRE
+      "design": "<p>My main objective was to design and realize a prototype of an accomodation in a maritim container.</p><p><a href='https://skfb.ly/F8Wr'>3D model of the room</a> (on SketchFab)</p>",
+      "slug": "capsa",
+      "images": [{url:"capsul",caption:"My main missino was to design a temporary acomodation in a maritim container. Here is the 3d modeling I made for it."},{url:"capsul-room",caption:"Detail of the room - we specificaly had to work on adaptable furniture regarding the dimension of a container"},{url:"typo-ctn-01",caption:"Graphic researches about container typology and layout"},{url:"exterieur",caption:"I also worked on other 3d modeling for client requests"},{url:"CAPSA_catalogue_Event-cover",caption:"Event catalog cover"},{url:"catalog-indus-double-page",caption:"Catalog Industry - I designed their 2 catalogs - Event and Industry"}],
       "group": "work",
       "timeline": {
         "startingYear": 2014.5,
@@ -353,6 +358,7 @@ export default {
     }, {
       "id": 12,
       "name": "MonMentor",
+      "ignore": true,
       "major": false,
       "summary": "Platform/marketplace to match mentors and learners",
       "group": "work",
@@ -376,6 +382,7 @@ export default {
     }, {
       "id": 13,
       "name": "Kicklaws",
+      "ignore": true,
       "major": false,
       "summary": "Web platform where opinions matter",
       "group": "work",
@@ -400,7 +407,7 @@ export default {
       "id": 14,
       "name": "Vietnam",
       "major": false,
-      "summary": "4 years spent in Ho Chi Minh City",
+      "summary": "4 years living in Ho Chi Minh City",
       "slug": "vietnam",
       "images": ["saigon"],
       "group": "perso",
@@ -446,8 +453,10 @@ export default {
       "id": 16,
       "name": "Year of Engineering",
       "major": false,
+      "year": 2018,
+      "category": "Work - development, digital producer and project management",
       "slug": "yoe",
-      "images": [{url:"techno_approch",caption:"Diagram to describe the technical stack to the cllient"}, {url:"openbadges",caption:"Sitemap & wireframe for a change request - integrating a new Badge"}],
+      "images": [{url:"techno_approch",caption:"Diagram to describe the technical stack to the client"}, {url:"openbadges",caption:"Sitemap & wireframe for a change request - integrating a new Badge"}],
       "summary": "UK government project to promote engineering",
       "group": "work",
       "timeline": {
@@ -470,6 +479,8 @@ export default {
     }, {
       "id": 17,
       "name": "CCM",
+      "year": 2019,
+      "category":"Project management",
       "major": false,
       "summary": "Internal tool to manage creative process",
       "description": "<p>This is another internal too, developed to manage creative process. I worked as Project Manager on this job, and as secondary developer - for minor tasks and adapting feedback.</p><p>I also wrote all the documentation to facilitate team's onboarding - and to keep track of the changes. I used to <span class=\"abbr\" title=\"Facebook's documentation library, based on React\">Docusaursu</span> to handle the documentation.</p>",
@@ -487,7 +498,7 @@ export default {
       "software": {
         "n/a": false,
         "list": ["illustrator"],
-        "position": {x: -365, y: 200, z: 120}
+        "position": {x: -490, y: 200, z: 120}
       },
       "techno": {
         "n/a": false,
@@ -553,8 +564,10 @@ export default {
       "code": "Powered by React and NextJS (and Wagtail for the CMS), the new website intended to be reactive and dynamic. While I din't work on the set up, I developed a large part of the website and handled most of the later change requests.",
       "design": "I design only few elements of the website. However, I built a large part of the website structure, coming up with sitemap, wireframes and flows",
       "slug": "fmp",
-      "images": [{url:"FMP_sitemap",caption:"Sitemap of the new website"},{url:"routing-history_page", caption: "I worked on many documents to explain clearly what we were going to build for the client"}, {url:"supplierAPI-flow",caption:"We worked with some suppliers, and I documented to faciitate the integration"}, {url:"flow-book_doctor",caption:"For each change requests, I made some wireframes and mockups to help the design department"}],
+      "images": [{url:"FMP_sitemap",caption:"Sitemap of the new website"},{url:"routing-history_page", caption: "I worked on many documents to explain clearly what we were going to build for the client - here is the routing strategy"}, {url:"supplierAPI-flow",caption:"We worked with some suppliers, and I documented to faciitate the integration"}, {url:"flow-book_doctor",caption:"For each change requests, I made some wireframes and mockups to help the design department"}],
       "group": "work",
+      "category": "Work - developement and project manaement",
+      "year": 2019,
       "timeline": {
         "startingYear": 2019.6,
         "len": 1.2,
@@ -577,7 +590,7 @@ export default {
       "name": "Portfolio",
       "major": false,
       "summary": "About this website",
-      "objectives": "ThreeJS, Webpack, advanced maths",
+      "objectives": "ThreeJS, Webpack, performance oriented",
       "year": 2019,
       "description": "<p>TBC</p>",
       "code": "<p>I modified the original Orbit.js file, in order to limit the camera movement and to allow more interaction with zoom (mousewheel)</p><p>I used <a href=\"https://css-tricks.com/svg-symbol-good-choice-icons/\">SVGstore</a> to concat all SVG as one big file (≈34 SVG for 71KB), allowing then to display them with &lt;symbol&gt; elements (via Gulp)</p><p>Webpack is used resolve <code>import</code> and <code>requires</code>, plus to minify and \"Tree shaking\" (for dead-code elimination).</p><p>Finally, TweenMax (GSAP) animate projects when changing the filters.</p>",
@@ -591,7 +604,6 @@ export default {
         "len": 1.2,
         "thread": "second",
         "type": "duration",
-
       },
       "software": {
         "n/a": false,
@@ -633,7 +645,7 @@ export default {
       "techno": {
         "n/a": true,
         "list": [],
-        "position": {x: 800, y: 1, z: 200}
+        "position": {x: 630, y: 1, z: 450}
       }
     }, {
       "id": 23,
@@ -661,7 +673,7 @@ export default {
       "software": {
         "n/a": false,
         "list": ["photoshop"],
-        "position": {x: 1200, y: 1, z: 330}
+        "position": {x: 1200, y: 1, z: 500}
       },
       "techno": {
         "n/a": true,
@@ -681,8 +693,8 @@ export default {
       "code": "TBC",
       "link": "https://spotify-fan.com/",
       "screenImg": "homepage.png",
-      "slug": "spotify/",
-      "category": "main",
+      "slug": "spotify",
+      "category": "Work - Development and project management",
       "group": "freelance",
       "timeline": {
         "onlyTimeline": false,
@@ -719,7 +731,7 @@ export default {
         "icon": "ruby"
       }, {
         "name": "PHP",
-        "position": {x: 600, y: 400, z: -440},
+        "position": {x: 600, y: 200, z: -640},
         "icon": "php"
       },
     ],
@@ -731,7 +743,7 @@ export default {
         // "icon": "illustrator.svg"
       }, {
         "name": "Sketch",
-        "position": {x: -400, y: 200, z: -80},
+        "position": {x: -600, y: 200, z: -80},
         "icon": "sketch"
       }, {
         "name": "InDesign",
@@ -739,7 +751,7 @@ export default {
         "icon": "indesign"
       }, {
         "name": "Photoshop",
-        "position": {x: 740, y: 1, z: 280},
+        "position": {x: 900, y: 1, z: 280},
         "icon": "photoshop"
       }, {
         "name": "Blender",

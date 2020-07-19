@@ -11,7 +11,11 @@ import {
 	Quaternion,
 	Vector2,
 	Vector3
-} from "../../../build/three.module.js";
+} from "../build/three.module.js";
+
+// import { camera, box } from '../main.js'
+// import { settings } from '../components.js'
+// import { distanceVector } from './custom/miscellaneous.js'
 
 var TrackballControls = function ( object, domElement ) {
 

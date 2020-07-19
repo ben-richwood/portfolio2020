@@ -36,14 +36,49 @@
 }
 
 @mixin major(){
-  background-color: $mainColor;
+  // background-color: $mainColor;
   color: white;
   opacity: 1.2;
   font-size: 1rem;
+  &.legend-item{
+    background: linear-gradient(90deg, #11507d 0%, #1875bb 100%);
+    width: 100%;
+  }
 }
 @mixin minor(){
-  background-color: #7393ab;
+  // background-color: #7393ab;
   color: white;
   // opacity: .8;
   font-size: .9rem;
+  &.legend-item{
+    background-color: #6d9aba;
+    width: 100%;
+  }
+}
+
+@mixin scrollbar(){
+  &::-webkit-scrollbar {
+    width: .3em;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg,#ff8a00,#e52e71);
+    // background: linear-gradient(180deg, rgba(17,80,125,1), rgba(24,117,187,1));
+    border-radius: 10px;
+    box-shadow: inset 2px 2px 2px hsla(0,0%,100%,.25), inset -2px -2px 2px rgba(0,0,0,.25);
+  }
+
+  &::-webkit-scrollbar-track {
+    background: linear-gradient(90deg,#201c29,#201c29 1px,#100e17 0,#100e17);
+  }
+}
+
+@mixin corners(){
+  background-image: url(../img/timeline/timeline_nw.svg), url(../img/timeline/timeline_ne.svg), url(../img/timeline/timeline_sw.svg), url(../img/timeline/timeline_se.svg);
+  background-position: 0 0, 100% 0, 0 100%, 100% 100%;
+  background-size: 12px 12px;
+  background-repeat: no-repeat;
+}
+
+@mixin gradient(){
+  background: linear-gradient(90deg, rgba(17,80,125,1) 0%, rgba(24,117,187,1) 100%);
 }

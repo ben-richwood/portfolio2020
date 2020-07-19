@@ -5,7 +5,7 @@
         <li><button :class="currentSubmenu == 0 ? 'active' : ''" class="large-button left-align" @click="changeSubmenu(0)">Config</button></li>
         <li><button :class="currentSubmenu == 1 ? 'active' : ''" class="large-button left-align" @click="changeSubmenu(1)">Controls</button></li>
         <li><button :class="currentSubmenu == 2 ? 'active' : ''" class="large-button left-align" @click="changeSubmenu(2)">Graphics</button></li>
-        <li><button :class="currentSubmenu == 3 ? 'active' : ''" class="large-button left-align" @click="changeSubmenu(3)">Stats</button></li>
+        <!-- <li><button :class="currentSubmenu == 3 ? 'active' : ''" class="large-button left-align" @click="changeSubmenu(3)">Stats</button></li> -->
         <li><button :class="currentSubmenu == 4 ? 'active' : ''" class="large-button left-align" @click="changeSubmenu(4)">Credit</button></li>
         <!-- <li><button :class="currentSubmenu == 5 ? 'active' : ''" class="large-button left-align" @click="timeline">{{ canvasMenuLabel }}</button></li> -->
         <li><button class="large-button left-align" @click="close">
@@ -17,7 +17,7 @@
         </button></li>
       </ul>
     </div>
-    <div class="rightSettings">
+    <div class="rightSettings scrollbar">
       <div v-if="currentSubmenu == 0" id="config">
         <h3 class="tc">Config</h3>
         <div class="notice">
@@ -52,21 +52,27 @@
           <label for="kb_vim">vim</label>
         </div>
         <?php echo file_get_contents("./assets/img/icons/keyboard.svg"); ?>
-        <div class="keyMap">
-          <div class="key">{{ keyMap.option[1] }}</div>
-          <div class="keyFeature">Open/close option menu</div>
-        </div>
-        <div class="keyMap">
-          <div class="key">{{ keyMap.prev[1] }}</div>
-          <div class="keyFeature">Previous project</div>
-        </div>
-        <div class="keyMap">
-          <div class="key">{{ keyMap.next[1] }}</div>
-          <div class="keyFeature">Next project</div>
-        </div>
-        <div class="keyMap">
-          <div class="key">{{ keyMap.accept[1] }}</div>
-          <div class="keyFeature">open project details</div>
+        <div class="flex f-start row">
+          <div class="">
+            <div class="keyMap">
+              <div class="key">{{ keyMap.option[1] }}</div>
+              <div class="keyFeature">Open/close option menu</div>
+            </div>
+            <div class="keyMap">
+              <div class="key">{{ keyMap.prev[1] }}</div>
+              <div class="keyFeature">Previous project</div>
+            </div>
+          </div>
+          <div style="margin-left: 5vw;">
+            <div class="keyMap">
+              <div class="key">{{ keyMap.next[1] }}</div>
+              <div class="keyFeature">Next project</div>
+            </div>
+            <div class="keyMap">
+              <div class="key">{{ keyMap.accept[1] }}</div>
+              <div class="keyFeature">open project details</div>
+            </div>
+          </div>
         </div>
         <!-- <img src="./assets/img/icons/keyboard.svg" alt="keyboard configuration"> -->
       </div>
@@ -106,12 +112,31 @@
         <div class="notice">
           <p class="tc">This portfolio is built on these technologies:</p>
         </div>
-        <ul>
-          <li>ThreeJS</li>
-          <li>VueJs</li>
-          <li>SASS</li>
-          <li>Webpack 4</li>
-        </ul>
+        <div class="flex f-start f-row">
+          <div>
+            <ul>
+              <li><svg class="returnArrow" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+                <use xlink:href="#three"/>
+              </svg> ThreeJS</li>
+              <li><svg class="returnArrow" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+                <use xlink:href="#vue"/>
+              </svg>
+              VueJs</li>
+            </ul>
+          </div>
+          <div>
+            <ul>
+              <li><svg class="returnArrow" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+                <use xlink:href="#sass"/>
+              </svg>
+              SASS</li>
+              <li><svg class="returnArrow" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+                <use xlink:href="#webpack"/>
+              </svg>
+              Webpack 4</li>
+            </ul>
+          </div>
+        </div>
         <p class="tc">This portfolio is inspired by these references</p>
         <ul>
           <li>Menu, options and overall layout<br>
@@ -129,57 +154,87 @@
         </ul>
         <p class="tl">The source code is accessibe on my GitHub:<br><a href="https://github.com/ben-richwood/">Portfolio2020</a></p>
         <h3>Stack</h3>
+        <p>Here is an overview of my daily tools, for development, design and project management.</p>
+        <p>I tend to switch as much as possible to <abbr class="abbr" title="Free and Open Source Software">FOSS</abbr>, and get rid of licenced applications.</p>
         <ul>
           <li>Linux Debian 10</li>
         </ul>
-        <h3>Dev</h3>
-        <ul>
-          <li>Atom</li>
-          <li>Firefox Developer Edition</li>
-          <li></li>
-          <li></li>
-        </ul>
-        <h3>Framework / Stack</h3>
-        <ul>
-          <li>
-            javascript
+        <div class="flex f-row f-between f-align-start">
+          <div class="">
+            <h4>Dev</h4>
             <ul>
-              <li>Node.JS & NPM</li>
-              <li>VueJS</li>
-              <li>React</li>
-              <li>ThreeJS</li>
+              <li>Atom</li>
+              <li>Firefox Developer Edition</li>
+              <li><a href="https://meldmerge.org/">Meld</a> (for merge diff)</li>
+              <li>
+                Task runner
+                <ul>
+                  <li>Python scripts</li>
+                  <li>Gulp</li>
+                  <li>Webpack</li>
+                  <li>Parcel</li>
+                </ul>
+              </li>
             </ul>
-          </li>
-          <li>
-            Ruby
+            <h4>Services</h4>
             <ul>
-              <li>Ruby on Rails</li>
-              <li>ActiveAdmin</li>
+              <li>Heroku</li>
+              <li>GitLab</li>
             </ul>
-          </li>
-          <li>
-            Python
+          </div>
+          <div>
+            <h4>Framework / Stack</h4>
             <ul>
-              <li>Flask</li>
+              <li>
+                javascript
+                <ul>
+                  <li>NodeJS & NPM</li>
+                  <li>VueJS</li>
+                  <li>React</li>
+                  <li>ThreeJS</li>
+                </ul>
+              </li>
+              <li>
+                Ruby
+                <ul>
+                  <li>Ruby on Rails</li>
+                  <li>ActiveAdmin</li>
+                </ul>
+              </li>
+              <li>
+                Python
+                <ul>
+                  <li>Flask</li>
+                </ul>
+              </li>
             </ul>
-          </li>
-        </ul>
-        <h3>Design</h3>
+          </div>
+        </div>
+        <div class="flex f-row f-between f-align-start">
+          <div class="">
+            <h4>Design</h4>
+            <ul>
+              <li>Adobe Photoshop (want to migrate to Gimp)</li>
+              <li>Adobe Illustrator (want to migrate to <a href="https://inkscape.org/">InkScape</a>)</li>
+              <li>Adobe inDesign (want to try <a href="https://www.scribus.net/">Scribus</a>)</li>
+              <li>Adobe After Effect</li>
+              <li>Sketch</li>
+              <li><a href="https://imagemagick.org/index.php">ImageMagick</a> (want to try <a href="http://www.graphicsmagick.org/">GraphicsMagick</a>)</li>
+            </ul>
+          </div>
+          <div>
+            <h4>Project management</h4>
+            <ul>
+              <li>Thunderbird</li>
+              <li><a href="https://clockify.me/">Clockify</a></li>
+              <li><a href="https://wakatime.com/">WakaTime</a></li>
+              <li>Google Apps</li>
+            </ul>
+          </div>
+        </div>
+        <h4>Misc</h4>
         <ul>
-          <li>Adobe Photoshop (want to migrate to Gimp)</li>
-          <li>Adobe Illustrator (want to migrate to InkScape)</li>
-          <li>Adobe inDesign</li>
-          <li>Adobe After Effect</li>
-          <li>Sketch</li>
-        </ul>
-        <h3>Services</h3>
-        <ul>
-          <li>Heroku</li>
-          <li>GitLab</li>
-        </ul>
-        <h3>Misc</h3>
-        <ul>
-          <li>Blender (EEVEE & Cycle)</li>
+          <li><a href="https://www.blender.org/">Blender</a> (with EEVEE & Cycle render engines)</li>
         </ul>
         <?php /*
         https://uses.tech/

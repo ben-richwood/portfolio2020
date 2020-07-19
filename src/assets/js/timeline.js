@@ -1,7 +1,6 @@
 import * as THREE from './build/three.module.js';
 // custom Orbit Control
 import { OrbitControls } from './libs/orbis-lite.js';
-// import { TrackballControls } from './libs/TrackballControls.js';
 import { CSS3DRenderer, CSS3DObject } from './libs/CSS3DRenderer.js';
 import { LineMaterial } from './libs/LineMaterial.js';
 // import { LineGeometry } from './libs/LineGeometry.js';
@@ -91,11 +90,10 @@ export function init() {
   document.getElementById( 'DOMElTimeline' ).appendChild( rendererCSS.domElement );
 
   camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 10000 );
-  camera.position.set( cameraInitialPosition.x, cameraInitialPosition.y, cameraInitialPosition.z );
   camera.position.x = cameraInitialPosition.x;
   camera.position.y = cameraInitialPosition.y;
   camera.position.z = cameraInitialPosition.z;
-  camera.lookAt(new THREE.Vector3(600,0,327));
+  // camera.lookAt(new THREE.Vector3(600,0,327));
   // controls
   controls = new OrbitControls( camera, rendererCSS.domElement );
   //controls.addEventListener( 'change', render ); // call this only in static scenes (i.e., if there is no animation loop)
@@ -120,10 +118,10 @@ export function init() {
     RIGHT: THREE.MOUSE.PAN
   }
   controls.touches = {
-    ONE: THREE.MOUSE.PAN
+    ONE: THREE.TOUCH.PAN
   }
-  // loadSVG( url, name, sceneSign, pos, scaleFac, rot = [0,Math.PI/2,0], mat = undefined )
-  // const timelineHeading = loadSVG( './assets/img/timeline_title.svg', 'timeline', 1, [400, -950, -500], .6, [-Math.PI/2, Math.PI, Math.PI] );
+
+
 
   const DOMElTimeline = [{}];
 
@@ -401,7 +399,7 @@ export function init() {
       end: {...projects.list[k].techno.position}
     })
   }
-  let rorArr = [4, 11, 12];
+  let rorArr = [4];
   for (var i = 0, j = rorArr.length; i < j; i++) {
     let k = rorArr[i];
     projects.bounds.techno.push({
@@ -418,7 +416,7 @@ export function init() {
     })
   }
   // Software
-  let psArr = [0, 1, 8, 11, 17, 19, 21, 22];
+  let psArr = [0, 1, 8, 17, 21, 22];
   for (var i = 0, j = psArr.length; i < j; i++) {
     let k = psArr[i];
     projects.bounds.software.push({
@@ -566,11 +564,15 @@ export function init() {
 
 		let element = document.createElement( 'div' );
 		element.className = `element detail node`;
+    if (el.ignore){
+      element.classList.add("ignore");
+    }
+
     element.setAttribute("data-id", el.id);
 		// element.style.backgroundColor = 'rgba(0,127,127,' + ( Math.random() * 0.5 + 0.25 ) + ')';
 
 		let wrapper = document.createElement( 'div' );
-		wrapper.className = `name into-detail node ${el.major ? "major" : "minor"}`;
+		wrapper.className = `name into-detail corners node ${el.major ? "major" : "minor"}`;
     wrapper.setAttribute("data-id", el.id);
 
 		let content = document.createElement( 'div' );
@@ -724,9 +726,9 @@ export function init() {
   let previousZ = -500;
 
   console.log("objects.length", objects.length);
-	for ( var i = 0, l = objects.length; i < l; i ++ ) {
+	for ( let i = 0, c = 0, l = objects.length; i < l; i ++ ) {
     let el = projects.list[i];
-    if (i % 6 === 0){
+    if (c % 6 === 0){
       previousZ += 210;
       previousPos = -300;
     }
@@ -736,16 +738,24 @@ export function init() {
 
 		var object = new THREE.Object3D();
 		// object.position.setFromSphericalCoords( 800, phi, theta );
-    object.position.x = previousPos + distNode;
-    object.position.y = Math.random() * 150 - 150;
-    object.position.z = previousZ;
+    if (el.ignore){
+      object.position.x = 0;
+      object.position.y = 0;
+      object.position.z = 0;
+    } else {
+      object.position.x = previousPos + distNode;
+      object.position.y = Math.random() * 150 - 150;
+      object.position.z = previousZ;
+      c++;
+    }
 
     object.rotation.x = -Math.PI/2;
     // object.lookAt( vector );
     targets.all.push( {"n/a": false, obj: object} );
     // targets.all.push( object );
-
-    previousPos = previousPos + distNode;
+    if (!el.ignore){
+      previousPos = previousPos + distNode;
+    }
 	}
 
   // TIMELINE

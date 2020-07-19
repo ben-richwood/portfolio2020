@@ -225,6 +225,7 @@
 				user-select: none;
 				z-index: 1; /* TODO Solve this in HTML */
 				pointer-events: none;
+				z-index: 200;
 			}
 			#info{
 				background-color: rgba(255,255,255, .4);
