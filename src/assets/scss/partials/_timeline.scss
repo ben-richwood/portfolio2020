@@ -30,6 +30,10 @@ div.year{
   font-family: "Inter";
   font-weight: 900;
 }
+div.yearlong{
+  height: 2px;
+  background-color: $mainColor;
+}
 div.timeline{
   color: #b7b7b7;
   font-family: "Inter";
@@ -43,6 +47,15 @@ div.year{
   color: #9b9b9b;
   font-family: "Inter";
   font-weight: 700;
+  &:before{
+    content: "";
+    position: absolute;
+    top: -35px;
+    left: 50%;
+    background-color: $mainColor;
+    width: 3px;
+    height: 20px;
+  }
 }
 div.timeline{
   color: #b7b7b7;
@@ -122,7 +135,6 @@ div.detail{
     transform: translate(50%, 50%) scale(1.12);
     transition: transform .15s ease-in;
   }
-
   .length-bar{
     position: absolute;
     top:-28px;
@@ -131,7 +143,18 @@ div.detail{
     width: 100%;
     background-color: grey;
     transform-origin: 0 50%;
-    transform: scale(0);
+    transform: scaleX(0);
+    transition: transform .5s 1s ease;
+  }
+  &.timeline{
+    // transform-origin: 0 0;
+    .length-bar{
+      transform: scaleX(1);
+      transition: transform .8s 1s ease;
+    }
+    .techno{
+      display: none;
+    }
   }
 
 
@@ -227,6 +250,9 @@ div.symbol{
       max-width: 200px;
       max-height: 80px;
       transform: translateX(-8px);
+    }
+    use {
+      transform: translateX(25%);
     }
   }
   div.title{
@@ -339,61 +365,22 @@ div.symbol{
   }
 }
 
-#details{
-  position: fixed;
-  z-index: 45;
-  top: 0;
-  left:0;
-  height: 100vh;
-  width: 100vw;
+.bg-block{
+  background-color: #88888888;
+  padding: 1.5rem;
   box-sizing: border-box;
-  background-color: rgba(0,0,0,.65);
-  .details-wrapper{
-    display: -webkit-flex;
-    display: -ms-flex;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    padding: 4vw;
-    box-sizing: border-box;
-    max-height: 100vh;
-  }
-  .text, .images{
-    // flex-basis: 40%
-    background-image: url(../img/timeline/timeline_nw.svg), url(../img/timeline/timeline_ne.svg), url(../img/timeline/timeline_sw.svg), url(../img/timeline/timeline_se.svg);
-    background-position: 0 0, 100% 0, 0 100%, 100% 100%;
-    background-size: 12px 12px;
-    background-repeat: no-repeat;
-  }
-  .text{
-    flex-shrink: 2;
-    padding: .9rem;
-    box-sizing: border-box;
-    // height: 45vh;
-    margin-right: 2vw;
-    width: 60%;
-    .bg-block{
-      background-color: #88888888;
-      padding: 2rem;
-      box-sizing: border-box;
-      max-height: 100%;
-      overflow-y: scroll;
-      h2{ line-height: 1; margin-top: .4rem;}
-      h3{margin-top: 1.2rem;}
-    }
-  }
-  .images{
-    flex-basis: 55%;
-    width: 100%;
-    flex-grow: 2;
-    overflow-y: scroll;
-    padding: .9rem;
-    box-sizing: border-box;
-    img {
-      margin-bottom: 1rem;
-      width: 100%;
-      max-width: 100%;
-    }
+  max-height: 100%;
+  overflow-y: scroll;
+  margin-bottom: 1.2rem;
+  h2{ line-height: 1; margin-top: .4rem;}
+  h3{margin-top: 1.2rem;}
+  &.no-margin{margin-bottom: 0.6rem;}
+  @at-root &--secondary{
+    padding: .2rem 0.4rem;
+    font-size: .65rem;
+    background-color: #88888888;
+    margin-bottom: 1.2rem;
+    width: 4rem;
   }
 }
 .techno-item-container{

@@ -34,6 +34,7 @@ ul.no-list{
 
 .flex-row{
   @include displayFlex(space-around, row);
+	// @at-root &--secondary{
   position: relative;
   &.middleBar:after{
     content: '';
@@ -44,21 +45,6 @@ ul.no-list{
     height:100%;
     background: #FFF200;
   }
-}
-
-.highlight{
-	color: #888;
-	transition: color .6s ease;
-	&:hover{
-		.highlight--tag{
-			color: #ededed;
-			transition: color .6s ease;
-		}
-	}
-	.highlight--tag{
-		color: #888;
-		transition: color .6s ease;
-	}
 }
 
 @media (max-width: 575.98px) {}

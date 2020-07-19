@@ -26,20 +26,24 @@
 
 @mixin buttonStyle(){
   display: inline-block;
-  background-color: #11517F;
+  background-color: $mainColor;
   padding: .4rem .8rem;
   color: #DDD;
+  &:hover{
+    text-decoration: none;
+    background-color: #307ab0;
+  }
 }
 
 @mixin major(){
-  background-color: #11517F;
+  background-color: $mainColor;
   color: white;
   opacity: 1.2;
-  font-size: 1.2rem;
+  font-size: 1rem;
 }
 @mixin minor(){
-  background-color: #11517F;
+  background-color: #7393ab;
   color: white;
-  opacity: .8;
-  font-size: .8rem;
+  // opacity: .8;
+  font-size: .9rem;
 }

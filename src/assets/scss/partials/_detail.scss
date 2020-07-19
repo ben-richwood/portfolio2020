@@ -44,8 +44,10 @@
     padding: .9rem;
     box-sizing: border-box;
     img {
-      margin-bottom: 1rem;
-      width: 100%;
+      margin: 0 auto .4rem;
+      display: block;
+      // width: 100%;
+      max-height: 600px;
       max-width: 100%;
     }
   }
@@ -55,5 +57,5 @@
   font-style: italic;
   font-size: .85rem;
   color: #BBB;
-  margin: .4rem 1rem;
+  margin: 1.8rem 1rem .8rem;
 }
