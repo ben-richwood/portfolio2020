@@ -47,7 +47,7 @@
   </div>
 
   <div class="key-legend" v-if="showLegendForDetail">
-    <div class="key-block openMenu">
+    <div class="key-block openMenu" @click="close">
       <div class="key">{{ keyMap.option[1] }}</div>
       <label for="">Close detail</label>
     </div>

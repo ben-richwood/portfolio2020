@@ -1,13 +1,13 @@
-<div id="intro" :class="{ 'no-intro' : isIntroOff }">
+<div id="intro">
   <div class="popup highlight">
     <div v-show="ieDetected" class="ieDetected">
       Internet Explorer is not supported. Please switch to Chrome or Firefox.
     </div>
 
-    <div v-show="displayConfig">
+    <!-- <div v-show="displayConfig"> -->
+    <div>
       <div>
         <h2 class="tc">Ben's portfolio</h2>
-        <!-- <p class="mt-30 tc">Hey there, here's my portfolio</p> -->
       </div>
       <div class="tagline"><p>I'm <span class="highlight--tag">project manager</span> and <span class="highlight--tag">digital producer</span> who puts <span class="highlight--tag">code</span> and <span class="highlight--tag">design</span> into my daily work.</p></div>
       <div>
@@ -15,15 +15,17 @@
         <p>I also do freelance work.</p>
         <p>This portfolio has been designed with a single idea in mind: to show evidence and examples of project I made for every skills I state in my portfolio.</p>
       </div>
-      <div id="readyToStart" v-show="isReadyToStart">
+      <!-- <div id="readyToStart" v-show="isReadyToStart"> -->
+      <div id="loadingText" v-show="!isReadyToStart">Downloading assets...</div>
+      <div id="readyToStart">
         <div class="containerSheen">
-          <button id="ExploreWork-btn" @click="exploreWork" class="button button--sheen-l"><span>Enter</span></button>
+          <button id="ExploreWork-btn" @click="exploreWork(true)" class="button button--sheen-l"><span>Enter</span></button>
         </div>
       </div>
       <div id="notCompatible"></div>
     </div>
 
-    <div :class="displayConfig ? '' : 'intro-second-part'" class="hide">
+    <!-- <div :class="displayConfig ? '' : 'intro-second-part'" class="hide">
       <h2 class="tc">Ben's portfolio</h2>
       <h3 class="tc">Configuration</h3>
       <div class="flex-row">
@@ -50,6 +52,7 @@
           <div ref="loadingBar" class="progressbar" v-bind:style="{ transform: 'scaleX(' + progress + ')' }"></div>
         </div>
       </div>
-    </div>
+    </div> -->
+
   </div>
 </div>
