@@ -1,41 +1,17 @@
 import Vue from 'vue';
 
-// import { t0, controls, zoomModel, objectScene, scene, cssScene, renderer, rendererCSS, screenGraphic, canvasEl, canvasTimeline, DOMElMain, readyToLaunch, playAnimation, pauseAnimation, animate, zoomInScreen, zoomOutScreen, targetCameraTween, switchBackToProject, castShadows, init, highPerfInit } from './main.js'
-import { highPerfInit } from './main_timeline.js'
-import { container, canvasEl, canvasTimeline } from './main_timeline.js'
+import { highPerfInit } from './app.js'
+import { container, canvasEl, canvasTimeline } from './app.js'
 import Projects from './projects.js'
 import { displayProjectImageOnScreen } from './libs/custom/miscellaneous.js'
 
-// import THREELib from "three-js";
-// var THREE = THREELib(); // return THREE JS
 import * as THREE from './build/three.module.js';
 import { CSS3DRenderer, CSS3DObject } from './libs/CSS3DRenderer.js';
 
-import * as Timeline from './main_timeline.js';
+import * as Timeline from './app.js';
 import * as tl from './timeline.js';
 import { TWEEN } from './libs/tween.module.min.js'
 
-// import { TWEEN } from './libs/tween.module.min.js'
-// import { TweenMax } from "gsap/TweenMax";
-
-// loading sentences when loading
-const LoadingPhrases = [
-  "Checking your browser capabilities",
-  "Warming up your system",
-  "Loading librairies",
-  "Preparing hardware acceleration",
-  "Optimizing assets",
-  "Configuring 3d scene",
-  "Fetching data",
-  "Downloading assets",
-  "Mounting components",
-  "Instanciating meshes",
-  "Building up the scene",
-  "Rendering 3d models",
-  "Texturing the models",
-  "Lighting up the scene",
-  "Finetuning the experience"
-];
 
 // Carousel when loading all the libs
 const tips = [
@@ -94,8 +70,10 @@ function Settings (e) {
     this.isShadowEnabled = false;
     this.isItNight = e.isItNight;
     this.isTimelineLoaded = false;
+
+    // Timeline filter options
     this.currFilter = "techno";
-    this.prevFilter = "techno";
+    this.prevFilter = null;
     this.isDetailOpen = false;
 
     // OPTIONS
@@ -135,6 +113,11 @@ export const Popup = new Vue({
     isReadyToStart: false,
     progress: 0
   },
+  created: function () {
+    this.isReadyToStart = true;
+    console.log("this.isReadyToStart", this.isReadyToStart);
+    document.getElementById("readyToStart").style.display = "block";
+  },
   methods: {
     whichConfig: function () {
       // let result = /^intel/i.test(this.config);
@@ -144,18 +127,20 @@ export const Popup = new Vue({
         return "Low Performance"
       }
     },
-    choosePerf: function (e) {
+    // choosePerf: function (e) {
+    exploreWork: function(e) {
       this.displayConfig = false;
       settings.isConfigHigh = e;
       optionMenu.gpu = this.config;
       settings.GPU = this.config;
-      if (e == 1){
+      if (e == 1 && false){
         if (settings.isConfigHigh) {
           settings.lateInit()
         }
         // document.removeEventListener('keyup', (event) => {}, false);
         // console.log("settings:",settings);
       }
+      document.getElementById("intro").style.display = "none";
       settings.isConfigHigh = e;
       optionMenu.gpu = this.config;
       settings.GPU = this.config;
@@ -164,9 +149,9 @@ export const Popup = new Vue({
       settings.isPaused = false;
       tl.transform( tl.targets.techno, 2000 );
     },
-    exploreWork: function () {
-      this.displayConfig = false;
-    }
+    // exploreWork: function () {
+    //   this.displayConfig = false;
+    // }
   }
 });
 
@@ -209,9 +194,7 @@ export const optionMenu = new Vue({
     close: function () {
       this.optionsOpen = false;
       detailPopup.blurred = false;
-      // Menu.isDisplayed = true;
       this.currentSubmenu = 0;
-      // canvasEl.style.filter = "blur(0px)"
       container.style.filter = "blur(0px)";
       domElTimeline.style.filter = "blur(0px)";
       // Menu.isDisplayed = true;
@@ -286,9 +269,12 @@ export const detailPopup = new Vue ({
   data: {
     isOpen: false,
     name: "",
+    description: "",
+    link: "",
     icons: "",
     data: "",
     images: [],
+    year: null,
     blurred: false
   },
   // template: 'svg-symbol',
@@ -303,30 +289,14 @@ export const detailPopup = new Vue ({
       let htmlToPrint = "";
       if (prj.techno && prj.techno.list && prj.techno.list.length > 0) {
         prj.techno.list.forEach((item, i) => {
-          // this.icons += `<span class="techno-item">${item}</span>`
-          // this.icons += `<span class="techno-item">${item}</span>`
-          /*
-          var icon = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-          icon.setAttribute("preserveAspectRatio","xMidYMid meet");
-          let use = document.createElementNS("http://www.w3.org/2000/svg", "use");
-          use.setAttributeNS('http://www.w3.org/1999/xlink', 'href', `#${item}`);
-          use.setAttribute('href', `#${item}`);
-          icon.appendChild( use );
-          this.icon += icon
-          */
-          console.log("item", item);
           this.icons.push(`#${item.toLowerCase()}`);
-
-          // <svg class="" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
-          //   <use xlink:href="#camera"/>
-          // </svg>
         });
       }
 
-      if (prj.year) {
-        htmlToPrint += `<p>${prj.year}</p>`
-      }
-      htmlToPrint += prj.description;
+      // if (prj.year) {
+        this.year = prj.year
+      // }
+      this.description = prj.description;
 
       if (prj.code) {
         htmlToPrint += `<h3>Code</h3>${prj.code}`
@@ -335,24 +305,38 @@ export const detailPopup = new Vue ({
         htmlToPrint += `<h3>Design</h3>${prj.design}`
       }
       if (prj.link) {
-        htmlToPrint += `<div><a href="${prj.link}" ${settings.linksNewTab ? "target='_blank'" : ""} class="case-link" title="Link to ${prj.name}">See the website</a></div>`
+        this.link = `<div><a href="${prj.link}" ${settings.linksNewTab ? "target='_blank'" : ""} class="case-link" title="Link to ${prj.name}">See the website</a></div>`
       }
       this.data = htmlToPrint
 
       if (prj.images && prj.images.length > 0) {
         let counter = 0;
         prj.images.forEach((item, i) => {
-          this.images.push({
+          let itemUrl = "";
+          if (typeof item === "string"){ itemUrl = item }
+          else { itemUrl = item.url }
+          let newImg = {
             id: counter,
             src: item,
-            srcJpg: `assets/img/projects/${item}.jpg`,
-            srcJp2: `assets/img/projects/${item}.jp2`,
-            srcWebp: `assets/img/projects/${item}.webp`,
-          });
+            srcJpg: `assets/img/all-projects/${prj.slug}/${itemUrl}.jpg`,
+            large: {
+              srcJpg: `assets/img/all-projects/${prj.slug}/${itemUrl}.jpg`,
+              srcJp2: `assets/img/all-projects/${prj.slug}/${itemUrl}.jp2`,
+              srcWebp: `assets/img/all-projects/${prj.slug}/${itemUrl}.webp`,
+            }, mobile: {
+              srcJpg: `assets/img/all-projects/${prj.slug}/${itemUrl}-mobile.jpg`,
+              srcJp2: `assets/img/all-projects/${prj.slug}/${itemUrl}-mobile.jp2`,
+              srcWebp: `assets/img/all-projects/${prj.slug}/${itemUrl}-mobile.webp`,
+            }
+          }
+          if (typeof item === "object"){
+            newImg.caption = item.caption;
+          }
+          this.images.push(newImg);
           counter++;
+          console.log(newImg);
         });
       }
-      console.log("this.images", this.images);
       legendMenu.showLegendForDetail = true;
       domElTimeline.classList.add("blurred")
       this.isOpen = true;
@@ -405,18 +389,13 @@ export const legendMenu = new Vue({
     },
     resetCamera: function () {
       tl.resetCamera(1200 );
+    },
+    close: function() {
+      detailPopup.close();
     }
   }
 })
 
-let phraseCounter = 0
-var intervalListener = self.setInterval(changeLoadingText, 5000);
-
-function changeLoadingText() {
-  Popup.loadingText = LoadingPhrases[phraseCounter] + "...";
-  phraseCounter++;
-  if (phraseCounter >= LoadingPhrases.length) phraseCounter = 0;
-}
 
 document.querySelector('#optionMenu > div').classList.remove("hide");
 document.querySelector('#intro > div').classList.remove("hide");

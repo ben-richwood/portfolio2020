@@ -1,10 +1,13 @@
 import * as THREE from './build/three.module.js';
+// custom Orbit Control
 import { OrbitControls } from './libs/orbis-lite.js';
+// import { TrackballControls } from './libs/TrackballControls.js';
 import { CSS3DRenderer, CSS3DObject } from './libs/CSS3DRenderer.js';
 import { LineMaterial } from './libs/LineMaterial.js';
-import { LineGeometry } from './libs/LineGeometry.js';
-import { Line2 } from './libs/Line2.js';
-import { SVGLoader } from './libs/SVGLoader.js';
+// import { LineGeometry } from './libs/LineGeometry.js';
+// import { Line2 } from './libs/Line2.js';
+
+// import { SVGLoader } from './libs/SVGLoader.js';
 
 import * as MAT from './libs/custom/materialList.js'
 import Stats from './libs/stats.module.js'; // for testing only
@@ -13,8 +16,7 @@ import * as TEST from './libs/custom/testing.js'
 import * as Utilis from './libs/custom/miscellaneous.js'
 
 import projects from "./projects.js";
-// import { t0, keyboardMap, zoomModel, objectScene, screenGraphic, container, canvasEl, canvasTimeline, readyToLaunch, playAnimation, pauseAnimation, stats } from './main.js'
-import { t0, keyboardMap, zoomModel, objectScene, screenGraphic, container, canvasEl, canvasTimeline, readyToLaunch } from './main_timeline.js'
+import { t0, keyboardMap, zoomModel, objectScene, container, canvasEl, canvasTimeline, readyToLaunch } from './app.js'
 
 import { settings } from './components.js'
 
@@ -116,6 +118,9 @@ export function init() {
     LEFT: null, // Keep it for click
     // MIDDLE: THREE.MOUSE.DOLLY,
     RIGHT: THREE.MOUSE.PAN
+  }
+  controls.touches = {
+    ONE: THREE.MOUSE.PAN
   }
   // loadSVG( url, name, sceneSign, pos, scaleFac, rot = [0,Math.PI/2,0], mat = undefined )
   // const timelineHeading = loadSVG( './assets/img/timeline_title.svg', 'timeline', 1, [400, -950, -500], .6, [-Math.PI/2, Math.PI, Math.PI] );
@@ -225,45 +230,44 @@ export function init() {
 /////////////////////////////////////////////////////////////////////////
 
   // X axis
-  buildLine(timelineMaterial.perso, [xOffset, 0, 0, (12 * yu) + xOffset, 0, 0]);
+  // buildLine(timelineMaterial.perso, [xOffset, 0, 0, (12 * yu) + xOffset, 0, 0]);
 
   // Year 2009
-  buildLine(timelineMaterial.perso, [xOffset, 0, -800, xOffset, 0, 800]);
-
-  // create the object3d for each project
-  /*
-  for (var i = 0, j=DOMElTimeline.length; i < j; i++) {
-    continue;
-    let el = DOMElTimeline[i];
-    if (!el.hasOwnProperty("dom")) continue;
-    globalTimeline.appendChild(el.dom)
-  }
-  */
-
-  // const cssObjectGlobal = new CSS3DObject( globalTimeline );
-  // cssObjectGlobal.position.x = 0;
-  // cssObjectGlobal.position.y = 0;
-  // cssObjectGlobal.position.z = 0;
-  // // cssObject.rotation.order = 'YXZ';
-  // // cssObject.rotation.set(Math.PI/2, Math.PI, Math.PI/2);
-  //
-  // cssObjectGlobal.rotation.x = Math.PI/2;
-  // cssObjectGlobal.rotation.y = Math.PI;
-  // cssObjectGlobal.rotation.z = Math.PI;
-
-  // cssScene.add(cssObjectGlobal)
+  // buildLine(timelineMaterial.perso, [xOffset, 0, -800, xOffset, 0, 800]);
 
   // Display year numbers
-  for (var i = 2009; i < 2022; i++) {
+  var today = new Date();
+  var yyyy = today.getFullYear();
+  for (var i = 2009; i <= yyyy; i++) {
     var element = document.createElement( 'div' );
     element.className = `year element symbol hide-symbol`;
     element.textContent = i.toString();
 
     var cssObject = new CSS3DObject( element );
-    // we reference the same position and rotation
     cssObject.position.x = ((i - 2009) * yu) + xOffset;
-    cssObject.position.y = -50;
+    cssObject.position.y = -30;
     cssObject.position.z = 40;
+    cssObject.rotation.x = Math.PI/2;
+    cssObject.rotation.y = Math.PI;
+    cssObject.rotation.z = Math.PI;
+
+    symbols.timeline.push( cssObject );
+    // add it to the css scene
+    cssScene.add(cssObject);
+  }
+
+  // display timeline axis
+  {
+    var element = document.createElement( 'div' );
+    element.className = `yearlong symbol hide-symbol`;
+    // element.style.width = ((yyyy - 2009) * yu * 1.1) + xOffset + "px";
+    element.style.width = (20 * yu * 1.1) + xOffset + "px";
+
+    var cssObject = new CSS3DObject( element );
+    // we reference the same position and rotation
+    cssObject.position.x = xOffset;
+    cssObject.position.y = 0;
+    cssObject.position.z = 0;
     cssObject.rotation.x = Math.PI/2;
     cssObject.rotation.y = Math.PI;
     cssObject.rotation.z = Math.PI;
@@ -289,6 +293,7 @@ export function init() {
  //             	        WHAT's NEXT ELEMENT                           //
 /////////////////////////////////////////////////////////////////////////
   // creating what's next
+  {
   /*
   const WNContainer = document.createElement( 'div' );
   WNContainer.className = "wNContainer";
@@ -308,7 +313,6 @@ export function init() {
   divSubContainer.appendChild( element );
   WNContainer.appendChild( blinkingDot );
   WNContainer.appendChild( divSubContainer );
-  */
 
   // var cssObjectWN = new CSS3DObject( WNContainer );
   // cssObjectWN.position.x = 12 * yu; // 2021
@@ -320,7 +324,8 @@ export function init() {
   // add it to the css scene
   // cssScene.add(cssObjectWN);
   // buildLine(timelineMaterial.perso, [11 * yu, 0, 0, 12 * yu, 0, 0], matLineDash);
-
+  */
+  }
   // Add symbols
   for (const [prop, value] of Object.entries(projects.symbols)) {
     for ( let i = 0, j = value.length; i < j; i++ ) {
@@ -333,7 +338,6 @@ export function init() {
   		let bg = document.createElement( 'div' );
   		bg.className = 'bg';
 
-
       // To use Symbol as "Sprite SVG"
       // https://css-tricks.com/svg-symbol-good-choice-icons/
       var icon = document.createElementNS("http://www.w3.org/2000/svg", "svg");
@@ -345,12 +349,7 @@ export function init() {
 
   		let wrapper = document.createElement( 'div' );
   		wrapper.className = 'name title';
-
-  		// if (settings.isDebugMode) {
-      //   wrapper.innerHTML = `${el.name}<br/>${el.position.x} / ${el.position.z}`;
-      // } else {
-        wrapper.textContent = el.name;
-      // }
+      wrapper.textContent = el.name;
 
   		bg.appendChild( icon );
   		element.appendChild( bg );
@@ -386,7 +385,7 @@ export function init() {
   }
 
   // Techno
-  let jsArr = [2, 3, 5, 15, 16, 18, 19, 20];
+  let jsArr = [2, 3, 5, 15, 16, 18, 19, 20, 23];
   for (var i = 0, j = jsArr.length; i < j; i++) {
     let k = jsArr[i];
     projects.bounds.techno.push({
@@ -394,7 +393,7 @@ export function init() {
       end: {...projects.list[k].techno.position}
     })
   }
-  let pyArr = [5];
+  let pyArr = [5, 23];
   for (var i = 0, j = pyArr.length; i < j; i++) {
     let k = pyArr[i];
     projects.bounds.techno.push({
@@ -547,6 +546,7 @@ export function init() {
   		object.matrixAutoUpdate = false;
   		object.updateMatrix();
 
+
   		// object.userData.bondLengthShort = bondLength + "px";
   		// object.userData.bondLengthFull = ( bondLength + 55 ) + "px";
 
@@ -580,6 +580,10 @@ export function init() {
 
     let lengthBar = document.createElement( 'div' );
 		lengthBar.className = 'length-bar';
+    if(el.timeline && el.timeline.len) {
+      // ((i - 2009) * yu) + xOffset
+      lengthBar.style.width = (el.timeline.len * yu * 1.15) + "px";
+    }
 
     let techno = document.createElement( 'div' );
     if (el.techno && el.techno.list) {
@@ -588,7 +592,8 @@ export function init() {
       // if (settings.isDebugMode) {
       //   techno.textContent = el.techno.position.x + " / " + el.techno.position.z;
       // } else {
-        techno.innerHTML = el.techno.list.join(", ") + "<br/>" + el.summary;
+        // techno.innerHTML = el.techno.list.join(", ") + "<br/>" + el.summary;
+        techno.innerHTML = el.summary;
       // }
     }
 
@@ -634,9 +639,9 @@ export function init() {
 
   for ( var i = 0, l = objects.length; i < l; i ++ ) {
     let el = projects.list[i];
-    if(el.timeline.type === "event") {
-      continue;
-    }
+    // if(el.timeline.type === "event") {
+    //   continue;
+    // }
     let na = false
 
     let startingPoint = ((el.timeline.startingYear - 2009) * yu) + xOffset;
@@ -644,18 +649,16 @@ export function init() {
 
     let zPos = 0;
     let yPos = 0;
-    if ( (len + startingPoint) < (spanOfPreviousJob + 50) ){
-      zOffset += 200;
+    if ( (len + startingPoint) < (spanOfPreviousJob ) ){
+      zOffset += 300;
     } else {
-      spanOfPreviousJob = len + startingPoint;
-      zOffset = 40;
+      zOffset = 60;
     }
+    spanOfPreviousJob = len + startingPoint;
     if (el.timeline.level) zOffset * (el.timeline.level * 20)
     // let randZ = (el.timeline.group === "work" ? 1 : -1) * Math.random() * 10
     let coeff = el.timeline.thread === "main" ? 1 : -1
-    // if (el.timeline.thread === "second"){
-      zPos = zOffset * coeff;
-    // }
+    zPos = zOffset * coeff;
     // } else if (el.timeline.thread === "main") {
     //   zPos = -1 * (el.timeline.level * 20) + spanOfPreviousJob
     // }
@@ -683,8 +686,10 @@ export function init() {
     if (el.timeline) {
       if (el.timeline["n/a"] && el.timeline["n/a"] === true) na = true;
       object.position.x = startingPoint;
-      object.position.y = Math.random() * 100 - 50;
-      object.position.z = zPos;
+      object.position.y = Math.random() * 500 - 500;
+      // object.position.y = 10;
+      // object.position.z = zPos;
+      object.position.z = (Math.random() * 1200 - 600) * coeff;
     } else {
       object.position.x = 0;
       object.position.z = 0;
@@ -714,15 +719,15 @@ export function init() {
 	}
 
   // ALL
-  const distNode = 235
+  const distNode = 305
   let previousPos = -300
-  let previousZ = -400;
+  let previousZ = -500;
 
   console.log("objects.length", objects.length);
 	for ( var i = 0, l = objects.length; i < l; i ++ ) {
     let el = projects.list[i];
     if (i % 6 === 0){
-      previousZ += 130;
+      previousZ += 210;
       previousPos = -300;
     }
 
@@ -830,56 +835,74 @@ export function pauseAnimation() {
 
 export function transform( targets, duration ) {
 
-  console.log(settings.currFilter, targets.length, objects.length);
-  console.log(settings.prevFilter, settings.currFilter);
-  console.log(targets);
+  if (settings.prevFilter === settings.currFilter){
+    return null;
+  }
 
 	TWEEN.removeAll();
-  if (settings.currFilter !== "all"){
-    if (settings.prevFilter != settings.currFilter){
-      if (settings.prevFilter !== "all"){
-        for ( let i = 0, j = symbols[settings.prevFilter].length; i < j; i++ ) {
-          symbols[settings.prevFilter][i].element.classList.add("hide-symbol");
-        }
-      }
-      for ( let i = 0, j = symbols[settings.currFilter].length; i < j; i++ ) {
-        if (symbols[settings.currFilter][i].element.classList.contains("hide-symbol")) symbols[settings.currFilter][i].element.classList.remove("hide-symbol");
-      }
-      // hide previous bonds
+
+  // Initial call
+  // if (settings.prevFilter === null){ }
+
+  function hideAllBounds ()  {
+    if (bounds[settings.prevFilter] && bounds[settings.prevFilter].length > 0){
       for ( let i = 0, j = bounds[settings.prevFilter].length; i < j; i++ ) {
         bounds[settings.prevFilter][i].obj.element.classList.add("hide-bounds");
       }
-      // show the new bonds
-      if (bounds[settings.currFilter] && bounds[settings.currFilter].length > 0){
-        for ( let i = 0, j = bounds[settings.currFilter].length; i < j; i++ ) {
-          if (bounds[settings.currFilter][i].obj.element.classList.contains("hide-bounds")) bounds[settings.currFilter][i].obj.element.classList.remove("hide-bounds");
-        }
-      }
-    } else { // settings.prevFilter === settings.currFilter
-      console.log("bounds[settings.currFilter].length", bounds[settings.currFilter].length);
-      for ( let i = 0, j = bounds[settings.currFilter].length; i < j; i++ ) {
-        bounds[settings.currFilter][i].obj.element.classList.remove("hide-symbol");
-      }
     }
-  // === all
-  } else {
+  }
+
+  if (settings.currFilter === "all"){
+    hideAllBounds ();
     for ( let i = 0, j = symbols[settings.prevFilter].length; i < j; i++ ) {
       symbols[settings.prevFilter][i].element.classList.add("hide-symbol");
     }
-    let allBounds = [...bounds.techno, ...bounds.software];
-    for ( let i = 0, j = allBounds.length; i < j; i++ ) {
-      allBounds[i].obj.element.classList.add("hide-bounds");
+    // let allBounds = [...bounds.techno, ...bounds.software, ...bounds.timeline];
+    // for ( let i = 0, j = allBounds.length; i < j; i++ ) {
+    //   allBounds[i].obj.element.classList.add("hide-bounds");
+    // }
+  } else {
+
+    // Display/hide symbols
+    ////////////////////////////////////////////////////////
+    if (settings.prevFilter !== "all" && settings.prevFilter !== null){
+      for ( let i = 0, j = symbols[settings.prevFilter].length; i < j; i++ ) {
+        symbols[settings.prevFilter][i].element.classList.add("hide-symbol");
+      }
+    }
+    for ( let i = 0, j = symbols[settings.currFilter].length; i < j; i++ ) {
+      if (symbols[settings.currFilter][i].element.classList.contains("hide-symbol")) symbols[settings.currFilter][i].element.classList.remove("hide-symbol");
+    }
+
+    // Display/hide bounds
+    ////////////////////////////////////////////////////////
+    if (settings.prevFilter !== null){
+      hideAllBounds();
+    }
+    // show the new bonds
+    if (bounds[settings.currFilter] && bounds[settings.currFilter].length > 0){
+      for ( let i = 0, j = bounds[settings.currFilter].length; i < j; i++ ) {
+        if (bounds[settings.currFilter][i].obj.element.classList.contains("hide-bounds")) bounds[settings.currFilter][i].obj.element.classList.remove("hide-bounds");
+      }
     }
   }
+
+  // Moving objects
 	for ( var i = 0; i < objects.length; i++ ) {
 		var object = objects[ i ];
 		var target = targets[ i ].obj;
 
+    if (settings.prevFilter === "timeline"){
+      object.element.classList.remove("timeline");
+    }
+    if (settings.currFilter === "timeline"){
+      object.element.classList.add("timeline");
+    }
     if (targets[ i ]["n/a"] === true){
       object.element.classList.add("hide-el");
     } else {
-      // console.log("object", object);
       if (object.element.classList.contains("hide-el")) object.element.classList.remove("hide-el");
+
 
   		new TWEEN.Tween( object.position )
   			.to( { x: target.position.x, y: target.position.y, z: target.position.z }, Math.random() * duration + duration )
@@ -901,7 +924,6 @@ export function transform( targets, duration ) {
 
 export function resetCamera (duration ) {
   // TWEEN.removeAll();
-
 	new TWEEN.Tween( camera.position )
 		.to( cameraInitialPosition, Math.random() * duration + duration )
 		.easing( TWEEN.Easing.Exponential.InOut )
@@ -913,17 +935,17 @@ export function resetCamera (duration ) {
 		.start();
 }
 
-function buildLine(color, points,  mat = matLine){
-  let geometry = new LineGeometry();
-  let kuler = new THREE.Color( color );
-  let kulers = [kuler.r, kuler.g, kuler.b];
-  for (let i = 3, j = points.length; i<j ;i+=3){
-    kulers = [...kulers, kuler.r, kuler.g, kuler.b];
-  }
-  geometry.setPositions( points ); // previously positions
-  geometry.setColors( kulers );
-  let curveObject = new Line2( geometry, mat );
-  curveObject.computeLineDistances();
-  curveObject.scale.set( 1, 1, 1 );
-  scene.add(curveObject);
-}
+// function buildLine(color, points,  mat = matLine){
+//   let geometry = new LineGeometry();
+//   let kuler = new THREE.Color( color );
+//   let kulers = [kuler.r, kuler.g, kuler.b];
+//   for (let i = 3, j = points.length; i<j ;i+=3){
+//     kulers = [...kulers, kuler.r, kuler.g, kuler.b];
+//   }
+//   geometry.setPositions( points ); // previously positions
+//   geometry.setColors( kulers );
+//   let curveObject = new Line2( geometry, mat );
+//   curveObject.computeLineDistances();
+//   curveObject.scale.set( 1, 1, 1 );
+//   scene.add(curveObject);
+// }

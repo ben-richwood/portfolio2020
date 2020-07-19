@@ -1,16 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-GB" prefix="og: http://ogp.me/ns#">
 	<head>
-		<title>Richwood portfolio</title>
+		<!-- BASIC INFO -->
+   	<title>Richwood | portfolio</title>
+   	<meta name="author" content="Ben Richwood">
+   	<meta name="keywords" content=" Portfolio, Startup developer, Richwood, webdesign, graphist, graphiste, html5, javascript, interactive, webgl, threejs, vuejs, php, CG, Computer Graphic">
 		<meta charset="utf-8">
+
+		<!-- FAVICONS -->
+   	<link rel="icon" href="assets/img/flavicon.ico">
+   	<link rel="apple-touch-icon" href="assets/img/flavicon.ico">
+
 		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<link rel="manifest" href="./manifest.json">
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
 		<link type="text/css" rel="stylesheet" href="./assets/css/main.css">
+		<link href="https://fonts.googleapis.com/css2?family=Rajdhani&display=swap" rel="stylesheet">
 		<style type="text/css">
 			body{
-				perspective: 60em;
+				/* perspective: 60em; */
 				height: 100vh;
 				margin: 0;
-			  /* background-color: #000; */
 				background: rgb(237,237,237);
 				background: linear-gradient(90deg, rgba(237,237,237,1) 0%, rgba(171,171,171,1) 100%);
 			  color: #fff;
@@ -24,7 +35,6 @@
 			#mainScene{
 			  display: none;
 			}
-			/* #timeline{ display: none; } */
 			#canvasScene{
 				position:absolute;
 				top:0;
@@ -33,23 +43,9 @@
 				height:100%;
 				z-index: 10
 			}
-			div.screenGraphic{
-				font-size: 2rem;
-				opacity: .9;
-				color: #b7b7b7;
-				font-family: "Inter";
-				font-weight: 900;
-				padding: 2rem;
-				box-sizing: border-box;
-				background-color: rgba(0,0,0,.97);
-			}
-			.hide, .ieDetected{
-				display:none;
-			}
+			.hide, .ieDetected{ display:none; }
 
-			.intro-second-part.hide{
-				display: block;
-			}
+			.intro-second-part.hide{ display: block; }
 
 			#intro{
 				position:absolute;
@@ -76,7 +72,7 @@
 				  0 0px 35px rgba(255, 242, 0, 0.1),
 					0 0px 117px rgba(255, 242, 0, 0.02);
 				  /* 0 0px 35.3px rgba(255, 242, 0, 0.1), */
-				padding: 4rem;
+				padding: 3rem;
 				width: 65%;
 				max-width: 700px;
 				/* height:50%; */
@@ -94,8 +90,47 @@
 				transform: translate(-50%, -50%) translateZ(0) rotateY(0) rotateX(0) scale(1.15);
 				opacity: 0;
 			}
+			.tc{text-align: center;}
 			.tagline{
 				margin: 2rem auto;
+			}
+			.highlight{
+				color: #888;
+				transition: color .6s ease;
+			}
+			.highlight .highlight--tag{
+				color: #888;
+				transition: color .6s ease;
+			}
+			.highlight:hover .highlight--tag{
+				color: #ededed;
+				transition: color .6s ease;
+			}
+			h2{
+			  font-family: $font-body;
+				font-size: 2.6rem;
+				text-transform: uppercase;
+				margin-top: 2.2rem;
+				letter-spacing: 0.23rem;
+				// font-weight: 500;
+
+			  font-weight: 100;
+			  // font-size: 10vw;
+			  font-variation-settings: 'wght' 700, 'wdth' 100;
+			  // animation: breathe 4000ms 1 forwards;
+			  animation-name: breathe;
+			  animation-duration: 2s;
+			  animation-timing-function: ease;
+			  animation-delay: 1.4s;
+			  animation-direction: normal;
+			  animation-iteration-count: 1;
+			  animation-fill-mode: forwards;
+			  animation-play-state: running;
+			}
+
+			@keyframes breathe {
+				0% { font-variation-settings: 'wght' 700, 'wdth' 100; }
+				100% { font-variation-settings: 'wght' 100, 'wdth' 85; }
 			}
 			.popup .tagline p, #loadingText{
 				font-weight: 500;
@@ -135,7 +170,7 @@
 			.popup p{
 				font-weight: 300;
 				font-size: 1rem;
-				word-spacing: 0.5rem;
+				word-spacing: 0.2rem;
 				line-height: 2;
 				color: #9e9e9e;
 			}
@@ -177,11 +212,34 @@
 				box-sizing: content-box;
 		    word-spacing: 0.1rem;
 			}
+			#info, #notCompatible {
+				position: absolute;
+				top: 0px;
+				width: 100%;
+				padding: 10px;
+				box-sizing: border-box;
+				text-align: center;
+				-moz-user-select: none;
+				-webkit-user-select: none;
+				-ms-user-select: none;
+				user-select: none;
+				z-index: 1; /* TODO Solve this in HTML */
+				pointer-events: none;
+			}
+			#info{
+				background-color: rgba(255,255,255, .4);
+				color: #509ceb;
+				font-style: italic;
+				font-family: 'Rajdhani', 'Avenir Next Condensed', 'Dosis', 'Encode Sans Semi Condensed', 'Arial', sans-serif;
+			}
+			#readyToStart{
+				display: none;
+			}
 		</style>
 	</head>
 	<body>
 		<noscript>
-		 This website heavily uses javascript. You need to enable it if you want to use it properly
+		 This website heavily uses javascript. You need to enable it if you want to see the content
 		</noscript>
 		<div class="visuallyhidden">
 			<?php include("./assets/img/techno-icons.svg"); ?>
@@ -192,20 +250,48 @@
 			<!-- <canvas id="mainScene"></canvas> -->
 			<canvas id="timeline"></canvas>
 		</div>
-		<!-- <div id="timeline"></div> -->
 		<?php include "./modules/intro.php" ?>
 
 
 		<div id="info">
-			DEBUG
+			Beta version
 		</div>
 
-
 		<?php include "./modules/option-menu.php" ?>
-
 		<?php include "./modules/job-detail.php" ?>
 
-		<script type="module" src="./assets/js/bundle_project.js"></script>
+		<script type="text/javascript">
+			// loading sentences when loading
+			const LoadingPhrases = [
+			  "Checking your browser capabilities",
+			  "Warming up your system",
+			  "Loading librairies",
+			  "Preparing hardware acceleration",
+			  "Optimizing assets",
+			  "Configuring 3d scene",
+			  "Fetching data",
+			  "Downloading assets",
+			  "Mounting components",
+			  "Instanciating meshes",
+			  "Building up the scene",
+			  "Rendering 3d models",
+			  "Texturing the models",
+			  "Lighting up the scene",
+			  "Finetuning the experience"
+			];
+			let phraseCounter = 0
+			var intervalListener = self.setInterval(changeLoadingText, 5000);
+			const loadingText = document.getElementById("loadingText");
+			function changeLoadingText() {
+				loadingText.textContent = LoadingPhrases[phraseCounter] + "...";
+				phraseCounter++;
+				if (phraseCounter >= LoadingPhrases.length) phraseCounter = 0;
+			}
+			window.onload = function () {
+				window.clearInterval(intervalListener);
+			}
+		</script>
 
+		<script type="module" src="./assets/js/bundle_project.js"></script>
 	</body>
 </html>
