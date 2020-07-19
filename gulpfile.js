@@ -14,7 +14,7 @@ var svgstore = require('gulp-svgstore');
 var svgmin = require('gulp-svgmin');
 var inject = require('gulp-inject');
 
-var imgSrc = 'src/assets/img/projects/**';
+var imgSrc = ['src/assets/img/projects/**/*.jpg', 'src/assets/img/projects/**/*.png'];
 var imgDest = 'dist/assets/img/all-projects';
 
 
@@ -53,7 +53,7 @@ gulp.task('image-resize', function () {
 
 // imagemin
 gulp.task('imgmin', () =>
-  gulp.src(['src/assets/img/projects/**/*.jpg', 'src/assets/img/projects/**/*.png'])
+  gulp.src(imgSrc)
     .pipe(newer(imgDest))
     .pipe(imagemin([
       imagemin.gifsicle({interlaced: true}),
@@ -65,7 +65,7 @@ gulp.task('imgmin', () =>
 
 
 gulp.task('img', () =>
-  gulp.src(['src/assets/img/projects/**/*.jpg', 'src/assets/img/projects/**/*.png'])
+  gulp.src(imgSrc)
     // .pipe(gulpCopy('dist/assets/img/all-projects', { prefix: 4 }))
     // .pipe(newer(imgDest))
     .pipe(imageResize({
@@ -80,10 +80,21 @@ gulp.task('img', () =>
     // .pipe(webp())
     .pipe(gulp.dest('dist/assets/img/all-projects'))
 );
+//
+// gulp.task('jp2', () =>
+//   gulp.src(imgSrc)
+//     .pipe(imageResize({
+//       width : 1000,
+//       upscale : false,
+//       quality: 0.8,
+//       format: "jp2",
+//       imageMagick: true
+//     }))
+//     .pipe(gulp.dest('dist/assets/img/all-projects'))
+// );
 
 gulp.task('img-mobile', () =>
-  gulp.src(['src/assets/img/projects/**/*.jpg', 'src/assets/img/projects/**/*.png'])
-    // .pipe(gulpCopy('dist/assets/img/all-projects', { prefix: 4 }))
+  gulp.src(imgSrc)
     // .pipe(newer(imgDest))
     .pipe(imageResize({
       width : 700,
@@ -98,9 +109,16 @@ gulp.task('img-mobile', () =>
     .pipe(rename(function (path) { path.basename += "-mobile"; }))
     .pipe(gulp.dest('dist/assets/img/all-projects'))
 );
-gulp.task('webp', () =>
-  gulp.src(['src/assets/img/projects/**/*.jpg', 'src/assets/img/projects/**/*.png'])
-    // .pipe(newer(imgDest))
+
+gulp.task( 'webp', () =>
+  gulp.src(imgSrc)
+    .pipe(imageResize({
+      width : 1000,
+      upscale : false,
+      quality: 0.8,
+      format: "jpg",
+      imageMagick: true
+    }))
     .pipe(webp({
       quality: 70,
       metadata: ["icc"]
@@ -108,7 +126,25 @@ gulp.task('webp', () =>
     .pipe(gulp.dest(imgDest))
 );
 
-gulp.task('img-pipeline', gulp.series('img', 'img-mobile', 'webp'))
+gulp.task( 'webp-mobile', () =>
+  gulp.src(imgSrc)
+    .pipe(imageResize({
+      width : 700,
+      upscale : false,
+      quality: 0.8,
+      format: "jpg",
+      imageMagick: true
+    }))
+    .pipe(webp({
+      quality: 70,
+      metadata: ["icc"]
+    }))
+    .pipe(rename(function (path) { path.basename += "-mobile"; }))
+    .pipe(gulp.dest(imgDest))
+);
+
+
+gulp.task('img-pipeline', gulp.series('img', 'img-mobile', 'webp', 'webp-mobile'))
 
 gulp.task('sass', function () {
  return gulp.src('./src/assets/scss/main.scss')
