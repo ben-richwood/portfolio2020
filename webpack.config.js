@@ -15,7 +15,7 @@ module.exports = (env, options) => {
     return {
 
       context: path.resolve(__dirname),
-      entry: path.resolve(__dirname, 'src/assets/js/main_timeline.js'),
+      entry: path.resolve(__dirname, 'src/assets/js/app.js'),
       output: {
         path: path.resolve(__dirname, 'dist/assets/js'),
         // path: path + "dist/assets/js",
