@@ -1,7 +1,7 @@
 import Vue from 'vue';
 
 import { highPerfInit } from './app.js'
-import { container, canvasEl, canvasTimeline } from './app.js'
+import { container, canvasEl, canvasTimeline, t0 } from './app.js'
 import Projects from './projects.js'
 import { displayProjectImageOnScreen } from './libs/custom/miscellaneous.js'
 
@@ -115,7 +115,7 @@ export const Popup = new Vue({
   },
   created: function () {
     this.isReadyToStart = true;
-    console.log("this.isReadyToStart", this.isReadyToStart);
+    // console.log("this.isReadyToStart", this.isReadyToStart);
     document.getElementById("readyToStart").style.display = "block";
   },
   methods: {
@@ -171,7 +171,7 @@ const selectedNavigator = {
 export const optionMenu = new Vue({
   el: "#optionMenu",
   data: {
-    currentSubmenu: 0,
+    currentSubmenu: 3,
     optionsOpen: false,
     kb_config: "kb_default",
     t1: performance.now(),
@@ -184,11 +184,19 @@ export const optionMenu = new Vue({
     },
     antialias: false,
     precision: false,
-    isShadowEnabled: false
+    isShadowEnabled: false,
+    linksNewTab: settings.linksNewTab
   },
   methods: {
     changeSubmenu: function (idx) {
-      if (idx === 3) this.t1 = ((performance.now() - t0) / 1000).toFixed(1) + "sec";
+      if (idx === 4) {
+         let time = ((performance.now() - t0) / 1000);
+         if (time > 80){
+           this.t1 = (time / 60).toFixed(1) + "min"
+         } else {
+           this.t1 = time.toFixed(1) + "sec"
+         }
+      }
       this.currentSubmenu = idx;
     },
     close: function () {
@@ -198,7 +206,7 @@ export const optionMenu = new Vue({
       container.style.filter = "blur(0px)";
       domElTimeline.style.filter = "blur(0px)";
       // Menu.isDisplayed = true;
-      Timeline.playAnimation();
+      // tl.playAnimation();
     },
     open: function () {
       this.optionsOpen = true;
@@ -206,7 +214,7 @@ export const optionMenu = new Vue({
       // Sidebar.showSidebar = false;
       container.style.filter = "blur(10px)";
       domElTimeline.style.filter = "blur(10px)";
-      Timeline.pauseAnimation();
+      // tl.pauseAnimation();
     },
     toogle: function () {
       if(this.optionsOpen){

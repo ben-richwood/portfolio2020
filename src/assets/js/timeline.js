@@ -118,7 +118,9 @@ export function init() {
     RIGHT: THREE.MOUSE.PAN
   }
   controls.touches = {
-    ONE: THREE.TOUCH.PAN
+    // ONE: THREE.TOUCH.PAN
+    ONE: null,
+    TWO: THREE.TOUCH.PAN
   }
 
 

@@ -54,7 +54,7 @@ hr{
 // 	border-spacing: 0;
 // }
 a {
-	color: #ff0;
+	color: $highlightColor;
 	text-decoration: none;
 	&:hover {
 		text-decoration: underline;

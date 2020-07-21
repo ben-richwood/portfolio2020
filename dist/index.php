@@ -290,6 +290,9 @@
 			}
 			window.onload = function () {
 				window.clearInterval(intervalListener);
+				// document.getElementById("readyToStart").addEventListener("click", () => {
+				// 	document.getElementById("intro").style.display = "none";
+				// }, true)
 			}
 		</script>
 

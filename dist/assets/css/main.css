@@ -47,7 +47,7 @@ hr {
   background-color: #888; }
 
 a {
-  color: #ff0;
+  color: #ff8a00;
   text-decoration: none; }
   a:hover {
     text-decoration: underline; }
@@ -86,6 +86,12 @@ ul {
 ul.no-list {
   list-style: none;
   padding-left: 0; }
+
+a.color-link {
+  background: linear-gradient(90deg, #ff8a00 0%, #e52e71 100%);
+  /* clip hackery */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent; }
 
 .mt-10 {
   margin-top: 1rem; }
@@ -164,7 +170,8 @@ ul.no-list {
   /* NEW, Spec - Opera 12.1, Firefox 20+ */
   -webkit-align-items: center;
   /* Safari 7.0+ */
-  align-items: center; }
+  align-items: center;
+  flex-wrap: wrap; }
   .flex.f-start {
     -webkit-justify-content: flex-start;
     /* Safari 6.1+ */
@@ -187,6 +194,22 @@ ul.no-list {
     -webkit-align-items: flex-start;
     /* Safari 7.0+ */
     align-items: flex-start; }
+  .flex .col-12 {
+    flex: 0 0 100%;
+    max-width: 100%;
+    width: 100%; }
+  .flex .col-4 {
+    flex: 0 0 0 0 33.33333%;
+    max-width: 33.33333%;
+    width: 100%; }
+  .flex .col-3 {
+    flex: 0 0 0 0 25%;
+    max-width: 25%;
+    width: 100%; }
+  .flex .col-6 {
+    flex: 0 0 0 0 50%;
+    max-width: 50%;
+    width: 100%; }
 
 .corners {
   background-image: url(../img/timeline/timeline_nw.svg), url(../img/timeline/timeline_ne.svg), url(../img/timeline/timeline_sw.svg), url(../img/timeline/timeline_se.svg);
@@ -259,6 +282,18 @@ h3 {
 h4 {
   font-size: 1.3rem;
   margin: .6rem 0; }
+
+a[target="_blank"]:after {
+  content: '';
+  background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20version%3D%221.1%22%20x%3D%220px%22%20y%3D%220px%22%20viewBox%3D%220%200%20100%20100%22%20preserveAspectRatio%3D%22xMinYMin%20meet%22%20style%3D%22fill%3Awhite%3B%22%3E%3Cpath%20d%3D%22M18.8%2C85.1h56l0%2C0c2.2%2C0%2C4-1.8%2C4-4v-32h-8v28h-48v-48h28v-8h-32l0%2C0c-2.2%2C0-4%2C1.8-4%2C4v56C14.8%2C83.3%2C16.6%2C85.1%2C18.8%2C85.1z%22%2F%3E%3Cpolygon%20points%3D%2245.7%2C48.7%2051.3%2C54.3%2077.2%2C28.5%2077.2%2C37.2%2085.2%2C37.2%2085.2%2C14.9%2062.8%2C14.9%2062.8%2C22.9%2071.5%2C22.9%20%22%2F%3E%3C%2Fsvg%3E");
+  background-position: 0 0;
+  background-size: 100% auto;
+  background-repeat: no-repeat;
+  margin-left: .3rem;
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  transform: translateY(2px); }
 
 .tl {
   text-align: left; }
@@ -503,7 +538,7 @@ h4 {
   background-color: rgba(0, 0, 0, 0.7);
   padding: 2rem;
   height: 100%;
-  border: 1px solid #FFF200;
+  border: 1px solid #ff8a00;
   /* display: none; */
   font-family: inherit; }
 
@@ -582,14 +617,15 @@ h4 {
       height: 10px;
       border-radius: 50%;
       content: '';
-      background-color: rgba(255, 242, 0, 0.3);
+      background-color: #ff8a0055;
       position: absolute;
       left: 50%;
       top: 50%;
       transform: translate(-50%, -50%) scale3d(1, 1, 1);
       transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
       opacity: 0;
-      z-index: -1; }
+      z-index: -1;
+      }
     .inputGroup label:after {
       content: '';
       border: 2px solid #D1D7DC;
@@ -620,8 +656,8 @@ h4 {
       transform: translate(-50%, -50%) scale3d(130, 70, 1);
       opacity: 1; }
     .inputGroup input:checked ~ label:after {
-      background-color: #FFF200;
-      border-color: #FFF200; }
+      background-color: #ff8a00;
+      border-color: #ff8a00; }
   .inputGroup input {
     width: 32px;
     height: 32px;
@@ -1258,11 +1294,13 @@ svg#keyboard {
     flex-shrink: 2;
     box-sizing: border-box;
     margin-right: 2vw;
-    width: 60%; }
+    width: 60%;
+    max-width: 600px; }
     #details .text .bg-block:last-child {
       margin-bottom: 0; }
   #details .images {
-    flex-basis: 55%;
+    background-color: rgba(0, 0, 0, 0.08);
+    flex-basis: 0;
     width: 100%;
     flex-grow: 2;
     box-sizing: border-box;
@@ -1312,6 +1350,24 @@ svg#keyboard {
       margin-top: 2rem; }
       #details .details-wrapper .images h3 {
         margin-top: 0; } }
+
+@media screen and (min-width: 768px) {
+  .flex .col-md-12 {
+    flex: 0 0 100%;
+    max-width: 100%;
+    width: 100%; }
+  .flex .col-md-4 {
+    flex: 0 0 0 0 33.33333%;
+    max-width: 33.33333%;
+    width: 100%; }
+  .flex .col-md-3 {
+    flex: 0 0 0 0 25%;
+    max-width: 25%;
+    width: 100%; }
+  .flex .col-md-6 {
+    flex: 0 0 0 0 50%;
+    max-width: 50%;
+    width: 100%; } }
 
 @media screen and (min-width: 768px) and (max-width: 1200px) {
   .key-legend .key-block {

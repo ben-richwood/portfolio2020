@@ -528,7 +528,7 @@ export default {
       },
       "techno": {
         "n/a": true,
-        "list": ["JS", "React", "Chrome", "Webpack"],
+        "list": ["JS", "React", "Chrome", "Webpack", "google-cloud"],
         "position": {x: 1, y: 1, z: 1}
       }
     }, {
@@ -710,7 +710,7 @@ export default {
       },
       "techno": {
         "n/a": false,
-        "list": ["Python", "Flask", "Vue", "Parcel"],
+        "list": ["Python", "Flask", "Vue", "Parcel", "google-cloud"],
         "position": {x: 160, y: 1, z: -400}
       }
     }
