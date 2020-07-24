@@ -44,9 +44,7 @@
 				z-index: 10
 			}
 			.hide, .ieDetected{ display:none; }
-
 			.intro-second-part.hide{ display: block; }
-
 			#intro{
 				position:absolute;
 				top:0;
@@ -174,7 +172,6 @@
 				line-height: 2;
 				color: #9e9e9e;
 			}
-			#content{/* display:none; */}
 			.warning-symbol{
 				width: 100px;
 				margin-right: 2rem;
@@ -234,7 +231,38 @@
 				font-family: 'Rajdhani', 'Avenir Next Condensed', 'Dosis', 'Encode Sans Semi Condensed', 'Arial', sans-serif;
 			}
 			#readyToStart{
-				display: none;
+				visibility: hidden;
+			}
+			.tabs{
+				flex-direction: row;
+				-webkit-flex-direction: row;
+				-webkit-justify-content: flex-start;
+				justify-content: flex-start;
+				display: -webkit-box;
+				display: -moz-box;
+				display: -ms-flexbox;
+				display: -webkit-flex;
+				display: flex;
+				-webkit-align-items: center;
+				align-items: center;
+				flex-wrap: wrap;
+				border-bottom: 1px solid #777777;
+				margin: .6rem 0 1.4rem;
+			}
+			.subtabs{
+				flex: 0 0 0 0 50%;
+				max-width: 50%;
+				width: 100%;
+				padding: .68rem 0;
+				transform: translateY(2px);
+				color: #888;
+			}
+			.subtabs.active{
+				border-image-source: linear-gradient(90deg, #ff8a00 0%, #e52e71 100%);
+				border-bottom: 1px solid;
+				border-image-slice: 1;
+				border-width: 3px;
+				color: #CCC;
 			}
 		</style>
 	</head>
@@ -266,12 +294,15 @@
 			const LoadingPhrases = [
 			  "Checking your browser capabilities",
 			  "Warming up your system",
+				"Downloading assets",
+				"Fetching data",
 			  "Loading librairies",
 			  "Preparing hardware acceleration",
 			  "Optimizing assets",
+				"Tips: use the right click to pan, and left click to select a project ",
+				"Tips: you can adapt settings in the option menu (spacebar)",
+				"Tips: Too many open tabs may slow down the experience",
 			  "Configuring 3d scene",
-			  "Fetching data",
-			  "Downloading assets",
 			  "Mounting components",
 			  "Instanciating meshes",
 			  "Building up the scene",
@@ -294,6 +325,15 @@
 				// 	document.getElementById("intro").style.display = "none";
 				// }, true)
 			}
+			// document.getElementById("two").addEventListener("click", function(e){
+			// 	console.log(e);
+			// }, false)
+			// document.querySelectorAll(".subtabs").forEach(function(e){
+			// 	// e.classList.add("active");
+			// 	e.addEventListener("click", function(evt){
+			// 		console.log(evt);
+			// 	}, true)
+			// })
 		</script>
 
 		<script type="module" src="./assets/js/bundle_project.js"></script>
