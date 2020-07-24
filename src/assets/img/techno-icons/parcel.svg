@@ -1,4 +1,6 @@
-<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 200 200" preserveAspectRatio="xMinYMin meet">
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 200 200" preserveAspectRatio="xMinYMin meet" role="img">
+	<title id="parcelTitle">Parcel, the module bundle</title>
+  <desc id="catDesc">The parcel logo</desc>
 <linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="72.5117" y1="108.9375" x2="46.3649" y2="37.0996">
 	<stop  offset="0.1639" style="stop-color:#945B1E"/>
 	<stop  offset="0.2178" style="stop-color:#986023"/>
