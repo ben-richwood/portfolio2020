@@ -36,7 +36,7 @@
       <div v-else-if="currentSubmenu == 1" id="controls">
         <h3 class="tc">Controls</h3>
         <div class="notice"> <p class="tc">Mouse</p> </div>
-        <?php echo file_get_contents("./assets/img/mice.svg"); ?>
+        <?php echo file_get_contents("./assets/img/icons/mice.svg"); ?>
         <div class="notice"> <p class="tc">Keyboard</p> </div>
         <div class="inputGroup">
           <input id="kb_default" v-on:click="changeKbConfig('kb_default')" value="kb_default" name="radio" type="radio" v-model="kb_config"/>
@@ -72,7 +72,7 @@
             </div>
           </div>
         </div>
-        <?php echo file_get_contents("./assets/img/icons/keyboard-02.svg"); ?>
+        <?php echo file_get_contents("./assets/img/icons/keyboard.svg"); ?>
         <!-- <img src="./assets/img/icons/keyboard.svg" alt="keyboard configuration"> -->
       </div>
       <div v-else-if="currentSubmenu == 2" id="graphics">
