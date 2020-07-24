@@ -27,6 +27,8 @@ const timeline = projects.list.filter(e => e.onlyTimeline === true);
 export let camera, controls, scene, renderer;
 export let cssScene, rendererCSS; // 2nd "canvas", used by CSS3DRenderer to display DOM element in 3D env
 
+const canvasCssEl = document.getElementById('DOMElTimeline');
+
 const cameraInitialPosition = { x: -1500, y: 1770, z: 327 }
 
 // const svgLoader = new SVGLoader();
@@ -385,7 +387,7 @@ export function init() {
   }
 
   // Techno
-  let jsArr = [2, 3, 5, 15, 16, 18, 19, 20, 23];
+  let jsArr = [2, 3, 5, 15, 16, 17, 18, 19, 20, 23];
   for (var i = 0, j = jsArr.length; i < j; i++) {
     let k = jsArr[i];
     projects.bounds.techno.push({
@@ -401,7 +403,7 @@ export function init() {
       end: {...projects.list[k].techno.position}
     })
   }
-  let rorArr = [4];
+  let rorArr = [4, 11];
   for (var i = 0, j = rorArr.length; i < j; i++) {
     let k = rorArr[i];
     projects.bounds.techno.push({
@@ -821,7 +823,7 @@ export function animate() {
     TWEEN.update();
     controls.update(); // only required if controls.enableDamping = true, or if controls.autoRotate = true
     // var newX = this.target.x + pan.x;
-    // var newY = this.target.y + pan.y;
+    // var newY = this.target.y + `pan.y;
     if (settings.isDebugMode) {
       stats.update();
       rendererStats.update(renderer);
@@ -836,12 +838,12 @@ export function render() {
 
 export function playAnimation() {
   settings.isPaused = false;
-  canvasEl.style.filter = "none";
+  canvasCssEl.style.filter = "none";
   animate();
 }
 export function pauseAnimation() {
   settings.isPaused = true;
-  canvasEl.style.filter = "blur(10px)";
+  canvasCssEl.style.filter = "blur(10px)";
   animate();
 }
 

@@ -1,47 +1,19 @@
-// First, let's load THREE components
 import * as THREE from './build/three.module.js';
-// import THREELib from "three-js";
-// var THREE = THREELib(); // return THREE JS
-
-// import Stats from './libs/stats.module.js'; // for testing only
 
 import { Popup, Sidebar, settings, keyboardMap } from './components.js';
 
-// import { OrbitControls } from './libs/OrbitControls.js'; // Custom OrbitContrls
 import { WEBGL } from './libs/WebGL.js';
-// import { GLTFLoader } from './libs/GLTFLoader.js'; // load the 3D model
-// import { SVGLoader } from './libs/SVGLoader.js';
 
-// For HDR background image and illumination
-// import { RGBELoader } from './libs/RGBELoader.js';
-// import { EquirectangularToCubeGenerator } from './libs/EquirectangularToCubeGenerator.js';
-// import { PMREMGenerator } from './libs/PMREMGenerator.js';
-// import { PMREMCubeUVPacker } from './libs/PMREMCubeUVPacker.js';
-// import { RectAreaLightUniformsLib } from './libs/RectAreaLightUniformsLib.js';
-
-// import { CSS3DRenderer, CSS3DObject } from './libs/CSS3DRenderer.js';
-
-
-// import * as Timeline from './timeline.js';
 
 // Custom lib
 import * as MAT from './libs/custom/materialList.js'
 import * as TEST from './libs/custom/testing.js'
 import { logStyle, mobilecheck, msieversion, displayProjectImageOnScreen, dayLight, nightLight, distanceVector } from './libs/custom/miscellaneous.js'
 
-// import * as Timeline from './timeline.js'
 import * as Timeline from './timeline.js'
-
-
-// TWEEN - for animation
-// import { TWEEN } from './libs/tween.module.min.js'
-
 
 // For STATS screen (option menu) and performance measurement
 export const t0 = performance.now();
-
-
-// let rendererStats;
 
 // All objects used for the THREE scene
 export let container, canvasEl, canvasTimeline, stats;

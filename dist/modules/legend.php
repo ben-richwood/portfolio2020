@@ -37,11 +37,12 @@
         <div class="minor legend-item"> Minor projects </div>
       </div>
       <div class="column-legend">
-        <button @click="resetCamera" class="reset-camera" type="button" name="button">
+        <button @click="resetCamera" class="reset-camera" type="button" name="button" title="Reset the camera">
           <svg class="" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
             <use xlink:href="#camera"/>
           </svg>
-          <span>Reset</span></button>
+          <!-- <span>Reset</span> -->
+        </button>
       </div>
     </div>
   </div>
@@ -65,9 +66,9 @@
       <div class="key">C</div>
       <label for="">Console</label>
     </div> -->
-    <div class="key-block">
+    <!-- <div class="key-block">
       <div class="key">up</div>
       <label for="">Nav</label>
-    </div>
+    </div> -->
   </div>
 </div>

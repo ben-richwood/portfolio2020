@@ -1,3 +1,4 @@
+<div id="intro0"></div>
 <div id="intro">
   <div class="popup highlight">
     <div v-show="ieDetected" class="ieDetected">
@@ -10,16 +11,21 @@
         <h2 class="tc">Ben's portfolio</h2>
       </div>
       <div class="tagline"><p>I'm <span class="highlight--tag">project manager</span> and <span class="highlight--tag">digital producer</span> who puts <span class="highlight--tag">code</span> and <span class="highlight--tag">design</span> into my daily work.</p></div>
+      <div class="tabs">
+        <div class="subtabs active tc" id="one" >Portfolio</div>
+        <div class="subtabs tc" id="two">Controls</div>
+      </div>
       <div>
         <p>While my main job is Project manager and Digital Producer, I use code and design capabilities to prototype ideas, lead preliminary researches and feasibilities studies (<span class="abbr" title="Proof Of Concept">POC</span>), automate and improve internal tools.</p>
-        <p>I also do freelance work.</p>
+        <p>I also work freelance contracts.</p>
         <p>This portfolio has been designed with a single idea in mind: to show evidence and examples of project I made for every skills I state in my portfolio.</p>
       </div>
       <!-- <div id="readyToStart" v-show="isReadyToStart"> -->
-      <div id="loadingText" v-show="!isReadyToStart">Downloading assets...</div>
+      <!-- <div id="loadingText" v-show="!isReadyToStart">Downloading assets...</div> -->
       <div id="readyToStart">
         <div class="containerSheen">
-          <button id="ExploreWork-btn" @click="exploreWork(true)" class="button button--sheen-l"><span>Enter</span></button>
+          <!-- <button id="ExploreWork-btn" @click="exploreWork(true)" class="button button--sheen-l"><span>Enter</span></button> -->
+          <button id="ExploreWork-btn" class="button button--sheen-l"><span>Enter</span></button>
         </div>
       </div>
       <div id="notCompatible"></div>

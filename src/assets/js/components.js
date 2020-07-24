@@ -98,10 +98,20 @@ Vue.component('svg-symbol', {
   template: `<svg :title="use" class="techno-svg" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
     <use :xlink:href="use"/>
   </svg>`
-})
+});
+
+Vue.component('link-to', {
+  props: ["url", "copy", "external"],
+  data: function () {
+    return {
+      linksNewTab: settings.linksNewTab ? '_blank' : '_self'
+    }
+  },
+  template: `<a class="color-link" :target="linksNewTab" :href="url">{{ copy }}</a>`
+});
 
 export const Popup = new Vue({
-  el: "#intro",
+  el: "#intro0",
   data: {
     displayConfig: true,
     config: "",
@@ -129,25 +139,7 @@ export const Popup = new Vue({
     },
     // choosePerf: function (e) {
     exploreWork: function(e) {
-      this.displayConfig = false;
-      settings.isConfigHigh = e;
-      optionMenu.gpu = this.config;
-      settings.GPU = this.config;
-      if (e == 1 && false){
-        if (settings.isConfigHigh) {
-          settings.lateInit()
-        }
-        // document.removeEventListener('keyup', (event) => {}, false);
-        // console.log("settings:",settings);
-      }
-      document.getElementById("intro").style.display = "none";
-      settings.isConfigHigh = e;
-      optionMenu.gpu = this.config;
-      settings.GPU = this.config;
-      this.isIntroOff = true;
-      selectPerf = false;
-      settings.isPaused = false;
-      tl.transform( tl.targets.techno, 2000 );
+
     },
     // exploreWork: function () {
     //   this.displayConfig = false;
@@ -159,17 +151,18 @@ const filteredList = Projects.list.filter(e => e.onlyTimeline === false);
 
 
 const selectedNavigator = {
-  platforn: navigator.platform,
-  vendor: navigator.vendor,
-  language: navigator.language,
-  hardwareConcurrency: navigator.hardwareConcurrency,
-  cookieEnabled: navigator.cookieEnabled,
-  doNotTrack: navigator.doNotTrack != null ? "DoNotTrack enabled" : "DoNotTrack not enabled"
+  ["Platforn"]: navigator.platform,
+  ["Vendor"]: navigator.vendor,
+  ["Language"]: navigator.language,
+  ["Hardware concurrency"]: navigator.hardwareConcurrency,
+  ["Cookie enabled"]: navigator.cookieEnabled,
+  ["doNotTrack"]: navigator.doNotTrack != null ? "DoNotTrack detected" : "DoNotTrack not enabled on your browser"
 }
 
 
 export const optionMenu = new Vue({
   el: "#optionMenu",
+  // component: ["link"],
   data: {
     currentSubmenu: 3,
     optionsOpen: false,
@@ -204,17 +197,17 @@ export const optionMenu = new Vue({
       detailPopup.blurred = false;
       this.currentSubmenu = 0;
       container.style.filter = "blur(0px)";
-      domElTimeline.style.filter = "blur(0px)";
+      // domElTimeline.style.filter = "blur(0px)";
       // Menu.isDisplayed = true;
-      // tl.playAnimation();
+      tl.playAnimation();
     },
     open: function () {
       this.optionsOpen = true;
       detailPopup.blurred = true;
       // Sidebar.showSidebar = false;
       container.style.filter = "blur(10px)";
-      domElTimeline.style.filter = "blur(10px)";
-      // tl.pauseAnimation();
+      // domElTimeline.style.filter = "blur(10px)";
+      tl.pauseAnimation();
     },
     toogle: function () {
       if(this.optionsOpen){
@@ -278,6 +271,7 @@ export const detailPopup = new Vue ({
     name: "",
     description: "",
     link: "",
+    iconsTech: "",
     icons: "",
     data: "",
     images: [],
@@ -285,6 +279,7 @@ export const detailPopup = new Vue ({
     category: null,
     blurred: false
   },
+  component: ["link-to"],
   // template: 'svg-symbol',
   methods: {
     open: function (id) {
@@ -292,11 +287,16 @@ export const detailPopup = new Vue ({
       let prj = Projects.list.find(e => e["id"] === parseInt(id) );
       this.name = prj.name;
       legendMenu.showLegend = false;
-      this.icons = [];
+      this.icons = [], this.iconsTech = [];
       this.images = [];
       let htmlToPrint = "";
       if (prj.techno && prj.techno.list && prj.techno.list.length > 0) {
         prj.techno.list.forEach((item, i) => {
+          this.iconsTech.push(`#${item.toLowerCase()}`);
+        });
+      }
+      if (prj.software && prj.software.list && prj.software.list.length > 0) {
+        prj.software.list.forEach((item, i) => {
           this.icons.push(`#${item.toLowerCase()}`);
         });
       }
@@ -315,7 +315,7 @@ export const detailPopup = new Vue ({
         htmlToPrint += `<h3>Design</h3>${prj.design}`
       }
       if (prj.link) {
-        this.link = `<div><a href="${prj.link}" ${settings.linksNewTab ? "target='_blank'" : ""} class="case-link" title="Link to ${prj.name}">See the website</a></div>`
+        this.link = `<div><a href="${prj.link}" ${settings.linksNewTab ? "target='_blank'" : ""} class="case-link" title="Link to ${prj.name}">go to the website</a></div>`
       }
       this.data = htmlToPrint
 
@@ -362,6 +362,7 @@ export const detailPopup = new Vue ({
       this.name = "";
       this.description = "";
       this.link = "";
+      this.iconsTech = "";
       this.icons = "";
       this.data = "";
       this.images = [];
@@ -419,6 +420,33 @@ export const legendMenu = new Vue({
 document.querySelector('#optionMenu > div').classList.remove("hide");
 document.querySelector('#intro > div').classList.remove("hide");
 
+function init(e){
+  Popup.displayConfig = false;
+  settings.isConfigHigh = e;
+  optionMenu.gpu = Popup.config;
+  settings.GPU = Popup.config;
+  if (e == 1 && false){
+    if (settings.isConfigHigh) {
+      settings.lateInit()
+    }
+    // document.removeEventListener('keyup', (event) => {}, false);
+    // console.log("settings:",settings);
+  }
+  document.getElementById("intro").style.display = "none";
+  settings.isConfigHigh = e;
+  optionMenu.gpu = Popup.config;
+  settings.GPU = Popup.config;
+  Popup.isIntroOff = true;
+  selectPerf = false;
+  settings.isPaused = false;
+  tl.transform( tl.targets.techno, 2000 );
+}
+document.getElementById("readyToStart").style.visibility = "visible"
+document.getElementById("ExploreWork-btn").addEventListener('click', function (e){
+  init(true);
+}, true)
+// exploreWork(true)
+
 domElTimeline.addEventListener("click", evt => {
   // console.log(evt);
   if (evt.target.classList.contains("node")){
@@ -427,6 +455,8 @@ domElTimeline.addEventListener("click", evt => {
   }
 }, true)
 
+
+// Keyboard navigation
 document.addEventListener('keyup', (event) => {
   const keyName = event.key;
   const keyCode = event.code

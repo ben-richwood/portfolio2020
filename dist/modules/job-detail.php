@@ -4,7 +4,12 @@
       <div class="scrollbar">
         <div class="bg-block no-margin">
           <h2>{{ name }}</h2>
-          <svg-symbol v-for="icon in icons"  v-bind:use="icon"></svg-symbol>
+          <div>
+            <svg-symbol v-for="icon in iconsTech"  v-bind:use="icon"></svg-symbol>
+          </div>
+          <div>
+            <svg-symbol v-for="icon in icons"  v-bind:use="icon"></svg-symbol>
+          </div>
         </div>
 
         <div class="flex f-between f-row extra_job-info">
@@ -42,7 +47,7 @@
         <h3>Images</h3>
       </div>
         <div class="scrollbar">
-        <div v-for="img in images" :key="img.id">
+        <div v-for="img in images" transition="staggered" stagger="400" :key="img.id">
           <div class="caption tc" v-show="img.caption">
             {{ img.caption }}
           </div>
