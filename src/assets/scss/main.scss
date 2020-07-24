@@ -21,7 +21,7 @@ $font-monospace: Menlo,Consolas,Monaco,Lucida Console,Liberation Mono,DejaVu San
 
 $highlightColor: #ff8a00;
 $highlightColoralpha: #ffd40055;
-$selectedKey: rgba(148, 246, 255, 0.7);
+$selectedKey: #ff8a00;
 $popupBgColor: #222833;
 $mainColor: #11517F;
 
@@ -319,8 +319,11 @@ a[target="_blank"]{
     position: relative;
     &.active{
       &:before {
-        opacity: 1;
+        // opacity: 1;
         @include corners();
+        @include gradient();
+        opacity: .75;
+        z-index: -1;
         // background-color: rgba(255, 242, 0, .3);
       }
       &:after{
@@ -385,8 +388,8 @@ a[target="_blank"]{
   box-sizing: border-box;
   border-left: 1px solid rgba(255,255,255,0.2);
   h3{
-    margin-top: 0;
-    margin-bottom: 2rem;
+    margin-bottom: 1.2rem;
+    margin-top: 1.7rem;
   }
   p{
     // margin: 3rem;

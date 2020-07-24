@@ -1,3 +1,12 @@
+.text{
+  transform: translateY(30px) translateZ(100px) rotateY(8deg) rotateX(6deg) scale(.92);
+  transition: transform .3s ease;
+}
+.images{
+  transform: translateY(30px) translateZ(100px) rotateY(8deg) rotateX(6deg) scale(.92);
+  transition: transform .3s ease;
+} 
+
 #details{
   position: fixed;
   z-index: 45;
@@ -27,7 +36,8 @@
     padding: .9rem;
     padding-right: .5rem;
 
-
+    transform: translateY(0) translateZ(0px) rotateY(0) rotateX(0) scale(1);
+    transition: transform .4s ease;
 
   }
   .text{
@@ -37,8 +47,19 @@
     margin-right: 2vw;
     width: 60%;
     max-width: 600px;
-    .bg-block:last-child{
-      margin-bottom:0;
+    .bg-block{
+      &:last-child{
+        margin-bottom:0;
+      }
+      h3:first-child{
+        margin-top: 0;
+      }
+    }
+    p{
+      margin-bottom: .5rem;
+      &:last-child{
+        margin-bottom: 0;
+      }
     }
   }
   .images{
@@ -74,4 +95,35 @@
     flex-basis: auto;
     flex-grow: 2;
   }
+}
+// .scrollbar img{
+//   opacity: 1;
+// }
+// .staggered-transition {
+//   transition: all .5s ease;
+//   opacity: 1;
+//   // overflow: hidden;
+//   // margin: 0;
+//   // height: 20px;
+//   // opacity:
+// }
+
+// .staggered-enter, .staggered-leave {
+//     opacity: 0;
+// }
+
+/* always present */
+.staggered-transition {
+  transition: all .3s ease;
+  opacity: 1;
+  // height: 30px;
+  // padding: 10px;
+  // background-color: #eee;
+  // overflow: hidden;
+}
+/* .expand-enter defines the starting state for entering */
+/* .expand-leave defines the ending state for leaving */
+.staggered-enter, .staggered-leave{
+  opacity: 0;
+  transition: all .3s ease;
 }
