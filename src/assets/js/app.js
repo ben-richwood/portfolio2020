@@ -16,7 +16,7 @@ import * as Timeline from './timeline.js'
 export const t0 = performance.now();
 
 // All objects used for the THREE scene
-export let container, canvasEl, canvasTimeline, stats;
+export let container, canvasEl, canvasTimeline, stats, canvasStats;
 export let controls
 export let scene, renderer;
 export let cssScene, rendererCSS; // 2nd "canvas", used by CSS3DRenderer to display DOM element in 3D env
@@ -36,7 +36,7 @@ var tempT = 0;
 let loaded = false;
 
 // sound when switching to coding environment
-var orbSound = new Audio('assets/orb.mp3');
+// var orbSound = new Audio('assets/orb.mp3');
 
 // variables to instanciate multiple servers
 let instanciateServer;
@@ -61,6 +61,7 @@ let gl, debugInfo, vendor, rendererEval;
 function init (){
   firstConfigCheck();
   container = document.getElementById('canvasScene');
+  canvasStats = document.getElementById('canvasStats');
   canvasEl = document.getElementById('mainScene');
   canvasTimeline = document.getElementById('timeline');
   Timeline.init();
@@ -83,16 +84,16 @@ function firstConfigCheck() {
   let isMobile = mobilecheck();
   console.log(`%cIs your device a mobile/tablet? ${isMobile}`, logStyle);
 
-  Popup.ieDetected = msieversion();
-  Popup.config = rendererEval;
-  Popup.isMobile = isMobile;
+  // Popup.ieDetected = msieversion();
+  // Popup.config = rendererEval;
+  // Popup.isMobile = isMobile;
   // Popup.isMobile = true; // for testing purpose
   console.log(`%c${rendererEval}`, logStyle);
   console.warn(debugInfo);
 }
 
 if ( WEBGL.isWebGLAvailable() ) {
-  Popup.isReadyToStart = true;
+  // Popup.isReadyToStart = true;
   init()
 } else {
   var warning = WEBGL.getWebGLErrorMessage();

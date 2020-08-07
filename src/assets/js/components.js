@@ -1,17 +1,38 @@
 import Vue from 'vue';
 
 import { highPerfInit } from './app.js'
-import { container, canvasEl, canvasTimeline, t0 } from './app.js'
+import { container, canvasEl, canvasTimeline, t0, canvasStats } from './app.js'
 import Projects from './projects.js'
 import { displayProjectImageOnScreen } from './libs/custom/miscellaneous.js'
 
 import * as THREE from './build/three.module.js';
 import { CSS3DRenderer, CSS3DObject } from './libs/CSS3DRenderer.js';
 
-import * as Timeline from './app.js';
+// import * as Timeline from './app.js';
 import * as tl from './timeline.js';
-import { TWEEN } from './libs/tween.module.min.js'
+// import { TWEEN } from './libs/tween.module.min.js'
 
+import Analytics from 'analytics'
+import googleAnalytics from '@analytics/google-analytics'
+import doNotTrack from 'analytics-plugin-do-not-track'
+
+/* Initialize analytics */
+const analytics = Analytics({
+  app: 'portfolio2020',
+  version: 100,
+  plugins: [
+    googleAnalytics({
+      trackingId: 'UA-90932543-3',
+      anonymizeIp: true
+    }),
+    doNotTrack()
+  ]
+})
+
+// does nothing if DNT on
+analytics.page();
+
+analytics.plugins.disable('google')
 
 // Carousel when loading all the libs
 const tips = [
@@ -33,19 +54,22 @@ export const keyboardMap = {
     prev: ["ArrowLeft", "⟵"],
     next: ["ArrowRight", "⟶"],
     accept: ["Space", "SPACE"],
-    option: ["Escape", "ESC"]
+    option: ["Escape", "ESC"],
+    hud: ["h", "H"]
   },
   kb_gamer: {
     prev: ["a", "A"],
     next: ["d", "D"],
     accept: ["e", "E"],
-    option: ["Escape", "ESC"]
+    option: ["Escape", "ESC"],
+    hud: ["h", "F"]
   },
   kb_vim: {
     prev: ["h", "H"],
     next: ["l", "L"],
     accept: ["Space", "SPACE"],
-    option: ["Escape", "ESC"]
+    option: ["Escape", "ESC"],
+    hud: [";", ":"]
   },
 }
 
@@ -63,7 +87,7 @@ function Settings (e) {
 
     // CONFIG
     this.isConfigHigh = false;
-    this.isDebugMode = true;
+    this.isDebugMode = false;
     this.isTWEENLoaded = false;
     this.antialias = false;
     this.precision = 'mediump';
@@ -75,6 +99,8 @@ function Settings (e) {
     this.currFilter = "techno";
     this.prevFilter = null;
     this.isDetailOpen = false;
+
+    this.analyticsOn = true;
 
     // OPTIONS
     this.muteSound = false;
@@ -91,6 +117,9 @@ const date = new Date;
 const hour = date.getHours();
 export const settings = new Settings({currentEnv: 1, isItNight: hour > 18 });
 const domElTimeline = document.getElementById("DOMElTimeline");
+const scaleEl = document.getElementById("scale");
+
+const canvasScene = document.getElementById("canvasScene");
 
 // The only way I found to embed <symbols> with Vue is with components
 Vue.component('svg-symbol', {
@@ -110,42 +139,42 @@ Vue.component('link-to', {
   template: `<a class="color-link" :target="linksNewTab" :href="url">{{ copy }}</a>`
 });
 
-export const Popup = new Vue({
-  el: "#intro0",
-  data: {
-    displayConfig: true,
-    config: "",
-    isMobile: false,
-    ieDetected: false,
-    loadingText: "",
-    phraseCounter: 0,
-    isIntroOff: false,
-    isReadyToStart: false,
-    progress: 0
-  },
-  created: function () {
-    this.isReadyToStart = true;
-    // console.log("this.isReadyToStart", this.isReadyToStart);
-    document.getElementById("readyToStart").style.display = "block";
-  },
-  methods: {
-    whichConfig: function () {
-      // let result = /^intel/i.test(this.config);
-      if (GPURegex.test(this.config)){
-        return "High Performance"
-      } else {
-        return "Low Performance"
-      }
-    },
-    // choosePerf: function (e) {
-    exploreWork: function(e) {
-
-    },
-    // exploreWork: function () {
-    //   this.displayConfig = false;
-    // }
-  }
-});
+// export const Popup = new Vue({
+//   el: "#intro0",
+//   data: {
+//     displayConfig: true,
+//     config: "",
+//     isMobile: false,
+//     ieDetected: false,
+//     // loadingText: "",
+//     phraseCounter: 0,
+//     isIntroOff: false,
+//     isReadyToStart: false,
+//     progress: 0
+//   },
+//   created: function () {
+//     this.isReadyToStart = true;
+//     // console.log("this.isReadyToStart", this.isReadyToStart);
+//     document.getElementById("readyToStart").style.display = "block";
+//   },
+//   methods: {
+//     whichConfig: function () {
+//       // let result = /^intel/i.test(this.config);
+//       if (GPURegex.test(this.config)){
+//         return "High Performance"
+//       } else {
+//         return "Low Performance"
+//       }
+//     },
+//     // choosePerf: function (e) {
+//     exploreWork: function(e) {
+//
+//     },
+//     // exploreWork: function () {
+//     //   this.displayConfig = false;
+//     // }
+//   }
+// });
 
 const filteredList = Projects.list.filter(e => e.onlyTimeline === false);
 
@@ -176,9 +205,12 @@ export const optionMenu = new Vue({
       ...settings.keyboardConfig
     },
     antialias: false,
+    isDebugMode: settings.isDebugMode,
     precision: false,
     isShadowEnabled: false,
-    linksNewTab: settings.linksNewTab
+    linksNewTab: settings.linksNewTab,
+    analyticsOn: true,
+    emailAddress: `moc.liamg&#064;nimajneb.<span style="display:none">richwood</span>siobehcir`
   },
   methods: {
     changeSubmenu: function (idx) {
@@ -193,20 +225,28 @@ export const optionMenu = new Vue({
       this.currentSubmenu = idx;
     },
     close: function () {
+      // legendMenu.HUDoff = false;
+      legendMenu.showLegendForDetail = false;
       this.optionsOpen = false;
       detailPopup.blurred = false;
-      this.currentSubmenu = 0;
+      // this.currentSubmenu = 3;
       container.style.filter = "blur(0px)";
-      // domElTimeline.style.filter = "blur(0px)";
-      // Menu.isDisplayed = true;
       tl.playAnimation();
     },
     open: function () {
+      // legendMenu.HUDoff = true;
+      legendMenu.showLegendForDetail = true;
+      detailPopup.isOpen = false;
+      if (settings.analyticsOn){
+        analytics.track('key press', {
+          category: 'Options menu',
+          label: 'menu opening',
+          value: 1
+        });
+      }
       this.optionsOpen = true;
       detailPopup.blurred = true;
-      // Sidebar.showSidebar = false;
       container.style.filter = "blur(10px)";
-      // domElTimeline.style.filter = "blur(10px)";
       tl.pauseAnimation();
     },
     toogle: function () {
@@ -239,6 +279,11 @@ export const optionMenu = new Vue({
       } else if (e === "precision") {
         this.precision = !this.precision;
         renderer.precision = this.precision ? "highp" : "mediump"
+      } else if (e === "debug") {
+        console.log("settings.isDebugMode", this.isDebugMode);
+        // settings.isDebugMode = this.isDebugMode;
+        settings.isDebugMode = !settings.isDebugMode
+        canvasStats.style.display = settings.isDebugMode ? "block" : "none";
       } else {}
       // console.log(renderer);
     },
@@ -250,6 +295,18 @@ export const optionMenu = new Vue({
         // renderer.shadowMapEnabled = true;
         renderer.shadowMapType = THREE.PCFSoftShadowMap;
         castShadows();
+      }
+    },
+    optout: function (){
+      console.log("this.analyticsOn", this.analyticsOn);
+      settings.analyticsOn = this.analyticsOn;
+      console.log(this.analyticsOn);
+      console.log(window['ga-disable-UA-90932543-3']);
+      // this.analyticsOn = !this.analyticsOn;
+      if (this.analyticsOn){
+        window['ga-disable-UA-90932543-3'] = false;
+      } else {
+        window['ga-disable-UA-90932543-3'] = true;
       }
     }
   },
@@ -285,6 +342,16 @@ export const detailPopup = new Vue ({
     open: function (id) {
       settings.isDetailOpen = true;
       let prj = Projects.list.find(e => e["id"] === parseInt(id) );
+
+      if (settings.analyticsOn){
+        // Event action - type of action
+        analytics.track('click', {
+          category: 'Projects', // Typically the object that was interacted with
+          label: prj.name,
+          value: prj.id
+        });
+      }
+
       this.name = prj.name;
       legendMenu.showLegend = false;
       this.icons = [], this.iconsTech = [];
@@ -372,6 +439,8 @@ export const detailPopup = new Vue ({
   }
 })
 
+const filters = ["techno", "software", "timeline", "all"]
+
 export const legendMenu = new Vue({
   el: "#legend",
   data: {
@@ -380,51 +449,48 @@ export const legendMenu = new Vue({
       ...settings.keyboardConfig
     },
     showLegendForDetail: false,
-    selectedFilter: "techno"
+    selectedFilter: "techno",
+    HUDoff: false
   },
   methods: {
-    techno: function () {
+    applyFilter: function(id){
       settings.prevFilter = settings.currFilter;
-      settings.currFilter = "techno"
+      settings.currFilter = filters[id];
       this.selectedFilter = settings.currFilter;
-      tl.transform( tl.targets.techno, 2000 );
-    },
-    software: function () {
-      settings.prevFilter = settings.currFilter;
-      settings.currFilter = "software"
-      this.selectedFilter = settings.currFilter;
-      tl.transform( tl.targets.software, 2000 );
-    },
-    timeline: function () {
-      settings.prevFilter = settings.currFilter;
-      settings.currFilter = "timeline"
-      this.selectedFilter = settings.currFilter;
-      tl.transform( tl.targets.timeline, 2000 );
-    },
-    all: function () {
-      settings.prevFilter = settings.currFilter;
-      settings.currFilter = "all"
-      this.selectedFilter = settings.currFilter;
-      tl.transform( tl.targets.all, 2000 );
+      tl.transform( tl.targets[filters[id]], 2000 );
     },
     resetCamera: function () {
       tl.resetCamera(1200 );
     },
     close: function() {
       detailPopup.close();
+    },
+    menu: function (){
+      optionMenu.open();
     }
   }
 })
 
+function toggleHUD (bool) {
+  legendMenu.HUDoff = bool;
+  scaleEl.classList.toggle("hideHUD");
+}
 
 document.querySelector('#optionMenu > div').classList.remove("hide");
 document.querySelector('#intro > div').classList.remove("hide");
 
-function init(e){
-  Popup.displayConfig = false;
+function init(e) {
+  settings.analyticsOn = document.getElementById("analyticsCheckbox").checked;
+  optionMenu.analyticsOn = settings.analyticsOn;
+
+  if (settings.analyticsOn){
+    analytics.plugins.enable('google')
+  }
+
+  // Popup.displayConfig = false;
   settings.isConfigHigh = e;
-  optionMenu.gpu = Popup.config;
-  settings.GPU = Popup.config;
+  // optionMenu.gpu = Popup.config;
+  // settings.GPU = Popup.config;
   if (e == 1 && false){
     if (settings.isConfigHigh) {
       settings.lateInit()
@@ -434,20 +500,22 @@ function init(e){
   }
   document.getElementById("intro").style.display = "none";
   settings.isConfigHigh = e;
-  optionMenu.gpu = Popup.config;
-  settings.GPU = Popup.config;
-  Popup.isIntroOff = true;
+  // optionMenu.gpu = Popup.config;
+  // settings.GPU = Popup.config;
+  // Popup.isIntroOff = true;
   selectPerf = false;
   settings.isPaused = false;
   tl.transform( tl.targets.techno, 2000 );
 }
-document.getElementById("readyToStart").style.visibility = "visible"
+
 document.getElementById("ExploreWork-btn").addEventListener('click', function (e){
   init(true);
 }, true)
-// exploreWork(true)
 
-domElTimeline.addEventListener("click", evt => {
+
+
+
+domElTimeline.addEventListener("dblclick", evt => {
   // console.log(evt);
   if (evt.target.classList.contains("node")){
     let id = evt.target.getAttribute("data-id");
@@ -478,10 +546,15 @@ document.addEventListener('keyup', (event) => {
       // return
     }
   }
+  if (keyName === settings.keyboardConfig.hud[0]) {
+    toggleHUD (!legendMenu.HUDoff)
+  }
+  // escape!
   if (keyName === settings.keyboardConfig.option[0]) {
     if (settings.isDetailOpen) {
       detailPopup.close();
     }
+    // toggleHUD(optionMenu.optionsOpen);
     if (optionMenu.optionsOpen) {
       legendMenu.showLegend = false;
     } else {
@@ -489,8 +562,10 @@ document.addEventListener('keyup', (event) => {
   //   detailPopup.close();
     }
   }
+  // SPACE BAR KEY BY DEFAULT
   if (keyCode === settings.keyboardConfig.accept[0]) {
     optionMenu.toogle();
+    // toggleHUD(optionMenu.optionsOpen);
     // dispay/hide the legend menu
   }
 }, false);

@@ -357,3 +357,89 @@ div.screenGraphic{
     transform: rotate(45deg);
   }
 }
+
+.tabs, .tabs-nav{
+  flex-direction: row;
+  -webkit-flex-direction: row;
+  -webkit-justify-content: flex-start;
+  justify-content: flex-start;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
+  flex-wrap: nowrap;
+}
+.tabs-nav{
+  -webkit-justify-content: space-around;
+  justify-content: space-around;
+  border-bottom: 1px solid #555555;
+  margin: .6rem 0 1.4rem;
+}
+.tab-container{
+  width: 100%;
+  overflow-x: hidden;
+}
+.tabs{
+  width: 300%;
+}
+.tabs > div{
+  width: 100%;
+  flex-basis: 100%;
+}
+.tabs.tab-0{
+  transform: translateX(0);
+  transition: transform .3s ease;
+}
+.tabs.tab-1{
+  transform: translateX(-33.33334%);
+  transition: transform .3s ease;
+}
+.tabs.tab-2{
+  transform: translateX(-66.6666667%);
+  transition: transform .3s ease;
+}
+.subtabs{
+  flex: 0 0 0 0 50%;
+  flex-basis: 0;
+  max-width: 50%;
+  width: 100%;
+  padding: .68rem 2vw;
+  transform: translateY(2px);
+  color: #888;
+}
+.subtabs.active{
+  border-image-source: linear-gradient(90deg, #ff8a0088 0%, #e52e7188 100%);
+  border-bottom: 1px solid;
+  border-image-slice: 1;
+  border-width: 3px;
+  color: #CCC;
+}
+.tabs > div svg{
+  margin: 0 auto;
+  display: block;
+}
+
+.warning-symbol{
+  width: 100px;
+  margin-right: 2rem;
+  flex-basis: 20%;
+  opacity: 0;
+
+  animation-name: blink;
+  animation-duration: .2s;
+  animation-delay: .7s;
+  animation-timing-function: ease;
+  animation-direction: normal;
+  animation-iteration-count: 5;
+  animation-fill-mode: forwards;
+  animation-play-state: running;
+}
+
+.notice-intro{
+  font-size: .75rem;
+  line-height: 1.4rem;
+  margin: 1.5rem auto;
+}

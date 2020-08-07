@@ -17,6 +17,17 @@ import {
 	Vector3
 } from "../build/three.module.js";
 
+import { settings, legendMenu } from '../components.js'
+import { camera, controls } from '../timeline.js'
+import { distanceVector } from './custom/miscellaneous.js'
+
+const marker = document.getElementById("scaleMarker");
+const scale = document.getElementById("scale");
+const scaleHeight = scale.clientHeight;
+
+// let posFromTop = scaleHeight / (1930 - 96) * 100;
+// marker.style.transform = `translateY(${posFromTop}px)`;
+
 // This set of controls performs orbiting, dollying (zooming), and panning.
 // Unlike TrackballControls, it maintains the "up" direction object.up (+Y by default).
 //
@@ -261,6 +272,7 @@ var OrbitControls = function ( object, domElement ) {
 		};
 
 	}();
+
 
 	this.dispose = function () {
 
@@ -959,6 +971,13 @@ var OrbitControls = function ( object, domElement ) {
 	function onMouseWheel( event ) {
 
 		if ( scope.enabled === false || scope.enableZoom === false || ( state !== STATE.NONE && state !== STATE.ROTATE ) ) return;
+
+
+		let d = distanceVector(camera.position, {x: camera.position.x, y:scope.minDistance, z:camera.position.z});
+		console.log(d);
+		let intermediate = d.toFixed(2) / (scope.maxDistance - scope.minDistance) * 100;
+		// console.log("zoom level: ", d);
+		marker.style.transform = `translateY(${((scaleHeight * intermediate) / 100).toFixed(2)}px)`;
 
 		event.preventDefault();
 		event.stopPropagation();

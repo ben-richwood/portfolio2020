@@ -25,27 +25,17 @@ $selectedKey: #ff8a00;
 $popupBgColor: #222833;
 $mainColor: #11517F;
 
+$mainProjectOne: #48BFE0;
+$mainProjectTwo: #2C89A0;
+$secondaryColorOne: #D5D5CF;
+$secondaryColorTwo: #959692;
+
 @import "partials/reset";
 @import "partials/_customClass";
 
 @supports (font-variation-settings: normal) {
   body { font-family: $font-body; }
 }
-
-// body{
-//   margin: 0;
-//   background-color: #000;
-//   color: #fff;
-//   font-family: $font-title;
-//   font-family: $font-body;
-//   // line-height: 1.4;
-//   // line-height: 24px;
-//   font-size: 14px;
-//   letter-spacing: -0.007em;
-//   line-height: 20px;
-//   // For hardware acceleration
-//   transform: translate3d(0, 0, 0);
-// }
 
 // canvas{
 //   cursor: url(../cursor.svg) 16 16, url(../cursor.png) 16 16, pointer;
@@ -82,6 +72,10 @@ a[target="_blank"]{
   }
 }
 
+b{
+  font-weight: 700;
+}
+
 .tl{text-align: left;}
 
 .tr{text-align: right;}
@@ -91,6 +85,8 @@ a[target="_blank"]{
 .visuallyhidden{
   visibility: hidden;
 }
+
+.mb{margin-bottom:.8rem;}
 
 .font-figure{
   font-family: $font-figures;
@@ -149,7 +145,6 @@ a[target="_blank"]{
 	-webkit-box-pack: center;
 	justify-content: center;
 	text-align: center;
-	border-radius: 4px;
 	padding: 0.2857142857rem 1.0714285714rem;
 	font-weight: 600;
 	white-space: nowrap;
@@ -217,17 +212,7 @@ a[target="_blank"]{
 	background: linear-gradient(90deg, rgba(255, 249, 220, 0.7) 20%, rgba(255,255,255,0) 50%);
 	box-shadow: 0 0 12px rgba(255, 249, 220, 0);
 }
-/* .button--sheen-l:before {
-		background: linear-gradient(90deg, rgba(255, 249, 220, 0.7) 20%, rgba(255,255,255,0) 50%);
-		z-index: 5;
-		transition: left .7s cubic-bezier(0.46, 0.18, 0.07, 1) 0;
-} */
-/* .button--sheen-l:after {
-		background: linear-gradient(90deg, rgba(255,255,255,0.7) 9%, rgba(255,255,255,0) 30%);
-		transition: left 0.8s cubic-bezier(0.86, 0, 0.07, 1) 0.2s;
-		z-index: 0;
-		opacity: 0.8;
-} */
+
 .button--sheen-l:hover{
 	border-left: 15px solid rgba(255, 249, 220, .7);
 	box-shadow: 0 0 12px rgba(255, 249, 220, .3);
@@ -243,6 +228,29 @@ a[target="_blank"]{
 		left: calc(0% - 10px);
 		transition: left 0.8s cubic-bezier(0.86, 0, 0.07, 1);
 } */
+
+.large-btn{
+	// border: 0;
+	// border-left: 15px solid #FFF;
+	cursor: pointer;
+
+  display: block;
+  letter-spacing: 0.025em;
+  margin: 0 auto;
+  width: 60%;
+  min-width: 5rem;
+	max-width: 650px;
+  background-color: rgba(255,255,255,.06);
+  color: white;
+  padding: 1rem 2rem;
+  @include corners();
+  transition: background-color .3s ease, color .3s ease;
+  &:hover{
+    background-color: rgba(255,255,255,.3);
+    color: white;
+    transition: background-color .3s ease, color .3s ease;
+  }
+}
 
 .large-button{
   display: -ms-inline-flexbox;
@@ -399,7 +407,7 @@ a[target="_blank"]{
   }
 }
 .notice{
-  background: rgba(34, 40, 51, .4);
+  background: rgb(53, 61, 76);
   padding:.7rem;
   margin-bottom: 4rem;
 }
@@ -520,6 +528,7 @@ code {
   padding: 0 8px;
 }
 
+@import "partials/_intro";
 @import "partials/_legend";
 @import "partials/_timeline";
 @import "partials/_option-menu";

@@ -5,6 +5,7 @@
    	<title>Richwood | portfolio</title>
    	<meta name="author" content="Ben Richwood">
    	<meta name="keywords" content=" Portfolio, Startup developer, Richwood, webdesign, graphist, graphiste, html5, javascript, interactive, webgl, threejs, vuejs, php, CG, Computer Graphic">
+   	<meta name="description" content="Check out my new portfolio, with an 3D interactive map of my projects">
 		<meta charset="utf-8">
 
 		<!-- FAVICONS -->
@@ -15,7 +16,30 @@
 		<link rel="manifest" href="./manifest.json">
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-		<link type="text/css" rel="stylesheet" href="./assets/css/main.css">
+		<!-- Open Graph -->
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content="https://portfolio.richebois.fr/" />
+		<meta property="og:title" content="Richwood | portfolio" />
+		<meta property="og:description" content="Check out my new portfolio, with an 3D interactive map of my projects" />
+		<meta property="og:locale" content="en_US" />
+		<meta property="og:site_name" content="Portfolio" />
+
+		<meta property="og:image" content="https://portfolio.richebois.fr/assets/img/opengraph/landscape.png" />
+		<meta property="og:image:secure_url" content="https://portfolio.richebois.fr/assets/img/opengraph/landscape.png" />
+		<meta property="og:image:type" content="image/png" />
+		<meta property="og:image:width" content="1200" />
+		<meta property="og:image:height" content="630" />
+		<meta property="og:image:alt" content="An overview of the 3d interactive project map" />
+
+		<meta property="og:image" content="https://portfolio.richebois.fr/assets/img/opengraph/square.png" />
+		<meta property="og:image:secure_url" content="https://portfolio.richebois.fr/assets/img/opengraph/square.png" />
+		<meta property="og:image:type" content="image/png" />
+		<meta property="og:image:width" content="1200" />
+		<meta property="og:image:height" content="1200" />
+		<meta property="og:image:alt" content="An overview of the 3d interactive project map" />
+
+		<link type="text/css" rel="stylesheet" href="./assets/css/main.css?v=0.1.0">
+		<!-- <link type="text/css" rel="preload" href="./assets/css/main.css" as="style"> -->
 		<link href="https://fonts.googleapis.com/css2?family=Rajdhani&display=swap" rel="stylesheet">
 		<style type="text/css">
 			body{
@@ -43,6 +67,9 @@
 				height:100%;
 				z-index: 10
 			}
+			#canvasStats{
+				display: none;
+			}
 			.hide, .ieDetected{ display:none; }
 			.intro-second-part.hide{ display: block; }
 			#intro{
@@ -50,7 +77,7 @@
 				top:0;
 				left:0;
 				width:100%;
-				height:100vh;
+				/* height:100vh; */
 				z-index:500;
 				background-color: rgba(0,0,0,.97);
 				transform-style: preserve-3d;
@@ -61,34 +88,50 @@
 				pointer-events: none;
 				transition: opacity 1.2s ease-out;
 			}
-			.popup{
-				position:absolute;
-				background-color: #222833;
-				border: 1px solid #FFF200;
-				box-shadow:
-				  0 0px 12px rgba(255, 242, 0, 0.5),
-				  0 0px 35px rgba(255, 242, 0, 0.1),
-					0 0px 117px rgba(255, 242, 0, 0.02);
-				  /* 0 0px 35.3px rgba(255, 242, 0, 0.1), */
-				padding: 3rem;
-				width: 65%;
-				max-width: 700px;
-				/* height:50%; */
-				left:50%;
-				top:50%;
-
-				animation-name: animatePopup3D;
-			  animation-duration: .7s;
-			  animation-timing-function: ease;
-			  /* animation-delay: .3s; */
-			  animation-direction: normal;
-			  animation-iteration-count: 1;
-			  animation-fill-mode: forwards;
-			  animation-play-state: running;
-				transform: translate(-50%, -50%) translateZ(0) rotateY(0) rotateX(0) scale(1.15);
-				opacity: 0;
+			.margin-section{
+				margin-top: 2rem;
+				margin-bottom: 2rem;
 			}
-			.tc{text-align: center;}
+			.row h3{
+				margin-top: 0;
+			}
+			#intro .container{
+		    background: url(assets/css/line.svg) 0 0/100% repeat;
+			}
+			#intro .container{
+				width: 100%;
+				max-width: 900px;
+				padding-left: 0;
+				padding-right: 15px;
+				padding-left: 15px;
+				margin-right: auto;
+				margin-left: auto;
+		    box-sizing: border-box;
+				/* border-left: 1px solid #888; */
+				padding: 5rem 15px;
+			}
+			#intro .light{
+				background-color: #FFF;
+				color: black;
+				/* padding: 5rem 0 */
+			}
+			.light h3, .light h2, .light label, .light button{
+				color: #555;
+			}
+
+			.borderline{
+				position: relative;
+			}
+			.borderline:before{
+				content: '';
+				width: 3px;
+				height: 100%;
+				position: absolute;
+				left: -16px;
+				top: 0;
+		    background: linear-gradient(180deg, rgba(17,80,125,1), rgba(24,117,187,1));
+			}
+			.tc{text-align: center !important;}
 			.tagline{
 				margin: 2rem auto;
 			}
@@ -104,18 +147,24 @@
 				color: #ededed;
 				transition: color .6s ease;
 			}
+			@media (hover: none) {
+				.highlight .highlight--tag{
+					color: #ededed;
+				}
+			}
+			.highlight:hover .highlight--tag{
+				color: #ededed;
+				transition: color .6s ease;
+			}
 			h2{
-			  font-family: $font-body;
+				line-height: 1;
 				font-size: 2.6rem;
 				text-transform: uppercase;
 				margin-top: 2.2rem;
 				letter-spacing: 0.23rem;
-				// font-weight: 500;
 
 			  font-weight: 100;
-			  // font-size: 10vw;
 			  font-variation-settings: 'wght' 700, 'wdth' 100;
-			  // animation: breathe 4000ms 1 forwards;
 			  animation-name: breathe;
 			  animation-duration: 2s;
 			  animation-timing-function: ease;
@@ -125,7 +174,6 @@
 			  animation-fill-mode: forwards;
 			  animation-play-state: running;
 			}
-
 			@keyframes breathe {
 				0% { font-variation-settings: 'wght' 700, 'wdth' 100; }
 				100% { font-variation-settings: 'wght' 100, 'wdth' 85; }
@@ -138,28 +186,6 @@
 				text-align: center;
 				/* margin-bottom: 2rem; */
 			}
-			.notice-intro{
-				font-size: .75rem;
-				line-height: 1.4rem;
-				margin: 1.5rem auto;
-			}
-			#ExploreWork-btn{
-				margin-top: 2rem;
-			}
-			@keyframes animatePopup3D {
-				0% {
-					transform: translate(-50%, -50%) translateZ(0) rotateY(0) rotateX(0) scale(1.15);
-					opacity: 0;
-				}
-
-				100% {
-					transform: translate(-44%, -50%) translateZ(100px) rotateY(8deg) rotateX(6deg) scale(.92);
-					opacity: 1;
-				}
-			}
-			#loadingText{
-				font-family: 'Fira Code', 'Source Code Pro', 'consolas', 'DejaVu Sans Mono', 'Source Code Pro', 'Courier New', courier, monospace;
-			}
 			.popup .tagline p{
 				color: #777;
 				transition: color .4s ease;
@@ -171,22 +197,105 @@
 				word-spacing: 0.2rem;
 				line-height: 2;
 				color: #9e9e9e;
+		    text-align: justify;
 			}
-			.warning-symbol{
-				width: 100px;
-				margin-right: 2rem;
-				flex-basis: 20%;
+			.header{
+				position: fixed;
+				top: 3rem;
+				right: 3rem;
+				z-index: 510;
+				display: inline-block;
+		    text-align: right;
+				width: 200px;
+			}
+			.header a{
+				color: white;
+				background: linear-gradient(90deg, #11507d 0%, #1875bb 100%);
+				padding: 0.6rem 0.7rem;
+				border-radius: 2px;
+				position: relative;
+			}
+			/* .header a:before{
+				content: '';
+				background: linear-gradient(309.99deg,#00d4ff,#009ee8 50.5%,#07c 97.86%);
 				opacity: 0;
-
-				animation-name: blink;
-				animation-duration: .2s;
-				animation-delay: .7s;
-				animation-timing-function: ease;
-				animation-direction: normal;
-				animation-iteration-count: 5;
-				animation-fill-mode: forwards;
-				animation-play-state: running;
+				transition: opacity .3s ease;
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				z-index: 10;
+			} */
+			.header a:hover{
+				text-decoration: none;
 			}
+			/* .header a:hover:before{
+				opacity: 1;
+				transition: opacity .3s ease;
+			} */
+			.header span{
+				z-index: 15;
+			}
+			.header svg{
+				max-width: 15px;
+				transform: rotate(90deg) translateY(6px);
+				margin-left: 1rem;
+				display: inline-block;
+			}
+			#ExploreWork-btn{
+				width: 100% !important;
+				/* background: linear-gradient(90deg, #11507d 0%, #1875bb 100%); */
+				/* color: #11507d; */
+				background: linear-gradient(90deg, #11507d 0%, #1875bb 100%);
+				color: #FFFFFF;
+				padding: 1rem 0;
+				position: relative;
+				transform-origin: 50% 50%;
+				transform: scale(1);
+				transition: transform .3s .08s cubic-bezier(0.25, 1, 0.5, 1);;
+			}
+			#ExploreWork-btn:hover{
+				transform: scale(1.1);
+				transition: transform .3s cubic-bezier(0.25, 1, 0.5, 1);;
+			}
+			#ExploreWork-btn:after {
+				content: '';
+				position: absolute;
+				width: 100%;
+				height: 100%;
+				top: 0;
+				left: 0;
+				transform-origin: 50% 50%;
+				background-image: url(assets/img/timeline/timeline_nw.svg), url(assets/img/timeline/timeline_ne.svg), url(assets/img/timeline/timeline_sw.svg), url(assets/img/timeline/timeline_se.svg);
+				background-position: 0 0, 100% 0, 0 100%, 100% 100%;
+				background-size: 12px 12px;
+				background-repeat: no-repeat;
+				transform: scale(1);
+				transition: transform .3s cubic-bezier(0.25, 1, 0.5, 1);;
+			}
+			#ExploreWork-btn:hover:after {
+				transform: scale(1.1, 1.5);
+				transition: transform .3s .08s cubic-bezier(0.25, 1, 0.5, 1);;
+			}
+			#loadingText, #ExploreWork-btn{
+				margin-top: 2rem;
+			}
+			@keyframes animatePopup3D {
+			  0% {
+			    transform: translate(-44%, -60%) translateZ(0px) rotateY(0) rotateY(16deg) scale(.92);
+			    opacity: 0;
+			  }
+
+			  100% {
+			    transform: translate(-44%, -50%) translateZ(100px) rotateY(0) rotateX(0) scale(1);
+			    opacity: 1;
+			  }
+			}
+			#loadingText{
+				font-family: 'Fira Code', 'Source Code Pro', 'consolas', 'DejaVu Sans Mono', 'Source Code Pro', 'Courier New', courier, monospace;
+			}
+
 			@keyframes blink { 0% { opacity: 0 } 100% { opacity: 1; } }
 			.abbr {
 				position: relative;
@@ -230,39 +339,29 @@
 				font-style: italic;
 				font-family: 'Rajdhani', 'Avenir Next Condensed', 'Dosis', 'Encode Sans Semi Condensed', 'Arial', sans-serif;
 			}
-			#readyToStart{
-				visibility: hidden;
+			.techno-svg{
+			  display: inline-block;
+			  width: 40px;
+			  max-height: 30px;
+			  margin-right: .4rem;
 			}
-			.tabs{
-				flex-direction: row;
-				-webkit-flex-direction: row;
-				-webkit-justify-content: flex-start;
-				justify-content: flex-start;
-				display: -webkit-box;
-				display: -moz-box;
-				display: -ms-flexbox;
-				display: -webkit-flex;
-				display: flex;
-				-webkit-align-items: center;
-				align-items: center;
-				flex-wrap: wrap;
-				border-bottom: 1px solid #777777;
-				margin: .6rem 0 1.4rem;
+			.techno-svg.large{
+				width: 50px;
+				max-height: 45px;
 			}
-			.subtabs{
-				flex: 0 0 0 0 50%;
-				max-width: 50%;
-				width: 100%;
-				padding: .68rem 0;
-				transform: translateY(2px);
-				color: #888;
+			.techno-svg.very-large{
+				width: 80px;
+				max-height: 80px;
+				margin-right: 1.4rem;
 			}
-			.subtabs.active{
-				border-image-source: linear-gradient(90deg, #ff8a00 0%, #e52e71 100%);
-				border-bottom: 1px solid;
-				border-image-slice: 1;
-				border-width: 3px;
-				color: #CCC;
+			.disabled{
+				opacity: .4;
+				cursor: not-allowed;
+			}
+			svg text, svg tspan{
+				font-family: 'Rajdhani', 'Avenir Next Condensed', 'Dosis', 'Encode Sans Semi Condensed', 'Arial', sans-serif;
+				color: white;
+				fill: white;
 			}
 		</style>
 	</head>
@@ -279,12 +378,17 @@
 			<!-- <canvas id="mainScene"></canvas> -->
 			<canvas id="timeline"></canvas>
 		</div>
+		<div id="canvasStats"></div>
 		<?php include "./modules/intro.php" ?>
 
 
 		<div id="info">
 			Beta version
 		</div>
+
+		<div class="ieDetected">
+      Internet Explorer is not supported. Please switch to Chrome or Firefox.
+    </div>
 
 		<?php include "./modules/option-menu.php" ?>
 		<?php include "./modules/job-detail.php" ?>
@@ -321,21 +425,63 @@
 			}
 			window.onload = function () {
 				window.clearInterval(intervalListener);
-				// document.getElementById("readyToStart").addEventListener("click", () => {
-				// 	document.getElementById("intro").style.display = "none";
-				// }, true)
+				loadingText.style.display = "none";
+				document.getElementById("readyToStart").classList.toggle("disabled");
 			}
-			// document.getElementById("two").addEventListener("click", function(e){
-			// 	console.log(e);
-			// }, false)
-			// document.querySelectorAll(".subtabs").forEach(function(e){
-			// 	// e.classList.add("active");
-			// 	e.addEventListener("click", function(evt){
-			// 		console.log(evt);
-			// 	}, true)
-			// })
+			<?php /*
+			const allTabs = document.querySelectorAll(".tabs-nav .subtabs");
+			// const allTabContent = document.querySelectorAll(".tabs > div");
+			const mainTab = document.querySelector(".tabs");
+			allTabs.forEach(function(e){
+				e.addEventListener("click", function(evt){
+					let currentTab = evt.target.getAttribute("data-tab");
+					console.log(currentTab);
+					let classTabName = `tabs tab-${currentTab}`;
+					mainTab.className = classTabName;
+					for (let i = 0; i < allTabs.length; i++ ){
+						if (currentTab == i){
+							allTabs[i].classList.add("active");
+							// allTabContent[i].classList.add("active");
+						} else {
+							allTabs[i].classList.remove("active");
+							// allTabContent[i].classList.remove("active");
+						}
+					}
+				}, true);
+			})
+			*/ ?>
+			// Vanilla JavaScript Scroll to Anchor
+			// @ https://perishablepress.com/vanilla-javascript-scroll-anchor/
+
+			// (function() {
+			// })();
+			scrollTo();
+
+			function scrollTo() {
+				const links = document.querySelectorAll('.scroll');
+				links.forEach(each => (each.onclick = scrollAnchors));
+			}
+
+			function scrollAnchors(e, respond = null) {
+				const distanceToTop = el => Math.floor(el.getBoundingClientRect().top);
+				e.preventDefault();
+				var targetID = (respond) ? respond.getAttribute('href') : this.getAttribute('href');
+				const targetAnchor = document.querySelector(targetID);
+				if (!targetAnchor) return;
+				const originalTop = distanceToTop(targetAnchor);
+				window.scrollBy({ top: originalTop, left: 0, behavior: 'smooth' });
+				const checkIfDone = setInterval(function() {
+					const atBottom = window.innerHeight + window.pageYOffset >= document.body.offsetHeight - 2;
+					if (distanceToTop(targetAnchor) === 0 || atBottom) {
+						targetAnchor.tabIndex = '-1';
+						// targetAnchor.focus();
+						// window.history.pushState('', '', targetID);
+						clearInterval(checkIfDone);
+					}
+				}, 100);
+			}
 		</script>
 
-		<script type="module" src="./assets/js/bundle_project.js"></script>
+		<script type="module" src="./assets/js/bundle_project.js?v=0.1.0"></script>
 	</body>
 </html>

@@ -9,7 +9,7 @@
   left: 0;
   transform-style: preserve-3d;
   z-index: 50;
-  background-color: rgba(0,0,0,.45);
+  background-color: rgba(0,0,0,.88);
   // overflow: hidden;
   &:before, &:after{
     content: '';
@@ -34,21 +34,12 @@
     transition: transform .4s ease-in;
   }
 }
-
 .returnArrow{
   display: inline-block;
   width: 30px;
   max-height: 27px;
   margin-right: 1rem;
   transform: translateY(7px);
-}
-
-.techno-svg{
-  display: inline-block;
-  width: 40px;
-  max-height: 30px;
-  margin-right: .4rem;
-  // transform: translateY(7px);
 }
 
 @mixin svgGradient(){

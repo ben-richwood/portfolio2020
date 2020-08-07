@@ -739,7 +739,7 @@ function onWindowResize() {
 
 manager.onLoad = function ( ) {
   console.warn("loaded")
-  Popup.isReadyToStart = true;
+  // Popup.isReadyToStart = true;
   console.log("scene:", scene.children[scene.children.length - 1]);
   scene.children[scene.children.length - 1].children.forEach( function (obj) {
     let name = obj.name;

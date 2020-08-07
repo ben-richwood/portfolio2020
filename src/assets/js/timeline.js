@@ -3,10 +3,6 @@ import * as THREE from './build/three.module.js';
 import { OrbitControls } from './libs/orbis-lite.js';
 import { CSS3DRenderer, CSS3DObject } from './libs/CSS3DRenderer.js';
 import { LineMaterial } from './libs/LineMaterial.js';
-// import { LineGeometry } from './libs/LineGeometry.js';
-// import { Line2 } from './libs/Line2.js';
-
-// import { SVGLoader } from './libs/SVGLoader.js';
 
 import * as MAT from './libs/custom/materialList.js'
 import Stats from './libs/stats.module.js'; // for testing only
@@ -15,21 +11,25 @@ import * as TEST from './libs/custom/testing.js'
 import * as Utilis from './libs/custom/miscellaneous.js'
 
 import projects from "./projects.js";
-import { t0, keyboardMap, zoomModel, objectScene, container, canvasEl, canvasTimeline, readyToLaunch } from './app.js'
+import { t0, keyboardMap, zoomModel, objectScene, container, canvasEl, canvasTimeline, readyToLaunch, canvasStats } from './app.js'
 
 import { settings } from './components.js'
 
 // import gsap as Tween from "gsap";
 import { TWEEN } from './libs/tween.module.min.js'
 
-const timeline = projects.list.filter(e => e.onlyTimeline === true);
+// const timeline = projects.list.filter(e => e.onlyTimeline === true);
+
+const sortedTimeline = projects.list.sort(function (a, b) {
+  return a.year - b.year;
+});
 
 export let camera, controls, scene, renderer;
 export let cssScene, rendererCSS; // 2nd "canvas", used by CSS3DRenderer to display DOM element in 3D env
 
 const canvasCssEl = document.getElementById('DOMElTimeline');
 
-const cameraInitialPosition = { x: -1500, y: 1770, z: 327 }
+const cameraInitialPosition = { x: 500, y: 1770, z: 327 }
 
 // const svgLoader = new SVGLoader();
 
@@ -102,7 +102,7 @@ export function init() {
   controls.enableDamping = true; // an animation loop is required when either damping or auto-rotation are enabled
   controls.dampingFactor = 0.05;
   controls.screenSpacePanning = false;
-  controls.minDistance = 100;
+  controls.minDistance = 600;
   // controls.maxDistance = settings.isDebugMode ? 2500 : 1000;
   controls.maxDistance = 2000;
   controls.minAzimuthAngle = 0;
@@ -114,8 +114,7 @@ export function init() {
   // controls.maxPolarAngle =  Math.PI / 2;
   // controls.maxAzimuthAngle = Infinity;
   controls.mouseButtons = {
-    // LEFT: THREE.MOUSE.PAN, // initial -> THREE.MOUSE.ROTATE,
-    LEFT: null, // Keep it for click
+    LEFT: THREE.MOUSE.PAN, // initial -> THREE.MOUSE.ROTATE,
     // MIDDLE: THREE.MOUSE.DOLLY,
     RIGHT: THREE.MOUSE.PAN
   }
@@ -124,6 +123,15 @@ export function init() {
     ONE: null,
     TWO: THREE.TOUCH.PAN
   }
+
+
+  const marker = document.getElementById("scaleMarker");
+  const scale = document.getElementById("scale");
+  const scaleHeight = scale.clientHeight;
+
+  let intermediate = controls.maxDistance / (controls.maxDistance - controls.minDistance) * 100;
+  marker.style.transform = `translateY(${((scaleHeight * intermediate.toFixed(2)) / 100)}px)`;
+
 
 
 
@@ -149,83 +157,6 @@ export function init() {
   cross.position.y = 0;
   cross.position.z = 0;
   scene.add( cross );
-
-
-  /////////////////////////////////////////////////////////////////////////
- //             	            Building timeline                         //
-/////////////////////////////////////////////////////////////////////////
-/*
-  let previousXpos = 0
-  for(let i=0,j=timeline.length;i<j;i++){
-    continue;
-    let cur = timeline[i];
-    let startingPoint = (cur.timeline.startingYear - 2009) * yu;
-    let len = cur.hasOwnProperty("len") ? cur.len : 1;
-
-    if(cur.type === "event") {
-      continue;
-    }
-
-    let branching = [startingPoint, 0,  0];
-    let zPos = 0;
-    let yPos = 0;
-    let randZ = (cur.group === "work" ? 1 : -1) * Math.random() * 10
-    if (cur.thread === "second"){
-      zPos = zOffset * randZ;
-      // yPos = yDepth * (Math.random() * 10 - 5);
-      branching = [...branching,
-        startingPoint, 0,  zPos,
-        startingPoint, yPos, zPos
-      ]
-    }
-    // if (cur.thread === "main") zPos = -1 * (cur.level * 20);
-    branching = [...branching, startingPoint + 10, yPos, zPos]
-
-    const divSubContainer = constructDOMEl(cur, 1, [startingPoint, yPos, zPos]);
-
-    DOMElTimeline.push({
-      dom:divSubContainer,
-      position: [
-        startingPoint + (yu * len)
-      ],
-      rotation:0,
-      thread: cur.thread,
-      level: 1
-    });
-
-    DOMElTimeline[DOMElTimeline.length-1].position.push(yPos, zPos);
-
-    if (cur.hasOwnProperty("children") && cur.children.length > 0){
-      cur.children.forEach(function(e){
-        console.log("children", e);
-        let newStartingPoint = (e.timeline.startingYear - 2009) * yu;
-        let subLevel = e.level ? e.level : 2;
-        let subDivSubContainer = constructDOMEl(e, subLevel, [newStartingPoint, 0, 0]);
-
-        DOMElTimeline.push({
-          dom:subDivSubContainer,
-          position: [
-            newStartingPoint + (yu * len), 0, 0
-          ],
-          rotation:0,
-          thread: e.thread,
-          level: e.level ? e.level : 2
-        });
-      })
-    }
-
-    buildLine(timelineMaterial[cur.group], branching);
-
-    // Add node dot
-    let planeGeometry = new THREE.PlaneBufferGeometry( 8, 8 );
-    let plane = new THREE.Mesh( planeGeometry, MAT.materialPlane );
-    plane.position.x = startingPoint;
-    plane.rotation.x = Math.PI/2;
-
-    scene.add( plane );
-    previousXpos = startingPoint;
-  }
-  */
 
   /////////////////////////////////////////////////////////////////////////
  //             	      Building timeline elements                      //
@@ -389,75 +320,83 @@ export function init() {
   // Techno
   let jsArr = [2, 3, 5, 15, 16, 17, 18, 19, 20, 23];
   for (var i = 0, j = jsArr.length; i < j; i++) {
-    let k = jsArr[i];
+    const k = projects.list.find(e => e.id == (jsArr[i] + 1));
     projects.bounds.techno.push({
       start: {...projects.symbols.techno[0].position},
-      end: {...projects.list[k].techno.position}
+      end: {...k.techno.position}
     })
   }
   let pyArr = [5, 23];
   for (var i = 0, j = pyArr.length; i < j; i++) {
-    let k = pyArr[i];
+    // let k = pyArr[i];
+    const k = projects.list.find(e => e.id == (pyArr[i] + 1));
     projects.bounds.techno.push({
       start: {...projects.symbols.techno[1].position},
-      end: {...projects.list[k].techno.position}
+      end: {...k.techno.position}
     })
   }
   let rorArr = [4, 11];
   for (var i = 0, j = rorArr.length; i < j; i++) {
-    let k = rorArr[i];
+    // let k = rorArr[i];
+    const k = projects.list.find(e => e.id == (rorArr[i] + 1));
     projects.bounds.techno.push({
       start: {...projects.symbols.techno[2].position},
-      end: {...projects.list[k].techno.position}
+      end: {...k.techno.position}
     })
   }
   let phpArr = [0, 1, 3];
   for (var i = 0, j = phpArr.length; i < j; i++) {
-    let k = phpArr[i];
+    // let k = phpArr[i];
+    const k = projects.list.find(e => e.id == (phpArr[i] + 1));
     projects.bounds.techno.push({
       start: {...projects.symbols.techno[3].position},
-      end: {...projects.list[k].techno.position}
+      end: {...k.techno.position}
     })
   }
   // Software
-  let psArr = [0, 1, 8, 17, 21, 22];
+  let psArr = [0, 1, 8, 17, 20, 21, 22];
   for (var i = 0, j = psArr.length; i < j; i++) {
-    let k = psArr[i];
+    // let k = psArr[i];
+    const k = projects.list.find(e => e.id == (psArr[i] + 1));
     projects.bounds.software.push({
       start: {...projects.symbols.software[3].position},
-      end: {...projects.list[k].software.position}
+      end: {...k.software.position}
     })
   }
   let inddArr = [0, 1, 8, 17];
   for (var i = 0, j = inddArr.length; i < j; i++) {
-    let k = inddArr[i];
+    // let k = inddArr[i];
+    const k = projects.list.find(e => e.id == (inddArr[i] + 1));
     projects.bounds.software.push({
       start: {...projects.symbols.software[2].position},
-      end: {...projects.list[k].software.position}
+      end: {...k.software.position}
     })
   }
   let aiArr = [0, 1, 2, 4, 8, 15, 16, 17, 19];
   for (var i = 0, j = aiArr.length; i < j; i++) {
-    let k = aiArr[i];
+    // let k = aiArr[i];
+    const k = projects.list.find(e => e.id == (aiArr[i] + 1));
     projects.bounds.software.push({
       start: {...projects.symbols.software[0].position},
-      end: {...projects.list[k].software.position}
+      end: {...k.software.position}
     })
   }
   let skArr = [16];
   for (var i = 0, j = skArr.length; i < j; i++) {
-    let k = skArr[i];
+    // let k = skArr[i];
+    const k = projects.list.find(e => e.id == (skArr[i] + 1));
     projects.bounds.software.push({
       start: {...projects.symbols.software[1].position},
-      end: {...projects.list[k].software.position}
+      end: {...k.software.position}
     })
   }
   let BlArr = [8, 17];
   for (var i = 0, j = BlArr.length; i < j; i++) {
-    let k = BlArr[i];
+    // let k = BlArr[i];
+    const k = projects.list.find(e => e.id == (BlArr[i] + 1));
     projects.bounds.software.push({
       start: {...projects.symbols.software[4].position},
-      end: {...projects.list[k].software.position}
+      end: {...k.software.position}
     })
   }
 
@@ -563,8 +502,8 @@ export function init() {
 
 
   // Add projects
-  for ( let i = 0, j = projects.list.length; i < j; i++ ) {
-    let el = projects.list[i];
+  for ( let i = 0, j = sortedTimeline.length; i < j; i++ ) {
+    let el = sortedTimeline[i];
 
 		let element = document.createElement( 'div' );
 		element.className = `element detail node`;
@@ -580,7 +519,7 @@ export function init() {
     wrapper.setAttribute("data-id", el.id);
 
 		let content = document.createElement( 'div' );
-		content.className = 'desc node';
+		content.className = `desc node job-${el.cat}`;
     content.textContent = el.name;
     content.setAttribute("data-id", el.id);
 
@@ -642,18 +581,21 @@ export function init() {
   var vector = new THREE.Vector3();
 
   let spanOfPreviousJob = 0;
-
+  let zCounter = 0;
   for ( var i = 0, l = objects.length; i < l; i ++ ) {
-    let el = projects.list[i];
+    let el = sortedTimeline[i];
     // if(el.timeline.type === "event") {
     //   continue;
     // }
     let na = false
-
     let startingPoint = ((el.timeline.startingYear - 2009) * yu) + xOffset;
     let len = el.timeline.hasOwnProperty("len") ? el.timeline.len : 1;
 
-    let zPos = 0;
+    if (zCounter > 900){
+      zCounter = 150;
+    }
+
+    // let zPos = 0;
     let yPos = 0;
     if ( (len + startingPoint) < (spanOfPreviousJob ) ){
       zOffset += 300;
@@ -662,52 +604,26 @@ export function init() {
     }
     spanOfPreviousJob = len + startingPoint;
     if (el.timeline.level) zOffset * (el.timeline.level * 20)
-    // let randZ = (el.timeline.group === "work" ? 1 : -1) * Math.random() * 10
-    let coeff = el.timeline.thread === "main" ? 1 : -1
-    zPos = zOffset * coeff;
-    // } else if (el.timeline.thread === "main") {
-    //   zPos = -1 * (el.timeline.level * 20) + spanOfPreviousJob
-    // }
-
-    // if (cur.hasOwnProperty("children") && cur.children.length > 0){
-    //   cur.children.forEach(function(e){
-    //     console.log("children", e);
-    //     let newStartingPoint = (e.timeline.startingYear - 2009) * yu;
-    //     let subLevel = e.level ? e.level : 2;
-    //     let subDivSubContainer = constructDOMEl(e, subLevel, [newStartingPoint, 0, 0]);
-    //
-    //     DOMElTimeline.push({
-    //       dom:subDivSubContainer,
-    //       position: [
-    //         newStartingPoint + (yu * len), 0, 0
-    //       ],
-    //       rotation:0,
-    //       thread: e.thread,
-    //       level: e.level ? e.level : 2
-    //     });
-    //   })
-    // }
 
     var object = new THREE.Object3D();
     if (el.timeline) {
       if (el.timeline["n/a"] && el.timeline["n/a"] === true) na = true;
       object.position.x = startingPoint;
       object.position.y = Math.random() * 500 - 500;
-      // object.position.y = 10;
-      // object.position.z = zPos;
-      object.position.z = (Math.random() * 1200 - 600) * coeff;
+      object.position.z = zCounter * (i % 2 === 0 ? 1 : -1);
     } else {
       object.position.x = 0;
       object.position.z = 0;
     }
     object.rotation.x = -Math.PI/2;
     targets.timeline.push( {"n/a": na, obj: object} );
+    zCounter += 80;
 
   }
 
   // SOFTWARE
 	for ( var i = 0, l = objects.length; i < l; i ++ ) {
-    let el = projects.list[i];
+    let el = sortedTimeline[i];
     let na = false
     if (el.software && el.software["n/a"] && el.software["n/a"] === true) na = true;
 
@@ -731,7 +647,7 @@ export function init() {
 
   console.log("objects.length", objects.length);
 	for ( let i = 0, c = 0, l = objects.length; i < l; i ++ ) {
-    let el = projects.list[i];
+    let el = sortedTimeline[i];
     if (c % 6 === 0){
       previousZ += 210;
       previousPos = -300;
@@ -786,18 +702,19 @@ export function init() {
   TEST.testing(scene);
 
   // stats
-  if (settings.isDebugMode) {
+  // if (settings.isDebugMode) {
     stats = new Stats();
-    document.getElementById("canvasScene").appendChild( stats.dom );
+    stats.showPanel(0);
+    canvasStats.appendChild( stats.dom );
 
     rendererStats	= new TEST.THREEx.RendererStats();
     rendererStats.domElement.style.position   = 'absolute'
     rendererStats.domElement.style.right  = '0px'
     rendererStats.domElement.style.top    = '48px'
     rendererStats.domElement.style.zIndex    = '100'
-    document.getElementById("canvasScene").appendChild( rendererStats.domElement )
+    canvasStats.appendChild( rendererStats.domElement )
 
-  }
+  // }
 
   // lights
   // var light = new THREE.DirectionalLight( 0xffffff );

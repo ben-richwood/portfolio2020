@@ -15,7 +15,7 @@ ul.no-list{
 	padding-left: 0;
 }
 
-a.color-link{
+.color-link{
 	// @include secondaryGradient();
 	background: linear-gradient(90deg, #ff8a00 0%, #e52e71 100%);
 
@@ -71,6 +71,10 @@ a.color-link{
 	&.f-start{
 		-webkit-justify-content: flex-start; /* Safari 6.1+ */
 		justify-content: flex-start;
+	}
+	&.f-end{
+		-webkit-justify-content: flex-end; /* Safari 6.1+ */
+		justify-content: flex-end;
 	}
 	&.f-center{
 		-webkit-justify-content: center; /* Safari 6.1+ */

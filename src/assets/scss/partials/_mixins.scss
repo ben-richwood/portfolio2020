@@ -41,8 +41,19 @@
   opacity: 1.2;
   font-size: 1rem;
   &.legend-item{
-    background: linear-gradient(90deg, #11507d 0%, #1875bb 100%);
-    width: 100%;
+    background-color: $mainProjectOne;
+    // background: linear-gradient(90deg, #11507d 0%, #1875bb 100%);
+    // width: 100%;
+    padding-left: 2.6rem;
+    &:before{
+      background-color: #2C89A0;
+      content: '';
+      height: 100%;
+      position: absolute;
+      width: 18%;
+      top: 0;
+      left: 0;
+    }
   }
 }
 @mixin minor(){
@@ -51,8 +62,19 @@
   // opacity: .8;
   font-size: .9rem;
   &.legend-item{
-    background-color: #6d9aba;
-    width: 100%;
+    background: $secondaryColorOne;
+    color: #666;
+    // width: 100%;
+    padding-left: 2.6rem;
+    &:before{
+      background-color: #959692;
+      content: '';
+      height: 100%;
+      position: absolute;
+      width: 18%;
+      top: 0;
+      left: 0;
+    }
   }
 }
 
@@ -84,4 +106,24 @@
 }
 @mixin secondaryGradient(){
   background: linear-gradient(90deg, #ff8a00 0%, #e52e71 100%);
+}
+
+.job-freelance:before{
+  background-image: url("data:image/svg+xml,%3Csvg%20version%3D%221.1%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20x%3D%220px%22%20y%3D%220px%22%20viewBox%3D%220%200%20200%20200%22%20preserveAspectRatio%3D%22xMinYMin%20meet%22%20role%3D%22img%22%3E%3Cpath%20style%3D%22fill%3A%20%23FFF%3B%22%20fill%3D%22%23FFF%22%20d%3D%22M12.507%2C90.288c-5.826-5.658-5.464-11.451%2C0-15.879l79.419-45.681c5.666-4.056%2C10.39-4.056%2C15.878%2C0l79.42%2C45.681%20c6.358%2C5.482%2C5.642%2C11.275%2C0%2C15.879l-79.42%2C45.685c-4.615%2C3.306-10.213%2C3.723-15.878%2C0L12.507%2C90.288z%20M9.238%2C116.211%20c0%2C4.423-0.894%2C7.734%2C3.269%2C11.784l79.419%2C45.68c5.666%2C3.724%2C11.263%2C3.306%2C15.878%2C0l79.42-45.68%20c4.277-3.479%2C3.383-6.897%2C3.383-11.874v-3.213l-81.822%2C46.014c-5.195%2C3.638-11.509%2C4.1-17.868%2C0L9.238%2C112.998V116.211z%22%2F%3E%3C%2Fsvg%3E%0A");
+  background-size: 70% auto;
+  background-position: 45% 45%;
+  background-repeat: no-repeat;
+}
+
+.job-main:before{
+  background-image: url("data:image/svg+xml,%3Csvg%20version%3D%221.1%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20x%3D%220px%22%20y%3D%220px%22%20viewBox%3D%220%200%20200%20200%22%20preserveAspectRatio%3D%22xMinYMin%20meet%22%20role%3D%22img%22%3E%3Cpath%20fill%3D%22%23FFF%22%20d%3D%22M44.667%2C157h111v12h-123V45h12V157z%20M166.667%2C34v114h-113V34H166.667z%20M144.568%2C90L112.81%2C51H77.766l31.759%2C39l-31.759%2C39%20h35.044L144.568%2C90z%22%2F%3E%3C%2Fsvg%3E%0A");
+  background-size: 70% auto;
+  background-position: 45% 45%;
+  background-repeat: no-repeat;
+}
+.job-personal:before{
+  background-image: url("data:image/svg+xml,%3Csvg%20version%3D%221.1%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20x%3D%220px%22%20y%3D%220px%22%20viewBox%3D%220%200%20200%20200%22%20preserveAspectRatio%3D%22xMinYMin%20meet%22%20role%3D%22img%22%3E%3Cpath%20fill%3D%22%23FFF%22%20d%3D%22M35.897%2C33.829v120.673c0%2C6.107%2C4.955%2C11.054%2C11.063%2C11.054h83.228c6.112%2C0%2C11.068-4.946%2C11.068-11.054V134.92%20l27.778-19.138c5.912-4.275%2C11.067-7.413%2C11.067-13.521V53.917c0-6.1-4.955-11.055-11.067-11.055h-27.778v-9.033l-60.747%2C0v44.228%20h4.439l7.511%2C9.85v26.024l0%2C0H57.261V87.907l7.503-9.849h4.444V33.83L35.897%2C33.829z%20M163.749%2C96.972l-22.492%2C18.003V94.44V59.207%20h22.492V96.972z%22%2F%3E%3C%2Fsvg%3E");
+  background-size: 70% auto;
+  background-position: 45% 45%;
+  background-repeat: no-repeat;
 }

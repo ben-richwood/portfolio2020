@@ -41,5 +41,4 @@ module.exports = (env, options) => {
       },
       watch: options.mode === "development" ? true : false
     }
-
 }

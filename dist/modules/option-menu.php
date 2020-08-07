@@ -8,6 +8,7 @@
         <li><button :class="currentSubmenu == 2 ? 'active' : ''" class="large-button left-align" @click="changeSubmenu(2)">Graphics</button></li>
         <li><button :class="currentSubmenu == 4 ? 'active' : ''" class="large-button left-align" @click="changeSubmenu(4)">Stats</button></li>
         <li><button :class="currentSubmenu == 5 ? 'active' : ''" class="large-button left-align" @click="changeSubmenu(5)">Credit</button></li>
+        <li><button :class="currentSubmenu == 6 ? 'active' : ''" class="large-button left-align" @click="changeSubmenu(6)">Privacy</button></li>
         <li><button class="large-button left-align" @click="close">
           <svg class="returnArrow" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
             <use xlink:href="#return"/>
@@ -18,19 +19,19 @@
     </div>
     <div class="rightSettings scrollbar">
       <div v-if="currentSubmenu == 0" id="config">
-        <h3 class="tc">Config</h3>
+        <h3 class="tc">Website config</h3>
         <div class="notice">
           <p class="tc">Adjust the general settings at your please</p>
         </div>
         <ul>
           <div class="inputGroup">
             <input id="radio1" name="radio" @click="changeLinkBehavior" v-model="linksNewTab" type="checkbox"/>
-            <label for="radio1">Open all links in a new tab</label>
+            <label for="radio1">{{linksNewTab ? 'Open external links in a new tab' : 'Open the external links in the current tab'}}</label>
           </div>
-          <div class="inputGroup">
+          <!-- <div class="inputGroup">
             <input id="radio2" @click="muteSound" name="radio" type="checkbox"/>
             <label for="radio2">Mute sound</label>
-          </div>
+          </div> -->
         </ul>
       </div>
       <div v-else-if="currentSubmenu == 1" id="controls">
@@ -56,6 +57,10 @@
               <div class="key">{{ keyMap.option[1] }}</div>
               <div class="keyFeature">Open/close option menu</div>
             </div>
+            <div class="keyMap">
+              <div class="key">{{ keyMap.hud[1] }}</div>
+              <div class="keyFeature">Display/hide the HUD</div>
+            </div>
             <!-- <div class="keyMap">
               <div class="key">{{ keyMap.prev[1] }}</div>
               <div class="keyFeature">Previous project</div>
@@ -80,8 +85,12 @@
         <div class="notice">
           <p class="tc">You can switch to low performances if the animation is not smooth. To switch to high perf, please refresh the page</p>
         </div>
-        <p>Switch to Low Resolution</p>
         <div class="inputGroup">
+          <input id="debug" v-on:click="changeConfig('debug')" name="radio" type="checkbox" v-model="isDebugMode" />
+          <label for="debug">Debug mode</label>
+        </div>
+        <div class="notice">Shows an info box that monitor code performance. You can click to parade across FPS (Frames rendered in the last second), MS (millisecond needed to render a frame) and MB (allocated memory).</div>
+        <!-- <div class="inputGroup">
           <input id="antialias" v-on:click="changeConfig('antialias')" name="radio" type="checkbox" v-model="antialias" />
           <label for="antialias">Antialias</label>
         </div>
@@ -92,25 +101,32 @@
         <div class="inputGroup">
           <input id="isShadowEnabled" v-on:click="toggleShadows()" name="radio" type="checkbox" v-model="isShadowEnabled" />
           <label for="isShadowEnabled">Turn on/off shadows</label>
-        </div>
+        </div> -->
       </div>
       <div v-else-if="currentSubmenu == 3" id="about">
         <h3 class="tc">About me</h3>
+        <h3>Contact me</h3>
+        <div class="notice tl">
+          <p class="mb">If you want to shoot me an email:</p>
+          <div class="tl color-link" v-html="emailAddress" style="unicode-bidi:bidi-override; direction: rtl;"></div>
+        </div>
         <div class="notice">
           <div class="flex f-start f-row">
             <div class="col-12">
               <h4>Links - social medias</h4>
+              <p class="mb">You'll find pretty much the same content as on the website - plus few extra work and projects that didn't fit here.</p>
             </div>
             <div class="col-12 col-md-6">
               <ul>
-                <li><a class="color-link" :target="linksNewTab ? '_blank' : '_self'" href="https://www.linkedin.com/in/benjaminrichebois/">LinkedIn</a></li>
-                <li><a :target="linksNewTab ? '_blank' : '_self'" class="color-link" href="https://www.behance.net/ben-richwood">Behance</a></li>
+                <li><link-to copy="LinkedInu" rl="https://www.linkedin.com/in/benjaminrichebois/"></link-to></li>
+                <li><link-to copy="GitHub" url="https://github.com/ben-richwood/"></link-to></li>
               </ul>
             </div>
             <div class="col-12 col-md-6">
               <ul>
-                <li><a :target="linksNewTab ? '_blank' : '_self'" class="color-link" href="https://dribbble.com/richwood">Dribbble</a></li>
-                <li><a :target="linksNewTab ? '_blank' : '_self'" class="color-link" href="https://github.com/ben-richwood/">GitHub</a></li>
+                <li><link-to copy="Behance" url="https://www.behance.net/ben-richwood"></link-to></li>
+                <li><link-to copy="Dribbble" url="https://dribbble.com/richwood"></link-to></li>
+                <li><link-to copy="SketchFab" url="https://sketchfab.com/richwood"></link-to></li>
               </ul>
             </div>
           </div>
@@ -118,7 +134,7 @@
         <div>
           <div class="tagline"><p>I'm <span class="highlight--tag">project manager</span> and <span class="highlight--tag">digital producer</span> who puts <span class="highlight--tag">code</span> and <span class="highlight--tag">design</span> into my daily work.</p></div>
           <div>
-            <p>While my main job is Project manager and Digital Producer, I use code and design capabilities to prototype ideas, lead preliminary researches and feasibilities studies (<span class="abbr" title="Proof Of Concept">POC</span>), automate and improve internal tools.</p>
+            <p>I'm Ben Richebois (<em>aka</em> Richwood). While my main job is Project manager and Digital Producer, I use code and design capabilities to prototype ideas, lead preliminary researches and feasibilities studies (<span class="abbr" title="Proof Of Concept">POC</span>), automate and improve internal tools.</p>
             <p>I also work on freelance jobs.</p>
             <p>This portfolio has been designed with a single idea in mind: to show evidence and examples of project I made for every skills I state in my portfolio.</p>
           </div>
@@ -126,7 +142,7 @@
         <h4>Some of the techno I work with daily</h4>
         <div class="flex f-start f-row">
           <?php
-            $arrImg = array("js", "react", "vue", "gulp", "webpack", "bash", "nodejs", "python", "sass", "bootstrap", "git", "photoshop", "illustrator");
+            $arrImg = array("js", "react", "vue", "gulp", "webpack", "bash", "git", "nodejs", "python", "sass", "bootstrap", "analytics", "photoshop", "illustrator");
             $count = count($arrImg);
             for( $i = 0; $i<$count; $i++ ) { ?>
               <svg xmlns="http://www.w3.org/2000/svg" class="techno-svg" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
@@ -150,13 +166,9 @@
             for( $i = 0; $i<$count; $i++ ) { ?>
               <div class="col-6 col-md-3">
                 <picture>
-                  <source type="image/webp" media="(min-width: 800px) and (orientation: landscape)" srcset="assets/img/all-projects/about/map_<?php echo $arrImg[$i]; ?>.webp">
-                  <source type="image/jp2" media="(min-width: 800px) and (orientation: landscape)" srcset="assets/img/all-projects/about/map_<?php echo $arrImg[$i]; ?>.jp2">
-                  <source type="image/jpg" media="(min-width: 800px) and (orientation: landscape)" srcset="assets/img/all-projects/about/map_<?php echo $arrImg[$i]; ?>.jpg">
-
-                  <source type="image/webp" media="(max-width: 800px) and (orientation: portrait)" srcset="assets/img/all-projects/about/map_<?php echo $arrImg[$i]; ?>-mobile.webp">
-                  <source type="image/jp2" media="(max-width: 800px) and (orientation: portrait)" srcset="assets/img/all-projects/about/map_<?php echo $arrImg[$i]; ?>-mobile.jp2">
-                  <source type="image/jpg" media="(max-width: 800px) and (orientation: portrait)" srcset="assets/img/all-projects/about/map_<?php echo $arrImg[$i]; ?>-mobile.jpg">
+                  <source type="image/webp" srcset="assets/img/all-projects/about/map_<?php echo $arrImg[$i]; ?>.webp">
+                  <source type="image/jp2" srcset="assets/img/all-projects/about/map_<?php echo $arrImg[$i]; ?>.jp2">
+                  <source type="image/jpg" srcset="assets/img/all-projects/about/map_<?php echo $arrImg[$i]; ?>.jpg">
 
                   <img src="assets/img/all-projects/about/map_<?php echo $arrImg[$i] ?>.jpg" alt="Map of <?php echo $arrImg[$i] ?>">
                 </picture>
@@ -166,7 +178,7 @@
         <div class="">
           <h3>Other hobbies</h3>
           <h4>Video games</h4>
-          <p>I'm quite interested in video games as a medium that tells stories and carries narrative arcs.</p>
+          <p>I'm keen on video games, as a medium that tells stories and carries narrative arcs.</p>
           <p>It's not a coincidence if this portfolio is designed like a video game...</p>
           <?php /*
           <h4>Misc</h4>
@@ -178,7 +190,7 @@
         <h3 class="tc">Stats</h3>
         <div class="notice">
           <p class="tc">Some statistic about your current session</p>
-          <p class="tc"><b>Not any of these statistics are saved in any ways.</b></p>
+          <?php /*<p class="tc"><b>Not any of these statistics are saved in any ways.</b></p> */ ?>
         </div>
         <p>Ellapsed time from beginning of the session: <b>{{ t1 }}</b></p>
         <div class="mt-30">Your <span class="abbr" title="Graphics Processing Unit - aka your graphic card">GPU</span>: {{ gpu }}</div>
@@ -221,11 +233,12 @@
         <ul>
           <li>Menu, options and overall layout<br>
             <ul>
-              <li>A mix of Cyberpunk 2077 & Assassin's Creed: Black Flag </li>
+              <li>Inspiration from Cyberpunk 2077, Detroit: Becoe human and The Division</li>
+              <li>Intro: inspired by Stripe website, for the idea of "skills that go over compartments".</li>
               <li><link-to url="https://codepen.io/BuddyLReno/pen/boGRPO" copy="Codepen"></link-to>: material design-inspired checkboxes</li>
             </ul>
-          <li>Option menu: Assassin's Creed: Black Flag</li>
-          <li><link-to url="https://www.dreamler.com/product-features/" url="Dreamlr"></link-to> - a visual tool for project management, with the same zoom and pan approach</li>
+          <!-- <li>Option menu: Assassin's Creed: Black Flag</li> -->
+          <li><link-to url="https://www.dreamler.com/product-features/" copy="Dreamlr"></link-to> - a visual tool for project management, with the same zoom and pan approach</li>
           <li>Timeline: it's largely inspired by the summary ending each mission in Detroit: Become Human</li>
           <li>Lots of help and code snippets from <link-to url="https://threejs.org/" copy="ThreeJS official documentation"></link-to> and <link-to url="https://threejsfundamentals.org/" copy="threejsfundamentals"></link-to></li>
           <li>For the layout and in the element animations, I got inspired by <link-to url="https://threejs.org/examples/?q=period#css3d_periodictable" copy="the excellent periodic table"></link-to> from the ThreeJS website.</li>
@@ -304,10 +317,14 @@
           <div class="col-12 col-md-6">
             <h4>Project management</h4>
             <ul>
-              <li>Thunderbird</li>
-              <li><a class="color-link" :target="linksNewTab ? '_blank' : '_self'"  href="https://clockify.me/">Clockify</a></li>
-              <li><a class="color-link" :target="linksNewTab ? '_blank' : '_self'"  href="https://wakatime.com/">WakaTime</a></li>
+              <li>Productivity: <link-to url="https://workona.com/" copy="Workona"></link-to></li>
+              <li>Documentation and references: <link-to url="https://coda.io/" copy="Coda"></link-to></li>
+              <li>Project management: <link-to url="https://www.smartsheet.com/" copy="SmartSheet"></link-to></li>
+              <li>Project management: <link-to url="https://www.trello.com/" copy="Trello"></link-to></li>
+              <li>Time tracker: <link-to url="https://clockify.me/" copy="Clockify"></link-to></li>
+              <li>Coding time tracking: <link-to url="https://wakatime.com/" copy="WakaTime"></link-to></li>
               <li>Google Apps</li>
+              <li>Thunderbird</li>
             </ul>
           </div>
         </div>
@@ -322,6 +339,23 @@
         https://gist.github.com/diurivj/78ca931c4b20dca1e1e13982fa9c309d
         https://stephfh.dev/uses/
         */ ?>
+      </div>
+      <div v-else-if="currentSubmenu == 6" id="privacy">
+        <h3 class="tc">Privacy</h3>
+        <div class="notice">
+          <p class="tc">Privacy matters</p>
+        </div>
+        <div class="inputGroup">
+          <input id="analyticsOn" name="radio" type="checkbox" v-model="analyticsOn" @click="optout" />
+          <label for="analyticsOn">{{ analyticsOn ? 'Analytics are on' : 'Analytics are off' }}</label>
+        </div>
+        <div class="notice tl">
+          <p class="mb">Privacy does matter to me. I hate being tracked when browsing and visiting websites.</p>
+          <p class="mb">In the meantime, I would like to have some inkling about how many people visit my website. I don't want to know how long they stay, from which country they are from, or what referrer they're coming from. I wanted to go for a simple solution, crafted by hand; but honestly it's a lot of work. So yeah, I accepted to use Google Analytics</p>
+          <p class="mb">If you're using <link-to url="https://en.wikipedia.org/wiki/Do_Not_Track" copy="DoNotTrack"></link-to> - which I highly recommend by the way -, it won't record any analytics or data about your visit (no matter you tick the checbox or not)</p>
+          <p class="mb">The only custom "events" I'm tracking are opening the option menu (where you currently are reading) and opening a project detail panel.</p>
+          <p>Finally, I use <link-to copy="IP Anonymization" url="https://developers.google.com/analytics/devguides/collection/analyticsjs/ip-anonymization"></link-to> for the Analytics</p>
+        </div>
       </div>
     </div>
   </div>

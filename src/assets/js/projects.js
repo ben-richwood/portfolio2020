@@ -4,7 +4,7 @@
 export default {
   "list" : [
     {
-      "id": 0,
+      "id": 1,
       "name": "Peafowl Consulting",
       "summary": "Corporate website for a consulting company",
       "year": 2016,
@@ -14,13 +14,14 @@ export default {
       "code": "I developed the website, based on PHP and bootstrap.",
       "link": "http://www.peafowl-consulting.com/",
       "category": "Freelance",
+      "cat": "freelance",
       "group": "freelance",
       "slug": "peafowl",
       "images": ["homepage",{url:"cover", caption: "Cover of the Graphic Guideline"}, {url:"table_content", caption: "Table of content"}, {url:"indesign_capture", caption: "Designing the Guideline with InDesign"}, {url:"card", caption: "Invitation card, made with a laser cut"}],
       "software": {
         "n/a": false,
         "list": ["photoshop", "illustrator", "indesign"],
-        "position": {x: 220, y: 1, z: -600}
+        "position": {x: 170, y: 1, z: -750}
       },
       "techno": {
         "n/a": false,
@@ -64,6 +65,7 @@ export default {
       "slug": "gme",
       "images": ["GME-fullpage", "circuit_and_detailPage",{url:"catalog01", caption: "Print leaflet - for commercial usage"},"catalog03",{url:"medley", caption: "Lots of handdrawings to illustrate the trips"}],
       "category": "Freelance",
+      "cat": "freelance",
       "group": "freelance",
       "timeline": {
         "n/a": false,
@@ -97,6 +99,7 @@ export default {
       "images": ["desktop_tactical", {url:"contrast-mobile", caption: "It comes with different map styles, depending on the needs. And it was designed \"mobile-first\""}, {url:"graphic_research_markers", caption: "Lots of graphic researches for styles and icons"}, {url:"graphic_research_surchaging", caption:"Same for all the other graphic components"}],
       "link": "https://projets.richebois.fr/citadelle/map/mobile.php",
       "category": "Personal project",
+      "cat": "personal",
       "group": "perso",
       "timeline": {
         "onlyTimeline": false,
@@ -130,6 +133,7 @@ export default {
       "images": ["homepage",{url:"loading",caption:"Loading screen - while the solver is building up the graph (which counts 450+ elements so far)"}],
       "link": "",
       "category": "Personal project",
+      "cat": "personal",
       "timeline": {
         "onlyTimeline": false,
       },
@@ -140,7 +144,7 @@ export default {
       },
       "techno": {
         "n/a": false,
-        "list": ["vis", "Vue"],
+        "list": ["d3", "Vue"],
         "position": {x: 580, y: 1, z: -400}
       }
 
@@ -157,6 +161,7 @@ export default {
       "images": ["Taka_webdesign_homepage",{url:"Taka_webdesign",caption:"I started with a \"Design Principle\"  document, and then turned it into a proper webdesign guideline"}, {url:"UI_page",caption:"UI components of the pages"}, {url:"stripeCheckout",caption:"Stripe Chaeckout - the website used 3 different payment gateway (Monetico, Paypal and Stripe), accepting one-go and staggered payments"}],
       "slug": "taka",
       "category": "Freelance job - Full stack + design",
+      "cat": "freelance",
       "group": "freelance",
       "timeline": {
         "onlyTimeline": false,
@@ -168,7 +173,7 @@ export default {
       "software": {
         "n/a": false,
         "list": ["illustrator", "Photoshop"],
-        "position": {x: -200, y: 1, z: -400}
+        "position": {x: -250, y: 1, z: -550}
       },
       "techno": {
         "n/a": false,
@@ -187,6 +192,7 @@ export default {
       "slug": "uptime",
       "images": ["screenshot", "popup", {url:"flow",caption:"Flow of the webapp - to have a clear overview before starting development"}],
       "category": "Work for BLISS interactive - internal tool",
+      "cat": "main",
       "group": "work",
       "timeline": {
         "onlyTimeline": false,
@@ -212,6 +218,7 @@ export default {
       "year": 2009,
       "summary": "Degree in Geography",
       "description": "I studied Geography for 4 years, between Paris 4 - la Sorbonne and UQAM (Montrea, Canada), specilizing in cuture, politic and heritage.",
+      "cat": "main",
       "group": "study",
       "timeline": {
         "onlyTimeline": true,
@@ -268,6 +275,7 @@ export default {
       "year": 2013,
       "summary": "Master degree in Entrepreneuship and Design",
       "description": "After 4 years in geography, I move to Lyon to make a Master degree in Entrepreneuship and Design, between EMLyon and Centrale Lyon. The program was hinged on on social science, ingineering (including coding), business and design. And a fabLab was the pivot point of this studdy, where we were able to prototype ideas and projects.",
+      "cat": "main",
       "group": "study",
       "timeline": {
         "startingYear": 2013.7,
@@ -291,11 +299,12 @@ export default {
       "name": "CAPSA Container - Internship",
       "summary": "Intership",
       "category": "Intership",
+      "cat": "main",
       "year": 2014,
       "description": "<p>My main objective was to design and realize a prototype of an accomodation in a maritim container.</p><p>Coming along the master degree, I wrote an essay about how innovation impacts companies' identity.</p>",
       "design": "<p>I mostly work on Capsul, the container's accomodation. It started with exploration and concepts. And then it switched to prototyping the ideas and modeling. I allso worked a lot on the regulations related to hosting.</p><p><a href='https://skfb.ly/F8Wr'>3D model of the room</a> (link to SketchFab)</p><p>In paralel, I helpled with the leaflets, some presentations and 3d modeling for client proposals.</p>",
       "slug": "capsa",
-      "images": [{url:"capsul",caption:"My main missino was to design a temporary acomodation in a maritim container. Here is the 3d modeling I made for it (with Blender Cycle)."},{url:"capsul-room",caption:"Detail of the room - we specificaly had to work on adaptable furniture regarding the dimension of a container"},{url:"typo-ctn-01",caption:"Graphic researches about container typology and layout"},{url:"exterieur",caption:"I also worked on other 3d modeling for client requests"},{url:"CAPSA_catalogue_Event-cover",caption:"Event catalog cover"},{url:"catalog-indus-double-page",caption:"Catalog Industry - I designed their 2 catalogs - Event and Industry"},{url:"essay-cover",caption:"My Master degree essay - how innovation impacts comapnies' identity"}],
+      "images": [{url:"capsul",caption:"My main mission was to design a temporary acomodation in a maritim container. Here is the 3d modeling I made for it (with Blender Cycle)."},{url:"capsul-room",caption:"Detail of the room - we specificaly had to work on adaptable furniture regarding the dimension of a container"},{url:"typo-ctn-01",caption:"Graphic researches about container typology and layout"},{url:"exterieur",caption:"I also worked on other 3d modeling for client requests"},{url:"CAPSA_catalogue_Event-cover",caption:"Event catalog cover"},{url:"catalog-indus-double-page",caption:"Catalog Industry - I designed their 2 catalogs - Event and Industry"},{url:"essay-cover",caption:"My Master degree essay - how innovation impacts comapnies' identity"}],
       "group": "work",
       "timeline": {
         "startingYear": 2014.5,
@@ -318,6 +327,8 @@ export default {
     }, {
       "id": 10,
       "name": "Diplome Master",
+      "cat": "main",
+      "year": 2015,
       "ignore": true,
       "major": false,
       "summary": "End of Master degree",
@@ -340,7 +351,9 @@ export default {
     }, {
       "id": 11,
       "ignore": true,
+      "year": 2015,
       "name": "freelance",
+      "cat": "freelance",
       "major": false,
       "summary": "Various web development jobs",
       "group": "work",
@@ -364,6 +377,7 @@ export default {
     }, {
       "id": 12,
       "name": "MonMentor",
+      "cat": "freelance",
       "ignore": false,
       "major": false,
       "year": 2015,
@@ -380,7 +394,7 @@ export default {
         "onlyTimeline": true,
       },
       "software": {
-        "n/a": false,
+        "n/a": true,
         "list": ["illustrator"],
         "position": {x: 40, y: 1, z: -80}
       },
@@ -392,6 +406,8 @@ export default {
     }, {
       "id": 13,
       "name": "Kicklaws",
+      "cat": "freelance",
+      "year": 2015,
       "ignore": true,
       "major": false,
       "summary": "Web platform where opinions matter",
@@ -417,6 +433,7 @@ export default {
       "id": 14,
       "name": "Vietnam",
       "category": "Living place",
+      "cat": "main",
       "year": 2016,
       "major": false,
       "summary": "4 years living in Ho Chi Minh City",
@@ -442,6 +459,7 @@ export default {
     }, {
       "id": 15,
       "name": "BLISS",
+      "cat": "main",
       "year": 2017,
       "category": "Main job for BLISS interactive",
       "summary": "IT agency in Saigon",
@@ -473,6 +491,7 @@ export default {
     }, {
       "id": 16,
       "name": "Year of Engineering",
+      "cat": "main",
       "summary": "Website for the UK government",
       "description": "Year of Engineering was a UK government initiative, to promote and celebrate engineering. I coworked on the techical approach, as account manager with the British client and as lead deveoper on some phases (only frontend). We worked in collaboration with a design studio based in London.",
       "major": false,
@@ -493,16 +512,17 @@ export default {
       "software": {
         "n/a": false,
         "list": ["illustrator"],
-        "position": {x: -300, y: 1, z: 600}
+        "position": {x: -480, y: 1, z: 400}
       },
       "techno": {
         "n/a": false,
-        "list": ["JS", "React", "aws"],
+        "list": ["JS", "React", "aws", "analytics"],
         "position": {x: 0, y: 1, z: 30}
       }
     }, {
       "id": 17,
       "name": "CCM",
+      "cat": "main",
       "year": 2019,
       "category":"Project management for BLISS interactive",
       "major": false,
@@ -532,11 +552,12 @@ export default {
       "id": 18,
       "name": "Identidy and branding for BLISS",
       "major": true,
+      "cat": "main",
       "year": 2019,
       "category":"Main work for BLISS interactive",
       "slug": "bliss",
       "description": `<p>I worked for 4 years for BLISS interactive.</p>
-      <p>Along with regular jobs, I worked at developing the company, with internal tools, improving processes and developing the brand.</p>
+      <p>Along with regular jobs for clients, I worked at developing the company, with internal tools, improving processes and developing the brand.</p>
       <p>To name a few:</p>
       <ul>
       <li>I made few print layouts (leaflet and handbook)</li>
@@ -568,6 +589,7 @@ export default {
     }, {
       "id": 19,
       "name": "Chrome Extension",
+      "cat": "main",
       "major": false,
       "category": "Main work for BLISS interactive - lead developer",
       "summary": "Enhance an existing website",
@@ -594,15 +616,16 @@ export default {
     }, {
       "id": 20,
       "name": "Family Medical Practice",
+      "cat": "main",
       "major": true,
       "summary": "Website revamping for the largest care provider in Vietnam",
-      "description": "FMP is a Vietnamese health provider. I work on revamping their website, both project management and coding.",
+      "description": "<p>FMP is a Vietnamese health provider. I work on revamping their website, both project management and coding.</p><p>The main challenge for this website was to turn their business needs (branding, SEO, practical infos and services from many medical centers in different cities, multiple languages, testimonials...) into a digital solution.</p>",
       "code": "<p>Powered by React and NextJS (and Wagtail for the CMS), the new website intended to be reactive and dynamic. While I din't work on the set up, I developed a large part of the website and handled most of the change requests.</p><p>To name few challenges: a very compex and nested sitemap (see image on the side), external systems that plugged into this new website, many conten pages, a large system of locations (cities and medical centers) over Vietnam with specific content for each - and a in 4 different languages</p>",
       "design": "I design only few elements of the website. However, I built a large part of the website structure, coming up with sitemap, wireframes and flows.",
       "slug": "fmp",
-      "images": [{url:"FMP_sitemap",caption:"Sitemap of the new website"},{url:"routing-history_page", caption: "I worked on many documents to explain clearly what we were going to build for the client - here is the routing strategy"}, {url:"supplierAPI-flow",caption:"We worked with some suppliers, and I documented to faciitate the integration"}, {url:"flow-book_doctor",caption:"For each change requests, I made some wireframes and mockups to help the design department"}, "fmp-photoshop"],
+      "images": ["homepage", {url:"FMP_sitemap",caption:"Sitemap of the new website"},{url:"routing-history_page", caption: "I worked on many documents to explain clearly what we were going to build for the client - here is the routing strategy"}, {url:"supplierAPI-flow",caption:"We worked with some suppliers, and I documented to faciitate the integration"}, {url:"flow-book_doctor",caption:"For each change requests, I made some wireframes and mockups to help the design department"}, "fmp-photoshop"],
       "group": "work",
-      "category": "Main work for BLISS interactive - developement and project manaement",
+      "category": "Main work for BLISS interactive - Digital producer and lead developer",
       "year": 2019,
       "timeline": {
         "startingYear": 2019.6,
@@ -614,7 +637,7 @@ export default {
       "software": {
         "n/a": false,
         "list": ["photoshop", "illustrator"],
-        "position": {x: 320, y: 1, z: 290}
+        "position": {x: 200, y: 1, z: 180}
       },
       "techno": {
         "n/a": false,
@@ -624,15 +647,21 @@ export default {
     }, {
       "id": 21,
       "name": "Portfolio",
+      "cat": "personal",
       "major": false,
       "summary": "About this website",
       "objectives": "ThreeJS, Webpack, performance oriented",
       "year": 2019,
-      "description": "<p>This is my current portfolio (what you are looking at right now), with the intend to showcase my latest design and coding work, plus how these 2 capabilities support my daily work as project manager.</p><h4>Motivations</h4><p>ThreeJS & WebGL, showcase my work and high performance website</p>",
+      "description": "<p>This is my current portfolio (what you are looking at right now), with the intend to showcase my latest design and coding work, plus how these 2 capabilities support my daily work as project manager.</p><p>The source code is available on my <a class=\"color-link\" href=\"https://github.com/ben-richwood/portfolio2020/\">GitHub</a>.</p><h4>Motivations</h4><p>ThreeJS & WebGL, showcase my work and high performance website</p>",
       "code": `<p>This website rests on ThreeJS for the 3d space (actually using CSS3DRenderer, not Primitive objects) and VueJS.</p>
-      <p>For the animations, TweenMax (GSAP) takes care of translating elments when changing the filters. And lots of CSS3 animations to keep it lightweight.</p><h4>Performance</h4><p>Since my website is heavy and requires many JS librairies, I spent lot of time optimizing in order to reduce download time and latency. During my tests, it was hitting 60 frames per seconds.</p><p>I used <a href=\"https://css-tricks.com/svg-symbol-good-choice-icons/\">SVGstore</a> to concat all SVG as one big file (≈34 SVG for 71KB), allowing then to display them with &lt;symbol&gt; elements and reducing dozens of HTTP requests</p><p>Webpack is used resolve <code>import</code> and <code>requires</code>, plus to minify and \"Tree shaking\" (for dead-code elimination).</p><p>I set up an image pipeline with Gulp to convert images to JP2000 and Webp (next-gen compression format), and serving different sizes depending on user's screen size.</p><p>CSS critical path to display relevant and readable content as soon as the first bits load - without waiting for all the assets to load.</p><p>Performance Audit: I ran many performance tests, with the Chrome DevTool (CSS and JS Coverage), <a href=\"https://developers.google.com/web/tools/lighthouse/\">Lighthouse</a>, <a href=\"https://github.com/mrdoob/stats.js/\">Stat.js</a> and many other tools.</p>
+      <p>For the animations, TweenMax (GSAP) takes care of translating elments when changing the filters. And lots of CSS3 animations to keep it lightweight.</p><h4>Performance oriented</h4><p>Since my website is heavy and requires many JS librairies, I spent lot of time optimizing in order to reduce download time and latency. During my tests, it was hitting 60 frames per seconds.</p><p>I used <a href=\"https://css-tricks.com/svg-symbol-good-choice-icons/\">SVGstore</a> to concat all SVG as one big file (≈34 SVG for 71KB), allowing then to display them with &lt;symbol&gt; elements and reducing dozens of HTTP requests</p><p>Webpack is used resolve <code>import</code> and <code>requires</code>, plus to minify and \"Tree shaking\" (for dead-code elimination).</p><p>I set up an image pipeline with Gulp to convert images to JP2000 and Webp (next-gen compression formats), and serving different sizes depending on user's screen size.</p>
+      <p>Lazy-loading for images - they load only when opening a project</p>
+      <p>JS critical path: the main JS scripts are bundled; but there's also a smaller script directly embedded in the HTML file for animating small parts while the main script is still loading.</p>
+      <p>CSS critical path to display relevant and readable content as soon as the first bits load - without waiting for all the assets to load.</p><p>Performance Audit: I ran many performance tests, with the Chrome DevTool (CSS and JS Coverage), <a href=\"https://developers.google.com/web/tools/lighthouse/\">Lighthouse</a>, <a href=\"https://github.com/mrdoob/stats.js/\">Stat.js</a> and many other tools.</p>
       <p>Caching (Cache control and gzip compression) to reduce new reloads.</p>`,
       "design": "<p>I wanted my portfolio as a video games; so I naturally takes many elements from screen graphics and video games UI. I detail more these elements in the option menu (CREDIT tab).</p>",
+      "images": [{url:"performance",caption:"Intensive work to ensure it runs as smooth as possible, examinating any potential memory leaks or unused functions"},{url:"room",caption:"My first prototype was a 3D scene, with a metaphor of a two side of a screen: for frontend/design and backend"}, "blender_scene"],
+      "slug": "portfolio",
       "category": "Personal project",
       "group": "freelance",
       "timeline": {
@@ -645,7 +674,7 @@ export default {
       "software": {
         "n/a": false,
         "list": ["photoshop", "illustrator"],
-        "position": {x: 220, y: 1, z: 490}
+        "position": {x: 380, y: 1, z: 490}
       },
       "techno": {
         "n/a": false,
@@ -655,6 +684,7 @@ export default {
     }, {
       "id": 22,
       "name": "Tran Duong",
+      "cat": "freelance",
       "major": false,
       "summary": "Webdesign for a Vietnamese supplier",
       "description": "I realized the webdesign for a Vietnamese supplier and constructer of high-class wallpaper and curtains.",
@@ -676,7 +706,7 @@ export default {
       "software": {
         "n/a": false,
         "list": ["photoshop"],
-        "position": {x: 780, y: 1, z: 480}
+        "position": {x: 780, y: 1, z: 600}
       },
       "techno": {
         "n/a": true,
@@ -686,6 +716,7 @@ export default {
     }, {
       "id": 23,
       "name": "Minh Minh Nhut",
+      "cat": "freelance",
       "major": false,
       "summary": "Webdesign for a packaging company",
       "description": "Minh Minh Nhut supplies, manufactures paper bags/boxes and label tags industry. I redesigned their website.",
@@ -718,6 +749,7 @@ export default {
     }, {
       "id": 24,
       "name": "Spotify Campaign",
+      "cat": "main",
       "major": true,
       "summary": "Campaign website for Spotify Vietnam",
       "description": `<p>For one of their campaign, I was in charge of developing the website for <b>Spotify</b> (both backend and frontend).</p><h4>Motivations and challenges</h4>
@@ -776,7 +808,7 @@ export default {
         // "icon": "illustrator.svg"
       }, {
         "name": "Sketch",
-        "position": {x: -600, y: 200, z: -80},
+        "position": {x: -800, y: 200, z: 0},
         "icon": "sketch"
       }, {
         "name": "InDesign",
