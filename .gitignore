@@ -8,3 +8,5 @@ node_modules/*
 dist/assets/img/all-projects/
 
 *.ai
+
+dist/sftp-config.json
