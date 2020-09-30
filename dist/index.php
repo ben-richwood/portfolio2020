@@ -482,6 +482,7 @@
 			}
 		</script>
 
-		<script type="module" src="./assets/js/bundle_project.js?v=0.1.0"></script>
+		<!-- <script type="module" src="./assets/js/bundle_project.js?v=0.1.0"></script> -->
+		<script type="text/javascript" src="./assets/js/bundle_project.js?v=0.1.0"></script>
 	</body>
 </html>

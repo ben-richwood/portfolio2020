@@ -794,11 +794,10 @@ code {
   background: url(transition.svg) 0 0/100% 10vh no-repeat; }
 
 .tuto-pan, .tuto-dbclick {
-  background-color: rgba(255,255,255,1);
+  background-color: #FFFFFFCC;
   position: relative;
   height: 22vh;
-  background: url(../img/background.svg) 50% 50%/180% auto no-repeat;
-  }
+  background: url(../img/background.svg) 50% 50%/180% auto no-repeat; }
   .tuto-pan .element, .tuto-dbclick .element {
     position: absolute;
     z-index: 100;
