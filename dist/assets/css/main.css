@@ -719,6 +719,11 @@ code {
   background-color: #9AA3AC;
   padding: 0 8px; }
 
+.ul-2-columns {
+  columns: 2;
+  -webkit-columns: 2;
+  -moz-columns: 2; }
+
 .row {
   display: -ms-flexbox;
   display: flex;
@@ -1048,7 +1053,7 @@ code {
       left: 0; }
 
 .minor {
-  color: white;
+  color: #444;
   font-size: .9rem; }
   .minor.legend-item {
     background: #D5D5CF;
@@ -1200,7 +1205,10 @@ code {
 
 div#DOMElTimeline {
   z-index: 20;
-  background: url(../img/background.svg) 0 0/cover no-repeat; }
+  background: url(../img/background.svg) 0 0/cover no-repeat;
+  cursor: grab; }
+  div#DOMElTimeline:active {
+    cursor: grabbing; }
 
 .blurred {
   filter: blur(7px); }
@@ -1395,11 +1403,11 @@ div.detail {
       transition: transform .15s ease-in; }
       div.detail div.into-detail.minor .desc {
         background: #D5D5CF;
-        color: #666; }
+        color: #333; }
         div.detail div.into-detail.minor .desc:before {
           background-color: #959692; }
       div.detail div.into-detail.minor div.techno {
-        color: white;
+        color: #444;
         font-size: .9rem;
         background-color: #DDD; }
         div.detail div.into-detail.minor div.techno.legend-item {
@@ -1572,7 +1580,7 @@ div.symbol {
   padding: 1.5rem;
   box-sizing: border-box;
   max-height: 100%;
-  overflow-y: scroll;
+  overflow-y: auto;
   margin-bottom: 1.2rem; }
   .bg-block h2 {
     line-height: 1;
