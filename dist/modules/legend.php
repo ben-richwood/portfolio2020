@@ -30,7 +30,7 @@
           <span>Timeline</span>
         </button>
         <button @click="applyFilter(3)" class="filter-item" :class="selectedFilter === 'all' ? 'selected' : ''">
-          <span>All</span>
+          <span>Grid</span>
         </button>
       </div>
       <!-- <div class="col-6">

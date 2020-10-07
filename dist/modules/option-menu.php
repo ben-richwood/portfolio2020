@@ -139,7 +139,7 @@
             <p>This portfolio has been designed with a single idea in mind: to show evidence and examples of project I made for every skills I state in my portfolio.</p>
           </div>
         </div>
-        <h4>Some of the techno I work with daily</h4>
+        <h4 class="mt-30">Some of the techno I work with daily</h4>
         <div class="flex f-start f-row">
           <?php
             $arrImg = array("js", "react", "vue", "gulp", "webpack", "bash", "git", "nodejs", "python", "sass", "bootstrap", "analytics", "photoshop", "illustrator");
@@ -177,7 +177,9 @@
         </div>
         <div class="">
           <h3>Other hobbies</h3>
-          <h4>Video games</h4>
+          <h4>Urban planning</h4>
+          <p>Urban planning and all kind of city stakes - such as gentrification, energy optimization and reduction, waste management, rural exodus, stream and flux etc. - are major interests for me. With the growth of AI, modelisation and simulation tools, I look with interest at the solutions of tomorrow.</p>
+          <h4 class="mt-30">Video games</h4>
           <p>I'm keen on video games, as a medium that tells stories and carries narrative arcs.</p>
           <p>It's not a coincidence if this portfolio is designed like a video game...</p>
           <?php /*
@@ -194,7 +196,8 @@
         </div>
         <p>Ellapsed time from beginning of the session: <b>{{ t1 }}</b></p>
         <div class="mt-30">Your <span class="abbr" title="Graphics Processing Unit - aka your graphic card">GPU</span>: {{ gpu }}</div>
-        <div class="mt-30" style="white-space: pre;">{{ fullConfig | displayArr }}</div>
+        <!-- <div class="mt-30" style="white-space: pre;">{{ fullConfig | displayArr }}</div> -->
+        <div class="mt-30" style="white-space: pre;" v-html="displayArr(fullConfig)"></div>
       </div>
       <div v-else-if="currentSubmenu == 5" id="credit">
         <h3 class="tc">Credits</h3>
