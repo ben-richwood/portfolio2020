@@ -219,6 +219,8 @@ export default {
       "summary": "Degree in Geography",
       "description": "I studied Geography for 4 years, between Paris 4 - la Sorbonne and UQAM (Montrea, Canada), specilizing in cuture, politic and heritage.",
       "cat": "main",
+      "slug": "master",
+      "images": [{url:"sorbonne",caption:"Paris Sorbonne, France"},{url:"uqam",caption:"UQAM, Montral, Canada"}],
       "group": "study",
       "timeline": {
         "onlyTimeline": true,

@@ -308,6 +308,14 @@ export const optionMenu = new Vue({
       } else {
         window['ga-disable-UA-90932543-3'] = true;
       }
+    },
+    displayArr: function (e){
+      let txt = `<ul class="ul-2-columns">`;
+      for(let c in e){
+        txt += "<li>" + c.toString() + ": " + e[c] + "</li>";
+      }
+      txt += "</ul>"
+      return txt;
     }
   },
   filters: {
@@ -316,6 +324,7 @@ export const optionMenu = new Vue({
       for(let c in e){
         txt += c.toString() + ": " + e[c] + "\n";
       }
+      txt += "</ul>"
       return txt
     }
   }
@@ -489,7 +498,7 @@ function init(e) {
 
   // Popup.displayConfig = false;
   settings.isConfigHigh = e;
-  // optionMenu.gpu = Popup.config;
+  optionMenu.gpu = settings.GPU;
   // settings.GPU = Popup.config;
   if (e == 1 && false){
     if (settings.isConfigHigh) {

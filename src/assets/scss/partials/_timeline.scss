@@ -18,7 +18,11 @@
 div#DOMElTimeline{
   z-index: 20;
   background: url(../img/background.svg) 0 0 / cover no-repeat;
+  cursor: grab;
   // pointer-events: none;
+  &:active{
+    cursor: grabbing;
+  }
 }
 .blurred{
   filter: blur(7px);
@@ -239,7 +243,7 @@ div.detail{
       .desc{
         // background: #6d9aba;
         background: $secondaryColorOne;
-        color: #666;
+        color: #333;
         &:before{
           background-color: $secondaryColorTwo;
         }
@@ -448,7 +452,7 @@ div.symbol{
   padding: 1.5rem;
   box-sizing: border-box;
   max-height: 100%;
-  overflow-y: scroll;
+  overflow-y: auto;
   margin-bottom: 1.2rem;
   h2{ line-height: 1; margin-top: .4rem;}
   h3{margin-top: 1.2rem;}

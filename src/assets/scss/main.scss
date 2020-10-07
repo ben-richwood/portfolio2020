@@ -359,8 +359,6 @@ b{
   }
 }
 
-
-
 .menu{
 	/* transform: rotateY(0deg) translateX(-3rem); */
 	background-color: rgba(0,0,0,0.7);
@@ -526,6 +524,12 @@ b{
 code {
   background-color: #9AA3AC;
   padding: 0 8px;
+}
+
+.ul-2-columns{
+  columns: 2;
+  -webkit-columns: 2;
+  -moz-columns: 2;
 }
 
 @import "partials/_intro";

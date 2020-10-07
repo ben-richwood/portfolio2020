@@ -102,9 +102,9 @@ export function init() {
   controls.enableDamping = true; // an animation loop is required when either damping or auto-rotation are enabled
   controls.dampingFactor = 0.05;
   controls.screenSpacePanning = false;
-  controls.minDistance = 600;
-  // controls.maxDistance = settings.isDebugMode ? 2500 : 1000;
-  controls.maxDistance = 2000;
+  controls.minDistance = settings.isMobile ? 300 : 600;
+  controls.maxDistance = settings.isMobile ? 2800 : 2000;
+  // controls.maxDistance = 2000;
   controls.minAzimuthAngle = 0;
   controls.maxAzimuthAngle = controls.minAzimuthAngle
 

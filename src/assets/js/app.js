@@ -83,6 +83,8 @@ function firstConfigCheck() {
 
   let isMobile = mobilecheck();
   console.log(`%cIs your device a mobile/tablet? ${isMobile}`, logStyle);
+  settings.isMobile = isMobile;
+  settings.GPU = rendererEval;
 
   // Popup.ieDetected = msieversion();
   // Popup.config = rendererEval;
@@ -145,4 +147,3 @@ export function readyToLaunch(){
   console.log("ready To Launch",scene);
 
 }
-
