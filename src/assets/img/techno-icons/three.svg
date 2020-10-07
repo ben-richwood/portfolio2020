@@ -1,10 +1,10 @@
 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
 	 width="200px" height="200px" viewBox="0.5 400.5 200 200"
 	>
-<polygon style="fill:none;stroke:#000000;stroke-width:2.8784;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;" points="
+<polygon style="fill:none;stroke:#444444;stroke-width:2.8784;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;" points="
 	20,416.7 61.43,583.49 185.7,464.63 "/>
-<polygon style="fill:none;stroke:#000000;stroke-width:2.8784;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;" points="
+<polygon style="fill:none;stroke:#444444;stroke-width:2.8784;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;" points="
 	123.35,524.26 103.96,440.99 40.71,500.1 "/>
-<polygon style="fill:none;stroke:#000000;stroke-width:2.8784;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;" points="
+<polygon style="fill:none;stroke:#444444;stroke-width:2.8784;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;" points="
 	154.4,494.57 144.47,452.7 51.17,542.19 92.43,553.84 61.54,428.72 30.39,458.54 "/>
 </svg>
