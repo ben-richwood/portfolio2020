@@ -39,7 +39,7 @@ gulp.task('svgstore', function () {
 // imagemin
 gulp.task('imgmin', () =>
   gulp.src(imgSrc)
-    .pipe(newer(imgDest))
+    // .pipe(newer(imgDest))
     .pipe(imagemin([
       imagemin.gifsicle({interlaced: true}),
       imagemin.mozjpeg({quality: 75, progressive: true}),
@@ -52,7 +52,7 @@ gulp.task('imgmin', () =>
 gulp.task('img', () =>
   gulp.src(imgSrc)
     // .pipe(gulpCopy('dist/assets/img/all-projects', { prefix: 4 }))
-    .pipe(newer(imgDest))
+    // .pipe(newer(imgDest))
     .pipe(imageResize({
       width : 1000,
       // height : 100,
@@ -80,7 +80,7 @@ gulp.task('img', () =>
 
 gulp.task('img-mobile', () =>
   gulp.src(imgSrc)
-    .pipe(newer(imgDest))
+    // .pipe(newer(imgDest))
     .pipe(imageResize({
       width : 700,
       // height : 100,
@@ -97,7 +97,7 @@ gulp.task('img-mobile', () =>
 
 gulp.task( 'webp', () =>
   gulp.src(imgSrc)
-    .pipe(newer(imgDest))
+    // .pipe(newer(imgDest))
     .pipe(imageResize({
       width : 1000,
       upscale : false,
@@ -114,7 +114,7 @@ gulp.task( 'webp', () =>
 
 gulp.task( 'webp-mobile', () =>
   gulp.src(imgSrc)
-    .pipe(newer(imgDest))
+    // .pipe(newer(imgDest))
     .pipe(imageResize({
       width : 700,
       upscale : false,
