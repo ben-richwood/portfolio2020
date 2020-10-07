@@ -9,4 +9,8 @@ dist/assets/img/all-projects/
 
 *.ai
 
+# hide SFTP variables
 dist/sftp-config.json
+
+# from the old version of the portfolio (3D view with desk)
+src/assets/img/desktop-3d/
