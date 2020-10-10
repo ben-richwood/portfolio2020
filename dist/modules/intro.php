@@ -18,16 +18,26 @@
     <div class="row">
       <div class="col-12 col-md-2 margin-section"></div>
       <div class="col-12 col-md-6 margin-section">
-        <div class="tagline"><p>I'm <span class="highlight--tag">project manager</span> and <span class="highlight--tag">digital producer</span> who puts <span class="highlight--tag">code</span> and <span class="highlight--tag">design</span> into my daily work.</p></div>
+        <!-- <div class="tagline"><p>I'm <span class="highlight--tag">project manager</span> and <span class="highlight--tag">digital producer</span> who puts <span class="highlight--tag">code</span> and <span class="highlight--tag">design</span> into my daily work.</p></div> -->
+        <div class="tagline"><p>I'm <span class="highlight--tag">Creative and technical Digital project manager</span> with <span class="highlight--tag">coding</span> and <span class="highlight--tag">design</span> background.</p></div>
+
       </div>
     </div>
     <div class="row">
-      <div class="col-12 col-md-2 margin-section"></div>
-      <div class="col-12 col-md-6 margin-section">
+      <div class="col-12 col-md-1 margin-section"></div>
+      <div class="col-12 col-md-10 margin-section">
         <div>
-          <p>While my main job is Project manager and Digital Producer, I use code and design capabilities to prototype ideas, lead preliminary researches and feasibilities studies (<span class="abbr" title="Proof Of Concept">POC</span>), automate and improve internal tools.</p>
+          <!-- <p>While my main job is Project manager and Digital Producer, I use code and design capabilities to prototype ideas, lead preliminary researches and feasibilities studies (<span class="abbr" title="Proof Of Concept">POC</span>), automate and improve internal tools.</p>
           <p>I also work on freelance contracts.</p>
-          <p>This portfolio has been designed with a single idea in mind: to show evidence and examples of project I made for every skills I state in my portfolio.</p>
+          <p>This portfolio has been designed with a single idea in mind: to show evidence and examples of project I made for every skills I state in my portfolio.</p> -->
+
+          <p><b>Self-learner</b> and <b>curious</b>, passionate about the digital world, I have the chance to develop my hard and soft skills through collaborations with my clients, business partners and colleagues around various technologies in line with the latest IT trends & Digital market.</p>
+
+          <p class="mt-10">I use code and design skills to prototype ideas, lead preliminary researches and feasibilities studies (<span class="abbr" title="Proof Of Concept">POC</span>), automate and improve internal tools. Delivering game changing digital projects and can be relied upon to <b>always have the customer’s best interest at heart</b>.</p>
+
+          <!-- <p class="mt-10">Always focusing on customer satisfaction by delivering a tailor-made approach and to leverage client expertise for organic business growth.</p> -->
+
+          <p class="mt-10">Trough my activities as a digital producer, lead developer and freelancer, I work with <b>top 500 world’s largest companies and government organizations</b>.</p>
         </div>
       </div>
     </div>
