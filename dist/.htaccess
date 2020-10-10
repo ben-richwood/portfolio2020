@@ -1,0 +1,11 @@
+#on empêche le listing de tous les dossiers
+ Options All -Indexes
+ #Tant qu'a faire un protège son fichier .htaccess
+ <Files .htaccess>
+ order allow,deny
+ deny from all
+ </Files>
+
+RewriteEngine On 
+RewriteCond %{HTTPS}  !=on 
+RewriteRule ^/?(.*) https://%{SERVER_NAME}/$1 [R,L] 
