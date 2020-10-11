@@ -128,7 +128,7 @@
         <p>HM (Her Majesty - UK Government), BOSCH ASEAN, Spotify, Suntory PepsiCo and local Vietnamese clients</p>
         <div class="">
           <?php
-          $arrImg = array("gov-uk", "bosch", "spotify", "pepsi");
+          $arrImg = array("gov-uk", "bosch", "spotify", "pepsi", "tuborg");
           $count = count($arrImg);
           for( $i = 0; $i<$count; $i++ ) { ?>
             <svg xmlns="http://www.w3.org/2000/svg" class="techno-svg very-large" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
