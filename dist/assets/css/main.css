@@ -690,7 +690,7 @@ b {
     color: #fff;
     overflow: hidden; }
     .inputGroup input:checked ~ label:before {
-      transform: translate(-50%, -50%) scale3d(130, 70, 1);
+      transform: translate(-50%, -50%) scale3d(300, 70, 1);
       opacity: 1; }
     .inputGroup input:checked ~ label:after {
       background-color: #ff8a00;
