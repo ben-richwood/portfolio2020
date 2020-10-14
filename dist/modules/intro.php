@@ -317,10 +317,10 @@
           <!-- <div class="ripple-container">
             <span class="ripple"></span>
           </div> -->
-          <div id="notCompatible"></div>
         </div>
       </div>
 
     </div>
   </div>
+  <div id="notCompatible"></div>
 </div>

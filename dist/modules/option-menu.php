@@ -34,7 +34,7 @@
           </div> -->
         </ul>
       </div>
-      <div v-else-if="currentSubmenu == 1" id="controls">
+      <div v-if="currentSubmenu == 1" id="controls">
         <h3 class="tc">Controls</h3>
         <div class="notice"> <p class="tc">Mouse</p> </div>
         <?php echo file_get_contents("./assets/img/icons/mice.svg"); ?>
@@ -55,25 +55,17 @@
           <div class="col-12 col-md-6">
             <div class="keyMap">
               <div class="key">{{ keyMap.option[1] }}</div>
-              <div class="keyFeature">Open/close option menu</div>
+              <div class="keyFeature">Close project details and Option menu</div>
             </div>
             <div class="keyMap">
               <div class="key">{{ keyMap.hud[1] }}</div>
-              <div class="keyFeature">Display/hide the HUD</div>
+              <div class="keyFeature">Display/hide <span class="abbr" title="Head-Up display">HUD</span></div>
             </div>
-            <!-- <div class="keyMap">
-              <div class="key">{{ keyMap.prev[1] }}</div>
-              <div class="keyFeature">Previous project</div>
-            </div> -->
           </div>
           <div class="col-12 col-md-6">
-            <!-- <div class="keyMap">
-              <div class="key">{{ keyMap.next[1] }}</div>
-              <div class="keyFeature">Next project</div>
-            </div> -->
             <div class="keyMap">
               <div class="key">{{ keyMap.accept[1] }}</div>
-              <div class="keyFeature">open project details</div>
+              <div class="keyFeature">Open/close the Option menu (current menu)</div>
             </div>
           </div>
         </div>
