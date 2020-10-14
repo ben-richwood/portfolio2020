@@ -179,8 +179,10 @@
           <h3>Other hobbies</h3>
           <h4>Urban planning</h4>
           <p>Urban planning and all kind of city stakes - such as gentrification, energy optimization and reduction, waste management, rural exodus, stream and flux etc. - are major interests for me. With the growth of AI, modelisation and simulation tools, I look with interest at the solutions of tomorrow.</p>
-          <h4 class="mt-30">Video games</h4>
-          <p>I'm keen on video games, as a medium that tells stories and carries narrative arcs.</p>
+          <h4 class="mt-30">3D modeling and animation</h4>
+          <p>I discovered Blender when I was in high school and I toy with the tool since that time. I look with attention at the latest trends, tools, technics, practices and methodologies; I keep up with rendering engines, <span class="abbr" title="Physically based rendering">PBR</span>, shaders, game engine integrations, portfolios, filming technics (such as semicircular LED video wall) and the like.</p>
+          <h4 class="mt-30">Storytelling in video games</h4>
+          <p>I'm really keen on video games, as a medium that tells stories and carries complex narrative arcs. Unlike a movie or a novel for instance, it allows to involve users further than any other medias.</p>
           <p>It's not a coincidence if this portfolio is designed like a video game...</p>
           <?php /*
           <h4>Misc</h4>

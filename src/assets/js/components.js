@@ -43,7 +43,7 @@ const tips = [
   "There are few Easter eggs hidden on the website. Would you be able to find them? ;)"
 ]
 
-let selectPerf = true;
+let selectPerf = false; // previously true
 const URLPrefix = "../dist/assets/img/projects";
 const GPURegex = /rtx|gtx|Direct3D11/i;
 // Window computer ANGLE (Intel(R) UHD Graphics 620 Direct3D11 vs_5_0 ps_5_0)
@@ -83,7 +83,10 @@ function Settings (e) {
     this.zoomLevel = 1;
     this.isTimelineOn = true;
     this.isCameraTransiting = false;
+
     this.isProjectOpen = false;
+    this.isOptionMenuOpen = false;
+    this.isHUDOn = false;
 
     // CONFIG
     this.isConfigHigh = false;
@@ -226,8 +229,10 @@ export const optionMenu = new Vue({
     },
     close: function () {
       // legendMenu.HUDoff = false;
-      legendMenu.showLegendForDetail = false;
+      legendMenu.showLegend = true;
+      settings.isDetailOpen = false;
       this.optionsOpen = false;
+      legendMenu.showLegendForDetail = false;
       detailPopup.blurred = false;
       // this.currentSubmenu = 3;
       container.style.filter = "blur(0px)";
@@ -235,6 +240,7 @@ export const optionMenu = new Vue({
     },
     open: function () {
       // legendMenu.HUDoff = true;
+      legendMenu.showLegend = false;
       legendMenu.showLegendForDetail = true;
       detailPopup.isOpen = false;
       if (settings.analyticsOn){
@@ -249,8 +255,8 @@ export const optionMenu = new Vue({
       container.style.filter = "blur(10px)";
       tl.pauseAnimation();
     },
-    toogle: function () {
-      if(this.optionsOpen){
+    toggle: function () {
+      if(settings.isOptionMenuOpen){
         this.close();
       } else {
         this.open();
@@ -472,18 +478,16 @@ export const legendMenu = new Vue({
       tl.resetCamera(1200 );
     },
     close: function() {
-      detailPopup.close();
+      closeAllMenus();
     },
     menu: function (){
       optionMenu.open();
+    },
+    HUD: function (){
+      toggleHUD();
     }
   }
 })
-
-function toggleHUD (bool) {
-  legendMenu.HUDoff = bool;
-  scaleEl.classList.toggle("hideHUD");
-}
 
 document.querySelector('#optionMenu > div').classList.remove("hide");
 document.querySelector('#intro > div').classList.remove("hide");
@@ -522,8 +526,6 @@ document.getElementById("ExploreWork-btn").addEventListener('click', function (e
 }, true)
 
 
-
-
 domElTimeline.addEventListener("dblclick", evt => {
   // console.log(evt);
   if (evt.target.classList.contains("node")){
@@ -537,44 +539,45 @@ domElTimeline.addEventListener("dblclick", evt => {
 document.addEventListener('keyup', (event) => {
   const keyName = event.key;
   const keyCode = event.code
-  console.log(keyName, keyCode);
-  if (selectPerf) {
-    if (keyName === settings.keyboardConfig.prev[0]) {
-      Popup.$refs.highPerf.focus();
-    } else if (keyName === settings.keyboardConfig.next[0]) {
-      Popup.$refs.lowPerf.focus();
-    } else {}
-  } else {
-    if (settings.isCameraCloseEnough) {
-      if (keyName === settings.keyboardConfig.prev[0]) {
-        // Menu.changeProject(-1)
-      } else if (keyName === settings.keyboardConfig.next[0]) {
-        // Menu.changeProject(1)
-      } else {}
-    } else {
-      // return
-    }
-  }
+  // console.log(keyName, keyCode);
+
   if (keyName === settings.keyboardConfig.hud[0]) {
-    toggleHUD (!legendMenu.HUDoff)
+    toggleHUD()
   }
-  // escape!
+  // escape keys
   if (keyName === settings.keyboardConfig.option[0]) {
-    if (settings.isDetailOpen) {
-      detailPopup.close();
-    }
-    // toggleHUD(optionMenu.optionsOpen);
-    if (optionMenu.optionsOpen) {
-      legendMenu.showLegend = false;
-    } else {
-      legendMenu.showLegend = true;
-  //   detailPopup.close();
-    }
+    closeAllMenus();
   }
   // SPACE BAR KEY BY DEFAULT
   if (keyCode === settings.keyboardConfig.accept[0]) {
-    optionMenu.toogle();
-    // toggleHUD(optionMenu.optionsOpen);
-    // dispay/hide the legend menu
+    if (settings.isDetailOpen) {
+      detailPopup.close();
+    }
+
+    legendMenu.showLegend = !settings.isOptionMenuOpen;
+    optionMenu.toggle();
+    settings.isOptionMenuOpen = !settings.isOptionMenuOpen;
+
   }
 }, false);
+
+function toggleHUD () {
+  if (settings.isOptionMenuOpen || settings.isDetailOpen) return
+  settings.isHUDOn = !settings.isHUDOn;
+
+  legendMenu.HUDoff = settings.isHUDOn;
+  scaleEl.classList.toggle("hideHUD");
+}
+
+function closeAllMenus () {
+  if (settings.isDetailOpen || settings.isOptionMenuOpen) {
+    detailPopup.close();
+    legendMenu.showLegend = true;
+    if (settings.isOptionMenuOpen){
+      optionMenu.close();
+      settings.isOptionMenuOpen = false;
+    }
+    optionMenu.optionsOpen = false;
+    return null;
+  }
+}

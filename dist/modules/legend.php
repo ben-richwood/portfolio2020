@@ -87,7 +87,7 @@
         <div class="key" style="padding-right:4.5rem;">{{ keyMap.accept[1] }}</div>
         <label for="">Open menu</label>
       </div>
-      <div class="key-block">
+      <div class="key-block" @click="HUD">
         <div class="key">{{ keyMap.hud[1] }}</div>
         <label for="">{{ HUDoff ? 'Display HUD' : 'Minimize HUD'}}</label>
       </div>
