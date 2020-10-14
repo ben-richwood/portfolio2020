@@ -1822,6 +1822,49 @@ svg#keyboard, svg.keyboard {
   opacity: 0;
   transition: all .3s ease; }
 
+.dark-theme {
+  display: none; }
+
+.light-theme {
+  display: block; }
+
+@media (prefers-color-scheme: dark) {
+  .dark-theme {
+    display: block; }
+  .light-theme {
+    display: none; }
+  div#DOMElTimeline {
+    background-color: #121517; }
+  div.detail div.into-detail.minor div.techno {
+    background-color: #444;
+    color: #DDD; }
+  div.detail div.into-detail.minor .desc {
+    color: #D5D5CF;
+    background-color: #333; }
+  .legend-icon label {
+    color: #DDD; }
+  .minor.legend-item {
+    color: #D5D5CF;
+    background-color: #333; }
+  .key {
+    border-color: #ededed;
+    color: #ededed;
+    background: rgba(37, 37, 37, 0.9);
+    box-shadow: 1px 0 1px 0 #333, 0 2px 0 2px #444, 0 2px 0 3px #ccc; }
+  .key-legend .key-block label {
+    color: #ededed; }
+  .legend {
+    background-color: #333333; }
+    .legend h3 {
+      color: #BBB; }
+  .timeline-title h1 {
+    color: white;
+    border-bottom: 1px solid #FFF; }
+    .timeline-title h1:after {
+      background-color: #FFF; }
+  .timeline-title h2 {
+    color: white; } }
+
 @media screen and (max-width: 768px) {
   .only-mobile {
     display: block; }
