@@ -38,7 +38,7 @@
 		<meta property="og:image:height" content="1200" />
 		<meta property="og:image:alt" content="An overview of the 3d interactive project map" />
 
-		<link type="text/css" rel="stylesheet" href="./assets/css/main.css?v=0.1.0">
+		<link type="text/css" rel="stylesheet" href="./assets/css/main.css?v=0.1.1">
 		<!-- <link type="text/css" rel="preload" href="./assets/css/main.css" as="style"> -->
 		<link href="https://fonts.googleapis.com/css2?family=Rajdhani&display=swap" rel="stylesheet">
 		<style type="text/css">
@@ -483,6 +483,6 @@
 		</script>
 
 		<!-- <script type="module" src="./assets/js/bundle_project.js?v=0.1.0"></script> -->
-		<script type="text/javascript" src="./assets/js/bundle_project.js?v=0.1.0"></script>
+		<script type="text/javascript" src="./assets/js/bundle_project.js?v=0.1.1"></script>
 	</body>
 </html>
