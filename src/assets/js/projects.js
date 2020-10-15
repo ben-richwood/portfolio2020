@@ -496,7 +496,7 @@ export default {
       "cat": "main",
       "summary": "Website for the UK government",
       "description": "Year of Engineering was a UK government initiative, to promote and celebrate engineering. I coworked on the techical approach, as account manager with the British client and as lead deveoper on some phases (only frontend). We worked in collaboration with a design studio based in London.",
-      "major": false,
+      "major": true,
       "year": 2018,
       "category": "Main job for BLISS interactive - development, digital producer and project management",
       "code": "While I didn't set up and work on the first phases, I handle many change requests. I advised the client on technical options, by drawing up scopes along wireframes and diagrams. Then I implemented some of them, and ran quality controls.",
