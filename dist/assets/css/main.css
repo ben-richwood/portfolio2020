@@ -1828,6 +1828,53 @@ svg#keyboard, svg.keyboard {
 .light-theme {
   display: block; }
 
+.dark-mode .dark-theme {
+  display: block; }
+
+.dark-mode .light-theme {
+  display: none; }
+
+.dark-mode div#DOMElTimeline {
+  background-color: #121517; }
+
+.dark-mode div.detail div.into-detail.minor div.techno {
+  background-color: #444;
+  color: #DDD; }
+
+.dark-mode div.detail div.into-detail.minor .desc {
+  color: #D5D5CF;
+  background-color: #333; }
+
+.dark-mode .legend-icon label {
+  color: #DDD; }
+
+.dark-mode .minor.legend-item {
+  color: #D5D5CF;
+  background-color: #333; }
+
+.dark-mode .key {
+  border-color: #ededed;
+  color: #ededed;
+  background: rgba(37, 37, 37, 0.9);
+  box-shadow: 1px 0 1px 0 #333, 0 2px 0 2px #444, 0 2px 0 3px #ccc; }
+
+.dark-mode .key-legend .key-block label {
+  color: #ededed; }
+
+.dark-mode .legend {
+  background-color: #333333; }
+  .dark-mode .legend h3 {
+    color: #BBB; }
+
+.dark-mode .timeline-title h1 {
+  color: white;
+  border-bottom: 1px solid #FFF; }
+  .dark-mode .timeline-title h1:after {
+    background-color: #FFF; }
+
+.dark-mode .timeline-title h2 {
+  color: white; }
+
 @media (prefers-color-scheme: dark) {
   .dark-theme {
     display: block; }
