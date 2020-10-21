@@ -213,7 +213,8 @@ export const optionMenu = new Vue({
     isShadowEnabled: false,
     linksNewTab: settings.linksNewTab,
     analyticsOn: true,
-    emailAddress: `moc.liamg&#064;nimajneb.<span style="display:none">richwood</span>siobehcir`
+    emailAddress: `moc.liamg&#064;nimajneb.<span style="display:none">richwood</span>siobehcir`,
+    isDarkMode: false
   },
   methods: {
     changeSubmenu: function (idx) {
@@ -292,6 +293,10 @@ export const optionMenu = new Vue({
         canvasStats.style.display = settings.isDebugMode ? "block" : "none";
       } else {}
       // console.log(renderer);
+    },
+    darkMode: function () {
+      this.isDarkMode = !this.isDarkMode;
+      document.body.classList.toggle("dark-mode");
     },
     toggleShadows: function() {
       settings.isShadowEnabled = !settings.isShadowEnabled;

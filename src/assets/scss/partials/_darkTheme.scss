@@ -4,7 +4,8 @@
 .light-theme{
   display:block;
 }
-@media (prefers-color-scheme: dark ){
+
+@mixin dark-mode(){
   .dark-theme{
     display:block;
   }
@@ -58,4 +59,11 @@
       color: white;
     }
   }
+}
+.dark-mode{
+
+  @include dark-mode;
+}
+@media (prefers-color-scheme: dark ){
+  @include dark-mode;
 }

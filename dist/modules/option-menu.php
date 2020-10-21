@@ -82,6 +82,11 @@
           <label for="debug">Debug mode</label>
         </div>
         <div class="notice">Shows an info box that monitor code performance. You can click to parade across FPS (Frames rendered in the last second), MS (millisecond needed to render a frame) and MB (allocated memory).</div>
+        <div class="inputGroup">
+          <input id="dark" v-on:click="darkMode()" name="radio" type="checkbox" v-model="isDarkMode" />
+          <label for="dark">Dark mode</label>
+        </div>
+        <div class="notice">If your system is set up to Dark mode, it may not work.</div>
         <!-- <div class="inputGroup">
           <input id="antialias" v-on:click="changeConfig('antialias')" name="radio" type="checkbox" v-model="antialias" />
           <label for="antialias">Antialias</label>
