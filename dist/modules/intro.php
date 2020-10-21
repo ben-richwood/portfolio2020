@@ -80,7 +80,7 @@
               <use xlink:href="#<?php echo $arrImg[$i]; ?>"/>
             </svg>
         <?php } ?>
-        <p>Among others, I worked with Android Studio and Xcode to prototype native mobile apps. And Unity for AR app</p>
+        <p>Among others, I worked with Android Studio and Xcode to prototype native mobile apps. And <a target="_blank" class="color-link" href="https://unity3d.com/">Unity</a> for AR app</p>
       </div>
     </div>
 
@@ -115,9 +115,9 @@
               <use xlink:href="#<?php echo $arrImg[$i]; ?>"/>
             </svg>
         <?php } ?>
-        <p>I started 3D modeling as a hobbit, with <a href="https://www.blender.org/" class="color-link">Blender</a>. I'm using EEVEE for fast rendering, especially for animations; and occasionnaly Cycle for single shots.</p>
+        <p>I started 3D modeling as a hobbit, with <a target="_blank" class="color-link" href="https://www.blender.org/">Blender</a>. I'm using EEVEE for fast rendering, especially for animations; and occasionnaly Cycle for single shots.</p>
         <p>I also tried Rhino3D during my studies, and Keyshot for renders.</p>
-        <p>In a near future, I would like to experiement with <a href="https://www.sidefx.com/products/houdini-apprentice/" class="color-link">Houdini Apprentice</a>.</p>
+        <p>In a near future, I would like to experiement with <a target="_blank" class="color-link" href="https://www.sidefx.com/products/houdini-apprentice/" class="color-link">Houdini Apprentice</a>.</p>
       </div>
     </div>
 
