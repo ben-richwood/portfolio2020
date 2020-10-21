@@ -97,6 +97,7 @@ function Settings (e) {
     this.isShadowEnabled = false;
     this.isItNight = e.isItNight;
     this.isTimelineLoaded = false;
+    this.isMobile = false;
 
     // Timeline filter options
     this.currFilter = "techno";
@@ -537,7 +538,28 @@ domElTimeline.addEventListener("dblclick", evt => {
     let id = evt.target.getAttribute("data-id");
     detailPopup.open(id);
   }
-}, true)
+}, true);
+
+var touchtime = 0;
+domElTimeline.addEventListener("touchend", evt => {
+  if (touchtime == 0) {
+    // set first click
+    touchtime = new Date().getTime();
+  } else {
+    // compare first click to this click and see if they occurred within double click threshold
+    if (((new Date().getTime()) - touchtime) < 800) {
+      // double click occurred
+      if (evt.target.classList.contains("node")){
+        detailPopup.open(evt.target.getAttribute("data-id"));
+      }
+      touchtime = 0;
+    } else {
+      // not a double click so set as a new first click
+      touchtime = new Date().getTime();
+    }
+  }
+}, true);
+
 
 
 // Keyboard navigation
