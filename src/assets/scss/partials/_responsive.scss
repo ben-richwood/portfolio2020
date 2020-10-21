@@ -1,5 +1,23 @@
+// ONLY MOBILE
 @media screen and (max-width: 768px) {
+  .only-desktop{ display: none; }
   .only-mobile{ display: block; }
+  .tuto-pan, .tuto-dbclick{
+    img{
+      height: 80%;
+      margin-top: 5%;
+    }
+    .element{
+      left: 50%;
+    }
+  }
+  .tuto-pan{
+    img{
+      margin-left:20%;
+      height: 70%;
+    }
+  }
+  #scale{display: none !important;}
   #sidebar {
     width: 93%;
     max-width: initial;
@@ -32,7 +50,9 @@
   }
 }
 
+// ONLY DESKTOP
 @media screen and (min-width: 768px){
+  .only-desktop{ display: block; }
   .flex{
     // .col-md-12, .col-md-4, .col-md-3, .col-md-6, .col-12, .col-6, .col-4, .col-3, .col-6{
     //   padding-left: 15px;

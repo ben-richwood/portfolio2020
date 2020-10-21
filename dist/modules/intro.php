@@ -165,7 +165,34 @@
           </div>
         </div>
       </div>
-      <div class="row">
+      <div class="only-mobile">
+        <div class="col-12 col-md-6">
+          <p class="tc"><b>Two fingers</b> to pan and zoom the map</p>
+          <div class="tuto-pan">
+            <div class="pan-container">
+
+              <img src="../assets/img/touchNpan.svg" alt="hand gesture - one finger to pan and zoom">
+
+              <div class="element detail node">
+                <div class="name into-detail corners node major">
+                  <div class="desc node job-main" data-id="18">Identidy and branding for BLISS</div>
+                  <div class="techno node" data-id="18">Developping company brand and culture</div>
+                </div>
+              </div>
+
+
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-6 tc">
+          <p class="tc"><b>Double tap</b> to open a project</p>
+          <div class="tuto-dbclick">
+            <img src="../assets/img/touch.svg" alt="hand gesture - one finger to pan and zoom">
+          </div>
+        </div>
+      </div>
+      <div class="only-desktop">
+        <div class="row">
         <div class="col-12 col-md-6">
           <p class="tc"><b>Left click</b> to drag and pan the map</p>
           <div class="tuto-pan">
@@ -216,6 +243,7 @@
         <div class="col-12 col-md-6 margin-section">
           <p>And the mouse <b>wheel</b> to zoom in and out</p>
         </div>
+      </div>
       </div>
 
       <div class="row">
