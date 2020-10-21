@@ -152,7 +152,24 @@ export function init() {
       partVert.vertices.push( star );
     }
   }
-  const cross = new THREE.Points( partVert, MAT.crossMaterial );
+  let cross = new THREE.Points( partVert, MAT.crossMaterial );
+  cross.position.x = 0;
+  cross.position.y = 0;
+  cross.position.z = 0;
+  scene.add( cross );
+
+  partVert = new THREE.Geometry();
+  crossStartingZ = -2000
+  for ( var i = 1; i < 8; i ++ ) { // vertical loop
+    for ( var j = 1; j < 15; j ++ ) { // horizontal loop
+      var star = new THREE.Vector3();
+      star.x = startingPoint + (yu * 2.6 * j);
+      star.y = 500;
+      star.z = crossStartingZ + ( i * 500 );
+      partVert.vertices.push( star );
+    }
+  }
+  cross = new THREE.Points( partVert, MAT.blurredCrossMaterial );
   cross.position.x = 0;
   cross.position.y = 0;
   cross.position.z = 0;

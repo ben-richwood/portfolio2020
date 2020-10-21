@@ -50,5 +50,14 @@ export const crossMaterial = new THREE.PointsMaterial({
   color: 0xAAAAAA
 });
 
+export const blurredCrossMaterial = new THREE.PointsMaterial({
+  size: 250,
+  map: new THREE.TextureLoader().load("assets/img/blurred-cross-frame.png"),
+  opacity: .6,
+  blending: THREE.AdditiveBlending,
+  transparent: true,
+  color: 0xAAAAAA
+});
+
 // For server instances
 export const newMat = new THREE.MeshPhongMaterial({color: 0x666666, metalness: 0.8, specular: 0x111177 });
