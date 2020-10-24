@@ -1,4 +1,7 @@
 <div id="details" v-show="isOpen" :class="blurred ? 'blurred' : ''">
+  <div class="only-mobile" style="position:fixed;top:2rem;right:2rem;z-index:300">
+    <button type="button" name="button" @click="close">X</button>
+  </div>
   <div class="details-wrapper">
     <div class="text">
       <div class="scrollbar">

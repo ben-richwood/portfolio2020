@@ -1913,8 +1913,20 @@ svg#keyboard, svg.keyboard {
     color: white; } }
 
 @media screen and (max-width: 768px) {
+  .only-desktop {
+    display: none; }
   .only-mobile {
     display: block; }
+  .tuto-pan img, .tuto-dbclick img {
+    height: 80%;
+    margin-top: 5%; }
+  .tuto-pan .element, .tuto-dbclick .element {
+    left: 50%; }
+  .tuto-pan img {
+    margin-left: 20%;
+    height: 70%; }
+  #scale {
+    display: none !important; }
   #sidebar {
     width: 93%;
     max-width: initial;
@@ -1927,6 +1939,8 @@ svg#keyboard, svg.keyboard {
   .filter-item span {
     padding-right: 1rem;
     padding-left: 2.4rem; }
+  #details .images {
+    overflow-y: visible; }
   #details .details-wrapper {
     flex-direction: column;
     height: 100%;
@@ -1939,6 +1953,8 @@ svg#keyboard, svg.keyboard {
         margin-top: 0; } }
 
 @media screen and (min-width: 768px) {
+  .only-desktop {
+    display: block; }
   .flex .col-12 {
     flex: 0 0 100%;
     max-width: 100%; }

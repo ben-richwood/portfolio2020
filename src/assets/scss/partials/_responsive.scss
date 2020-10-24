@@ -34,17 +34,22 @@
     padding-right: 1rem;
     padding-left: 2.4rem;
   }
-  #details .details-wrapper{
-    flex-direction: column;
-    height: 100%;
-    overflow-y: scroll;
-    .text, .images{
-      width: 100%;
-    }
+  #details{
     .images{
-      margin-top: 2rem;
-      h3{
-        margin-top: 0
+      overflow-y: visible;
+    }
+    .details-wrapper{
+      flex-direction: column;
+      height: 100%;
+      overflow-y: scroll;
+      .text, .images{
+        width: 100%;
+      }
+      .images{
+        margin-top: 2rem;
+        h3{
+          margin-top: 0
+        }
       }
     }
   }

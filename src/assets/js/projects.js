@@ -158,7 +158,7 @@ export default {
       "design": "<p>There were two parts:<br>First I drew up a document that exposes the design intentions and principles.</p><p>Over a second phase, I realized the detailed design guideline document that contain the mockups of all the pages. It implies the design of all the individual components, plus the color and font system.</p><p>Regarding the guideline, I defined 2 main directions: staging the products and \"a website made by fans for fans\".<br> Manga is a visual medium; it's all about animation, storytelling and rhythm. The website had to use the same codes. The focus was to stage the products, through layout, animations and visuals.</p>",
       "code": "<p>I chose Ruby on Rails for its robustness and as a reliable backend framework; it offers many built-in tools for security, assets management, routing, back office and optimisations.</p><h4>DevOps</h4><p>Takacorp is hosted on Heroku – a serverless solution easy to manage, to scale and affordable for starting businesses.<br>AWS is used for storage (S3) and MailGun for transactional emails. And source code is maintained with git on an independent repository.</p>",
       "link": "https://takacorp.herokuapp.com",
-      "images": ["Taka_webdesign_homepage",{url:"Taka_webdesign",caption:"I started with a \"Design Principle\"  document, and then turned it into a proper webdesign guideline"}, {url:"UI_page",caption:"UI components of the pages"}, {url:"stripeCheckout",caption:"Stripe Chaeckout - the website used 3 different payment gateway (Monetico, Paypal and Stripe), accepting one-go and staggered payments"}],
+      "images": ["Taka_webdesign_homepage",{url:"intention", caption:"I started with a design intend, to lead the design elements"}, {url:"Taka_webdesign",caption:"I started with a \"Design Principle\"  document, and then turned it into a proper webdesign guideline"}, {url:"UI_page",caption:"UI components of the pages"}, {url:"stripeCheckout",caption:"Stripe Chaeckout - the website used 3 different payment gateway (Monetico, Paypal and Stripe), accepting one-go and staggered payments"}],
       "slug": "taka",
       "category": "Freelance job - Full stack + design",
       "cat": "freelance",
@@ -278,6 +278,8 @@ export default {
       "summary": "Master degree in Entrepreneuship and Design",
       "description": "After 4 years in geography, I move to Lyon to make a Master degree in Entrepreneuship and Design, between EMLyon and Centrale Lyon. The program was hinged on on social science, ingineering (including coding), business and design. And a fabLab was the pivot point of this studdy, where we were able to prototype ideas and projects.",
       "cat": "main",
+      "slug": "master",
+      "images": [{url:"emlyon",caption:"EMLYON Business School, France"},{url:"essay-cover",caption:"My final essay, about the impact of innovation of branding"}, {url:"essay-sample", caption:"Sample of my essay"}],
       "group": "study",
       "timeline": {
         "startingYear": 2013.7,
@@ -501,7 +503,7 @@ export default {
       "category": "Main job for BLISS interactive - development, digital producer and project management",
       "code": "While I didn't set up and work on the first phases, I handle many change requests. I advised the client on technical options, by drawing up scopes along wireframes and diagrams. Then I implemented some of them, and ran quality controls.",
       "slug": "yoe",
-      "images": [{url:"techno_approch",caption:"Diagram to describe the technical stack to the client"}, {url:"openbadges",caption:"Sitemap & wireframe for a change request - integrating a new Badge"}],
+      "images": [{url:"techno_approch",caption:"Diagram to describe the technical stack to the client"}, {url:"YoE-AAcompliancy",caption:"As part of the initial scope, I drew up the specs and documentation of the WCAG compliancy (Accessibility)"}, {url:"openbadges",caption:"Sitemap & wireframe for a change request - integrating a new Badge"}],
       "summary": "UK government project to promote engineering",
       "group": "work",
       "timeline": {
@@ -552,7 +554,7 @@ export default {
       }
     }, {
       "id": 18,
-      "name": "Identidy and branding for BLISS",
+      "name": "Identity and branding for BLISS",
       "major": true,
       "cat": "main",
       "year": 2019,
@@ -568,7 +570,7 @@ export default {
       <li>Motion design - <a href="https://vimeo.com/379205001" class="color-link">Link to Vimeo</a></li>
       <li>And I started a 3D animation (a video motion of sort) to showcase BLISS capabilities.</li>
       </ul>`,
-      "images": [{url:"rate_card",caption:"I worked o a card rate, which can be adapted from a simple Google Sheet - which then generates a PPT presentation using the Google API."},{url:"hanbook_mockup", caption: "To accelerate on boarding for new comers, I designed a handbook with an overview of the company and all the best practices"}, {url:"office_iso",caption:"This isometric map was the illustration of our office for the BLISS Handbook"},{url:"motion-project",caption:"I made a motion design to highlight important moments for BLISS in 2019 as a promotional video"}],
+      "images": [{url:"rate_card",caption:"I worked o a card rate, which can be adapted from a simple Google Sheet - which then generates a PPT presentation using the Google API."},{url:"hanbook_mockup", caption: "To accelerate on boarding for new comers, I designed a handbook with an overview of the company and all the best practices"},{url:"handbook_sample",caption:"The company's handbook sample"}, {url:"office_iso",caption:"This isometric map was the illustration of our office for the BLISS Handbook"}, {url:"presentation-leaflet", caption:"I also made the company's presentation leaflet"},{url:"motion-project",caption:"I made a motion design to highlight important moments for BLISS in 2019 as a promotional video"}],
       "summary": "Developping company brand and culture",
       "group": "work",
       "timeline": {
@@ -597,6 +599,8 @@ export default {
       "summary": "Enhance an existing website",
       "description": "I built up a Chrome Extension to enhance an internal tool used for booking, time and tracking management. The extension intended to overcome some missing features, such as the ability to color and filter bookings based upon defined Tags and Phases.",
       "code": "Fully written in Javascript with no dependencies, the challenge was to overcome the behavior dictated by the original website librairies (Preact) - and find work around to pass by these limitations. And performance was also a big concern, since the initial website was already extensively using javascript for interactions.",
+      "slug": "extension",
+      "images": ["extension", {url:"overlay",caption:"added elements on top ofthe initial website"}],
       "year": 2020,
       "group": "work",
       "timeline": {
@@ -625,7 +629,7 @@ export default {
       "code": "<p>Powered by React and NextJS (and Wagtail for the CMS), the new website intended to be reactive and dynamic. While I din't work on the set up, I developed a large part of the website and handled most of the change requests.</p><p>To name few challenges: a very compex and nested sitemap (see image on the side), external systems that plugged into this new website, many conten pages, a large system of locations (cities and medical centers) over Vietnam with specific content for each - and a in 4 different languages</p>",
       "design": "I design only few elements of the website. However, I built a large part of the website structure, coming up with sitemap, wireframes and flows.",
       "slug": "fmp",
-      "images": ["homepage", {url:"FMP_sitemap",caption:"Sitemap of the new website"},{url:"routing-history_page", caption: "I worked on many documents to explain clearly what we were going to build for the client - here is the routing strategy"}, {url:"supplierAPI-flow",caption:"We worked with some suppliers, and I documented to faciitate the integration"}, {url:"flow-book_doctor",caption:"For each change requests, I made some wireframes and mockups to help the design department"}, "fmp-photoshop"],
+      "images": ["homepage", {url:"FMP_sitemap",caption:"Sitemap of the new website"},{url:"routing-history_page", caption: "I worked on many documents to explain clearly what we were going to build for the client - here is the routing strategy"}, {url:"supplierAPI-flow",caption:"We worked with some suppliers, and I documented to faciitate the integration"}, {url:"doctor_booking", caption:"UX proposal for booking, with filters by medical center and API calls."}, {url:"flow-book_doctor",caption:"For each change requests, I made some wireframes and mockups to help the design department"}, {url:"wireframes_calling_button",caption:"Detailed flow of th calling button feature"}, "fmp-photoshop"],
       "group": "work",
       "category": "Main work for BLISS interactive - Digital producer and lead developer",
       "year": 2019,
@@ -662,7 +666,7 @@ export default {
       <p>CSS critical path to display relevant and readable content as soon as the first bits load - without waiting for all the assets to load.</p><p>Performance Audit: I ran many performance tests, with the Chrome DevTool (CSS and JS Coverage), <a href=\"https://developers.google.com/web/tools/lighthouse/\">Lighthouse</a>, <a href=\"https://github.com/mrdoob/stats.js/\">Stat.js</a> and many other tools.</p>
       <p>Caching (Cache control and gzip compression) to reduce new reloads.</p>`,
       "design": "<p>I wanted my portfolio as a video games; so I naturally takes many elements from screen graphics and video games UI. I detail more these elements in the option menu (CREDIT tab).</p>",
-      "images": [{url:"performance",caption:"Intensive work to ensure it runs as smooth as possible, examinating any potential memory leaks or unused functions"},{url:"room",caption:"My first prototype was a 3D scene, with a metaphor of a two side of a screen: for frontend/design and backend"}, "blender_scene"],
+      "images": [{url:"performance",caption:"Intensive work to ensure it runs as smooth as possible, examinating any potential memory leaks or unused functions"},{url:"room",caption:"My first prototype was a 3D scene, with a metaphor of a two side of a screen: for frontend/design and backend"}, "blender_scene", {url:"blender_screen", caption:"Screenshot of the Blender scene"}],
       "slug": "portfolio",
       "category": "Personal project",
       "group": "freelance",
@@ -759,7 +763,7 @@ export default {
       "year": 2020,
       "code": "It's a one-page app, built with VueJS. It handles photo uploads, using Google Cloud Vision AI to detect explicit and/or violent content in the pictures. And it's all build in a secure Google App Engine",
       "link": "https://spotify-fan.com/",
-      "screenImg": "homepage.png",
+      "images": ["home", {url:"artist", caption:"The website showcases some local artists"}],
       "slug": "spotify",
       "category": "Main job for BLISS interactive - Web development and project management",
       "group": "freelance",

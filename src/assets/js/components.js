@@ -547,7 +547,7 @@ domElTimeline.addEventListener("touchend", evt => {
     touchtime = new Date().getTime();
   } else {
     // compare first click to this click and see if they occurred within double click threshold
-    if (((new Date().getTime()) - touchtime) < 800) {
+    if (((new Date().getTime()) - touchtime) < 500) {
       // double click occurred
       if (evt.target.classList.contains("node")){
         detailPopup.open(evt.target.getAttribute("data-id"));
@@ -559,8 +559,6 @@ domElTimeline.addEventListener("touchend", evt => {
     }
   }
 }, true);
-
-
 
 // Keyboard navigation
 document.addEventListener('keyup', (event) => {

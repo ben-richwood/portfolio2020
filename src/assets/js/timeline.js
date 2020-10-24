@@ -106,7 +106,9 @@ export function init() {
   controls.maxDistance = settings.isMobile ? 2800 : 2000;
   // controls.maxDistance = 2000;
   controls.minAzimuthAngle = 0;
-  controls.maxAzimuthAngle = controls.minAzimuthAngle
+  controls.maxAzimuthAngle = controls.minAzimuthAngle;
+  controls.enableZoom = true;
+  controls.enablePan = true;
 
   controls.minPolarAngle = 0;
   controls.maxPolarAngle =  Math.PI / 12; // alternative: Math.PI / 16;
@@ -118,12 +120,14 @@ export function init() {
     // MIDDLE: THREE.MOUSE.DOLLY,
     RIGHT: THREE.MOUSE.PAN
   }
+  console.log("TOUCH", THREE.TOUCH);
+  console.log("MOUSE", THREE.MOUSE);
+  // DOLLY_PAN: 2, DOLLY_ROTATE: 3, PAN: 1, ROTATE: 0
   controls.touches = {
-    // ONE: THREE.TOUCH.PAN
-    ONE: null,
-    TWO: THREE.TOUCH.PAN
+    ONE: THREE.TOUCH.PAN,
+    // ONE: THREE.TOUCH.DOLLY_PAN,
+    TWO: THREE.TOUCH.DOLLY_PAN
   }
-
 
   const marker = document.getElementById("scaleMarker");
   const scale = document.getElementById("scale");
@@ -131,8 +135,6 @@ export function init() {
 
   let intermediate = controls.maxDistance / (controls.maxDistance - controls.minDistance) * 100;
   marker.style.transform = `translateY(${((scaleHeight * intermediate.toFixed(2)) / 100)}px)`;
-
-
 
 
   const DOMElTimeline = [{}];
@@ -158,6 +160,7 @@ export function init() {
   cross.position.z = 0;
   scene.add( cross );
 
+  // same in foreground (blurred)
   partVert = new THREE.Geometry();
   crossStartingZ = -2000
   for ( var i = 1; i < 8; i ++ ) { // vertical loop
@@ -178,12 +181,6 @@ export function init() {
   /////////////////////////////////////////////////////////////////////////
  //             	      Building timeline elements                      //
 /////////////////////////////////////////////////////////////////////////
-
-  // X axis
-  // buildLine(timelineMaterial.perso, [xOffset, 0, 0, (12 * yu) + xOffset, 0, 0]);
-
-  // Year 2009
-  // buildLine(timelineMaterial.perso, [xOffset, 0, -800, xOffset, 0, 800]);
 
   // Display year numbers
   var today = new Date();
@@ -227,56 +224,8 @@ export function init() {
     cssScene.add(cssObject);
   }
 
-  // Adding line to mark TODAY
-  // const matLineDash = new LineMaterial( {
-  const matLineDash = new LineMaterial( {
-    color: 0xffffff,
-    linewidth: .001,
-    vertexColors: THREE.VertexColors,
-    dashed: true, dashSize: .03, gapSize: 10
-    //resolution:  // to be set by renderer, eventually
-  } );
-  // buildLine(0xaaaaaa, [(2020 - 2009) * yu, 0, -200, (2020 - 2009) * yu, 0, 200], matLineDash);
-
-
-  /////////////////////////////////////////////////////////////////////////
- //             	        WHAT's NEXT ELEMENT                           //
-/////////////////////////////////////////////////////////////////////////
-  // creating what's next
-  {
-  /*
-  const WNContainer = document.createElement( 'div' );
-  WNContainer.className = "wNContainer";
-  const blinkingDot = document.createElement( 'div' );
-  blinkingDot.className = "blinkingDot";
-
-  const divSubContainer = document.createElement( 'div' );
-  divSubContainer.className = "detail";
-  var element = document.createElement( 'div' );
-  element.className = 'into-detail';
-
-  var desc = document.createElement( 'div' );
-  desc.className = 'desc';
-  desc.textContent = "What's next";
-
-  element.appendChild( desc );
-  divSubContainer.appendChild( element );
-  WNContainer.appendChild( blinkingDot );
-  WNContainer.appendChild( divSubContainer );
-
-  // var cssObjectWN = new CSS3DObject( WNContainer );
-  // cssObjectWN.position.x = 12 * yu; // 2021
-  // cssObjectWN.position.y = 0;
-  // cssObjectWN.position.z = 0;
-  // cssObjectWN.rotation.x = Math.PI/2;
-  // cssObjectWN.rotation.y = Math.PI;
-  // cssObjectWN.rotation.z = Math.PI;
-  // add it to the css scene
-  // cssScene.add(cssObjectWN);
-  // buildLine(timelineMaterial.perso, [11 * yu, 0, 0, 12 * yu, 0, 0], matLineDash);
-  */
-  }
   // Add symbols
+  //////////////////////////////////////////
   for (const [prop, value] of Object.entries(projects.symbols)) {
     for ( let i = 0, j = value.length; i < j; i++ ) {
       let el = value[i];
@@ -315,7 +264,8 @@ export function init() {
       symbols[prop].push( object );
   	}
   }
-  // Add title
+  // Add TITLE
+  //////////////////////////////////////////
   {
     let element = document.createElement( 'div' );
     element.className = `timeline-title`;
@@ -334,7 +284,11 @@ export function init() {
     cssScene.add( object );
   }
 
-  // Techno
+     /////////////////////////////////////////////////////////////////////////
+   //                   	      Building BOUNDS                           //
+  /////////////////////////////////////////////////////////////////////////
+  // TECHNO
+  //////////////////////////////////////////
   let jsArr = [2, 3, 5, 15, 16, 17, 18, 19, 20, 23];
   for (var i = 0, j = jsArr.length; i < j; i++) {
     const k = projects.list.find(e => e.id == (jsArr[i] + 1));
@@ -345,7 +299,6 @@ export function init() {
   }
   let pyArr = [5, 23];
   for (var i = 0, j = pyArr.length; i < j; i++) {
-    // let k = pyArr[i];
     const k = projects.list.find(e => e.id == (pyArr[i] + 1));
     projects.bounds.techno.push({
       start: {...projects.symbols.techno[1].position},
@@ -354,7 +307,6 @@ export function init() {
   }
   let rorArr = [4, 11];
   for (var i = 0, j = rorArr.length; i < j; i++) {
-    // let k = rorArr[i];
     const k = projects.list.find(e => e.id == (rorArr[i] + 1));
     projects.bounds.techno.push({
       start: {...projects.symbols.techno[2].position},
@@ -363,14 +315,13 @@ export function init() {
   }
   let phpArr = [0, 1, 3];
   for (var i = 0, j = phpArr.length; i < j; i++) {
-    // let k = phpArr[i];
     const k = projects.list.find(e => e.id == (phpArr[i] + 1));
     projects.bounds.techno.push({
       start: {...projects.symbols.techno[3].position},
       end: {...k.techno.position}
     })
   }
-  // Software
+  // SOFTWARES
   let psArr = [0, 1, 8, 17, 20, 21, 22];
   for (var i = 0, j = psArr.length; i < j; i++) {
     // let k = psArr[i];
@@ -407,10 +358,10 @@ export function init() {
       end: {...k.software.position}
     })
   }
-  let BlArr = [8, 17];
-  for (var i = 0, j = BlArr.length; i < j; i++) {
+  let blArr = [8, 17];
+  for (var i = 0, j = blArr.length; i < j; i++) {
     // let k = BlArr[i];
-    const k = projects.list.find(e => e.id == (BlArr[i] + 1));
+    const k = projects.list.find(e => e.id == (blArr[i] + 1));
     projects.bounds.software.push({
       start: {...projects.symbols.software[4].position},
       end: {...k.software.position}
@@ -479,7 +430,6 @@ export function init() {
 
   		cssScene.add( object );
 
-  		// objects.push( object );
 
       var bond = document.createElement( 'div' );
   		bond.className = "bond hide-bounds";
@@ -695,28 +645,9 @@ export function init() {
     }
 	}
 
-  // TIMELINE
-  // var vector = new THREE.Vector3();
-  //
-	// for ( var i = 0, l = objects.length; i < l; i ++ ) {
-  //   let el = projects.list[i];
-  //
-	// 	var object = new THREE.Object3D();
-  //   if (el.timeline) {
-  //     object.position.x = (el.timeline.startingYear - 2009) * yu;
-  // 		object.position.z = (Math.random() * 400) - 200;
-  //   } else {
-  //     object.position.x = 0;
-  //     object.position.z = 0;
-  //   }
-  //
-  //   object.rotation.x = -Math.PI/2;
-	// 	targets.software.push( object );
-	// }
-
-  console.log("targets", targets);
-  console.log("symbols", symbols);
-  TEST.testing(scene);
+  // console.log("targets", targets);
+  // console.log("symbols", symbols);
+  // TEST.testing(scene);
 
   // stats
   // if (settings.isDebugMode) {
