@@ -157,6 +157,42 @@
       </div>
 
       <div class="row">
+        <div class="col-12">
+          <h3 class="borderline">Legend</h3>
+        </div>
+      </div>
+      <div class="row margin-section">
+        <div class="col-6">
+          <b>Colors</b>
+          <div style="padding-left: 2rem; margin-top: 1.5rem">
+            <div class="major legend-item" style="max-width: 130px;">Major projects</div>
+            <div class="minor legend-item" style="max-width: 130px;">Minor projects</div>
+          </div>
+        </div>
+        <div class="col-6">
+          <b>Icons</b>
+          <div class="flex f-column f-start" style="align-items: flex-start;padding-left: 2rem;margin-top: 1.5rem">
+            <div class="flex f-row f-start">
+              <svg class="techno-svg" version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 200 200" preserveAspectRatio="xMinYMin meet" role="img"><path fill="#000" d="M44.667,157h111v12h-123V45h12V157z M166.667,34v114h-113V34H166.667z M144.568,90L112.81,51H77.766l31.759,39l-31.759,39
+                h35.044L144.568,90z"/>
+              </svg>
+              <label for="">Main job</label>
+            </div>
+            <div class="flex f-row f-start">
+              <svg class="techno-svg" version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 200 200" preserveAspectRatio="xMinYMin meet" role="img">
+                <path fill="#000" d="M12.507,90.288c-5.826-5.658-5.464-11.451,0-15.879l79.419-45.681c5.666-4.056,10.39-4.056,15.878,0l79.42,45.681 c6.358,5.482,5.642,11.275,0,15.879l-79.42,45.685c-4.615,3.306-10.213,3.723-15.878,0L12.507,90.288z M9.238,116.211 c0,4.423-0.894,7.734,3.269,11.784l79.419,45.68c5.666,3.724,11.263,3.306,15.878,0l79.42-45.68 c4.277-3.479,3.383-6.897,3.383-11.874v-3.213l-81.822,46.014c-5.195,3.638-11.509,4.1-17.868,0L9.238,112.998V116.211z"/></svg>
+              <label for="">Freelance<br/> contract</label>
+            </div>
+            <div class="flex f-row f-start">
+              <svg class="techno-svg" version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 200 200" preserveAspectRatio="xMinYMin meet" role="img"><path fill="#000" d="M35.897,33.829v120.673c0,6.107,4.955,11.054,11.063,11.054h83.228c6.112,0,11.068-4.946,11.068-11.054V134.92 l27.778-19.138c5.912-4.275,11.067-7.413,11.067-13.521V53.917c0-6.1-4.955-11.055-11.067-11.055h-27.778v-9.033l-60.747,0v44.228 h4.439l7.511,9.85v26.024l0,0H57.261V87.907l7.503-9.849h4.444V33.83L35.897,33.829z M163.749,96.972l-22.492,18.003V94.44V59.207 h22.492V96.972z"/></svg>
+              </svg>
+              <label for="">Freelance <br/>contract</label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
         <div class="col-12 col-md-2"></div>
         <div class="col-12 col-md-10 margin-section">
           <h3 class="borderline">Interaction</h3>
@@ -246,90 +282,6 @@
       </div>
       </div>
 
-      <div class="row">
-        <div class="col-12">
-          <h3 class="borderline">Legend</h3>
-        </div>
-      </div>
-      <div class="row margin-section">
-        <div class="col-6">
-          <b>Colors</b>
-          <div style="padding-left: 2rem; margin-top: 1.5rem">
-            <div class="major legend-item" style="max-width: 130px;">Major projects</div>
-            <div class="minor legend-item" style="max-width: 130px;">Minor projects</div>
-          </div>
-        </div>
-        <div class="col-6">
-          <b>Icons</b>
-          <div class="flex f-column f-start" style="align-items: flex-start;padding-left: 2rem;margin-top: 1.5rem">
-            <div class="flex f-row f-start">
-              <svg class="techno-svg" version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 200 200" preserveAspectRatio="xMinYMin meet" role="img"><path fill="#000" d="M44.667,157h111v12h-123V45h12V157z M166.667,34v114h-113V34H166.667z M144.568,90L112.81,51H77.766l31.759,39l-31.759,39
-                h35.044L144.568,90z"/>
-              </svg>
-              <label for="">Main job</label>
-            </div>
-            <div class="flex f-row f-start">
-              <svg class="techno-svg" version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 200 200" preserveAspectRatio="xMinYMin meet" role="img">
-                <path fill="#000" d="M12.507,90.288c-5.826-5.658-5.464-11.451,0-15.879l79.419-45.681c5.666-4.056,10.39-4.056,15.878,0l79.42,45.681 c6.358,5.482,5.642,11.275,0,15.879l-79.42,45.685c-4.615,3.306-10.213,3.723-15.878,0L12.507,90.288z M9.238,116.211 c0,4.423-0.894,7.734,3.269,11.784l79.419,45.68c5.666,3.724,11.263,3.306,15.878,0l79.42-45.68 c4.277-3.479,3.383-6.897,3.383-11.874v-3.213l-81.822,46.014c-5.195,3.638-11.509,4.1-17.868,0L9.238,112.998V116.211z"/></svg>
-              <label for="">Freelance<br/> contract</label>
-            </div>
-            <div class="flex f-row f-start">
-              <svg class="techno-svg" version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 200 200" preserveAspectRatio="xMinYMin meet" role="img"><path fill="#000" d="M35.897,33.829v120.673c0,6.107,4.955,11.054,11.063,11.054h83.228c6.112,0,11.068-4.946,11.068-11.054V134.92 l27.778-19.138c5.912-4.275,11.067-7.413,11.067-13.521V53.917c0-6.1-4.955-11.055-11.067-11.055h-27.778v-9.033l-60.747,0v44.228 h4.439l7.511,9.85v26.024l0,0H57.261V87.907l7.503-9.849h4.444V33.83L35.897,33.829z M163.749,96.972l-22.492,18.003V94.44V59.207 h22.492V96.972z"/></svg>
-              </svg>
-              <label for="">Freelance <br/>contract</label>
-            </div>
-          </div>
-        </div>
-      </div>
-
-
-      <div class="row">
-        <!-- <div class="col-12 col-md-2"></div> -->
-        <div class="col-12 col-md-10">
-          <h3 class="borderline">Analytics</h3>
-          <div>
-            <p class="mb">Privacy does matter to me. I hate being tracked when browsing and visiting websites.</p>
-            <p class="mb">In the meantime, I would like to have some inkling about how many people visit my website. So I opted for Google Analytics.</p>
-            <p class="mb">Analytics wil start as soon as you start the project map, unless you uncheck the checkbox below.</p>
-            <p>More about privacy on the option menu (Space bar)</p>
-            <div style="margin-top: .8rem;">
-              <input type="checkbox" name="analyticsCheckbox" value="analyticsCheckbox" id="analyticsCheckbox" checked><label style="margin-left: 1rem;" for="analyticsCheckbox">Accept analytics</label>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <?php /* <div class="row">
-        <div class="col-12">
-          <div class="tabs-nav">
-            <div data-tab="0" class="subtabs active tc" id="one">Map</div>
-            <div data-tab="1" class="subtabs tc" id="two">Controls</div>
-            <div data-tab="2" class="subtabs tc" id="two">Analytics</div>
-          </div>
-          <div class="tab-container">
-            <div class="tabs tab-0">
-              <div>
-                <p>The project page is an interactive map, where you can explore the different projects I worked on, and sort them by skills.</p>
-              </div>
-              <div>
-                To interact with the portfolio, it's very much like Google Maps. Use the following controls:
-                <p><b>Left click</b> to drag and pan the map</p>
-                <p><b>Double click</b> to open a project</p>
-                <p><b>Wheel</b> to zoom in/out</p>
-                <?php echo file_get_contents("./assets/img/icons/mice.svg"); ?>
-              </div>
-              <div>
-                <p class="mb">Privacy does matter to me. I hate being tracked when browsing and visiting websites.</p>
-                <p class="mb">Analytics wil start as soon as you pass the intro, unlless you uncheck the checkbox.</p>
-                <p>More about privacy on the option menu (Space bar)</p>
-                <div style="margin-top: .8rem;">
-                  <input type="checkbox" name="analyticsCheckbox" value="analyticsCheckbox" id="analyticsCheckbox" checked><label style="margin-left: 1rem;" for="analyticsCheckbox">Accept analytics</label>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div> */ ?>
 
       <div class="row" style="margin-top:4rem;margin-bottom:4rem">
         <!-- <div class="col-12 tc"> -->
@@ -345,6 +297,25 @@
           <!-- <div class="ripple-container">
             <span class="ripple"></span>
           </div> -->
+        </div>
+      </div>
+
+      <div class="row">
+        <!-- <div class="col-12 col-md-2"></div> -->
+        <div class="col-12 col-md-10">
+          <h3 class="borderline">Analytics</h3>
+          <details>
+            <summary>Expand details</summary>
+            <div>
+              <p class="mb">Privacy does matter to me. I hate being tracked when browsing and visiting websites.</p>
+              <p class="mb">In the meantime, I would like to have some inkling about how many people visit my website. So I opted for Google Analytics.</p>
+              <p class="mb">Analytics wil start as soon as you start the project map, unless you uncheck the checkbox below.</p>
+              <p>More about privacy on the option menu (Space bar)</p>
+            </div>
+          </details>
+          <div style="margin-top: .8rem;">
+            <input type="checkbox" name="analyticsCheckbox" value="analyticsCheckbox" id="analyticsCheckbox" checked><label style="margin-left: 1rem;" for="analyticsCheckbox">Accept analytics</label>
+          </div>
         </div>
       </div>
 
