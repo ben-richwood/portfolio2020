@@ -33,22 +33,22 @@ const cameraInitialPosition = { x: 500, y: 1770, z: 327 }
 
 // const svgLoader = new SVGLoader();
 
-const timelineMaterial = {
-  perso: 0x11517F,
-  today: 0xff0000,
-  study: 0x11517F,
-  work: 0x00ffff,
-  freelance: 0x8800ff
-}
+// const timelineMaterial = {
+//   perso: 0x11517F,
+//   today: 0xff0000,
+//   study: 0x11517F,
+//   work: 0x00ffff,
+//   freelance: 0x8800ff
+// }
 
 // For timeline
-export const matLine = new LineMaterial( {
-  color: 0xffffff,
-  linewidth: .003, // in pixels
-  vertexColors: THREE.VertexColors,
-  //resolution:  // to be set by renderer, eventually
-  dashed: false
-} );
+// export const matLine = new LineMaterial( {
+//   color: 0xffffff,
+//   linewidth: .003, // in pixels
+//   vertexColors: THREE.VertexColors,
+//   //resolution:  // to be set by renderer, eventually
+//   dashed: false
+// } );
 
 var objects = [];
 export var targets = { techno: [], software: [], skills: [], all: [], timeline: []};

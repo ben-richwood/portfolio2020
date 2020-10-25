@@ -498,6 +498,10 @@ export const legendMenu = new Vue({
 document.querySelector('#optionMenu > div').classList.remove("hide");
 document.querySelector('#intro > div').classList.remove("hide");
 
+const tlInit = new TimelineLite({onComplete: () =>  { tl.transform( tl.targets.techno, 2000 ) } });
+// var tl = new TimelineMax({delay:0.5, repeat:3, repeatDelay:2, onUpdate:updateStats, onRepeat:updateReps, onComplete:restart});
+tlInit.from(".legend", {scale: 0.1, duration: 1, ease: "elastic"})
+
 function init(e) {
   settings.analyticsOn = document.getElementById("analyticsCheckbox").checked;
   optionMenu.analyticsOn = settings.analyticsOn;
@@ -509,7 +513,6 @@ function init(e) {
   // Popup.displayConfig = false;
   settings.isConfigHigh = e;
   optionMenu.gpu = settings.GPU;
-  // settings.GPU = Popup.config;
   if (e == 1 && false){
     if (settings.isConfigHigh) {
       settings.lateInit()
@@ -519,12 +522,9 @@ function init(e) {
   }
   document.getElementById("intro").style.display = "none";
   settings.isConfigHigh = e;
-  // optionMenu.gpu = Popup.config;
-  // settings.GPU = Popup.config;
-  // Popup.isIntroOff = true;
   selectPerf = false;
   settings.isPaused = false;
-  tl.transform( tl.targets.techno, 2000 );
+  tlInit.play();
 }
 
 document.getElementById("ExploreWork-btn").addEventListener('click', function (e){
