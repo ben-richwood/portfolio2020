@@ -318,7 +318,7 @@
 				box-sizing: content-box;
 		    word-spacing: 0.1rem;
 			}
-			#info, #notCompatible {
+			#infoBeta, #notCompatible {
 				position: absolute;
 				top: 0px;
 				width: 100%;
@@ -333,7 +333,7 @@
 				pointer-events: none;
 				z-index: 200;
 			}
-			#info{
+			#infoBeta{
 				background-color: rgba(255,255,255, .4);
 				color: #509ceb;
 				font-style: italic;
@@ -382,7 +382,7 @@
 		<?php include "./modules/intro.php" ?>
 
 
-		<div id="info">
+		<div id="infoBeta">
 			Beta version
 		</div>
 

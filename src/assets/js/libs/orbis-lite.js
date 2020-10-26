@@ -974,7 +974,7 @@ var OrbitControls = function ( object, domElement ) {
 
 
 		let d = distanceVector(camera.position, {x: camera.position.x, y:scope.minDistance, z:camera.position.z});
-		console.log(d);
+
 		let intermediate = d.toFixed(2) / (scope.maxDistance - scope.minDistance) * 100;
 		// console.log("zoom level: ", d);
 		marker.style.transform = `translateY(${((scaleHeight * intermediate) / 100).toFixed(2)}px)`;

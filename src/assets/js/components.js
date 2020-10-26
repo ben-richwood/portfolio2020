@@ -8,9 +8,11 @@ import { displayProjectImageOnScreen } from './libs/custom/miscellaneous.js'
 import * as THREE from './build/three.module.js';
 import { CSS3DRenderer, CSS3DObject } from './libs/CSS3DRenderer.js';
 
+// import { TWEEN } from './libs/tween.module.min.js'
+import { gsap } from "gsap";
+
 // import * as Timeline from './app.js';
 import * as tl from './timeline.js';
-// import { TWEEN } from './libs/tween.module.min.js'
 
 import Analytics from 'analytics'
 import googleAnalytics from '@analytics/google-analytics'
@@ -498,9 +500,24 @@ export const legendMenu = new Vue({
 document.querySelector('#optionMenu > div').classList.remove("hide");
 document.querySelector('#intro > div').classList.remove("hide");
 
-const tlInit = new TimelineLite({onComplete: () =>  { tl.transform( tl.targets.techno, 2000 ) } });
-// var tl = new TimelineMax({delay:0.5, repeat:3, repeatDelay:2, onUpdate:updateStats, onRepeat:updateReps, onComplete:restart});
-tlInit.from(".legend", {scale: 0.1, duration: 1, ease: "elastic"})
+function launchInitialAnim(){
+  tl.transform( tl.targets.techno, 2000 );
+}
+
+var tlInit = gsap.timeline({onComplete: launchInitialAnim, paused: true });
+
+const divLegends = document.querySelectorAll("#legend .key-legend > div");
+
+tlInit.from(".legend", 1.8, {scale: 0, delay:0.4})
+  .to(divLegends, 1.4, {
+    delay: 0,
+    onComplete: function() {
+      for(let item of divLegends){
+        item.classList.remove("initially-reduced");
+      }
+    }
+  })
+  .from("#DOMElTimeline", 2, { css: { 'filter': 'blur(7px)','-webkit-filter': 'blur(7px)'}, delay: "-=1", ease: "power2.out"})
 
 function init(e) {
   settings.analyticsOn = document.getElementById("analyticsCheckbox").checked;
@@ -510,7 +527,6 @@ function init(e) {
     analytics.plugins.enable('google')
   }
 
-  // Popup.displayConfig = false;
   settings.isConfigHigh = e;
   optionMenu.gpu = settings.GPU;
   if (e == 1 && false){
@@ -518,7 +534,6 @@ function init(e) {
       settings.lateInit()
     }
     // document.removeEventListener('keyup', (event) => {}, false);
-    // console.log("settings:",settings);
   }
   document.getElementById("intro").style.display = "none";
   settings.isConfigHigh = e;

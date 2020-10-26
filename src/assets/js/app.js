@@ -86,64 +86,13 @@ function firstConfigCheck() {
   settings.isMobile = isMobile;
   settings.GPU = rendererEval;
 
-  // Popup.ieDetected = msieversion();
-  // Popup.config = rendererEval;
-  // Popup.isMobile = isMobile;
-  // Popup.isMobile = true; // for testing purpose
   console.log(`%c${rendererEval}`, logStyle);
   console.warn(debugInfo);
 }
 
 if ( WEBGL.isWebGLAvailable() ) {
-  // Popup.isReadyToStart = true;
   init()
 } else {
   var warning = WEBGL.getWebGLErrorMessage();
   document.getElementById( 'notCompatible' ).appendChild( warning );
-}
-
-  /////////////////////////////////////////////////////////////////////////
- //	           	 Initialize the scene, camera and renderer              //
-////////////////////////////////////////////////////////////////////////
-
-
-
-export function readyToLaunch(){
-  for (let obj in objectScene) {
-    let ob = objectScene[obj];
-    if(ob.whichScene === -1){
-      ob.obj.visible = false;
-    }
-  }
-    /////////////////////////////////////////////////////////////////////////
-   //	         	 Light it up! (from custom/miscellaneous.js)              //
-  /////////////////////////////////////////////////////////////////////////
-  // Generating Design lights
-  let allLights;
-  if (settings.isItNight){
-    allLights = nightLight(settings);
-  } else {
-    allLights = dayLight(settings);
-  }
-
-  if (allLights.length > 0) {
-    let idx = 0;
-    allLights.forEach(function(e) {
-      objectScene[`light-${idx}`] = {obj: e, whichScene: 1}
-      scene.add( e );
-      idx++;
-    })
-  }
-
-
-  let selectedObject = scene.getObjectByName("02_servers");
-  scene.remove( selectedObject );
-  selectedObject = scene.getObjectByName("02_ocean");
-  scene.remove( selectedObject );
-
-  delete objectScene["02_servers"];
-  delete objectScene["02_ocean"];
-
-  console.log("ready To Launch",scene);
-
 }

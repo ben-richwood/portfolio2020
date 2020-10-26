@@ -15,10 +15,7 @@ import { t0, keyboardMap, zoomModel, objectScene, container, canvasEl, canvasTim
 
 import { settings } from './components.js'
 
-// import gsap as Tween from "gsap";
 import { TWEEN } from './libs/tween.module.min.js'
-
-// const timeline = projects.list.filter(e => e.onlyTimeline === true);
 
 const sortedTimeline = projects.list.sort(function (a, b) {
   return a.year - b.year;
@@ -117,15 +114,10 @@ export function init() {
   // controls.maxAzimuthAngle = Infinity;
   controls.mouseButtons = {
     LEFT: THREE.MOUSE.PAN, // initial -> THREE.MOUSE.ROTATE,
-    // MIDDLE: THREE.MOUSE.DOLLY,
     RIGHT: THREE.MOUSE.PAN
   }
-  console.log("TOUCH", THREE.TOUCH);
-  console.log("MOUSE", THREE.MOUSE);
-  // DOLLY_PAN: 2, DOLLY_ROTATE: 3, PAN: 1, ROTATE: 0
   controls.touches = {
     ONE: THREE.TOUCH.PAN,
-    // ONE: THREE.TOUCH.DOLLY_PAN,
     TWO: THREE.TOUCH.DOLLY_PAN
   }
 
@@ -612,7 +604,6 @@ export function init() {
   let previousPos = -300
   let previousZ = -500;
 
-  console.log("objects.length", objects.length);
 	for ( let i = 0, c = 0, l = objects.length; i < l; i ++ ) {
     let el = sortedTimeline[i];
     if (c % 6 === 0){

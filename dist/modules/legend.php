@@ -58,7 +58,7 @@
     </div>
   </div>
   <div class="key-legend" v-else>
-    <div class="HUD-legend" :class="HUDoff ? 'hideHUD' : ''">
+    <div class="HUD-legend initially-reduced" :class="HUDoff ? 'hideHUD' : ''">
       <div class="flex f-row f-between">
         <div class="legend-icon" style="align-items: flex-start;">
           <div class="major legend-item">Major projects</div>
@@ -82,7 +82,7 @@
         </div>
       </div>
     </div>
-    <div class="key-blocks" :class="HUDoff ? 'smaller' : ''">
+    <div class="key-blocks initially-reduced" :class="HUDoff ? 'smaller' : ''">
       <div class="key-block" @click="menu">
         <div class="key" style="padding-right:4.5rem;">{{ keyMap.accept[1] }}</div>
         <label for="">Open menu</label>

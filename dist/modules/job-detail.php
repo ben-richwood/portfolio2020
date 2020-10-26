@@ -8,10 +8,10 @@
         <div class="bg-block no-margin">
           <h2>{{ name }}</h2>
           <div>
-            <svg-symbol v-for="icon in iconsTech"  v-bind:use="icon"></svg-symbol>
+            <svg-symbol v-for="(icon, key) in iconsTech" :key="key" v-bind:use="icon"></svg-symbol>
           </div>
           <div>
-            <svg-symbol v-for="icon in icons"  v-bind:use="icon"></svg-symbol>
+            <svg-symbol v-for="(icon, key) in icons" :key="key" v-bind:use="icon"></svg-symbol>
           </div>
         </div>
 
@@ -25,7 +25,7 @@
         </div>
 
 
-        <div class="only-mobile" v-for="img in images.slice(0, 1)">
+        <div class="only-mobile" v-for="(img, i) in images.slice(0, 1)" :key="i">
           <picture>
 
               <source type="image/webp" media="(min-width: 800px) and (orientation: landscape)" :srcset="img.large.srcWebp">
