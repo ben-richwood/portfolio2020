@@ -8,8 +8,7 @@ import { displayProjectImageOnScreen } from './libs/custom/miscellaneous.js'
 import * as THREE from './build/three.module.js';
 import { CSS3DRenderer, CSS3DObject } from './libs/CSS3DRenderer.js';
 
-// import { TWEEN } from './libs/tween.module.min.js'
-import { gsap } from "gsap";
+import { TWEEN } from './libs/tween.module.min.js'
 
 // import * as Timeline from './app.js';
 import * as tl from './timeline.js';
@@ -500,25 +499,6 @@ export const legendMenu = new Vue({
 document.querySelector('#optionMenu > div').classList.remove("hide");
 document.querySelector('#intro > div').classList.remove("hide");
 
-function launchInitialAnim(){
-  tl.transform( tl.targets.techno, 2000 );
-}
-
-var tlInit = gsap.timeline({onComplete: launchInitialAnim, paused: true });
-
-const divLegends = document.querySelectorAll("#legend .key-legend > div");
-
-tlInit.from(".legend", 1.8, {scale: 0, delay:0.4})
-  .to(divLegends, 1.4, {
-    delay: 0,
-    onComplete: function() {
-      for(let item of divLegends){
-        item.classList.remove("initially-reduced");
-      }
-    }
-  })
-  .from("#DOMElTimeline", 2, { css: { 'filter': 'blur(7px)','-webkit-filter': 'blur(7px)'}, delay: "-=1", ease: "power2.out"})
-
 function init(e) {
   settings.analyticsOn = document.getElementById("analyticsCheckbox").checked;
   optionMenu.analyticsOn = settings.analyticsOn;
@@ -539,7 +519,36 @@ function init(e) {
   settings.isConfigHigh = e;
   selectPerf = false;
   settings.isPaused = false;
-  tlInit.play();
+
+  const legendObj = document.querySelector(".legend");
+  const divLegends = document.querySelectorAll("#legend .key-legend > div");
+
+  const tweenA = new TWEEN.Tween({scale: 0})
+    .to({scale: 1}, 4000)
+    .delay(100)
+    .onUpdate(function (object) {
+    	legendObj.style.transform = 'scale(' + object.scale + ')'
+    })
+    .onComplete(function () {
+      for(let item of divLegends){
+        item.classList.remove("initially-reduced");
+      }
+    })
+    .easing(TWEEN.Easing.Quadratic.Out);
+
+  const tweenB = new TWEEN.Tween({blur: 8})
+    .to({blur: 0}, 2000)
+    .onUpdate(function (object) {
+    	domElTimeline.style.filter = 'blur(' + object.blur + 'px)';
+    })
+    .easing(TWEEN.Easing.Quadratic.In)
+    .onComplete(function () {
+      tl.transform( tl.targets.techno, 2000 );
+    });
+
+  tweenA.chain(tweenB);
+
+  tweenA.start();
 }
 
 document.getElementById("ExploreWork-btn").addEventListener('click', function (e){

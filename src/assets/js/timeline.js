@@ -511,7 +511,7 @@ export function init() {
 
 		var object = new CSS3DObject( element );
 		object.position.x = Math.random() * 600 - 600;
-		object.position.y = Math.random() * 4000 - 2000;
+		object.position.y = Math.random() * 3000;
 		object.position.z = Math.random() * 4000 - 2000;
     object.rotation.x = -Math.PI/2;
 		cssScene.add( object );

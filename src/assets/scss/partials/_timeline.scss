@@ -16,6 +16,10 @@
   z-index: 1;
 }
 div#DOMElTimeline{
+  filter: blur(8px);
+  -webkit-filter: blur(8px);
+  -o-filter: blur(8px);
+  -moz-filter: blur(8px);
   z-index: 20;
   background: url(../img/background.svg) 0 0 / cover no-repeat;
   cursor: grab;
