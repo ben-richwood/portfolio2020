@@ -1955,7 +1955,12 @@ svg#keyboard, svg.keyboard {
     #details .details-wrapper .images {
       margin-top: 2rem; }
       #details .details-wrapper .images h3 {
-        margin-top: 0; } }
+        margin-top: 0; }
+  .menuContainer {
+    width: 98%;
+    left: 1%; }
+  .large-button.left-align {
+    padding-left: 6px; } }
 
 @media screen and (min-width: 768px) {
   .only-desktop {

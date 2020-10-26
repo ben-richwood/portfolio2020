@@ -334,6 +334,7 @@
 				z-index: 200;
 			}
 			#infoBeta{
+				display: none;
 				background-color: rgba(255,255,255, .4);
 				color: #509ceb;
 				font-style: italic;
