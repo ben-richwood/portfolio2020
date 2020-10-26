@@ -524,8 +524,8 @@ function init(e) {
   const divLegends = document.querySelectorAll("#legend .key-legend > div");
 
   const tweenA = new TWEEN.Tween({scale: 0})
-    .to({scale: 1}, 4000)
-    .delay(100)
+    .to({scale: 1}, 1000)
+    // .easing(TWEEN.Easing.Quadratic.Out);
     .onUpdate(function (object) {
     	legendObj.style.transform = 'scale(' + object.scale + ')'
     })
@@ -534,10 +534,10 @@ function init(e) {
         item.classList.remove("initially-reduced");
       }
     })
-    .easing(TWEEN.Easing.Quadratic.Out);
 
   const tweenB = new TWEEN.Tween({blur: 8})
     .to({blur: 0}, 2000)
+    .delay(100)
     .onUpdate(function (object) {
     	domElTimeline.style.filter = 'blur(' + object.blur + 'px)';
     })
