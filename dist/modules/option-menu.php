@@ -24,6 +24,7 @@
           <p class="tc">Adjust the general settings at your please</p>
         </div>
         <ul>
+          <h3>External links</h3>
           <div class="inputGroup">
             <input id="radio1" name="radio" @click="changeLinkBehavior" v-model="linksNewTab" type="checkbox"/>
             <label for="radio1">{{linksNewTab ? 'Open external links in a new tab' : 'Open the external links in the current tab'}}</label>
@@ -82,11 +83,18 @@
           <label for="debug">Debug mode</label>
         </div>
         <div class="notice">Shows an info box that monitor code performance. You can click to parade across FPS (Frames rendered in the last second), MS (millisecond needed to render a frame) and MB (allocated memory).</div>
+        <h3>Dark mode</h3>
         <div class="inputGroup">
           <input id="dark" v-on:click="darkMode()" name="radio" type="checkbox" v-model="isDarkMode" />
-          <label for="dark">Dark mode</label>
+          <label for="dark">Dark mode {{isDarkMode ? 'enabled' : 'disabled'}}</label>
         </div>
         <div class="notice">If your system is set up to Dark mode, it may not work.</div>
+
+        <h3>Brightness</h3>
+        <div>
+          <input type="range" min="20" max="100" step="5" v-on:change="updateBrightness" v-model="brightness" class="slider">
+        </div>
+        <div class="notice">You can adjust brightness</div>
         <!-- <div class="inputGroup">
           <input id="antialias" v-on:click="changeConfig('antialias')" name="radio" type="checkbox" v-model="antialias" />
           <label for="antialias">Antialias</label>
@@ -151,7 +159,7 @@
         <div>
           <h4>PM and coding</h4>
           <p>
-            I found out that many concepts in coding could be applied to project management, such as changelog, README (documentation) or <span class="abbr" title="Version Control System">VCS</span>
+            I found out that many concepts in coding could be applied to project management, such as changelog, READMErgba(24,117,187,1) (documentation) or <span class="abbr" title="Version Control System">VCS</span>
           </p>
         </div>
         */ ?>
@@ -165,7 +173,7 @@
                 <picture>
                   <source type="image/webp" srcset="assets/img/all-projects/about/map_<?php echo $arrImg[$i]; ?>.webp">
                   <source type="image/jp2" srcset="assets/img/all-projects/about/map_<?php echo $arrImg[$i]; ?>.jp2">
-                  <source type="image/jpg" srcset="assets/img/all-projects/about/map_<?php echo $arrImg[$i]; ?>.jpg">
+                  <source type="image/jpg" srcset="assets/img/alrgba(24,117,187,1)l-projects/about/map_<?php echo $arrImg[$i]; ?>.jpg">
 
                   <img src="assets/img/all-projects/about/map_<?php echo $arrImg[$i] ?>.jpg" alt="Map of <?php echo $arrImg[$i] ?>">
                 </picture>
@@ -200,9 +208,10 @@
       </div>
       <div v-else-if="currentSubmenu == 5" id="credit">
         <h3 class="tc">Credits</h3>
-        <div class="notice">
+        <!-- <div class="notice">
           <p class="tl">This portfolio is built with these technologies:</p>
-        </div>
+        </div> -->
+        <h4>Techno and stack</h4>
         <div class="flex f-start f-row">
           <div class="col-12 col-md-6">
             <ul>
@@ -249,7 +258,7 @@
         <p class="tl">The source code is accessibe on my GitHub:<br><link-to url="https://github.com/ben-richwood/" copy="Portfolio2020 on GitHub"></link-to></p>
         <h3>Stack</h3>
         <p>Here is an overview of my daily tools, for development, design and project management.</p>
-        <p>I tend to switch as much as possible to <abbr class="abbr" title="Free and Open Source Software">FOSS</abbr>, and get rid of licenced applications.</p>
+        <p>I tend to switch as much as possible to <abbr class="abbr" title="Free and Open Source Software">FOSS</abbr>, and get rid of licenced applications since it's no longer possible to buy lifetime licences - and there're many great FOSS out there that seriously challenge paid software.</p>
         <ul>
           <li>Linux Debian 10</li>
         </ul>
@@ -257,11 +266,12 @@
           <div class="col-12 col-md-6">
             <h4>Dev</h4>
             <ul>
+              <li>OS: Ubuntu 20.04.1 LTS with Awesome WM</li>
+              <li>Terminal: zsh & oh-my-zsh (plus manpage autocompletion from fish)</li>
               <li>Atom</li>
               <li>Firefox Developer Edition</li>
-              <li><link-to url="https://meldmerge.org/" copy="Meld"></link-to> (for merge diff)</li>
               <li>
-                Task runner
+                Task runners
                 <ul>
                   <li>Python scripts</li>
                   <li>Gulp</li>
@@ -280,7 +290,7 @@
             <h4>Framework / Stack</h4>
             <ul>
               <li>
-                javascript
+                Javascript
                 <ul>
                   <li>NodeJS & NPM</li>
                   <li>VueJS</li>
@@ -308,10 +318,10 @@
           <div class="col-12 col-md-6">
             <h4>Design</h4>
             <ul>
-              <li>Adobe Photoshop (want to migrate to Gimp)</li>
-              <li>Adobe Illustrator (want to migrate to <a class="color-link" :target="linksNewTab ? '_blank' : '_self'" href="https://inkscape.org/">InkScape</a>)</li>
-              <li>Adobe inDesign (want to try <a class="color-link" :target="linksNewTab ? '_blank' : '_self'"  href="https://www.scribus.net/">Scribus</a>)</li>
-              <li>Adobe After Effect</li>
+              <li>Adobe Photoshop (migrating to Gimp)</li>
+              <li>Adobe Illustrator (migrating to <a class="color-link" :target="linksNewTab ? '_blank' : '_self'" href="https://inkscape.org/">InkScape</a>)</li>
+              <li>Adobe inDesign (migrating to <a class="color-link" :target="linksNewTab ? '_blank' : '_self'"  href="https://www.scribus.net/">Scribus</a>)</li>
+              <li>Adobe After Effect (migrating to <a class="color-link" :target="linksNewTab ? '_blank' : '_self'"  href="https://natrongithub.github.io/">Natron</a> and Blender)</li>
               <li>Sketch</li>
               <li><a class="color-link" :target="linksNewTab ? '_blank' : '_self'"  href="https://imagemagick.org/index.php">ImageMagick</a> (want to try <a class="color-link" :target="linksNewTab ? '_blank' : '_self'"  href="http://www.graphicsmagick.org/">GraphicsMagick</a>)</li>
             </ul>

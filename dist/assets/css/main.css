@@ -1722,6 +1722,94 @@ svg#keyboard, svg.keyboard {
   .keyMap .key {
     margin-right: 23px; }
 
+input.slider {
+  margin-bottom: 2rem;
+  -webkit-appearance: none;
+  background: transparent;
+  margin: 16px 0;
+  margin-bottom: 2rem;
+  width: 100%; }
+  input.slider::-moz-focus-outer {
+    border: 0; }
+  input.slider:focus {
+    outline: 0; }
+    input.slider:focus::-webkit-slider-runnable-track {
+      background: #ff961a; }
+    input.slider:focus::-ms-fill-lower {
+      background: #ff8a00; }
+    input.slider:focus::-ms-fill-upper {
+      background: #ff961a; }
+  input.slider::-webkit-slider-runnable-track {
+    cursor: pointer;
+    height: 4px;
+    transition: all .2s ease;
+    width: 100%;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2), 0 0 1px rgba(13, 13, 13, 0.2);
+    background: #ff8a00;
+    border: 2px solid #cfd8dc;
+    border-radius: 1px; }
+  input.slider::-webkit-slider-thumb {
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.2), 0 0 4px rgba(13, 13, 13, 0.2);
+    background: #1875bb;
+    border: 0px solid #eceff1;
+    border-radius: 0px;
+    box-sizing: border-box;
+    cursor: pointer;
+    height: 32px;
+    width: 12px;
+    -webkit-appearance: none;
+    margin-top: -16px; }
+  input.slider::-moz-range-track {
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2), 0 0 1px rgba(13, 13, 13, 0.2);
+    cursor: pointer;
+    height: 4px;
+    transition: all .2s ease;
+    width: 100%;
+    background: #ff8a00;
+    border: 2px solid #cfd8dc;
+    border-radius: 1px;
+    height: 2px; }
+  input.slider::-moz-range-thumb {
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.2), 0 0 4px rgba(13, 13, 13, 0.2);
+    background: #1875bb;
+    border: 0px solid #eceff1;
+    border-radius: 0px;
+    box-sizing: border-box;
+    cursor: pointer;
+    height: 32px;
+    width: 12px; }
+  input.slider::-ms-track {
+    cursor: pointer;
+    height: 4px;
+    transition: all .2s ease;
+    width: 100%;
+    background: transparent;
+    border-color: transparent;
+    border-width: 16px 0;
+    color: transparent; }
+  input.slider::-ms-fill-lower {
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2), 0 0 1px rgba(13, 13, 13, 0.2);
+    background: #e67c00;
+    border: 2px solid #cfd8dc;
+    border-radius: 2px; }
+  input.slider::-ms-fill-upper {
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2), 0 0 1px rgba(13, 13, 13, 0.2);
+    background: #ff8a00;
+    border: 2px solid #cfd8dc;
+    border-radius: 2px; }
+  input.slider::-ms-thumb {
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.2), 0 0 4px rgba(13, 13, 13, 0.2);
+    background: #1875bb;
+    border: 0px solid #eceff1;
+    border-radius: 0px;
+    box-sizing: border-box;
+    cursor: pointer;
+    height: 32px;
+    width: 12px;
+    margin-top: 1px; }
+  input.slider:disabled::-webkit-slider-thumb, input.slider:disabled::-moz-range-thumb, input.slider:disabled::-ms-thumb, input.slider:disabled::-webkit-slider-runnable-track, input.slider:disabled::-ms-fill-lower, input.slider:disabled::-ms-fill-upper {
+    cursor: not-allowed; }
+
 @keyframes animateDetailLeft {
   0% {
     transform: translateY(30px) translateZ(0px) rotateY(0) rotateY(16deg) scale(0.92);

@@ -364,6 +364,17 @@
 				color: white;
 				fill: white;
 			}
+			#brightness{
+			  position: fixed;
+			  z-index: 200;
+			  top:0;
+			  left: 0;
+			  width: 100vw;
+			  height: 100vh;
+			  background: #000;
+			  pointer-events: none;
+				opacity: 0;
+			}
 		</style>
 	</head>
 	<body>
@@ -386,6 +397,8 @@
 		<div id="infoBeta">
 			Beta version
 		</div>
+
+		<div id="brightness"></div>
 
 		<div class="ieDetected">
       Internet Explorer is not supported. Please switch to Chrome or Firefox.

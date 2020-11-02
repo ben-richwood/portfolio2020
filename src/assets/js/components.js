@@ -126,6 +126,8 @@ const scaleEl = document.getElementById("scale");
 
 const canvasScene = document.getElementById("canvasScene");
 
+const brightnessDiv = document.getElementById("brightness");
+
 // The only way I found to embed <symbols> with Vue is with components
 Vue.component('svg-symbol', {
   props: ['use'],
@@ -216,7 +218,8 @@ export const optionMenu = new Vue({
     linksNewTab: settings.linksNewTab,
     analyticsOn: true,
     emailAddress: `moc.liamg&#064;nimajneb.<span style="display:none">richwood</span>siobehcir`,
-    isDarkMode: false
+    isDarkMode: false,
+    brightness: 90
   },
   methods: {
     changeSubmenu: function (idx) {
@@ -329,6 +332,11 @@ export const optionMenu = new Vue({
       }
       txt += "</ul>"
       return txt;
+    },
+    updateBrightness: function (e){
+      console.log(e.target.value);
+      this.brightness = parseInt(e.target.value, 10);
+      brightnessDiv.style.opacity = (100 - this.brightness) / 100;
     }
   },
   filters: {
