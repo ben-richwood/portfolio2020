@@ -92,7 +92,7 @@
 
         <h3>Brightness</h3>
         <div>
-          <input type="range" min="20" max="100" step="5" v-on:change="updateBrightness" v-model="brightness" class="slider">
+          <input type="range" min="20" max="100" step="5" v-on:input="updateBrightness" v-model="brightness" class="slider">
         </div>
         <div class="notice">You can adjust brightness</div>
         <!-- <div class="inputGroup">
@@ -123,8 +123,9 @@
             </div>
             <div class="col-12 col-md-6">
               <ul>
-                <li><link-to copy="LinkedInu" rl="https://www.linkedin.com/in/benjaminrichebois/"></link-to></li>
+                <li><link-to copy="LinkedIn" rl="https://www.linkedin.com/in/benjaminrichebois/"></link-to></li>
                 <li><link-to copy="GitHub" url="https://github.com/ben-richwood/"></link-to></li>
+                <li><link-to copy="ArtStation" url="https://www.artstation.com/richwood"></link-to></li>
               </ul>
             </div>
             <div class="col-12 col-md-6">
@@ -139,8 +140,8 @@
         <div>
           <div class="tagline"><p>I'm <span class="highlight--tag">project manager</span> and <span class="highlight--tag">digital producer</span> who puts <span class="highlight--tag">code</span> and <span class="highlight--tag">design</span> into my daily work.</p></div>
           <div>
-            <p>I'm Ben Richebois (<em>aka</em> Richwood). While my main job is Project manager and Digital Producer, I use code and design capabilities to prototype ideas, lead preliminary researches and feasibilities studies (<span class="abbr" title="Proof Of Concept">POC</span>), automate and improve internal tools.</p>
-            <p>I also work on freelance jobs.</p>
+            <p>I'm Ben Richebois (<em>aka</em> Richwood). While my main job is Project Manager and Digital Producer, I use code and design capabilities to prototype ideas, lead preliminary researches and feasibilities studies (<span class="abbr" title="Proof Of Concept">POC</span>), automate and improve internal tools.</p>
+            <p>I also work on freelance jobs, as developer and designer.</p>
             <p>This portfolio has been designed with a single idea in mind: to show evidence and examples of project I made for every skills I state in my portfolio.</p>
           </div>
         </div>
@@ -294,8 +295,10 @@
                 <ul>
                   <li>NodeJS & NPM</li>
                   <li>VueJS</li>
+                  <li>AlpineJS</li>
                   <li>React</li>
                   <li>ThreeJS</li>
+                  <li>Mapbox</li>
                 </ul>
               </li>
               <li>
@@ -309,6 +312,12 @@
                 Python
                 <ul>
                   <li>Flask</li>
+                </ul>
+              </li>
+              <li>
+                PHP
+                <ul>
+                  <li>Laravel</li>
                 </ul>
               </li>
             </ul>

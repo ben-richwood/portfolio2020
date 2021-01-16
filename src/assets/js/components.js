@@ -35,15 +35,6 @@ analytics.page();
 
 analytics.plugins.disable('google')
 
-// Carousel when loading all the libs
-const tips = [
-  "you can parade accross projects by using your keyboard arrow keys",
-  "You can adapt the browsing settings in the option panel",
-  "Chrome - thanks to its V8 Javascript engine - gives a smooth experience",
-  "To get a better experience, you can reduce the number of tabs",
-  "There are few Easter eggs hidden on the website. Would you be able to find them? ;)"
-]
-
 let selectPerf = false; // previously true
 const URLPrefix = "../dist/assets/img/projects";
 const GPURegex = /rtx|gtx|Direct3D11/i;
@@ -146,42 +137,6 @@ Vue.component('link-to', {
   template: `<a class="color-link" :target="linksNewTab" :href="url">{{ copy }}</a>`
 });
 
-// export const Popup = new Vue({
-//   el: "#intro0",
-//   data: {
-//     displayConfig: true,
-//     config: "",
-//     isMobile: false,
-//     ieDetected: false,
-//     // loadingText: "",
-//     phraseCounter: 0,
-//     isIntroOff: false,
-//     isReadyToStart: false,
-//     progress: 0
-//   },
-//   created: function () {
-//     this.isReadyToStart = true;
-//     // console.log("this.isReadyToStart", this.isReadyToStart);
-//     document.getElementById("readyToStart").style.display = "block";
-//   },
-//   methods: {
-//     whichConfig: function () {
-//       // let result = /^intel/i.test(this.config);
-//       if (GPURegex.test(this.config)){
-//         return "High Performance"
-//       } else {
-//         return "Low Performance"
-//       }
-//     },
-//     // choosePerf: function (e) {
-//     exploreWork: function(e) {
-//
-//     },
-//     // exploreWork: function () {
-//     //   this.displayConfig = false;
-//     // }
-//   }
-// });
 
 const filteredList = Projects.list.filter(e => e.onlyTimeline === false);
 

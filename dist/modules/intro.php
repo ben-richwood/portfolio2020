@@ -19,7 +19,7 @@
       <div class="col-12 col-md-2 margin-section"></div>
       <div class="col-12 col-md-6 margin-section">
         <!-- <div class="tagline"><p>I'm <span class="highlight--tag">project manager</span> and <span class="highlight--tag">digital producer</span> who puts <span class="highlight--tag">code</span> and <span class="highlight--tag">design</span> into my daily work.</p></div> -->
-        <div class="tagline"><p>I'm <span class="highlight--tag">Creative and technical Digital project manager</span> with <span class="highlight--tag">coding</span> and <span class="highlight--tag">design</span> background.</p></div>
+        <div class="tagline"><p>I'm <span class="highlight--tag">Creative and Technical Digital Project Manager</span> with <span class="highlight--tag">coding</span> and <span class="highlight--tag">design</span> background.</p></div>
 
       </div>
     </div>
@@ -55,7 +55,7 @@
               <use xlink:href="#<?php echo $arrImg[$i]; ?>"/>
             </svg>
         <?php } ?>
-        <p>I'm a fullstack developer, working mainly with Javascript. My preferred backend stack is Ruby on Rails, while I sometime use Flask to quickly set up a micro framework.</p>
+        <p>I'm a fullstack developer, with a focus on frontend - delivering high-end and interactive interfaces.<br/>I'm mostly working with Vue, and sometimes React. For small projects and quick bootstrap, I set up <a target="_blank" class="color-link" href="https://github.com/alpinejs/alpine/">AlpineJS</a>.<br/>Regarding backend, I'm working with Ruby on Rails and Laravel for large applications; and I use Flask to quickly set up a micro framework for smaller projects.</p>
       </div>
       <div class="col-12 col-md-6 margin-section">
         <h3 class="borderline">Secondary</h3>
@@ -115,7 +115,7 @@
               <use xlink:href="#<?php echo $arrImg[$i]; ?>"/>
             </svg>
         <?php } ?>
-        <p>I started 3D modeling as a hobbit, with <a target="_blank" class="color-link" href="https://www.blender.org/">Blender</a>. I'm using EEVEE for fast rendering, especially for animations; and occasionnaly Cycle for single shots.</p>
+        <p>I started 3D modeling as a hobbit, with <a target="_blank" class="color-link" href="https://www.blender.org/">Blender</a>. I'm using EEVEE for fast rendering, especially for animations; and occasionnaly Cycle for single shots.<br/>Some of my work on my <a target="_blank" class="color-link" href="https://www.artstation.com/richwood" class="color-link">ArtStation</a></p>
         <p>I also tried Rhino3D during my studies, and Keyshot for renders.</p>
         <p>In a near future, I would like to experiement with <a target="_blank" class="color-link" href="https://www.sidefx.com/products/houdini-apprentice/" class="color-link">Houdini Apprentice</a>.</p>
       </div>

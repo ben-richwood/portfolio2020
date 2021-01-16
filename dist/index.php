@@ -424,9 +424,12 @@
 			  "Mounting components",
 			  "Instanciating meshes",
 			  "Building up the scene",
+				"Chrome - thanks to its V8 Javascript engine - gives a smooth experience",
 			  "Rendering 3d models",
 			  "Texturing the models",
+				"To get a better experience, you can reduce the number of open tabs",
 			  "Lighting up the scene",
+				"There are few Easter eggs hidden on the website. Would you be able to find them? ;)",
 			  "Finetuning the experience"
 			];
 			let phraseCounter = 0
@@ -497,6 +500,32 @@
 		</script>
 
 		<!-- <script type="module" src="./assets/js/bundle_project.js?v=0.1.0"></script> -->
-		<script type="text/javascript" src="./assets/js/bundle_project.js?v=0.1.1"></script>
+		<script type="text/javascript">
+			var param = window.location.search;
+			console.log("param", param)
+			if( (navigator.connection && navigator.connection.saveData && param !== "?mode=overrideSaveData") || param === "?mode=saveData"){
+				const notCompatible = document.createElement('div');
+				notCompatible.className = "not-compatible";
+				const warn = document.createElement('P');
+		    warn.innerHTML = "Your browser is configured as \"Save data\". However, this website heavily uses javascript and loads lots of external librairies, images etc.<br/>If you want to proceed further anyway, you can click this link:<br/><a class=\"color-link button\" style=\"color: white; -webkit-text-fill-color: white;\" href=\"?mode=overrideSaveData\">Relaunch portfolio</a>"
+		      notCompatible.appendChild( warn );
+		      document.getElementById('readyToStart').appendChild( notCompatible );
+		      document.getElementById('ExploreWork-btn').className = "button disabled";
+		      // notCompatible.style.display = "block";
+			} else {
+				var script = document.createElement('script');
+
+				script.src = './assets/js/bundle_project.js?v=0.1.2';
+				// script.setAttribute('defer', true)
+				// Loaded successfully
+				script.onload = function() {};
+				// Loading failed
+				script.onerror = function() { };
+
+				// append new script to html
+				document.body.appendChild(script);
+			}
+		</script>
+		<!-- <script type="text/javascript" src="./assets/js/bundle_project.js?v=0.1.1"></script> -->
 	</body>
 </html>
