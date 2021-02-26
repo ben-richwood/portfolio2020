@@ -55,7 +55,7 @@
               <use xlink:href="#<?php echo $arrImg[$i]; ?>"/>
             </svg>
         <?php } ?>
-        <p>I'm a fullstack developer, with a focus on frontend - delivering high-end and interactive interfaces.<br/>I'm mostly working with Vue, and sometimes React. For small projects and quick bootstrap, I set up <a target="_blank" class="color-link" href="https://github.com/alpinejs/alpine/">AlpineJS</a>.<br/>Regarding backend, I'm working with Ruby on Rails and Laravel for large applications; and I use Flask to quickly set up a micro framework for smaller projects.</p>
+        <p>I'm a fullstack developer, with a focus on frontend - delivering high-end and interactive interfaces.<br/>I'm mostly working with <b>Vue</b>, and sometimes <b>React</b>. For small projects and quick bootstrap, I set up <a target="_blank" class="color-link" href="https://github.com/alpinejs/alpine/">AlpineJS</a>.<br/>Regarding backend, I'm working with <b>Ruby on Rails</b> for large applications; and I use <b>Flask</b> to quickly set up a micro framework for smaller projects.</p>
       </div>
       <div class="col-12 col-md-6 margin-section">
         <h3 class="borderline">Secondary</h3>
@@ -67,7 +67,7 @@
               <use xlink:href="#<?php echo $arrImg[$i]; ?>"/>
             </svg>
         <?php } ?>
-        <p>I occasionally worked with PHP and NodeJS (Express), and more largely with Python scripts for many sorts of automations.</p>
+        <p>I occasionally worked with PHP <b>Laravel</b> and <b>NodeJS</b> (<b>Express</b>), and more largely with Python scripts for many sorts of automations.</p>
       </div>
       <div class="col-12 col-md-6"></div>
       <div class="col-12 col-md-6 margin-section">
@@ -104,17 +104,18 @@
         <h3 class="borderline">Software</h3>
         <p>I made lots of webdesigns - especiallly for freelance; besides that, I use design software for my daily work as project manager/digital producer for many sorts of documents - wireframes, fllows, sitemaps, diagrams, technical approaches...</p>
       </div>
-      <div class="col-12 col-md-2 margin-section"></div>
-      <div class="col-12 col-md-6 margin-section">
-        <h3 class="borderline">3D</h3>
+      <div class="col-12 col-md-2 margin-section">
         <?php
           $arrImg = array("blender");
           $count = count($arrImg);
           for( $i = 0; $i<$count; $i++ ) { ?>
-            <svg xmlns="http://www.w3.org/2000/svg" class="techno-svg" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+            <svg xmlns="http://www.w3.org/2000/svg" class="techno-svg" style="transform: scale(1.5);" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
               <use xlink:href="#<?php echo $arrImg[$i]; ?>"/>
             </svg>
         <?php } ?>
+      </div>
+      <div class="col-12 col-md-6 margin-section">
+        <h3 class="borderline">3D</h3>
         <p>I started 3D modeling as a hobbit, with <a target="_blank" class="color-link" href="https://www.blender.org/">Blender</a>. I'm using EEVEE for fast rendering, especially for animations; and occasionnaly Cycle for single shots.<br/>Some of my work on my <a target="_blank" class="color-link" href="https://www.artstation.com/richwood" class="color-link">ArtStation</a></p>
         <p>I also tried Rhino3D during my studies, and Keyshot for renders.</p>
         <p>In a near future, I would like to experiement with <a target="_blank" class="color-link" href="https://www.sidefx.com/products/houdini-apprentice/" class="color-link">Houdini Apprentice</a>.</p>

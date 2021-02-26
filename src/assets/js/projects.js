@@ -308,7 +308,7 @@ export default {
       "description": "<p>My main objective was to design and realize a prototype of an accomodation in a maritim container.</p><p>Coming along the master degree, I wrote an essay about how innovation impacts companies' identity.</p>",
       "design": "<p>I mostly work on Capsul, the container's accomodation. It started with exploration and concepts. And then it switched to prototyping the ideas and modeling. I allso worked a lot on the regulations related to hosting.</p><p><a href='https://skfb.ly/F8Wr'>3D model of the room</a> (link to SketchFab)</p><p>In paralel, I helpled with the leaflets, some presentations and 3d modeling for client proposals.</p>",
       "slug": "capsa",
-      "images": [{url:"capsul",caption:"My main mission was to design a temporary acomodation in a maritim container. Here is the 3d modeling I made for it (with Blender Cycle)."},{url:"capsul-room",caption:"Detail of the room - we specificaly had to work on adaptable furniture regarding the dimension of a container"},{url:"typo-ctn-01",caption:"Graphic researches about container typology and layout"},{url:"exterieur",caption:"I also worked on other 3d modeling for client requests"},{url:"CAPSA_catalogue_Event-cover",caption:"Event catalog cover"},{url:"catalog-indus-double-page",caption:"Catalog Industry - I designed their 2 catalogs - Event and Industry"},{url:"essay-cover",caption:"My Master degree essay - how innovation impacts comapnies' identity"}],
+      "images": [{url:"capsul",caption:"My main mission was to design a temporary acomodation in a maritim container. Here is the 3d modeling I made for it (with Blender Cycle)."},{url:"capsul-room",caption:"Detail of the room - we specificaly had to work on adaptable furniture regarding the dimension of a container"},{url:"typo-ctn-01",caption:"Graphic researches with Illustrator about container typology and layout"},{url:"exterieur",caption:"I also worked on other 3d modeling for client requests"},{url:"CAPSA_catalogue_Event-cover",caption:"Event catalog cover"},{url:"catalog-indus-double-page",caption:"Catalog Industry - I designed their 2 catalogs with InDesign - Event and Industry"},{url:"essay-cover",caption:"My Master degree essay - how innovation impacts comapnies' identity"}],
       "group": "work",
       "timeline": {
         "startingYear": 2014.5,
@@ -474,7 +474,7 @@ export default {
       </ul>`,
       "major": true,
       "slug": "bliss",
-      "images": [{url:"rate_card",caption:"I worked on a card rate, which can be adapted from a simple Google Sheet - and then generates a PPT presentation using the Google Slide API."},{url:"hanbook_mockup", caption: "To accelerate on boarding for new comers, I designed a handbook with an overview of the company and all the best practices"}, {url:"office_iso",caption:"This isometric map was the illustration of our office for the BLISS Handbook"},{url:"pepsi-posposal",caption:"one technical propsal I designed for a client"}],
+      "images": [{url:"rate_card",caption:"I worked on a card rate, which can be adapted from a simple Google Sheet - and then generates a PPT presentation using the Google Slide API."},{url:"hanbook_mockup", caption: "To accelerate on boarding for new comers, I designed a handbook with an overview of the company and all the best practices. Made with InDesign"}, {url:"office_iso",caption:"This isometric map was the illustration of our office for the BLISS Handbook. Made with Illustrator"},{url:"pepsi-posposal",caption:"One technical propsal I designed for a client"}],
       "group": "work",
       "timeline": {
         "startingYear": 2017,
@@ -503,7 +503,7 @@ export default {
       "category": "Main job for BLISS interactive - development, digital producer and project management",
       "code": "While I didn't set up and work on the first phases, I handle many change requests. I advised the client on technical options, by drawing up scopes along wireframes and diagrams. Then I implemented some of them, and ran quality controls.",
       "slug": "yoe",
-      "images": [{url:"techno_approch",caption:"Diagram to describe the technical stack to the client"}, {url:"YoE-AAcompliancy",caption:"As part of the initial scope, I drew up the specs and documentation of the WCAG compliancy (Accessibility)"}, {url:"openbadges",caption:"Sitemap & wireframe for a change request - integrating a new Badge"}],
+      "images": [{url:"techno_approch",caption:"Diagram to describe the technical stack to the client"}, {url:"YoE-AAcompliancy",caption:"As part of the initial scope, I drew up the specs and documentation of the WCAG compliancy (Accessibility)"}, {url:"openbadges",caption:"Sitemap & wireframe for a change request - integrating a new Badge. Made with Illustrator"}],
       "summary": "UK government project to promote engineering",
       "group": "work",
       "timeline": {
@@ -570,7 +570,7 @@ export default {
       <li>Motion design - <a href="https://vimeo.com/379205001" class="color-link">Link to Vimeo</a></li>
       <li>And I started a 3D animation (a video motion of sort) to showcase BLISS capabilities.</li>
       </ul>`,
-      "images": [{url:"rate_card",caption:"I worked o a card rate, which can be adapted from a simple Google Sheet - which then generates a PPT presentation using the Google API."},{url:"hanbook_mockup", caption: "To accelerate on boarding for new comers, I designed a handbook with an overview of the company and all the best practices"},{url:"handbook_sample",caption:"The company's handbook sample"}, {url:"office_iso",caption:"This isometric map was the illustration of our office for the BLISS Handbook"}, {url:"presentation-leaflet", caption:"I also made the company's presentation leaflet"},{url:"motion-project",caption:"I made a motion design to highlight important moments for BLISS in 2019 as a promotional video"}],
+      "images": [{url:"rate_card",caption:"I worked o a card rate, which can be adapted from a simple Google Sheet - which then generates a PPT presentation using the Google API."},{url:"hanbook_mockup", caption: "To accelerate on boarding for new comers, I designed a handbook with an overview of the company and all the best practices. Made with InDesign."},{url:"handbook_sample",caption:"The company's handbook sample"}, {url:"office_iso",caption:"This isometric map was the illustration of our office for the BLISS Handbook, designed with Illustrator"}, {url:"presentation-leaflet", caption:"I also made the company's presentation leaflet"},{url:"motion-project",caption:"I made a motion design to highlight important moments for BLISS in 2019 as a promotional video. Made with After Effects"}],
       "summary": "Developping company brand and culture",
       "group": "work",
       "timeline": {
@@ -783,6 +783,45 @@ export default {
         "n/a": false,
         "list": ["Python", "Flask", "Vue", "Parcel", "google-cloud"],
         "position": {x: 160, y: 1, z: -400}
+      }
+    }, {
+      "id": 25,
+      "name": "Hideout",
+      "summary": "3d modeling",
+      "year": 2020,
+      "major": false,
+      "description": "<p>I'm starting a collection named \"Hideout\". The idea is to model and render places that focus on a specific ambiance or mood.</p><p>Here, the keywords were warm, \"cosy\", \"elegant\" and \"industrial\".</p>",
+      // "code": "The website is based on Wordpress, to allow the client to easily edit content (tours and activities).",
+      "design": `<p>All the images have been rendered with Cycles - while I mainly used EEVEE during the process. I also used the NVIDIA denoiser.</p><h4>Motivations and challenges</h4>
+      <ul><li>Photorealism-like</li>
+      <li>Focus on lighting and create an specific ambiance with lights</li>
+      <li>Using EEVEE and Cycles</li>
+      <li>Experimenting IES lights</li>
+      <li><a href=\"https://www.chippwalters.com/products/nitrox-3d\"></a>NITROX 3D workflow</a> - thanks to Chipp Walter</li>
+      </ul>`,
+      "link": "https://www.behance.net/gallery/113021679/Hideout-1",
+      "slug": "hideout",
+      "images": ["main", "wall", "stairs", {url: "blender-screenshot", caption:"Screenshot of the Blender file"}],
+      "category": "Personal project - 3D modeling, lighting, texturing and rendering",
+      "cat": "personal",
+      "group": "freelance",
+      "timeline": {
+        "n/a": false,
+        "onlyTimeline": false,
+        "startingYear": 2020.8,
+        "len": .3,
+        "thread": "second",
+        "type": "duration",
+      },
+      "software": {
+        "n/a": false,
+        "list": ["blender"],
+        "position": {x: 1600, y: 100, z: -100}
+      },
+      "techno": {
+        "n/a": true,
+        // "list": ["PHP", "Wordpress", "Bootstrap"],
+        // "position": {x: 190, y: 200, z: -780}
       }
     }
   ],

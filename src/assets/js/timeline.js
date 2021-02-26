@@ -350,7 +350,7 @@ export function init() {
       end: {...k.software.position}
     })
   }
-  let blArr = [8, 17];
+  let blArr = [8, 17, 24];
   for (var i = 0, j = blArr.length; i < j; i++) {
     // let k = BlArr[i];
     const k = projects.list.find(e => e.id == (blArr[i] + 1));

@@ -327,8 +327,8 @@
           <div class="col-12 col-md-6">
             <h4>Design</h4>
             <ul>
-              <li>Adobe Photoshop (migrating to Gimp)</li>
-              <li>Adobe Illustrator (migrating to <a class="color-link" :target="linksNewTab ? '_blank' : '_self'" href="https://inkscape.org/">InkScape</a>)</li>
+              <li>Adobe Photoshop (migrating to <a class="color-link" :target="linksNewTab ? '_blank' : '_self'" href="https://affinity.serif.com/en-gb/photo/">Affinity Photo</a> and Gimp)</li>
+              <li>Adobe Illustrator (migrating to <a class="color-link" :target="linksNewTab ? '_blank' : '_self'" href="https://affinity.serif.com/en-gb/designer/">Affinity Designer</a> and <a class="color-link" :target="linksNewTab ? '_blank' : '_self'" href="https://inkscape.org/">InkScape</a>)</li>
               <li>Adobe inDesign (migrating to <a class="color-link" :target="linksNewTab ? '_blank' : '_self'"  href="https://www.scribus.net/">Scribus</a>)</li>
               <li>Adobe After Effect (migrating to <a class="color-link" :target="linksNewTab ? '_blank' : '_self'"  href="https://natrongithub.github.io/">Natron</a> and Blender)</li>
               <li>Sketch</li>
