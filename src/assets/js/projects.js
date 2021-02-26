@@ -470,11 +470,13 @@ export default {
       "description": "I worked for almost 4 years at BLISS interactive as project manager and digital producer. Besides that, I worked on improving internal processes and developing tools to make recurrent tasks easier.",
       "code": `<p>BLISS interactive is bound to 2 sister companies, both creative/advertising agencies. Therefore the specifications and requirements were very different from one project to another. Coding wise, I had the opportunity to work on many different technologies and stacks, such as:</p>
       <ul>
-      <li>a script for Photoshop (using JSX)</li><li>native mobile application with React Native</li><li>training a AI model with Python</li><li>an AR app for IOS and Android (with Unity)</li><li>few Chrome extensions</li><li>complex image processing with 3D rendering on server side with OpenCV (CV2), potrace, ImageMagick and Blender Python API</li>
+      <li>web apps with VueJS, ReactJS and many Vanilla JS</li>
+      <li>Google App Script (Google Sheet and Google Slides) with NodeJS</li>
+      <li>a script for Photoshop (using JSX)</li><li>native mobile application with React Native</li><li>training a AI model with Python</li><li>an AR app for IOS and Android (with Unity)</li><li>Chrome extensions</li><li>complex image processing with 3D rendering on server side with OpenCV (CV2), potrace, ImageMagick and Blender Python API</li>
       </ul>`,
       "major": true,
       "slug": "bliss",
-      "images": [{url:"rate_card",caption:"I worked on a card rate, which can be adapted from a simple Google Sheet - and then generates a PPT presentation using the Google Slide API."},{url:"hanbook_mockup", caption: "To accelerate on boarding for new comers, I designed a handbook with an overview of the company and all the best practices. Made with InDesign"}, {url:"office_iso",caption:"This isometric map was the illustration of our office for the BLISS Handbook. Made with Illustrator"},{url:"pepsi-posposal",caption:"One technical propsal I designed for a client"}],
+      "images": [{url:"rate_card",caption:"I worked on a card rate, which can be adapted from a simple Google Sheet - and then generates a PPT presentation using the Google Slide API."},{url:"hanbook_mockup", caption: "To accelerate on boarding for new comers, I designed a handbook with an overview of the company and all the best practices. Made with InDesign"}, {url:"iso",caption:"This isometric map was the illustration of our office for the BLISS Handbook. Made with Illustrator"},{url:"pepsi-posposal",caption:"One technical propsal I designed for a client"}],
       "group": "work",
       "timeline": {
         "startingYear": 2017,
@@ -570,7 +572,7 @@ export default {
       <li>Motion design - <a href="https://vimeo.com/379205001" class="color-link">Link to Vimeo</a></li>
       <li>And I started a 3D animation (a video motion of sort) to showcase BLISS capabilities.</li>
       </ul>`,
-      "images": [{url:"rate_card",caption:"I worked o a card rate, which can be adapted from a simple Google Sheet - which then generates a PPT presentation using the Google API."},{url:"hanbook_mockup", caption: "To accelerate on boarding for new comers, I designed a handbook with an overview of the company and all the best practices. Made with InDesign."},{url:"handbook_sample",caption:"The company's handbook sample"}, {url:"office_iso",caption:"This isometric map was the illustration of our office for the BLISS Handbook, designed with Illustrator"}, {url:"presentation-leaflet", caption:"I also made the company's presentation leaflet"},{url:"motion-project",caption:"I made a motion design to highlight important moments for BLISS in 2019 as a promotional video. Made with After Effects"}],
+      "images": [{url:"rate_card",caption:"I worked o a card rate, which can be adapted from a simple Google Sheet - which then generates a PPT presentation using the Google API."},{url:"hanbook_mockup", caption: "To accelerate on boarding for new comers, I designed a handbook with an overview of the company and all the best practices. Made with InDesign."},{url:"handbook_sample",caption:"The company's handbook sample"}, {url:"iso",caption:"This isometric map was the illustration of our office for the BLISS Handbook, designed with Illustrator"}, {url:"presentation-leaflet", caption:"I also made the company's presentation leaflet"},{url:"motion-project",caption:"I made a motion design to highlight important moments for BLISS in 2019 as a promotional video. Made with After Effects"}],
       "summary": "Developping company brand and culture",
       "group": "work",
       "timeline": {
