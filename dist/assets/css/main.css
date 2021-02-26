@@ -1469,7 +1469,8 @@ div.detail {
     padding: .4rem; }
   div.detail.hide-el {
     opacity: 0;
-    transition: opacity .75s .3s; }
+    transition: opacity .75s .3s;
+    pointer-events: none; }
 
 div.symbol {
   position: relative;
@@ -1515,7 +1516,8 @@ div.symbol {
   display: block;
   height: 10px;
   opacity: 1;
-  transition: opacity .75s 1.6s; }
+  transition: opacity .75s 1.6s;
+  pointer-events: none; }
   .bond.hide-bounds {
     opacity: 0;
     transition: opacity .75s .6s; }

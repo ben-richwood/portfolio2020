@@ -732,7 +732,7 @@ export default {
       "design": "I took inspiration from the print industry: bleeds and print mark, paper texture and Material Design (from Google) for the metaphor of texture. And I put emphasis on their production process and machines.",
       "link": "https://minhminhnhut.com/",
       "slug": "mmi",
-      "images": ["products-page", {url:"MMI_ps",caption:"Photoshop file"},{url:"footer_detail",caption:"Footer detail - inspiration from print industry and standards"}],
+      "images": ["products-page", "about-us", {url:"MMI_ps",caption:"Photoshop file"},{url:"footer_detail",caption:"Footer detail - inspiration from print industry and standards"}],
       "category": "Freelance contract - Webdesign",
       "group": "freelance",
       "timeline": {

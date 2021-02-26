@@ -311,6 +311,7 @@ div.detail{
   &.hide-el{
     opacity: 0;
     transition: opacity .75s .3s;
+    pointer-events: none;
   }
 }
 div.symbol{
@@ -369,6 +370,7 @@ div.symbol{
   height: 10px;
   opacity: 1;
   transition: opacity .75s 1.6s;
+  pointer-events: none;
   &.hide-bounds{
     opacity: 0;
     transition: opacity .75s .6s;

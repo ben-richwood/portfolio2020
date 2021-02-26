@@ -262,7 +262,8 @@ export function init() {
     let element = document.createElement( 'div' );
     element.className = `timeline-title`;
     let title = document.createElement( 'h1' );
-    title.textContent = "Portfolio"
+    const year = new Date();
+    title.textContent = "Portfolio "+year.getFullYear().toString()
     let subtitle = document.createElement( 'h2' );
     subtitle.textContent = "Projects"
     element.appendChild( title );
