@@ -570,6 +570,7 @@ export default {
       <li>Many sorts of scripts to improve productivity (including the Uptime checker)</li>
       <li>Internal tools (webpage, Chrome extensions, Google App scripts...)</li>
       <li>Motion design - <a href="https://vimeo.com/379205001" class="color-link">Link to Vimeo</a></li>
+      <li>An 3d animation to present BLISS capabilities - <a href="https://www.behance.net/gallery/115427271/3d-animation-introduction-video" class="color-link">3D animation</a></li>
       <li>And I started a 3D animation (a video motion of sort) to showcase BLISS capabilities.</li>
       </ul>`,
       "images": [{url:"rate_card",caption:"I worked o a card rate, which can be adapted from a simple Google Sheet - which then generates a PPT presentation using the Google API."},{url:"hanbook_mockup", caption: "To accelerate on boarding for new comers, I designed a handbook with an overview of the company and all the best practices. Made with InDesign."},{url:"handbook_sample",caption:"The company's handbook sample"}, {url:"iso",caption:"This isometric map was the illustration of our office for the BLISS Handbook, designed with Illustrator"}, {url:"presentation-leaflet", caption:"I also made the company's presentation leaflet"},{url:"motion-project",caption:"I made a motion design to highlight important moments for BLISS in 2019 as a promotional video. Made with After Effects"}],
