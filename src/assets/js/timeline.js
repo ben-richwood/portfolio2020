@@ -280,9 +280,10 @@ export function init() {
      /////////////////////////////////////////////////////////////////////////
    //                   	      Building BOUNDS                           //
   /////////////////////////////////////////////////////////////////////////
+  // WARNING - ID - 1
   // TECHNO
   //////////////////////////////////////////
-  let jsArr = [2, 3, 5, 15, 16, 17, 18, 19, 20, 23];
+  let jsArr = [2, 3, 5, 15, 16, 17, 18, 19, 20, 23, 25];
   for (var i = 0, j = jsArr.length; i < j; i++) {
     const k = projects.list.find(e => e.id == (jsArr[i] + 1));
     projects.bounds.techno.push({
@@ -290,7 +291,7 @@ export function init() {
       end: {...k.techno.position}
     })
   }
-  let pyArr = [5, 23];
+  let pyArr = [5, 23, 25];
   for (var i = 0, j = pyArr.length; i < j; i++) {
     const k = projects.list.find(e => e.id == (pyArr[i] + 1));
     projects.bounds.techno.push({

@@ -523,7 +523,7 @@ export default {
       "techno": {
         "n/a": false,
         "list": ["JS", "React", "aws", "analytics"],
-        "position": {x: 0, y: 1, z: 30}
+        "position": {x: -380, y: 1, z: 190}
       }
     }, {
       "id": 17,
@@ -559,9 +559,12 @@ export default {
       "name": "Identity and branding for BLISS",
       "major": true,
       "cat": "main",
+      "summary": "Developping company brand and culture",
+      "group": "work",
       "year": 2019,
-      "category":"Main work for BLISS interactive",
       "slug": "bliss",
+      "category":"Main work for BLISS interactive",
+
       "description": `<p>I worked for 4 years for BLISS interactive.</p>
       <p>Along with regular jobs for clients, I worked at developing the company, with internal tools, improving processes and developing the brand.</p>
       <p>To name a few:</p>
@@ -574,8 +577,6 @@ export default {
       <li>And I started a 3D animation (a video motion of sort) to showcase BLISS capabilities.</li>
       </ul>`,
       "images": [{url:"rate_card",caption:"I worked o a card rate, which can be adapted from a simple Google Sheet - which then generates a PPT presentation using the Google API."},{url:"hanbook_mockup", caption: "To accelerate on boarding for new comers, I designed a handbook with an overview of the company and all the best practices. Made with InDesign."},{url:"handbook_sample",caption:"The company's handbook sample"}, {url:"iso",caption:"This isometric map was the illustration of our office for the BLISS Handbook, designed with Illustrator"}, {url:"presentation-leaflet", caption:"I also made the company's presentation leaflet"},{url:"motion-project",caption:"I made a motion design to highlight important moments for BLISS in 2019 as a promotional video. Made with After Effects"}],
-      "summary": "Developping company brand and culture",
-      "group": "work",
       "timeline": {
         "startingYear": 2019,
         "len": 2,
@@ -591,7 +592,7 @@ export default {
       "techno": {
         "n/a": false,
         "list": ["JS", "React", "nodejs", "Chrome", "Webpack", "google-cloud", "bash"],
-        "position": {x: -50, y: 1, z: 330}
+        "position": {x: 880, y: 1, z: -110}
       }
     }, {
       "id": 19,
@@ -620,13 +621,14 @@ export default {
       "techno": {
         "n/a": false,
         "list": ["JS", "Chrome"],
-        "position": {x: 880, y: 1, z: -110}
+        "position": {x: -50, y: 1, z: 330}
       }
     }, {
       "id": 20,
       "name": "Family Medical Practice",
       "cat": "main",
       "major": true,
+      "link": "https://vietnammedicalpractice.com/",
       "summary": "Website revamping for the largest care provider in Vietnam",
       "description": "<p>FMP is a Vietnamese health provider. I work on revamping their website, both project management and coding.</p><p>The main challenge for this website was to turn their business needs (branding, SEO, practical infos and services from many medical centers in different cities, multiple languages, testimonials...) into a digital solution.</p>",
       "code": "<p>Powered by React and NextJS (and Wagtail for the CMS), the new website intended to be reactive and dynamic. While I din't work on the set up, I developed a large part of the website and handled most of the change requests.</p><p>To name few challenges: a very compex and nested sitemap (see image on the side), external systems that plugged into this new website, many conten pages, a large system of locations (cities and medical centers) over Vietnam with specific content for each - and a in 4 different languages</p>",
@@ -651,7 +653,7 @@ export default {
       "techno": {
         "n/a": false,
         "list": ["js", "React"],
-        "position": {x: 650, y: 1, z: 330}
+        "position": {x: 800, y: 1, z: 330}
       }
     }, {
       "id": 21,
@@ -792,7 +794,10 @@ export default {
       "name": "Hideout",
       "summary": "3d modeling",
       "year": 2020,
-      "major": false,
+      "cat": "personal",
+      "group": "personal",
+      "major": true,
+
       "description": "<p>I'm starting a collection named \"Hideout\". The idea is to model and render places that focus on a specific ambiance or mood.</p><p>Here, the keywords were warm, \"cosy\", \"elegant\" and \"industrial\".</p>",
       // "code": "The website is based on Wordpress, to allow the client to easily edit content (tours and activities).",
       "design": `<p>All the images have been rendered with Cycles - while I mainly used EEVEE during the process. I also used the NVIDIA denoiser.</p><h4>Motivations and challenges</h4>
@@ -802,12 +807,10 @@ export default {
       <li>Experimenting IES lights</li>
       <li><a href=\"https://www.chippwalters.com/products/nitrox-3d\"></a>NITROX 3D workflow</a> - thanks to Chipp Walter</li>
       </ul>`,
-      "link": "https://www.behance.net/gallery/113021679/Hideout-1",
+      "link": "https://richwood.artstation.com/projects",
       "slug": "hideout",
       "images": ["main", "wall", "stairs", {url: "blender-screenshot", caption:"Screenshot of the Blender file"}],
       "category": "Personal project - 3D modeling, lighting, texturing and rendering",
-      "cat": "personal",
-      "group": "freelance",
       "timeline": {
         "n/a": false,
         "onlyTimeline": false,
@@ -825,6 +828,44 @@ export default {
         "n/a": true,
         // "list": ["PHP", "Wordpress", "Bootstrap"],
         // "position": {x: 190, y: 200, z: -780}
+      }
+    }, {
+      "id": 26,
+      "name": "Urbascope",
+      "summary": "Map + 3d modeling in the browser",
+      "year": 202,
+      "major": true,
+      "description": "<p>I'm starting a collection named \"Hideout\". The idea is to model and render places that focus on a specific ambiance or mood.</p><p>Here, the keywords were warm, \"cosy\", \"elegant\" and \"industrial\".</p>",
+      // "code": "The website is based on Wordpress, to allow the client to easily edit content (tours and activities).",
+      "design": `<p>All the images have been rendered with Cycles - while I mainly used EEVEE during the process. I also used the NVIDIA denoiser.</p><h4>Challenges</h4>
+      <ul>
+      <li>Lots</li>
+      <li></li>
+      </ul>`,
+      "images": ["main", "wall", "stairs", {url: "blender-screenshot", caption:"Screenshot of the Blender file"}],
+      "cat": "main",
+
+      "slug": "spotify",
+      "category": "Freelance contract - Frontend development",
+      "group": "freelance",
+
+      "timeline": {
+        "n/a": false,
+        "onlyTimeline": false,
+        "startingYear": 2021.1,
+        "len": .3,
+        "thread": "main",
+        "type": "duration",
+      },
+      "software": {
+        "n/a": false,
+        "list": ["blender"],
+        "position": {x: 1600, y: 100, z: -100}
+      },
+      "techno": {
+        "n/a": false,
+        "list": ["Python", "Flask", "Webpack", "ThreeJS"],
+        "position": {x: -60, y: 1, z: 0}
       }
     }
   ],

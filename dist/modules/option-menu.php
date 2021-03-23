@@ -125,7 +125,7 @@
               <ul>
                 <li><link-to copy="LinkedIn" rl="https://www.linkedin.com/in/benjaminrichebois/"></link-to></li>
                 <li><link-to copy="GitHub" url="https://github.com/ben-richwood/"></link-to></li>
-                <li><link-to copy="ArtStation" url="https://www.artstation.com/richwood"></link-to></li>
+                <li><link-to copy="ArtStation" url="https://richwood.artstation.com/"></link-to></li>
               </ul>
             </div>
             <div class="col-12 col-md-6">
@@ -186,7 +186,7 @@
           <h4>Urban planning</h4>
           <p>Urban planning and all kind of city stakes - such as gentrification, energy optimization and reduction, waste management, rural exodus, stream and flux etc. - are major interests for me. With the growth of AI, modelisation and simulation tools, I look with interest at the solutions of tomorrow.</p>
           <h4 class="mt-30">3D modeling and animation</h4>
-          <p>I discovered Blender when I was in high school and I toy with the tool since that time. I look with attention at the latest trends, tools, technics, practices and methodologies; I keep up with rendering engines, <span class="abbr" title="Physically based rendering">PBR</span>, shaders, game engine integrations, portfolios, filming technics (such as semicircular LED video wall) and the like.</p>
+          <p>I stumbled upon Blender when I was in high school and I toy with the tool ever since. I look with attention at the latest trends, tools, techniques, practices and methodologies; I keep up with rendering engines, <span class="abbr" title="Physically based rendering">PBR</span>, shaders, game engine integrations, portfolios, filming techniques (like the recent semicircular LED video wall) and the like. And only recently I started to work on Blender more seriously, trying to produce more professional-looking stuff.</p>
           <h4 class="mt-30">Storytelling in video games</h4>
           <p>I'm really keen on video games, as a medium that tells stories and carries complex narrative arcs. Unlike a movie or a novel for instance, it allows to involve users further than any other medias.</p>
           <p>It's not a coincidence if this portfolio is designed like a video game...</p>
