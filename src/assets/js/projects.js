@@ -835,25 +835,33 @@ export default {
       "summary": "Map + 3d modeling in the browser",
       "year": 202,
       "major": true,
-      "description": "<p>I'm starting a collection named \"Hideout\". The idea is to model and render places that focus on a specific ambiance or mood.</p><p>Here, the keywords were warm, \"cosy\", \"elegant\" and \"industrial\".</p>",
-      // "code": "The website is based on Wordpress, to allow the client to easily edit content (tours and activities).",
-      "design": `<p>All the images have been rendered with Cycles - while I mainly used EEVEE during the process. I also used the NVIDIA denoiser.</p><h4>Challenges</h4>
+      "description": "<p>I developed a website which allows urban developers to select parcels and draw building templates onto it, according to urban planning rules, such as maximum height and occupation.</p>",
+      "code": `<p>The web app offers 3D modeling capabilities inside a map, allowing to generate models (building templates) with basic transformations (translation and rotation), apply predefined textures, add and define roof height, edit the geometries (by selecting selecting vertices). And it calculates many parameters related to urban planing based on the geometry.</p>
+      <h4>Challenges</h4>
       <ul>
-      <li>Lots</li>
-      <li></li>
-      </ul>`,
-      "images": ["main", "wall", "stairs", {url: "blender-screenshot", caption:"Screenshot of the Blender file"}],
+      <li>Managing a very large code base (≈ 6.400 lines)</li>
+      <li>One big issue came from the 2 different coordinate systems between Mapbox (longitude and latitude) and THREE.js (which uses an arbitrary coordinate system centered in the parcel in pseudo-meters).</li>
+      <li>UI and UX: trying to balance an easy and clear interface for the user and constrains due to code structure and performances.</li>
+      <li>lots of math were inevitable, and I had a great deal of effort with algorithms, vectors, optimization and matrix transformations.</li>
+      <li>Maintaining high performances - regarding Mapbox and ThreeJS running simultaneously</li>
+      </ul>
+      <h4>Performance</h4>
+      <p>Mapbox and THREE.js are both heavy and compute lots of Javascript to render in the canvas element. Thus many tricks were required to maintain good performances. In first place, there's no direct access to garbage collection in Javascript, so I had to ensure that every meshes, geometries and materials are properly disposed at the right time.</p>
+      <p>I also employed many techniques and algorithm to differ or restrain certain calculations, like ray casting, partial geometry recalculation, debounce functions, collision detection, optimizing loops and condition statements and the like.</p>
+      <p>I used few additional libraries to monitor performance and frame rate. For instance, the rectangles on the top right-hand corner are debug tools; they display page metrics. For instance, the first screen shows 143 (frames "painted" per sec), 6ms (JS compute rate), and 130MB (buffer usage).</p>
+      `,
+      "images": ["main", {url: "nook", caption:"Ability to add nooks for the latest floors, and to adjust their geometry independently"}, {url: "collision-intersection", caption:"Collision detection to move the template within the parcel"}, {url: "goldenHour", caption:"Showcase features were added, such as controling the sun position and luminosity depending on date and time."}],
       "cat": "main",
 
-      "slug": "spotify",
+      "slug": "urbascope",
       "category": "Freelance contract - Frontend development",
       "group": "freelance",
 
       "timeline": {
         "n/a": false,
         "onlyTimeline": false,
-        "startingYear": 2021.1,
-        "len": .3,
+        "startingYear": 2020.9,
+        "len": .5,
         "thread": "main",
         "type": "duration",
       },
@@ -864,7 +872,7 @@ export default {
       },
       "techno": {
         "n/a": false,
-        "list": ["Python", "Flask", "Webpack", "ThreeJS"],
+        "list": ["Python", "Flask", "Webpack", "Three", "Typescript"],
         "position": {x: -60, y: 1, z: 0}
       }
     }

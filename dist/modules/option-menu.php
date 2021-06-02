@@ -167,7 +167,7 @@
         <h3>Places where I lived</h3>
         <div class="flex f-start f-row">
           <?php
-            $arrImg = array("saigon", "lyon", "montreal", "paris");
+            $arrImg = array("tignes", "saigon", "lyon", "montreal", "paris");
             $count = count($arrImg);
             for( $i = 0; $i<$count; $i++ ) { ?>
               <div class="col-6 col-md-3">
