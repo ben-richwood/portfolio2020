@@ -4,6 +4,7 @@
 export default {
   "list" : [
     {
+    /*  
       "id": 1,
       "name": "Peafowl Consulting",
       "summary": "Corporate website for a consulting company",
@@ -36,22 +37,41 @@ export default {
         "thread": "second",
         "type": "duration",
       }
+    */
 
+      "id": 1,
+      "name": "Smarteo",
+      "summary": "Rebrand an existing website",
+      "year": 2020,
+      "major": true,
+      "description": "<p>Smarteo is an educational company for kids to learn programming with robots.</p>",
+      "design": "<p>I refined some of the visual elements of the brand. Based upon existing materials, I first fleshed out the graphical universe and then consolidated all these elements in a clear guideline, which came along with all the processed assets.</p>",
+      "code": "<p>The website groundwork was already sound, built upon Laravel. I enhanced the interface and implemented the freshly revamped identity.<br/>Moreover, I made up the 3D introduction with Three.js (scene and props modelled with Blender), which portrays a table with all the elements related to Smarteo activities: notebooks, 3d printing, tablet (for coding), smart city, robots...<br/>Webpack, Babel and Gulp process the bundles and serve minified assets (including next-gen images).</p>",
+      "link": "https://www.smarteo.co/",
+      "category": "Freelance",
+      "cat": "freelance",
+      "group": "freelance",
+      "slug": "smarteo",
+      "images": ["intro", {url:"product", caption: "The product page"}, {url:"montage", caption: "The design guideline, fleshed out into the 'Press Kit'"}, {url:"formation", caption: "The training page"}],
+      "software": {
+        "n/a": false,
+        "list": ["illustrator", "indesign"],
+        "position": {x: 170, y: 1, z: -750}
+      },
+      "techno": {
+        "n/a": false,
+        "list": ["js", "vue", "webpack", "three", "laravel", "gulp"],
+        "position": {x: 990, y: 200, z: -720}
+      },
+      "timeline": {
+        "n/a": false,
+        "onlyTimeline": false,
+        "startingYear": 2020.7,
+        "len": .2,
+        "thread": "second",
+        "type": "duration",
+      }
 
-    // }, {
-    //   "id": 1,
-    //   "name": "Eneom",
-    //   "year": 2016,
-    //   "description": "<p>Eneom is a company that sells solutions to save and optimize energy consumption for your home.</p><p> I worked on the onoe-page website along with the design of the materials.</p>",
-    //   "code": "Based on Bootstrap",
-    //   "design": "Simple",
-    //   "slug": "eneom",
-    //   "software": ["AI", "PS"],
-    //   "link": "https://www.eneom.fr/",
-    //   "screenImg": "homepage.png",
-    //   "techno": ["Bootstrap", "PHP"],
-    //   "category": "Freelance",
-    //   "onlyTimeline": false
     }, {
       "id": 2,
       "name": "Go Mékong Evasion",
@@ -115,8 +135,8 @@ export default {
       },
       "techno": {
         "n/a": false,
-        "list": ["js", "Mapbox", "PHP", "Vue", "Webpack", "Gulp"],
-        "position": {x: 270, y: 1, z: 280}
+        "list": ["js", "mapbox", "php", "vue", "webpack", "gulp"],
+        "position": {x: 220, y: 1, z: 380}
       }
 
     }, {
@@ -144,7 +164,7 @@ export default {
       },
       "techno": {
         "n/a": false,
-        "list": ["d3", "Vue"],
+        "list": ["d3", "vue"],
         "position": {x: 580, y: 1, z: -400}
       }
 
@@ -208,7 +228,7 @@ export default {
       },
       "techno": {
         "n/a": false,
-        "list": ["Python", "Flask", "Vue", "mailgun"],
+        "list": ["python", "flask", "vue", "mailgun"],
         "position": {x: 70, y: 1, z: -140}
       }
     }, {
@@ -404,7 +424,7 @@ export default {
       },
       "techno": {
         "n/a": false,
-        "list": ["Bootstrap", "JS", "Ruby"],
+        "list": ["Bootstrap", "js", "Ruby"],
         "position": {x: 1700, y: 1, z: 240}
       }
     }, {
@@ -491,7 +511,7 @@ export default {
       },
       "techno": {
         "n/a": true,
-        "list": ["JS", "React", "nodejs", "Chrome", "Webpack", "google-cloud", "unity"],
+        "list": ["js", "react", "nodejs", "chrome", "webpack", "google-cloud", "unity"],
         "position": {x: 1, y: 1, z: 1}
       }
     }, {
@@ -522,7 +542,7 @@ export default {
       },
       "techno": {
         "n/a": false,
-        "list": ["JS", "React", "aws", "analytics"],
+        "list": ["js", "react", "aws", "analytics"],
         "position": {x: -380, y: 1, z: 190}
       }
     }, {
@@ -551,8 +571,8 @@ export default {
       },
       "techno": {
         "n/a": false,
-        "list": ["JS", "React"],
-        "position": {x: 485, y: 1, z: 420}
+        "list": ["js", "react"],
+        "position": {x: 485, y: 1, z: 520}
       }
     }, {
       "id": 18,
@@ -591,7 +611,7 @@ export default {
       },
       "techno": {
         "n/a": false,
-        "list": ["JS", "React", "nodejs", "Chrome", "Webpack", "google-cloud", "bash"],
+        "list": ["js", "react", "nodejs", "chrome", "webpack", "google-cloud", "bash"],
         "position": {x: 880, y: 1, z: -110}
       }
     }, {
@@ -620,14 +640,14 @@ export default {
       },
       "techno": {
         "n/a": false,
-        "list": ["JS", "Chrome"],
-        "position": {x: -50, y: 1, z: 330}
+        "list": ["js", "Chrome"],
+        "position": {x: -120, y: 1, z: 450}
       }
     }, {
       "id": 20,
       "name": "Family Medical Practice",
       "cat": "main",
-      "major": true,
+      "major": false,
       "link": "https://vietnammedicalpractice.com/",
       "summary": "Website revamping for the largest care provider in Vietnam",
       "description": "<p>FMP is a Vietnamese health provider. I work on revamping their website, both project management and coding.</p><p>The main challenge for this website was to turn their business needs (branding, SEO, practical infos and services from many medical centers in different cities, multiple languages, testimonials...) into a digital solution.</p>",
@@ -652,7 +672,7 @@ export default {
       },
       "techno": {
         "n/a": false,
-        "list": ["js", "React"],
+        "list": ["js", "react"],
         "position": {x: 800, y: 1, z: 330}
       }
     }, {
@@ -689,7 +709,7 @@ export default {
       },
       "techno": {
         "n/a": false,
-        "list": ["JS", "vue", "webpack", "three", "greensock", "Gulp"],
+        "list": ["js", "vue", "webpack", "three", "greensock", "gulp"],
         "position": {x: 900, y: 1, z: 200}
       }
     }, {
@@ -700,7 +720,7 @@ export default {
       "summary": "Webdesign for a Vietnamese supplier",
       "description": "I realized the webdesign for a Vietnamese supplier and constructer of high-class wallpaper and curtains.",
       "slug": "td",
-      "images": ["products-page", {url:"TD-photoshop",caption:"Photoshop file"}],
+      "images": ["products-page", "TD-photoshop02", {url:"TD-photoshop",caption:"Photoshop file"}],
       "objectives": null,
       "year": 2020,
       "design": "The main goal was to showcase the product and give a high-end impression of the company. I got inspirations from hotels and luxury resort, and design the website with Photoshop.",
@@ -786,7 +806,7 @@ export default {
       },
       "techno": {
         "n/a": false,
-        "list": ["Python", "Flask", "Vue", "Parcel", "google-cloud"],
+        "list": ["python", "flask", "vue", "parcel", "google-cloud"],
         "position": {x: 160, y: 1, z: -400}
       }
     }, {
@@ -809,7 +829,7 @@ export default {
       </ul>`,
       "link": "https://richwood.artstation.com/projects",
       "slug": "hideout",
-      "images": ["main", "wall", "stairs", {url: "blender-screenshot", caption:"Screenshot of the Blender file"}],
+      "images": ["main", "wall", "stairs", {url: "blender-screenshot", caption:"Screenshot of the Blender file"}, "hideout02-wf", {url: "hideout03-sign-fujifilm", caption:"Another scene, on a rooftop"}, {url:"hideout03-room", caption: "Same scene, inside a vent room"}],
       "category": "Personal project - 3D modeling, lighting, texturing and rendering",
       "timeline": {
         "n/a": false,
@@ -872,7 +892,7 @@ export default {
       },
       "techno": {
         "n/a": false,
-        "list": ["Python", "Flask", "Webpack", "Three", "Typescript"],
+        "list": ["python", "flask", "webpack", "three", "typescript"],
         "position": {x: -60, y: 1, z: 0}
       }
     }
@@ -885,7 +905,7 @@ export default {
         "icon": "js"
       }, {
         "name": "Python",
-        "position": {x: -165, y: 1, z: -310},
+        "position": {x: -235, y: 1, z: -210},
         "icon": "python"
       }, {
         "name": "Ruby on Rails",

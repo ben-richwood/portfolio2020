@@ -1,6 +1,6 @@
 import Vue from 'vue';
 
-import { highPerfInit } from './app.js'
+// import { highPerfInit } from './app.js'
 import { container, canvasEl, canvasTimeline, t0, canvasStats } from './app.js'
 import Projects from './projects.js'
 import { displayProjectImageOnScreen } from './libs/custom/miscellaneous.js'
@@ -306,6 +306,9 @@ export const optionMenu = new Vue({
   }
 })
 
+const detailText = document.querySelector("#details .text .scrollbar")
+const detailImages = document.querySelector("#details .images .scrollbar")
+
 export const detailPopup = new Vue ({
   el: "#details",
   data: {
@@ -402,6 +405,10 @@ export const detailPopup = new Vue ({
       legendMenu.showLegendForDetail = true;
       domElTimeline.classList.add("blurred")
       this.isOpen = true;
+      setTimeout( () => {
+        detailText.scrollTop = 0;
+        detailImages.scollTop = 0;
+      }, 120)
     },
     close: function () {
       domElTimeline.classList.remove("blurred")
@@ -409,6 +416,8 @@ export const detailPopup = new Vue ({
       legendMenu.showLegendForDetail = false;
       legendMenu.showLegend = true;
       settings.isDetailOpen = false;
+      detailText.scrollTop = 0;
+      detailImages.scollTop = 0;
       this.isOpen = false;
 
       this.name = "";
@@ -593,3 +602,5 @@ function closeAllMenus () {
     return null;
   }
 }
+
+function highPerfInit(){}

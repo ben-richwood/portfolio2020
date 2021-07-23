@@ -26,18 +26,18 @@
     <div class="row">
       <div class="col-12 col-md-1 margin-section"></div>
       <div class="col-12 col-md-10 margin-section">
-        <div>
+        <div class="highlight">
           <!-- <p>While my main job is Project manager and Digital Producer, I use code and design capabilities to prototype ideas, lead preliminary researches and feasibilities studies (<span class="abbr" title="Proof Of Concept">POC</span>), automate and improve internal tools.</p>
           <p>I also work on freelance contracts.</p>
           <p>This portfolio has been designed with a single idea in mind: to show evidence and examples of project I made for every skills I state in my portfolio.</p> -->
 
-          <p><b>Self-learner</b> and <b>curious</b>, passionate about the digital world, I have the chance to develop my hard and soft skills through collaborations with my clients, business partners and colleagues around various technologies in line with the latest IT trends & Digital market.</p>
+          <p><b class="highlight--tag">Self-learner</b> and <b class="highlight--tag">curious</b>, passionate about the digital world, I have the chance to develop my hard and soft skills through collaborations with my clients, business partners and colleagues around various technologies in line with the latest IT trends & Digital market.</p>
 
-          <p class="mt-10">I use code and design skills to prototype ideas, lead preliminary researches and feasibilities studies (<span class="abbr" title="Proof Of Concept">POC</span>), automate and improve internal tools. Delivering game changing digital projects and can be relied upon to <b>always have the customer’s best interest at heart</b>.</p>
+          <p class="mt-10">I use code and design skills to prototype ideas, lead preliminary researches and feasibilities studies (<span class="abbr" title="Proof Of Concept">POC</span>), automate and improve internal tools. Delivering game changing digital projects and can be relied upon to <b class="highlight--tag">always have the customer’s best interest at heart</b>.</p>
 
           <!-- <p class="mt-10">Always focusing on customer satisfaction by delivering a tailor-made approach and to leverage client expertise for organic business growth.</p> -->
 
-          <p class="mt-10">Trough my activities as a digital producer, lead developer and freelancer, I work with <b>top 500 world’s largest companies and government organizations</b>.</p>
+          <p class="mt-10">Trough my activities as a digital producer, lead developer and freelancer, I work with <b class="highlight--tag">top 500 world’s largest companies and government organizations</b>.</p>
         </div>
       </div>
     </div>
@@ -55,7 +55,10 @@
               <use xlink:href="#<?php echo $arrImg[$i]; ?>"/>
             </svg>
         <?php } ?>
-        <p>I'm a fullstack developer, with a focus on frontend - delivering high-end and interactive interfaces.<br/>I'm mostly working with <b>Vue</b>, and sometimes <b>React</b>. For small projects and quick bootstrap, I set up <a target="_blank" class="color-link" href="https://github.com/alpinejs/alpine/">AlpineJS</a>.<br/>Regarding backend, I'm working with <b>Ruby on Rails</b> for large applications; and I use <b>Flask</b> to quickly set up a micro framework for smaller projects.</p>
+        <p>I'm a fullstack developer, with a focus on frontend - delivering high-end and interactive interfaces.<br/>
+        <span class="important">Vue</span> is my favoured framework (while I worked with <b>React</b> for few years). For small projects and quick bootstrap, I set up <a target="_blank" class="color-link" href="https://github.com/alpinejs/alpine/">AlpineJS</a>.</p>
+
+        <p>Regarding backend, I'm working with <span class="important">Django</span> (in addition to <span class="important">DRF</span>) for large applications; otherwise and I opt for <span class="important">Flask</span> for smaller projects. Moreover, I largely use Python scripts for many sorts of automation.</p>
       </div>
       <div class="col-12 col-md-6 margin-section">
         <h3 class="borderline">Secondary</h3>
@@ -67,7 +70,7 @@
               <use xlink:href="#<?php echo $arrImg[$i]; ?>"/>
             </svg>
         <?php } ?>
-        <p>I occasionally worked with PHP <b>Laravel</b> and <b>NodeJS</b> (<b>Express</b>), and more largely with Python scripts for many sorts of automations.</p>
+        <p>From time to time, I worked with <span class="important">PHP</span> (<b>Laravel</b>) and <span class="important">NodeJS</span> (<b>Express</b>).<br/>I've worked with <b>Ruby on Rails</b> years ago; I abandoned it to focus on other stacks.</p>
       </div>
       <div class="col-12 col-md-6"></div>
       <div class="col-12 col-md-6 margin-section">
@@ -102,7 +105,7 @@
       </div>
       <div class="col-12 col-md-10 margin-section">
         <h3 class="borderline">Software</h3>
-        <p>I made lots of webdesigns - especiallly for freelance; besides that, I use design software for my daily work as project manager/digital producer for many sorts of documents - wireframes, fllows, sitemaps, diagrams, technical approaches...</p>
+        <p>I predominantly made use of the <span class="important">Adobe Suite</span> (<b>Illustrator</b> and <b>Photoshop</b>) for web designs. On the other hand, I also use them for my daily work as project manager/digital producer for many sorts of documents - wireframes, flows, sitemaps, diagrams, technical approaches...</p>
       </div>
       <div class="col-12 col-md-2 margin-section">
         <?php
@@ -126,7 +129,7 @@
       <div class="col-12 col-md-10 margin-section">
         <h3 class="borderline">Clients</h3>
         <p>Some clients I worked with</p>
-        <p>HM (Her Majesty - UK Government), BOSCH ASEAN, Spotify, Suntory PepsiCo and local Vietnamese clients</p>
+        <p><span class="important">HM</span> (Her Majesty - UK Government), <span class="important">BOSCH ASEAN</span>, <span class="important">Spotify Asia</span>, Suntory PepsiCo and local Vietnamese clients</p>
         <div class="">
           <?php
           $arrImg = array("gov-uk", "bosch", "spotify", "pepsi", "tuborg");
@@ -153,7 +156,7 @@
 
       <div class="row">
         <div class="col-12 col-md-6 margin-section">
-          <p>The project page (link below) is an interactive map, where you can explore the different projects I worked on, and sort them by skills. I listed 20 of my most important projects over these 5 last years.</p>
+          <p>The project page (link below) is an interactive map, where you can explore the different projects I worked on, and <b>sort them by skill and technology</b>. I listed 20+ of my most important projects over these 6 last years.</p>
         </div>
       </div>
 
@@ -182,12 +185,12 @@
             <div class="flex f-row f-start">
               <svg class="techno-svg" version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 200 200" preserveAspectRatio="xMinYMin meet" role="img">
                 <path fill="#888" d="M12.507,90.288c-5.826-5.658-5.464-11.451,0-15.879l79.419-45.681c5.666-4.056,10.39-4.056,15.878,0l79.42,45.681 c6.358,5.482,5.642,11.275,0,15.879l-79.42,45.685c-4.615,3.306-10.213,3.723-15.878,0L12.507,90.288z M9.238,116.211 c0,4.423-0.894,7.734,3.269,11.784l79.419,45.68c5.666,3.724,11.263,3.306,15.878,0l79.42-45.68 c4.277-3.479,3.383-6.897,3.383-11.874v-3.213l-81.822,46.014c-5.195,3.638-11.509,4.1-17.868,0L9.238,112.998V116.211z"/></svg>
-              <label for="">Freelance<br/> contract</label>
+              <label for="">Freelance<wbr/> contract</label>
             </div>
             <div class="flex f-row f-start">
               <svg class="techno-svg" version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 200 200" preserveAspectRatio="xMinYMin meet" role="img"><path fill="#888" d="M35.897,33.829v120.673c0,6.107,4.955,11.054,11.063,11.054h83.228c6.112,0,11.068-4.946,11.068-11.054V134.92 l27.778-19.138c5.912-4.275,11.067-7.413,11.067-13.521V53.917c0-6.1-4.955-11.055-11.067-11.055h-27.778v-9.033l-60.747,0v44.228 h4.439l7.511,9.85v26.024l0,0H57.261V87.907l7.503-9.849h4.444V33.83L35.897,33.829z M163.749,96.972l-22.492,18.003V94.44V59.207 h22.492V96.972z"/></svg>
               </svg>
-              <label for="">Personal <br/>project</label>
+              <label for="">Personal<wbr/> project</label>
             </div>
           </div>
         </div>

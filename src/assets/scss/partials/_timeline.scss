@@ -133,6 +133,22 @@ div.containerTimeline{
   }
 }
 
+.techno-icons svg {
+  animation-name: icon-offset;
+  animation-duration: .15s;
+  animation-timing-function: ease-in-out;
+  animation-direction: normal;
+  animation-fill-mode: both;
+  animation-iteration-count: 1;
+}
+
+$lines: 12;
+@for $i from 1 through $lines {
+  .techno-icons svg:nth-child(#{$i}) {
+    animation-delay: +#{math.div($i, 20) + .25}s;
+  }
+}
+
 div.detail{
   position: absolute;
   width: 200px;
@@ -146,6 +162,16 @@ div.detail{
     // border: 1px solid rgba(127,255,255,0.75);
     transform: translate(50%, 50%) scale(1.12);
     transition: transform .15s ease-in;
+    .techno-icons{
+      display: block;
+    }
+  }
+  .techno-icons{
+    position: absolute;
+    top:100%;
+    left:0;
+    width: 100%;
+    display: none;
   }
   .length-bar{
     position: absolute;
@@ -192,6 +218,17 @@ div.detail{
     }
   }
 
+  @keyframes icon-offset {
+  0% {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 
   div.into-detail{
     // background-color: rgba(255,255,255,.02);
@@ -207,6 +244,7 @@ div.detail{
       transform: translate(50%, 50%);
       transition: transform .15s ease-in;
       position: relative;
+      /*
       overflow: hidden;
       &:after {
       	content: '';
@@ -222,12 +260,12 @@ div.detail{
         animation-name: sheen;
 			  animation-duration: 5s;
 			  animation-timing-function: cubic-bezier(0.36, 0.37, 0.45, 1);
-			  /* animation-delay: .3s; */
 			  animation-direction: normal;
 			  animation-iteration-count: infinite;
 			  animation-fill-mode: both;
 			  animation-play-state: running;
       }
+      */
       .desc{
         // background: rgb(17,80,125);
         // @include gradient();
@@ -456,9 +494,9 @@ div.symbol{
 .bg-block{
   background-color: #88888888;
   padding: 1.5rem;
-  box-sizing: border-box;
+  box-sizing: content-box;
   max-height: 100%;
-  overflow-y: auto;
+  overflow-y: initial;
   margin-bottom: 1.2rem;
   h2{ line-height: 1; margin-top: .4rem;}
   h3{margin-top: 1.2rem;}

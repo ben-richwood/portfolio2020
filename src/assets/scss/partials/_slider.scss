@@ -58,7 +58,8 @@ input.slider {
   margin-bottom: 2rem;
   -webkit-appearance: none;
   background: transparent;
-  margin: $thumb-height / 2 0;
+  // margin: $thumb-height / 2 0;
+  margin: math.div($thumb-height, 2) 0;
   margin-bottom: 2rem;
   width: $track-width;
 
@@ -93,7 +94,8 @@ input.slider {
   &::-webkit-slider-thumb {
     @include thumb;
     -webkit-appearance: none;
-    margin-top: ((-$track-border-width * 2 + $track-height) / 2 - $thumb-height / 2);
+    // margin-top: ( (-$track-border-width * 2 + $track-height) / 2 - $thumb-height / 2);
+    margin-top: (math.div(-$track-border-width * 2 + $track-height, 2) - math.div($thumb-height, 2))
   }
 
   &::-moz-range-track {
@@ -102,7 +104,7 @@ input.slider {
     background: $track-color;
     border: $track-border-width solid $track-border-color;
     border-radius: $track-radius;
-    height: $track-height / 2;
+    height: math.div($track-height, 2);
   }
 
   &::-moz-range-thumb {
@@ -113,7 +115,7 @@ input.slider {
     @include track;
     background: transparent;
     border-color: transparent;
-    border-width: ($thumb-height / 2) 0;
+    border-width: math.div($thumb-height, 2) 0;
     color: transparent;
   }
 
@@ -133,7 +135,7 @@ input.slider {
 
   &::-ms-thumb {
     @include thumb;
-    margin-top: $track-height / 4;
+    margin-top: math.div($track-height, 4);
   }
 
   &:disabled {

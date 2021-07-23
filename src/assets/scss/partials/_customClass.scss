@@ -15,7 +15,7 @@ ul.no-list{
 	padding-left: 0;
 }
 
-.color-link{
+.color-link, .important{
 	// @include secondaryGradient();
 	background: linear-gradient(90deg, #ff8a00 0%, #e52e71 100%);
 
