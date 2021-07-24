@@ -136,7 +136,7 @@ export default {
       "techno": {
         "n/a": false,
         "list": ["js", "mapbox", "php", "vue", "webpack", "gulp"],
-        "position": {x: 220, y: 1, z: 380}
+        "position": {x: 370, y: 1, z: 380}
       }
 
     }, {
@@ -164,7 +164,7 @@ export default {
       },
       "techno": {
         "n/a": false,
-        "list": ["d3", "vue"],
+        "list": ["js", "vue", "d3"],
         "position": {x: 580, y: 1, z: -400}
       }
 
@@ -198,7 +198,7 @@ export default {
       "techno": {
         "n/a": false,
         "list": ["ruby", "js","heroku", "mailgun", "aws"],
-        "position": {x: 1300, y: 1, z: 280}
+        "position": {x: 1500, y: 1, z: -100}
       }
     }, {
       "id": 6,
@@ -402,7 +402,7 @@ export default {
       "id": 12,
       "name": "MonMentor",
       "cat": "freelance",
-      "ignore": false,
+      "ignore": true,
       "major": false,
       "year": 2015,
       "category": "Freelance contract",
@@ -543,7 +543,7 @@ export default {
       "techno": {
         "n/a": false,
         "list": ["js", "react", "aws", "analytics"],
-        "position": {x: -380, y: 1, z: 190}
+        "position": {x: -180, y: 1, z: 300}
       }
     }, {
       "id": 17,
@@ -572,7 +572,7 @@ export default {
       "techno": {
         "n/a": false,
         "list": ["js", "react"],
-        "position": {x: 485, y: 1, z: 520}
+        "position": {x: 635, y: 1, z: 520}
       }
     }, {
       "id": 18,
@@ -612,7 +612,7 @@ export default {
       "techno": {
         "n/a": false,
         "list": ["js", "react", "nodejs", "chrome", "webpack", "google-cloud", "bash"],
-        "position": {x: 880, y: 1, z: -110}
+        "position": {x: 980, y: 1, z: -250}
       }
     }, {
       "id": 19,
@@ -641,7 +641,7 @@ export default {
       "techno": {
         "n/a": false,
         "list": ["js", "Chrome"],
-        "position": {x: -120, y: 1, z: 450}
+        "position": {x: 0, y: 1, z: 510}
       }
     }, {
       "id": 20,
@@ -673,7 +673,7 @@ export default {
       "techno": {
         "n/a": false,
         "list": ["js", "react"],
-        "position": {x: 800, y: 1, z: 330}
+        "position": {x: 930, y: 1, z: 330}
       }
     }, {
       "id": 21,
@@ -710,7 +710,7 @@ export default {
       "techno": {
         "n/a": false,
         "list": ["js", "vue", "webpack", "three", "greensock", "gulp"],
-        "position": {x: 900, y: 1, z: 200}
+        "position": {x: 1050, y: 1, z: 200}
       }
     }, {
       "id": 22,
@@ -807,7 +807,7 @@ export default {
       "techno": {
         "n/a": false,
         "list": ["python", "flask", "vue", "parcel", "google-cloud"],
-        "position": {x: 160, y: 1, z: -400}
+        "position": {x: 60, y: 1, z: -500}
       }
     }, {
       "id": 25,
@@ -901,15 +901,15 @@ export default {
     "techno": [
       {
         "name": "Javascript",
-        "position": {x: 500, y: 1, z: 60},
+        "position": {x: 650, y: 1, z: 60},
         "icon": "js"
       }, {
         "name": "Python",
-        "position": {x: -235, y: 1, z: -210},
+        "position": {x: -335, y: 1, z: -210},
         "icon": "python"
       }, {
         "name": "Ruby on Rails",
-        "position": {x: 1500, y: 1, z: -40},
+        "position": {x: 1500, y: 1, z: -350},
         "icon": "ruby"
       }, {
         "name": "PHP",

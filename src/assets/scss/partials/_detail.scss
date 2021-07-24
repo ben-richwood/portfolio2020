@@ -11,29 +11,6 @@
 //   transition: transform .3s ease;
 // }
 
-@keyframes animateDetailLeft {
-  0% {
-    transform: translateY(30px) translateZ(0px) rotateY(0) rotateY(16deg) scale(.92);
-    opacity: 0;
-  }
-
-  100% {
-    transform: translateY(0) translateZ(0px) rotateY(0) rotateX(0) scale(1);
-    opacity: 1;
-  }
-}
-@keyframes animateDetailRight {
-  0% {
-    transform: translateY(30px) translateZ(0px) rotateY(0) rotateY(-16deg) scale(.92);
-    opacity: 0;
-  }
-
-  100% {
-    transform: translateY(0) translateZ(0px) rotateY(0) rotateX(0) scale(1);
-    opacity: 1;
-  }
-}
-
 #details{
   perspective: 1000px;
   position: fixed;

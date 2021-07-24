@@ -1,7 +1,7 @@
 
 <div id="details" v-show="isOpen" :class="blurred ? 'blurred' : ''">
-  <div class="only-mobile" style="position:fixed;top:2rem;right:2rem;z-index:300">
-    <button type="button" class="large-button left-align" name="button" @click="close" style="background-color:#222222BB;">
+  <div class="only-mobile" style="position:fixed;top:1rem;right:1rem;z-index:300">
+    <button type="button" class="large-button left-align" name="button" @click="close" style="background-color:#222222BB;min-height:initial;padding: .2rem .5rem .45rem;">
       <svg class="returnArrow" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
         <use xlink:href="#return"/>
       </svg>

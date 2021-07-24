@@ -19,7 +19,7 @@
         <div class="text">Study</div>
       </div> -->
       <!-- <div class="column-legend"> -->
-      <div class="col-6" style="padding-left:0;">
+      <div class="col-12" style="padding-left:0;">
         <button @click="applyFilter(0)" class="filter-item" :class="selectedFilter === 'techno' ? 'selected' : ''">
           <span>Code</span>
         </button>
@@ -51,13 +51,13 @@
     </div>
   </div>
 
-  <div class="key-legend" v-if="showLegendForDetail">
+  <div class="key-legend only-desktop" v-if="showLegendForDetail">
     <div class="key-block openMenu" @click="close">
       <div class="key">{{ keyMap.option[1] }}</div>
       <label for="">Close detail</label>
     </div>
   </div>
-  <div class="key-legend" v-else>
+  <div class="key-legend only-desktop" v-else>
     <div class="HUD-legend initially-reduced" :class="HUDoff ? 'hideHUD' : ''">
       <div class="flex f-row f-between">
         <div class="legend-icon" style="align-items: flex-start;">
@@ -102,7 +102,7 @@
     </div>
   </div>
 </div>
-<div id="scale">
+<div id="scale" class="only-desktop">
   <div class="marker" id="scaleMarker"></div>
   <!-- <button @click="resetCamera" class="reset-camera" type="button" name="button" title="Reset the camera">
     <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 1800 200 200" preserveAspectRatio="xMinYMin meet">

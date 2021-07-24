@@ -76,6 +76,7 @@ div.timeline{
   font-size: 6rem;
   /* position: relative; */
 }
+/*
 div.containerTimeline{
   position: relative;
   .hr{
@@ -86,9 +87,8 @@ div.containerTimeline{
     bottom: -4rem;
   }
 }
-div.containerTimeline{
-  position: relative;
-}
+*/
+
 .hr{
   width: 5rem;
   background-color: #a1a1a1;
@@ -197,37 +197,6 @@ div.detail{
   &.ignore{
     display: none !important;
   }
-
-  @keyframes sheen {
-    0% {
-      transform: translateX(-100%) skew(25deg);
-      opacity: 1;
-    }
-    15% {
-      transform: translateX(100%) skew(25deg);
-      opacity: 1;
-    }
-    /* Other animation is hidden for 75% of the time */
-    15.1% {
-      opacity: 0;
-      transform: translateX(-100%) skew(25deg);
-    }
-
-    100% {
-      transform: translateX(-100%) skew(25deg);
-    }
-  }
-
-  @keyframes icon-offset {
-  0% {
-    opacity: 0;
-    transform: translateY(100%);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
 
 
   div.into-detail{
@@ -415,66 +384,11 @@ div.symbol{
   }
 }
 
-.wNContainer{
-  position: relative;
-  display: flex;
-  align-items: center;
-  flex-direction: row;
-  .blinkingDot {
-    position: relative;
-    margin-right: 30px;
-    height:25px;
-    &:before, &:after{
-      content: '';
-      width: 25px;
-      height: 25px;
-      border-radius: 50%;
-      position: absolute;
-      top:0; left: 50%;
-      // transform: translateX(-50%);
-    }
-    &:before{
-      background-color: #C4D4FF;
-      animation-name: blink;
-      animation-duration: 1s;
-      animation-timing-function:easeOutCubic;
-      animation-delay: 0s;
-      -webkit-animation-fill-mode: both; /* Safari 4.0 - 8.0 */
-      animation-fill-mode: both;
-      animation-iteration-count: infinite;
-      animation-play-state: running;
-      animation-direction: alternate;
-
-    }
-    &:after{
-      animation-delay: .6s;
-      background-color: $mainColor;
-      transform: scale(.6, .6);
-    }
-    .desc{
-      min-width: 100px;
-    }
-  }
-  .detail{
-    position: static;
-  }
-}
 
 .case-link{
   @include buttonStyle;
   @include gradient();
   margin-top: 1rem;
-}
-
-@keyframes blink {
-  from {
-    opacity: 0;
-    transform: scale(.3, .3);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1.6, 1.6);
-  }
 }
 
 
@@ -495,7 +409,7 @@ div.symbol{
   background-color: #88888888;
   padding: 1.5rem;
   box-sizing: content-box;
-  max-height: 100%;
+  // max-height: 100%;
   overflow-y: initial;
   margin-bottom: 1.2rem;
   h2{ line-height: 1; margin-top: .4rem;}

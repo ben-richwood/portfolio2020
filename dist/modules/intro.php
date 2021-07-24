@@ -56,7 +56,7 @@
             </svg>
         <?php } ?>
         <p>I'm a fullstack developer, with a focus on frontend - delivering high-end and interactive interfaces.<br/>
-        <span class="important">Vue</span> is my favoured framework (while I worked with <b>React</b> for few years). For small projects and quick bootstrap, I set up <a target="_blank" class="color-link" href="https://github.com/alpinejs/alpine/">AlpineJS</a>.</p>
+        <span class="important">Vue</span> is my favoured framework (while I worked with <b>React</b> for few years). For small projects and quick bootstrap, I set up <a target="_blank" rel="noreferrer" class="color-link" href="https://github.com/alpinejs/alpine/">AlpineJS</a>.</p>
 
         <p>Regarding backend, I'm working with <span class="important">Django</span> (in addition to <span class="important">DRF</span>) for large applications; otherwise and I opt for <span class="important">Flask</span> for smaller projects. Moreover, I largely use Python scripts for many sorts of automation.</p>
       </div>
@@ -83,7 +83,7 @@
               <use xlink:href="#<?php echo $arrImg[$i]; ?>"/>
             </svg>
         <?php } ?>
-        <p>Among others, I worked with Android Studio and Xcode to prototype native mobile apps. And <a target="_blank" class="color-link" href="https://unity3d.com/">Unity</a> for AR app</p>
+        <p>Among others, I worked with Android Studio and Xcode to prototype native mobile apps. And <a target="_blank" class="color-link" rel="noreferrer" href="https://unity3d.com/">Unity</a> for AR app</p>
       </div>
     </div>
 
@@ -119,9 +119,9 @@
       </div>
       <div class="col-12 col-md-6 margin-section">
         <h3 class="borderline">3D</h3>
-        <p>I started 3D modeling as a hobbit, with <a target="_blank" class="color-link" href="https://www.blender.org/">Blender</a>. I'm using EEVEE for fast rendering, especially for animations; and occasionnaly Cycle for single shots.<br/>Some of my work on my <a target="_blank" class="color-link" href="https://www.artstation.com/richwood" class="color-link">ArtStation</a></p>
+        <p>I started 3D modeling as a hobbit, with <a rel="noreferrer" target="_blank" class="color-link" href="https://www.blender.org/">Blender</a>. I'm using EEVEE for fast rendering, especially for animations; and occasionnaly Cycle for single shots.<br/>Some of my work on my <a target="_blank" class="color-link" href="https://www.artstation.com/richwood" rel="noopener" class="color-link">ArtStation</a></p>
         <p>I also tried Rhino3D during my studies, and Keyshot for renders.</p>
-        <p>In a near future, I would like to experiement with <a target="_blank" class="color-link" href="https://www.sidefx.com/products/houdini-apprentice/" class="color-link">Houdini Apprentice</a>.</p>
+        <p>In a near future, I would like to experiement with <a rel="noreferrer" target="_blank" class="color-link" href="https://www.sidefx.com/products/houdini-apprentice/" class="color-link">Houdini Apprentice</a>.</p>
       </div>
     </div>
 

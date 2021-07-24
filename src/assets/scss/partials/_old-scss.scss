@@ -62,9 +62,9 @@ div.screenGraphic{
 }
 
 #sidebar {
-	position: absolute;  /* let us position ourself inside the container */
-	z-index: 0;          /* make a new stacking context so children don't sort with rest of page */
-	left: 6%;             /* make our position the top left of the container */
+	position: absolute;  // let us position ourself inside the container
+	z-index: 0;          // make a new stacking context so children don't sort with rest of page
+	left: 6%;             // make our position the top left of the container
 	top: 6%;
 	width: 70%;
 	height: 80vh;
@@ -73,9 +73,6 @@ div.screenGraphic{
 	z-index: 40;
 	transform-style: preserve-3d;
 	pointer-events: none;
-	/* transform: translate(-50%, -50%); */
-	/* transform: translate(-50%, -50%); */
-	/* FONT-WEIGHT: 500; */
   &.showSidebar{
   	pointer-events: initial;
   }
@@ -443,3 +440,69 @@ div.screenGraphic{
   line-height: 1.4rem;
   margin: 1.5rem auto;
 }
+
+.wNContainer{
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  .blinkingDot {
+    position: relative;
+    margin-right: 30px;
+    height:25px;
+    &:before, &:after{
+      content: '';
+      width: 25px;
+      height: 25px;
+      border-radius: 50%;
+      position: absolute;
+      top:0; left: 50%;
+      // transform: translateX(-50%);
+    }
+    &:before{
+      background-color: #C4D4FF;
+      animation-name: blink;
+      animation-duration: 1s;
+      animation-timing-function:easeOutCubic;
+      animation-delay: 0s;
+      -webkit-animation-fill-mode: both; // Safari 4.0 - 8.0
+      animation-fill-mode: both;
+      animation-iteration-count: infinite;
+      animation-play-state: running;
+      animation-direction: alternate;
+
+    }
+    &:after{
+      animation-delay: .6s;
+      background-color: $mainColor;
+      transform: scale(.6, .6);
+    }
+    .desc{
+      min-width: 100px;
+    }
+  }
+  .detail{
+    position: static;
+  }
+}
+
+.column-legend{
+    display: -webkit-flex;
+    display: -ms-flex;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-right: 1vw;
+    &:nth-of-type(2){
+      align-self: flex-start;
+    }
+    &:last-child{
+      margin-right: 0;
+    }
+    .filter-item{
+      &:last-child{
+        margin-bottom: 0;
+      }
+    }
+  }

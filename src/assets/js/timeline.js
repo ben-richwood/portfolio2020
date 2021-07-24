@@ -270,7 +270,7 @@ export function init() {
     element.appendChild( subtitle );
     let object = new CSS3DObject( element );
 
-    object.position.x = -680;
+    object.position.x = -800;
     object.position.z = -600;
     object.position.y = -200;
     object.rotation.x = -Math.PI/2;
@@ -299,7 +299,7 @@ export function init() {
       end: {...k.techno.position}
     })
   }
-  let rorArr = [4, 11];
+  let rorArr = [4]; // 11
   for (var i = 0, j = rorArr.length; i < j; i++) {
     const k = projects.list.find(e => e.id == (rorArr[i] + 1));
     projects.bounds.techno.push({
@@ -584,7 +584,8 @@ export function init() {
     if (el.timeline) {
       if (el.timeline["n/a"] && el.timeline["n/a"] === true) na = true;
       object.position.x = startingPoint;
-      object.position.y = Math.random() * 500 - 500;
+      // object.position.y = Math.random() * 500 - 500;
+      object.position.y = Math.random() * 25 - 25;
       object.position.z = zCounter * (i % 2 === 0 ? 1 : -1);
     } else {
       object.position.x = 0;

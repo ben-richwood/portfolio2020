@@ -1,5 +1,5 @@
 // ONLY MOBILE
-@media screen and (max-width: 768px) {
+@media screen and (orientation: portrait) and (max-width: 768px) {
   .only-desktop{ display: none; }
   .only-mobile{ display: block; }
   .tuto-pan, .tuto-dbclick{
@@ -16,6 +16,9 @@
       margin-left:20%;
       height: 70%;
     }
+  }
+  .legend h3{
+    font-size: 1.5rem;
   }
   #scale{display: none !important;}
   #sidebar {
@@ -62,8 +65,12 @@
   }
 }
 
+@media screen and (orientation: landscape) and (max-width: 860px) {
+  .only-desktop{ display: none; }
+}
+
 // ONLY DESKTOP
-@media screen and (min-width: 768px){
+@media screen and (orientation: landscape) and (min-width: 860px){
   .only-desktop{ display: block; }
   .flex{
     // .col-md-12, .col-md-4, .col-md-3, .col-md-6, .col-12, .col-6, .col-4, .col-3, .col-6{

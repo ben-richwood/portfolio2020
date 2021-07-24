@@ -38,12 +38,11 @@
 	<meta property="og:image:height" content="1200" />
 	<meta property="og:image:alt" content="An overview of the 3d interactive project map" />
 
-	<link type="text/css" rel="stylesheet" href="./assets/css/main.css?v=0.1.1">
-	<!-- <link type="text/css" rel="preload" href="./assets/css/main.css" as="style"> -->
-	<link href="https://fonts.googleapis.com/css2?family=Rajdhani&display=swap" rel="stylesheet">
+	<link type="text/css" rel="stylesheet" href="./assets/css/main.css?v=0.1.1" defer>
+	<!-- <link type="text/css" href="./assets/css/main.css" rel="preload" as="style"> -->
+	<link href="https://fonts.googleapis.com/css2?family=Rajdhani&display=swap" rel="stylesheet" defer>
 	<style type="text/css">
 		body{
-			/* perspective: 60em; */
 			height: 100vh;
 			margin: 0;
 			background: rgb(237,237,237);
@@ -55,9 +54,6 @@
 		  line-height: 20px;
 		  /* For hardware acceleration */
 		  transform: translate3d(0, 0, 0);
-		}
-		#mainScene{
-		  display: none;
 		}
 		#canvasScene{
 			position:absolute;
@@ -201,13 +197,19 @@
 		}
 		.header{
 			position: fixed;
-			top: 3rem;
-			right: 3rem;
+			top: 2rem;
+			right: 1rem;
 			z-index: 510;
 			display: inline-block;
 	    text-align: right;
 			width: 200px;
 		}
+		@media screen and (min-width: 768px){
+		  .header {
+		    right: 3rem;
+		    top: 3rem;
+		  }
+	  }
 		.header a{
 			color: white;
 			background: linear-gradient(90deg, #11507d 0%, #1875bb 100%);
@@ -215,25 +217,10 @@
 			border-radius: 2px;
 			position: relative;
 		}
-		/* .header a:before{
-			content: '';
-			background: linear-gradient(309.99deg,#00d4ff,#009ee8 50.5%,#07c 97.86%);
-			opacity: 0;
-			transition: opacity .3s ease;
-			position: absolute;
-			top: 0;
-			left: 0;
-			width: 100%;
-			height: 100%;
-			z-index: 10;
-		} */
+
 		.header a:hover{
 			text-decoration: none;
 		}
-		/* .header a:hover:before{
-			opacity: 1;
-			transition: opacity .3s ease;
-		} */
 		.header span{
 			z-index: 15;
 		}
@@ -281,22 +268,9 @@
 		#loadingText, #ExploreWork-btn{
 			margin-top: 2rem;
 		}
-		@keyframes animatePopup3D {
-		  0% {
-		    transform: translate(-44%, -60%) translateZ(0px) rotateY(0) rotateY(16deg) scale(.92);
-		    opacity: 0;
-		  }
-
-		  100% {
-		    transform: translate(-44%, -50%) translateZ(100px) rotateY(0) rotateX(0) scale(1);
-		    opacity: 1;
-		  }
-		}
 		#loadingText{
 			font-family: 'Fira Code', 'Source Code Pro', 'consolas', 'DejaVu Sans Mono', 'Source Code Pro', 'Courier New', courier, monospace;
 		}
-
-		@keyframes blink { 0% { opacity: 0 } 100% { opacity: 1; } }
 		.abbr {
 			position: relative;
 			border-bottom: 1px dashed #FFF200;
@@ -387,7 +361,6 @@
 		<div id="DOMElTimeline"></div>
 		<?php include "./modules/legend.php" ?>
 		<div id="canvasScene">
-			<!-- <canvas id="mainScene"></canvas> -->
 			<canvas id="timeline"></canvas>
 		</div>
 		<div id="canvasStats"></div>
@@ -526,6 +499,5 @@
 				document.body.appendChild(script);
 			}
 		</script>
-		<!-- <script type="text/javascript" src="./assets/js/bundle_project.js?v=0.1.1"></script> -->
 	</body>
 </html>
