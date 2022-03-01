@@ -228,7 +228,7 @@ export default {
       },
       "techno": {
         "n/a": false,
-        "list": ["python", "flask", "vue", "mailgun"],
+        "list": ["python", "flask", "js", "vue", "mailgun"],
         "position": {x: 70, y: 1, z: -140}
       }
     }, {
@@ -463,7 +463,7 @@ export default {
       "summary": "4 years living in Ho Chi Minh City",
       "description": "I lived in Ho Chi Minh, Vietnam, for 4 years, working mostly at BLISS interactive (an IT agency) along with freelance jobs",
       "slug": "vietnam",
-      "images": [{url:"panorama",caption:`Photo by Ashim D’Silva on Unsplash`},"map02"],
+      "images": [{url:"panorama",caption: "Photo by Ashim D’Silva on Unsplash"},"map02"],
       "group": "perso",
       "timeline": {
         "startingYear": 2016,

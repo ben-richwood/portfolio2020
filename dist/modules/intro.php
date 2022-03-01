@@ -16,10 +16,11 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-12 col-md-2 margin-section"></div>
-      <div class="col-12 col-md-6 margin-section">
+      <div class="col-12 col-md-1 margin-section"></div>
+      <div class="col-12 col-md-10 margin-section">
         <!-- <div class="tagline"><p>I'm <span class="highlight--tag">project manager</span> and <span class="highlight--tag">digital producer</span> who puts <span class="highlight--tag">code</span> and <span class="highlight--tag">design</span> into my daily work.</p></div> -->
-        <div class="tagline"><p>I'm a <span class="highlight--tag">Creative and Technical Digital Project Manager</span> with <span class="highlight--tag">coding</span> and <span class="highlight--tag">design</span> background.</p></div>
+        <div class="tagline"><p>I'm an <span class="highlight--tag">Indie Fullstack developer</span> working mostly on <span class="highlight--tag">Vue</span> and <span class="highlight--tag">Python (Django and Flask)</span>, specializing in <span class="highlight--tag">high-end and interactive interfaces</span> (Three.js, Mapbox, GSAP and animations).</p></div>
+        <!-- <div class="tagline"><p>I'm a <span class="highlight--tag">Creative and Technical Digital Project Manager</span> with <span class="highlight--tag">coding</span> and <span class="highlight--tag">design</span> background.</p></div> -->
 
       </div>
     </div>
@@ -48,7 +49,7 @@
       <div class="col-12 col-md-6 margin-section">
         <h3 class="borderline">Main stack</h3>
         <?php
-          $arrImg = array("js", "vue", "react", "ruby");
+          $arrImg = array("js", "vue", "python");
           $count = count($arrImg);
           for( $i = 0; $i<$count; $i++ ) { ?>
             <svg xmlns="http://www.w3.org/2000/svg" class="techno-svg large" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
@@ -56,14 +57,14 @@
             </svg>
         <?php } ?>
         <p>I'm a fullstack developer, with a focus on frontend - delivering high-end and interactive interfaces.<br/>
-        <span class="important">Vue</span> is my favoured framework (while I worked with <b>React</b> for few years). For small projects and quick bootstrap, I set up <a target="_blank" rel="noreferrer" class="color-link" href="https://github.com/alpinejs/alpine/">AlpineJS</a>.</p>
+        <span class="important">Vue</span> is my favoured framework (while I worked with <b>React</b> for few years). For small projects and quick bootstrap, I may set up <a target="_blank" rel="noreferrer" class="color-link" href="https://github.com/alpinejs/alpine/">AlpineJS</a>.</p>
 
         <p>Regarding backend, I'm working with <span class="important">Django</span> (in addition to <span class="important">DRF</span>) for large applications; otherwise and I opt for <span class="important">Flask</span> for smaller projects. Moreover, I largely use Python scripts for many sorts of automation.</p>
       </div>
       <div class="col-12 col-md-6 margin-section">
         <h3 class="borderline">Secondary</h3>
         <?php
-          $arrImg = array("python", "nodejs", "php", "wordpress");
+          $arrImg = array("nodejs", "php", "ruby", "wordpress");
           $count = count($arrImg);
           for( $i = 0; $i<$count; $i++ ) { ?>
             <svg xmlns="http://www.w3.org/2000/svg" class="techno-svg" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
@@ -83,7 +84,7 @@
               <use xlink:href="#<?php echo $arrImg[$i]; ?>"/>
             </svg>
         <?php } ?>
-        <p>Among others, I worked with Android Studio and Xcode to prototype native mobile apps. And <a target="_blank" class="color-link" rel="noreferrer" href="https://unity3d.com/">Unity</a> for AR app</p>
+        <p>Among others, I worked with Android Studio and Xcode to prototype native mobile apps.<br/>I used <a target="_blank" class="color-link" rel="noreferrer" href="https://unity3d.com/">Unity</a> for AR apps</p>
       </div>
     </div>
 
@@ -156,7 +157,7 @@
 
       <div class="row">
         <div class="col-12 col-md-6 margin-section">
-          <p>The project page (link below) is an interactive map, where you can explore the different projects I worked on, and <b>sort them by skill and technology</b>. I listed 20+ of my most important projects over these 6 last years.</p>
+          <p>The project page (link below) is an interactive map, where you can explore the different projects I worked on, and <b>sort them by skill and technology</b>. I listed 20+ of my most important projects over these last 6 years.</p>
         </div>
       </div>
 
@@ -294,9 +295,9 @@
           <!-- <div id="readyToStart" v-show="isReadyToStart"> -->
           <div id="loadingText">Downloading assets...</div>
           <div id="readyToStart" class="disabled">
-            <div class="containerSheen">
+            <!-- <div class="containerSheen0"> -->
               <button id="ExploreWork-btn" class="button">Explore the interactive project map</button>
-            </div>
+            <!-- </div> -->
           </div>
           <!-- <div class="ripple-container">
             <span class="ripple"></span>

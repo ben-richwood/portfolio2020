@@ -66,6 +66,7 @@ function init (){
   canvasTimeline = document.getElementById('timeline');
   Timeline.init();
   Timeline.animate();
+  console.clear();
 }
 
 function firstConfigCheck() {
@@ -82,12 +83,12 @@ function firstConfigCheck() {
   }
 
   let isMobile = mobilecheck();
-  console.log(`%cIs your device a mobile/tablet? ${isMobile}`, logStyle);
+  // console.log(`%cIs your device a mobile/tablet? ${isMobile}`, logStyle);
   settings.isMobile = isMobile;
   settings.GPU = rendererEval;
 
-  console.log(`%c${rendererEval}`, logStyle);
-  console.warn(debugInfo);
+  // console.log(`%c${rendererEval}`, logStyle);
+  // console.warn(debugInfo);
 }
 
 if ( WEBGL.isWebGLAvailable() ) {

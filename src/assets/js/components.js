@@ -227,7 +227,6 @@ export const optionMenu = new Vue({
       this.kb_config = e;
       settings.keyboardConfig = {...keyboardMap[this.kb_config]}
       this.keyMap = {...keyboardMap[this.kb_config]};
-      // console.log();
     },
     changeLinkBehavior: function () {
       const links = document.querySelectorAll('a[href^="http"]');
@@ -247,12 +246,11 @@ export const optionMenu = new Vue({
         this.precision = !this.precision;
         renderer.precision = this.precision ? "highp" : "mediump"
       } else if (e === "debug") {
-        console.log("settings.isDebugMode", this.isDebugMode);
+        // console.log("settings.isDebugMode", this.isDebugMode);
         // settings.isDebugMode = this.isDebugMode;
         settings.isDebugMode = !settings.isDebugMode
         canvasStats.style.display = settings.isDebugMode ? "block" : "none";
       } else {}
-      // console.log(renderer);
     },
     darkMode: function () {
       this.isDarkMode = !this.isDarkMode;
@@ -269,10 +267,9 @@ export const optionMenu = new Vue({
       }
     },
     optout: function (){
-      console.log("this.analyticsOn", this.analyticsOn);
+      // console.log("this.analyticsOn", this.analyticsOn);
       settings.analyticsOn = this.analyticsOn;
-      console.log(this.analyticsOn);
-      console.log(window['ga-disable-UA-90932543-3']);
+      // console.log(window['ga-disable-UA-90932543-3']);
       // this.analyticsOn = !this.analyticsOn;
       if (this.analyticsOn){
         window['ga-disable-UA-90932543-3'] = false;
@@ -289,7 +286,6 @@ export const optionMenu = new Vue({
       return txt;
     },
     updateBrightness: function (e){
-      console.log(e.target.value);
       this.brightness = parseInt(e.target.value, 10);
       brightnessDiv.style.opacity = (100 - this.brightness) / 100;
     }
@@ -399,7 +395,6 @@ export const detailPopup = new Vue ({
           }
           this.images.push(newImg);
           counter++;
-          console.log(newImg);
         });
       }
       legendMenu.showLegendForDetail = true;
@@ -529,7 +524,6 @@ document.getElementById("ExploreWork-btn").addEventListener('click', function (e
 
 
 domElTimeline.addEventListener("dblclick", evt => {
-  // console.log(evt);
   if (evt.target.classList.contains("node")){
     let id = evt.target.getAttribute("data-id");
     detailPopup.open(id);
@@ -560,7 +554,6 @@ domElTimeline.addEventListener("touchend", evt => {
 document.addEventListener('keyup', (event) => {
   const keyName = event.key;
   const keyCode = event.code
-  // console.log(keyName, keyCode);
 
   if (keyName === settings.keyboardConfig.hud[0]) {
     toggleHUD()

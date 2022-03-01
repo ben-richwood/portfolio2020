@@ -8,7 +8,7 @@
     "sass": "sass --style=compressed src/assets/scss/main.scss dist/assets/css/main.css",
     "watch": "sass --watch src/assets/scss/main.scss dist/assets/css/main.css",
     "dev": "webpack --mode=development",
-    "prod": "webpack --mode=production",
+    "prod": "NODE_ENV=production webpack --mode=production",
     "parcel": "parcel src/assets/js/main_timeline.js --out-dir dist/assets/js --out-file bundle_project_parcel.js"
   },
   "keywords": [

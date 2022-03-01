@@ -123,7 +123,7 @@
             </div>
             <div class="col-12 col-md-6">
               <ul>
-                <li><link-to copy="LinkedIn" rl="https://www.linkedin.com/in/benjaminrichebois/"></link-to></li>
+                <li><link-to copy="LinkedIn" url="https://www.linkedin.com/in/benjaminrichebois/"></link-to></li>
                 <li><link-to copy="GitHub" url="https://github.com/ben-richwood/"></link-to></li>
                 <li><link-to copy="ArtStation" url="https://richwood.artstation.com/"></link-to></li>
               </ul>
@@ -176,7 +176,7 @@
                   <source type="image/jp2" srcset="assets/img/all-projects/about/map_<?php echo $arrImg[$i]; ?>.jp2">
                   <source type="image/jpg" srcset="assets/img/alrgba(24,117,187,1)l-projects/about/map_<?php echo $arrImg[$i]; ?>.jpg">
 
-                  <img src="assets/img/all-projects/about/map_<?php echo $arrImg[$i] ?>.jpg" alt="Map of <?php echo $arrImg[$i] ?>">
+                  <img loading="lazy" src="assets/img/all-projects/about/map_<?php echo $arrImg[$i] ?>.jpg" alt="Map of <?php echo $arrImg[$i] ?>">
                 </picture>
               </div>
             <?php }; ?>
@@ -296,28 +296,29 @@
                   <li>NodeJS & NPM</li>
                   <li>VueJS</li>
                   <li>AlpineJS</li>
-                  <li>React</li>
                   <li>ThreeJS</li>
                   <li>Mapbox</li>
+                  <li>React</li>
                 </ul>
               </li>
               <li>
                 Ruby
                 <ul>
                   <li>Ruby on Rails</li>
-                  <li>ActiveAdmin</li>
                 </ul>
               </li>
               <li>
                 Python
                 <ul>
                   <li>Flask</li>
+                  <li>Django (with DRF)</li>
                 </ul>
               </li>
               <li>
                 PHP
                 <ul>
                   <li>Laravel</li>
+                  <li>Twig</li>
                 </ul>
               </li>
             </ul>
@@ -338,12 +339,12 @@
           <div class="col-12 col-md-6">
             <h4>Project management</h4>
             <ul>
-              <li>Productivity: <link-to url="https://workona.com/" copy="Workona"></link-to></li>
-              <li>Documentation and references: <link-to url="https://coda.io/" copy="Coda"></link-to></li>
-              <li>Project management: <link-to url="https://www.smartsheet.com/" copy="SmartSheet"></link-to></li>
-              <li>Project management: <link-to url="https://www.trello.com/" copy="Trello"></link-to></li>
-              <li>Time tracker: <link-to url="https://clockify.me/" copy="Clockify"></link-to></li>
-              <li>Coding time tracking: <link-to url="https://wakatime.com/" copy="WakaTime"></link-to></li>
+              <li>Productivity: <link-to url="https://workona.com/" copy="Workona"/></li>
+              <li>Documentation and references: <link-to url="https://coda.io/" copy="Coda"></li>
+              <li>Project management: <link-to url="https://www.smartsheet.com/" copy="SmartSheet"/></li>
+              <li>Project management: <link-to url="https://clickup.com" copy="ClickUp"/></li>
+              <li>Time tracker: <link-to url="https://clockify.me/" copy="Clockify"/></li>
+              <li>Coding time tracking: <link-to url="https://wakatime.com/" copy="WakaTime"/></li>
               <li>Google Apps</li>
               <li>Thunderbird</li>
             </ul>

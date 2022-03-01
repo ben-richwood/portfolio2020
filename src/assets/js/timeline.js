@@ -495,7 +495,7 @@ export function init() {
     let technoIcons = document.createElement( 'div' );
 
     if (el.techno && el.techno.list) {
-    console.log("el.techno.list", el.techno.list.length)
+    // console.log("el.techno.list", el.techno.list.length)
   		techno.className = 'techno node';
       techno.setAttribute("data-id", el.id);
       // if (settings.isDebugMode) {
@@ -505,14 +505,14 @@ export function init() {
         techno.innerHTML = el.summary;
       // }
       technoIcons.className = "techno-icons";
-      console.log("el.techno.list", el.techno.list)
+      // console.log("el.techno.list", el.techno.list)
       let techSVG = "";
       for (let i = 0, j = el.techno.list.length; i < j; i++) {
         techSVG += `<svg title="#${ el.techno.list[i] }" class="techno-svg" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
           <use xlink:href="#${ el.techno.list[i] }"/>
         </svg>`;
       }
-      console.log("techSVG", techSVG)
+      // console.log("techSVG", techSVG)
       technoIcons.innerHTML = techSVG;
     }
 

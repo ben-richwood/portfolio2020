@@ -13,7 +13,7 @@ module.exports = (env, options) => {
     console.log(`This is the Webpack 4 'mode': ${options.mode}`);
 
     return {
-
+      // mode: 'production',
       context: path.resolve(__dirname),
       entry: path.resolve(__dirname, 'src/assets/js/app.js'),
       output: {
@@ -28,15 +28,13 @@ module.exports = (env, options) => {
         usedExports: true,
       },
       target: "web",
-      devtool: "cheap-eval-source-map",
-      // plugins: [
-      //   new webpack.SourceMapDevToolPlugin({})
-      // ],
+      devtool: process.env.NODE_ENV === 'production' ? false : "cheap-eval-source-map",
+
 
       // Required for Vue
       resolve: {
           alias: {
-              vue: 'vue/dist/vue.js'
+            vue: process.env.NODE_ENV === 'production' ? 'vue/dist/vue.min.js' : 'vue/dist/vue.js'
           },
       },
       watch: options.mode === "development" ? true : false

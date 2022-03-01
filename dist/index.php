@@ -40,7 +40,7 @@
 
 	<link type="text/css" rel="stylesheet" href="./assets/css/main.css?v=0.1.1" defer>
 	<!-- <link type="text/css" href="./assets/css/main.css" rel="preload" as="style"> -->
-	<link href="https://fonts.googleapis.com/css2?family=Rajdhani&display=swap" rel="stylesheet" defer>
+	<link href="https://fonts.googleapis.com/css2?family=Rajdhani&display=swap" rel="stylesheet" rel="preload" as="style">
 	<style type="text/css">
 		body{
 			height: 100vh;
@@ -230,41 +230,7 @@
 			margin-left: 1rem;
 			display: inline-block;
 		}
-		#ExploreWork-btn{
-			width: 100% !important;
-			/* background: linear-gradient(90deg, #11507d 0%, #1875bb 100%); */
-			/* color: #11507d; */
-			background: linear-gradient(90deg, #11507d 0%, #1875bb 100%);
-			color: #FFFFFF;
-			padding: 1rem 0;
-			position: relative;
-			transform-origin: 50% 50%;
-			transform: scale(1);
-			transition: transform .3s .08s cubic-bezier(0.25, 1, 0.5, 1);;
-		}
-		#ExploreWork-btn:hover{
-			transform: scale(1.1);
-			transition: transform .3s cubic-bezier(0.25, 1, 0.5, 1);;
-		}
-		#ExploreWork-btn:after {
-			content: '';
-			position: absolute;
-			width: 100%;
-			height: 100%;
-			top: 0;
-			left: 0;
-			transform-origin: 50% 50%;
-			background-image: url(assets/img/timeline/timeline_nw.svg), url(assets/img/timeline/timeline_ne.svg), url(assets/img/timeline/timeline_sw.svg), url(assets/img/timeline/timeline_se.svg);
-			background-position: 0 0, 100% 0, 0 100%, 100% 100%;
-			background-size: 12px 12px;
-			background-repeat: no-repeat;
-			transform: scale(1);
-			transition: transform .3s cubic-bezier(0.25, 1, 0.5, 1);;
-		}
-		#ExploreWork-btn:hover:after {
-			transform: scale(1.1, 1.5);
-			transition: transform .3s .08s cubic-bezier(0.25, 1, 0.5, 1);;
-		}
+
 		#loadingText, #ExploreWork-btn{
 			margin-top: 2rem;
 		}

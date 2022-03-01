@@ -33,6 +33,9 @@
 
       }
     }
+    &.only-desktop{
+      display: flex;;
+    }
   }
   .legend{
     position: fixed;
