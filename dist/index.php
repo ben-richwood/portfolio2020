@@ -42,47 +42,56 @@
 	<!-- <link type="text/css" href="./assets/css/main.css" rel="preload" as="style"> -->
 	<link href="https://fonts.googleapis.com/css2?family=Rajdhani&display=swap" rel="stylesheet" rel="preload" as="style">
 	<style type="text/css">
+    .absolute{
+    	position: absolute;
+    	top: 0;
+    	left: 0;
+    	z-index: 10;
+    }
+    .relative{
+    	position: relative;
+    }
+    .d-none{
+      display: none;
+    }
+    .pointer-none{
+      pointer-events: none;
+    }
+    .tc{text-align: center !important;}
+    .tl{text-align:left !important;}
+    .tr{text-align:right !important;}
 		body{
 			height: 100vh;
 			margin: 0;
 			background: rgb(237,237,237);
 			background: linear-gradient(90deg, rgba(237,237,237,1) 0%, rgba(171,171,171,1) 100%);
 		  color: #fff;
+      line-height: 1;
 		  font-family: 'Inter var', 'Ubuntu', 'Open Sans', 'Segoe UI', 'Helvetica Neue', 'Droid Sans Serif', 'Roboto', Arial, sans-serif;
 		  font-size: 14px;
 		  letter-spacing: -0.007em;
 		  line-height: 20px;
 		  /* For hardware acceleration */
 		  transform: translate3d(0, 0, 0);
+      overflow-y: hidden;
 		}
 		#canvasScene{
-			position:absolute;
-			top:0;
-			left:0;
 			width:100%;
 			height:100%;
 			z-index: 10
 		}
-		#canvasStats{
-			display: none;
-		}
 		.hide, .ieDetected{ display:none; }
 		.intro-second-part.hide{ display: block; }
 		#intro{
-			position:absolute;
-			top:0;
-			left:0;
 			width:100%;
 			/* height:100vh; */
 			z-index:500;
 			background-color: rgba(0,0,0,.97);
 			transform-style: preserve-3d;
 			opacity: 1;
-		}
-		#intro.no-intro{
-			opacity: 0;
-			pointer-events: none;
-			transition: opacity 1.2s ease-out;
+      height: 100vh;
+      overflow-y: auto;
+      scroll-behavior: smooth;
 		}
 		.margin-section{
 			margin-top: 2rem;
@@ -109,14 +118,9 @@
 		#intro .light{
 			background-color: #FFF;
 			color: black;
-			/* padding: 5rem 0 */
 		}
 		.light h3, .light h2, .light label, .light button{
 			color: #555;
-		}
-
-		.borderline{
-			position: relative;
 		}
 		.borderline:before{
 			content: '';
@@ -127,7 +131,6 @@
 			top: 0;
 	    background: linear-gradient(180deg, rgba(17,80,125,1), rgba(24,117,187,1));
 		}
-		.tc{text-align: center !important;}
 		.tagline{
 			margin: 2rem auto;
 		}
@@ -152,9 +155,9 @@
 			color: #ededed;
 			transition: color .6s ease;
 		}
-		h2{
+		h2, .breathe{
 			line-height: 1;
-			font-size: 2.6rem;
+			font-size: 3rem;
 			text-transform: uppercase;
 			margin-top: 2.2rem;
 			letter-spacing: 0.23rem;
@@ -185,15 +188,24 @@
 		.popup .tagline p{
 			color: #777;
 			transition: color .4s ease;
-			font-family: 'Ubuntu', 'Open Sans', 'Segoe UI', 'Helvetica Neue', 'Droid Sans Serif', 'Roboto', Arial, sans-serif;
+			/* font-family: 'Ubuntu', 'Open Sans', 'Segoe UI', 'Helvetica Neue', 'Droid Sans Serif', 'Roboto', Arial, sans-serif; */
+      font-family: 'Inter var', 'Ubuntu', 'Open Sans', 'Segoe UI', 'Helvetica Neue', 'Droid Sans Serif', 'Roboto', Arial, sans-serif;
+      font-weight: 600;
+      font-weight: 1.3rem;
+      letter-spacing: 0.3px;
+      line-height: 1.9;
+      font-size: 1.6rem;
 		}
 		.popup p{
 			font-weight: 300;
-			font-size: 1rem;
+			font-size: 1.2rem;
 			word-spacing: 0.2rem;
 			line-height: 2;
 			color: #9e9e9e;
 	    text-align: justify;
+      font-family: 'Inter var', 'Ubuntu', 'Open Sans', 'Segoe UI', 'Helvetica Neue', 'Droid Sans Serif', 'Roboto', Arial, sans-serif;
+      font-weight: 400;
+      letter-spacing: 0.3px;
 		}
 		.header{
 			position: fixed;
@@ -258,9 +270,7 @@
 			box-sizing: content-box;
 	    word-spacing: 0.1rem;
 		}
-		#infoBeta, #notCompatible {
-			position: absolute;
-			top: 0px;
+		#notCompatible {
 			width: 100%;
 			padding: 10px;
 			box-sizing: border-box;
@@ -269,16 +279,7 @@
 			-webkit-user-select: none;
 			-ms-user-select: none;
 			user-select: none;
-			z-index: 1; /* TODO Solve this in HTML */
-			pointer-events: none;
 			z-index: 200;
-		}
-		#infoBeta{
-			display: none;
-			background-color: rgba(255,255,255, .4);
-			color: #509ceb;
-			font-style: italic;
-			font-family: 'Rajdhani', 'Avenir Next Condensed', 'Dosis', 'Encode Sans Semi Condensed', 'Arial', sans-serif;
 		}
 		.techno-svg{
 		  display: inline-block;
@@ -304,47 +305,31 @@
 			color: white;
 			fill: white;
 		}
-		#brightness{
-		  position: fixed;
-		  z-index: 200;
-		  top:0;
-		  left: 0;
-		  width: 100vw;
-		  height: 100vh;
-		  background: #000;
-		  pointer-events: none;
-			opacity: 0;
-		}
 	</style>
 </head>
-	<body>
+	<body class="relative">
 		<noscript>
 		 This website heavily uses javascript. You need to enable it if you want to see the content
 		</noscript>
-		<div class="visuallyhidden">
+
+    <div class="header">
+      <a class="scroll" href="#ExploreWork-btn">
+        <span>
+          Projects <svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 200 200" preserveAspectRatio="xMinYMin meet"><polyline style="fill:none;stroke:#FFFFFF;stroke-width:16;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;" points="49.69,17.2 150.79,99.66 54.24,181.29 "/></svg>
+        </span>
+      </a>
+    </div>
+    <div id="app">
+      <router-view></router-view>
+    </div>
+    <?php include "./modules/intro.php" ?>
+    <div class="visuallyhidden">
 			<?php include("./assets/img/techno-icons.svg"); ?>
 		</div>
-		<div id="DOMElTimeline"></div>
-		<?php include "./modules/legend.php" ?>
-		<div id="canvasScene">
-			<canvas id="timeline"></canvas>
-		</div>
-		<div id="canvasStats"></div>
-		<?php include "./modules/intro.php" ?>
-
-
-		<div id="infoBeta">
-			Beta version
-		</div>
-
-		<div id="brightness"></div>
 
 		<div class="ieDetected">
       Internet Explorer is not supported. Please switch to Chrome or Firefox.
     </div>
-
-		<?php include "./modules/option-menu.php" ?>
-		<?php include "./modules/job-detail.php" ?>
 
 		<script type="text/javascript">
 			// loading sentences when loading
@@ -379,91 +364,37 @@
 				phraseCounter++;
 				if (phraseCounter >= LoadingPhrases.length) phraseCounter = 0;
 			}
+
 			window.onload = function () {
 				window.clearInterval(intervalListener);
 				loadingText.style.display = "none";
 				document.getElementById("readyToStart").classList.toggle("disabled");
 			}
-			<?php /*
-			const allTabs = document.querySelectorAll(".tabs-nav .subtabs");
-			// const allTabContent = document.querySelectorAll(".tabs > div");
-			const mainTab = document.querySelector(".tabs");
-			allTabs.forEach(function(e){
-				e.addEventListener("click", function(evt){
-					let currentTab = evt.target.getAttribute("data-tab");
-					console.log(currentTab);
-					let classTabName = `tabs tab-${currentTab}`;
-					mainTab.className = classTabName;
-					for (let i = 0; i < allTabs.length; i++ ){
-						if (currentTab == i){
-							allTabs[i].classList.add("active");
-							// allTabContent[i].classList.add("active");
-						} else {
-							allTabs[i].classList.remove("active");
-							// allTabContent[i].classList.remove("active");
-						}
-					}
-				}, true);
-			})
-			*/ ?>
-			// Vanilla JavaScript Scroll to Anchor
-			// @ https://perishablepress.com/vanilla-javascript-scroll-anchor/
 
-			// (function() {
-			// })();
-			scrollTo();
+      var param = window.location.search;
+      console.log("param", param)
+      if( (navigator.connection && navigator.connection.saveData && param !== "?mode=overrideSaveData") || param === "?mode=saveData"){
+        const notCompatible = document.createElement('div');
+        notCompatible.className = "not-compatible";
+        const warn = document.createElement('P');
+        warn.innerHTML = "Your browser is configured as \"Save data\". However, this website heavily uses javascript and loads lots of external librairies, images etc.<br/>If you want to proceed further anyway, you can click this link:<br/><a class=\"color-link button\" style=\"color: white; -webkit-text-fill-color: white;\" href=\"?mode=overrideSaveData\">Relaunch portfolio</a>"
+        notCompatible.appendChild( warn );
+        document.getElementById('readyToStart').appendChild( notCompatible );
+        document.getElementById('ExploreWork-btn').className = "button disabled";
+        // notCompatible.style.display = "block";
+      } else {
+        var script = document.createElement('script');
 
-			function scrollTo() {
-				const links = document.querySelectorAll('.scroll');
-				links.forEach(each => (each.onclick = scrollAnchors));
-			}
+        script.src = './assets/js/bundle_project.js?v=0.1.2';
+        // script.setAttribute('defer', true)
+        // Loaded successfully
+        script.onload = function() {};
+        // Loading failed
+        script.onerror = function() { };
 
-			function scrollAnchors(e, respond = null) {
-				const distanceToTop = el => Math.floor(el.getBoundingClientRect().top);
-				e.preventDefault();
-				var targetID = (respond) ? respond.getAttribute('href') : this.getAttribute('href');
-				const targetAnchor = document.querySelector(targetID);
-				if (!targetAnchor) return;
-				const originalTop = distanceToTop(targetAnchor);
-				window.scrollBy({ top: originalTop, left: 0, behavior: 'smooth' });
-				const checkIfDone = setInterval(function() {
-					const atBottom = window.innerHeight + window.pageYOffset >= document.body.offsetHeight - 2;
-					if (distanceToTop(targetAnchor) === 0 || atBottom) {
-						targetAnchor.tabIndex = '-1';
-						// targetAnchor.focus();
-						// window.history.pushState('', '', targetID);
-						clearInterval(checkIfDone);
-					}
-				}, 100);
-			}
-		</script>
-
-		<!-- <script type="module" src="./assets/js/bundle_project.js?v=0.1.0"></script> -->
-		<script type="text/javascript">
-			var param = window.location.search;
-			console.log("param", param)
-			if( (navigator.connection && navigator.connection.saveData && param !== "?mode=overrideSaveData") || param === "?mode=saveData"){
-				const notCompatible = document.createElement('div');
-				notCompatible.className = "not-compatible";
-				const warn = document.createElement('P');
-		    warn.innerHTML = "Your browser is configured as \"Save data\". However, this website heavily uses javascript and loads lots of external librairies, images etc.<br/>If you want to proceed further anyway, you can click this link:<br/><a class=\"color-link button\" style=\"color: white; -webkit-text-fill-color: white;\" href=\"?mode=overrideSaveData\">Relaunch portfolio</a>"
-		      notCompatible.appendChild( warn );
-		      document.getElementById('readyToStart').appendChild( notCompatible );
-		      document.getElementById('ExploreWork-btn').className = "button disabled";
-		      // notCompatible.style.display = "block";
-			} else {
-				var script = document.createElement('script');
-
-				script.src = './assets/js/bundle_project.js?v=0.1.2';
-				// script.setAttribute('defer', true)
-				// Loaded successfully
-				script.onload = function() {};
-				// Loading failed
-				script.onerror = function() { };
-
-				// append new script to html
-				document.body.appendChild(script);
-			}
+        // append new script to html
+        document.body.appendChild(script);
+      }
 		</script>
 	</body>
 </html>

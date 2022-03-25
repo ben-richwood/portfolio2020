@@ -25,6 +25,7 @@ gulp.task('svgstore', function () {
       var prefix = path.basename(file.relative, path.extname(file.relative));
       return {
         plugins: [{
+          name: "cleanupIDs",
           cleanupIDs: {
             prefix: prefix + '-',
             minify: true

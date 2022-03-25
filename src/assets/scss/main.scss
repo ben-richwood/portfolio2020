@@ -8,18 +8,8 @@
   src: local(".SFNSText-Light"), local(".HelveticaNeueDeskInterface-Light"), local(".LucidaGrandeUI"), local("Ubuntu Light"), local("Segoe UI Light"), local("Roboto-Light"), local("DroidSans"), local("Tahoma");
 }
 
-@import "partials/inter";
-// @import url('https://rsms.me/inter/inter.css');
+@import "partials/_fonts";
 
-$font-main: 'Avenir Next', 'Nunito Sans', sans-serif;
-
-$font-title: 'Ubuntu', 'Open Sans', 'Segoe UI', 'Helvetica Neue', 'Droid Sans Serif', 'Roboto', Arial, sans-serif;
-
-$font-body: 'Inter var', 'Ubuntu', 'Open Sans', 'Segoe UI', 'Helvetica Neue', 'Droid Sans Serif', 'Roboto', Arial, sans-serif;
-
-$font-figures: 'Rajdhani', 'Avenir Next Condensed', 'Dosis', 'Encode Sans Semi Condensed', 'Arial', sans-serif;
-
-$font-monospace: Menlo,Consolas,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New,monospace,serif;
 
 @import "partials/mixins";
 @import "partials/anim";
@@ -98,39 +88,6 @@ b{
 }
 
 
-/*
-#loading {
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  .progress {
-      margin: 1.5em;
-      // border: 1px solid white;
-      background: rgba(255,255,255,.22);
-      width: 50vw;
-  }
-  .progressbar {
-      // margin: 2px;
-      background: rgb(255,242,0);
-      background: linear-gradient(-90deg, rgba(255,242,0,1) 0%, rgba(161,154,40,1) 100%);
-      height: .1em;
-      transform-origin: top left;
-      transform: scaleX(0);
-  }
-}
-*/
-.containerSheen {
-	position: relative;
-	display: block;
-	height: 3.5714285714rem;
-	margin-bottom: 2.1428571429rem;
-	width: 100%;
-	flex-grow: 2;
-}
 .button {
 	font-size: 0.9285714286rem;
 	line-height: 1.4;
@@ -172,7 +129,7 @@ b{
 #ExploreWork-btn {
   // width: 500px;
   // padding: 2rem;
-  // height: 250px; 
+  // height: 250px;
   // width: 500px;
   margin: 10px auto 0;
   border:0;
@@ -474,7 +431,6 @@ b{
 }
 
 .menuContainer{
-  @include displayFlex(flex-start, row, center);
   width: 92%;
   height: 90%;
   position: absolute;

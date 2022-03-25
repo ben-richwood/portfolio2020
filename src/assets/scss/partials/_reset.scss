@@ -28,31 +28,13 @@ article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section, canvas {
 	display: block;
 }
-body {
-	line-height: 1;
-	color:#FFF;
-}
-// ol, ul {
-// 	list-style: none;
-// }
 hr{
 	border:0;
 	height:2px;
 	width: 100%;
 	background-color: #888;
 }
-// blockquote, q {
-// 	quotes: none;
-// }
-// blockquote:before, blockquote:after,
-// q:before, q:after {
-// 	content: '';
-// 	content: none;
-// }
-// table {
-// 	border-collapse: collapse;
-// 	border-spacing: 0;
-// }
+
 a {
 	color: $highlightColor;
 	text-decoration: none;
@@ -76,12 +58,4 @@ body {
    -moz-perspective: 1000;
    -ms-perspective: 1000;
    perspective: 1000;
-}
-
-.cube {
-   -webkit-transform: translate3d(0, 0, 0);
-   -moz-transform: translate3d(0, 0, 0);
-   -ms-transform: translate3d(0, 0, 0);
-   transform: translate3d(0, 0, 0);
-  /* Other transform properties here */
 }

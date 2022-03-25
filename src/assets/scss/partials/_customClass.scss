@@ -33,13 +33,16 @@ ul.no-list{
 .black-color{color:#000}
 .white-color{color:#000}
 
-.noOverflow{overflow:hidden;position:relative;}
+.no-overflow{overflow:hidden;position:relative;}
 
 .reverse-row{justify-content: flex-end;}
 
-.tc{text-align:center;}
-.tl{text-align:left;}
-.tr{text-align:right;}
+.user-select-none{
+	-webkit-user-select:none;
+	-moz-user-select:none;
+	-ms-user-select:none;
+	user-select:none;
+}
 
 .flex-row{
   @include displayFlex(space-around, row);
@@ -99,6 +102,11 @@ ul.no-list{
 		-webkit-align-items: flex-start; /* Safari 7.0+ */
 		align-items: flex-start;
 	}
+	&.align-center{
+		-webkit-align-items: center; /* Safari 7.0+ */
+		align-items: center;
+	}
+
 	.col-md-12, .col-md-4, .col-md-3, .col-md-6, .col-12, .col-6, .col-4, .col-3, .col-6{
 		padding-left: 15px;
     box-sizing: border-box;

@@ -1,3 +1,17 @@
+#intro{
+  @include scrollbar(.6em);
+}
+#brightness{
+  position: fixed;
+  z-index: 200;
+  top:0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: #000;
+  opacity: 0;
+  pointer-events: none;
+}
 .row {
   display: -ms-flexbox;
   display: flex;
@@ -21,7 +35,7 @@
   width: 50%;
   -ms-flex: 0 0 50%;
   flex: 0 0 50%;
-  max-width: 50%; 
+  max-width: 50%;
 }
 @media (min-width: 1200px){
 #intro .container {
@@ -203,10 +217,7 @@
 .pointer{
   width: 40px;
   height: 40px;
-  position: absolute;
   z-index: 120;
-  top: 0%;
-  left: 0%;
 }
 
 .header a:hover {

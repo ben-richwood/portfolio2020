@@ -78,9 +78,9 @@
   }
 }
 
-@mixin scrollbar(){
+@mixin scrollbar($w:.3em){
   &::-webkit-scrollbar {
-    width: .3em;
+    width: $w;
   }
   &::-webkit-scrollbar-thumb {
     background: linear-gradient(180deg,#ff8a00,#e52e71);

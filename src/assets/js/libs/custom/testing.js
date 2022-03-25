@@ -1,4 +1,5 @@
-import * as THREE from '../../build/three.module.js';
+// import * as THREE from '../../build/three.module.js';
+import * as THREE from "three";
 export function testing(scene){
   //axes
   var axes = new THREE.AxesHelper(5);

@@ -1,4 +1,5 @@
-import * as THREE from '../../build/three.module.js';
+// import * as THREE from '../../build/three.module.js';
+import * as THREE from "three";
 import { CSS3DObject } from '../CSS3DRenderer.js';
 
 export const logStyle = "background-color:cyan;color:black;"; // for console.log
@@ -206,3 +207,6 @@ export function distanceVector( v1, v2 ) {
     var dz = v1.z - v2.z;
     return Math.sqrt( dx * dx + dy * dy + dz * dz );
 }
+
+export const blueLogs = "background-color:cyan;color:black;";
+export const orangeLogs = "background-color:orange;color:black;";

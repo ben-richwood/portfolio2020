@@ -1,113 +1,27 @@
 import Vue from 'vue';
+import { createMachine, interpret, state, transition } from 'robot3';
 
 // import { highPerfInit } from './app.js'
 import { container, canvasEl, canvasTimeline, t0, canvasStats } from './app.js'
 import Projects from './projects.js'
+import { selectedNavigator, keyboardMap, Settings } from './constants.js'
 import { displayProjectImageOnScreen } from './libs/custom/miscellaneous.js'
 
-import * as THREE from './build/three.module.js';
+// import * as THREE from './build/three.module.js';
+import * as THREE from "three";
 import { CSS3DRenderer, CSS3DObject } from './libs/CSS3DRenderer.js';
-
-import { TWEEN } from './libs/tween.module.min.js'
 
 // import * as Timeline from './app.js';
 import * as tl from './timeline.js';
 
-import Analytics from 'analytics'
-import googleAnalytics from '@analytics/google-analytics'
-import doNotTrack from 'analytics-plugin-do-not-track'
 
-/* Initialize analytics */
-const analytics = Analytics({
-  app: 'portfolio2020',
-  version: 100,
-  plugins: [
-    googleAnalytics({
-      trackingId: 'UA-90932543-3',
-      anonymizeIp: true
-    }),
-    doNotTrack()
-  ]
-})
-
-// does nothing if DNT on
-analytics.page();
-
-analytics.plugins.disable('google')
 
 let selectPerf = false; // previously true
 const URLPrefix = "../dist/assets/img/projects";
-const GPURegex = /rtx|gtx|Direct3D11/i;
 // Window computer ANGLE (Intel(R) UHD Graphics 620 Direct3D11 vs_5_0 ps_5_0)
 // Macbook pro Intel Iris Pro OpenGL Engine
 
-export const keyboardMap = {
-  kb_default: {
-    prev: ["ArrowLeft", "⟵"],
-    next: ["ArrowRight", "⟶"],
-    accept: ["Space", "SPACE"],
-    option: ["Escape", "ESC"],
-    hud: ["h", "H"]
-  },
-  kb_gamer: {
-    prev: ["a", "A"],
-    next: ["d", "D"],
-    accept: ["e", "E"],
-    option: ["Escape", "ESC"],
-    hud: ["h", "F"]
-  },
-  kb_vim: {
-    prev: ["h", "H"],
-    next: ["l", "L"],
-    accept: ["Space", "SPACE"],
-    option: ["Escape", "ESC"],
-    hud: [";", ":"]
-  },
-}
 
-function Settings (e) {
-    // STATES
-    this.isPaused = false;
-    this.currentEnv = e.currentEnv;
-    this.isCameraCloseEnough = true; // to display menu
-    this.isCameraFOVUpdates = false; // rendering FOV trnasition
-    this.FOVvalue = 70;
-    this.zoomLevel = 1;
-    this.isTimelineOn = true;
-    this.isCameraTransiting = false;
-
-    this.isProjectOpen = false;
-    this.isOptionMenuOpen = false;
-    this.isHUDOn = false;
-
-    // CONFIG
-    this.isConfigHigh = false;
-    this.isDebugMode = false;
-    this.isTWEENLoaded = false;
-    this.antialias = false;
-    this.precision = 'mediump';
-    this.isShadowEnabled = false;
-    this.isItNight = e.isItNight;
-    this.isTimelineLoaded = false;
-    this.isMobile = false;
-
-    // Timeline filter options
-    this.currFilter = "techno";
-    this.prevFilter = null;
-    this.isDetailOpen = false;
-
-    this.analyticsOn = true;
-
-    // OPTIONS
-    this.muteSound = false;
-    this.linksNewTab = true;
-    this.keyboardConfig = {...keyboardMap.kb_default},
-    this.GPU = "";
-
-    this.lateInit = function() {
-      highPerfInit();
-    }
-};
 
 const date = new Date;
 const hour = date.getHours();
@@ -140,20 +54,26 @@ Vue.component('link-to', {
 
 const filteredList = Projects.list.filter(e => e.onlyTimeline === false);
 
+let legendState = createMachine({
+  off: state(
+    transition('toggle', 'on')
+    // transition name, target
+  ),
+  on: state(
+    transition('toggle', 'off')
+  )
+});
 
-const selectedNavigator = {
-  ["Platforn"]: navigator.platform,
-  ["Vendor"]: navigator.vendor,
-  ["Language"]: navigator.language,
-  ["Hardware concurrency"]: navigator.hardwareConcurrency,
-  ["Cookie enabled"]: navigator.cookieEnabled,
-  ["doNotTrack"]: navigator.doNotTrack != null ? "DoNotTrack detected" : "DoNotTrack not enabled on your browser"
-}
+const service = interpret(legendState, () => {
+  legendMenu.legendState = service.machine.current
+  console.log(service.machine.current);
+});
+
+console.log(service);
 
 
 export const optionMenu = new Vue({
   el: "#optionMenu",
-  // component: ["link"],
   data: {
     currentSubmenu: 3,
     optionsOpen: false,
@@ -193,7 +113,7 @@ export const optionMenu = new Vue({
       legendMenu.showLegend = true;
       settings.isDetailOpen = false;
       this.optionsOpen = false;
-      legendMenu.showLegendForDetail = false;
+      // legendMenu.showLegendForDetail = false;
       detailPopup.blurred = false;
       // this.currentSubmenu = 3;
       container.style.filter = "blur(0px)";
@@ -326,6 +246,7 @@ export const detailPopup = new Vue ({
     open: function (id) {
       settings.isDetailOpen = true;
       let prj = Projects.list.find(e => e["id"] === parseInt(id) );
+      window.history.pushState( {} , '', `?project=${prj.name.toLowerCase().replaceAll(' ', '_')}` );
 
       if (settings.analyticsOn){
         // Event action - type of action
@@ -406,6 +327,7 @@ export const detailPopup = new Vue ({
       }, 120)
     },
     close: function () {
+      window.history.pushState( {} , '', `` );
       domElTimeline.classList.remove("blurred")
       // legendMenu.showLegend = false;
       legendMenu.showLegendForDetail = false;
@@ -428,99 +350,57 @@ export const detailPopup = new Vue ({
   }
 })
 
-const filters = ["techno", "software", "timeline", "all"]
+const filters = {
+  techno: {name: "techno", id:"techno"},
+  software: {name: "software", id:"software"},
+  timeline: {name: "timeline", id:"timeline"},
+  all: {name: "grid", id:"all"}
+}
 
 export const legendMenu = new Vue({
   el: "#legend",
   data: {
     showLegend: true,
+    legendState: null,
     keyMap: {
       ...settings.keyboardConfig
     },
     showLegendForDetail: false,
     selectedFilter: "techno",
+    filterItems: filters,
     HUDoff: false
   },
+  mounted(){
+    this.legendState = service.machine.current
+  },
   methods: {
-    applyFilter: function(id){
+    applyFilter: function(key){
       settings.prevFilter = settings.currFilter;
-      settings.currFilter = filters[id];
+      settings.currFilter = key;
       this.selectedFilter = settings.currFilter;
-      tl.transform( tl.targets[filters[id]], 2000 );
+      tl.transform( tl.targets[key], 2000 );
+      console.log(this.legendState)
     },
     resetCamera: function () {
       tl.resetCamera(1200 );
     },
     close: function() {
+      console.log(this.legendState)
       closeAllMenus();
     },
     menu: function (){
+      console.log(this.legendState)
       optionMenu.open();
     },
     HUD: function (){
-      toggleHUD();
+      console.log(this.legendState)
+      minimizeHUD();
     }
   }
 })
 
 document.querySelector('#optionMenu > div').classList.remove("hide");
 document.querySelector('#intro > div').classList.remove("hide");
-
-function init(e) {
-  settings.analyticsOn = document.getElementById("analyticsCheckbox").checked;
-  optionMenu.analyticsOn = settings.analyticsOn;
-
-  if (settings.analyticsOn){
-    analytics.plugins.enable('google')
-  }
-
-  settings.isConfigHigh = e;
-  optionMenu.gpu = settings.GPU;
-  if (e == 1 && false){
-    if (settings.isConfigHigh) {
-      settings.lateInit()
-    }
-    // document.removeEventListener('keyup', (event) => {}, false);
-  }
-  document.getElementById("intro").style.display = "none";
-  settings.isConfigHigh = e;
-  selectPerf = false;
-  settings.isPaused = false;
-
-  const legendObj = document.querySelector(".legend");
-  const divLegends = document.querySelectorAll("#legend .key-legend > div");
-
-  const tweenA = new TWEEN.Tween({scale: 0})
-    .to({scale: 1}, 1000)
-    // .easing(TWEEN.Easing.Quadratic.Out);
-    .onUpdate(function (object) {
-    	legendObj.style.transform = 'scale(' + object.scale + ')'
-    })
-    .onComplete(function () {
-      for(let item of divLegends){
-        item.classList.remove("initially-reduced");
-      }
-    })
-
-  const tweenB = new TWEEN.Tween({blur: 8})
-    .to({blur: 0}, 2000)
-    .delay(100)
-    .onUpdate(function (object) {
-    	domElTimeline.style.filter = 'blur(' + object.blur + 'px)';
-    })
-    .easing(TWEEN.Easing.Quadratic.In)
-    .onComplete(function () {
-      tl.transform( tl.targets.techno, 2000 );
-    });
-
-  tweenA.chain(tweenB);
-
-  tweenA.start();
-}
-
-document.getElementById("ExploreWork-btn").addEventListener('click', function (e){
-  init(true);
-}, true)
 
 
 domElTimeline.addEventListener("dblclick", evt => {
@@ -556,7 +436,7 @@ document.addEventListener('keyup', (event) => {
   const keyCode = event.code
 
   if (keyName === settings.keyboardConfig.hud[0]) {
-    toggleHUD()
+    minimizeHUD()
   }
   // escape keys
   if (keyName === settings.keyboardConfig.option[0]) {
@@ -575,7 +455,7 @@ document.addEventListener('keyup', (event) => {
   }
 }, false);
 
-function toggleHUD () {
+function minimizeHUD () {
   if (settings.isOptionMenuOpen || settings.isDetailOpen) return
   settings.isHUDOn = !settings.isHUDOn;
 

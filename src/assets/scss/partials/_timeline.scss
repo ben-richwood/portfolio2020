@@ -31,33 +31,21 @@ div#DOMElTimeline{
 .blurred{
   filter: blur(7px);
 }
-div.year{
-  font-size: 2rem;
-  opacity: .9;
-  color: #b7b7b7;
-  font-family: "Inter";
-  font-weight: 900;
-  -webkit-user-select:none;
-  -moz-user-select:none;
-  -ms-user-select:none;
-  user-select:none;
-}
 div.yearlong{
   height: 2px;
   background-color: $mainColor;
 }
 div.timeline{
   color: #b7b7b7;
-  font-family: "Inter";
   font-weight: 900;
   font-size: 6rem;
   /* position: relative; */
 }
+
 div.year{
   font-size: 2rem;
   opacity: .9;
   color: #9b9b9b;
-  font-family: "Inter";
   font-weight: 700;
   &:before{
     content: "";
@@ -71,23 +59,11 @@ div.year{
 }
 div.timeline{
   color: #b7b7b7;
-  font-family: "Inter";
   font-weight: 900;
   font-size: 6rem;
   /* position: relative; */
 }
-/*
-div.containerTimeline{
-  position: relative;
-  .hr{
-    width: 5rem;
-    background-color: #a1a1a1;
-    height: 12px;
-    position: absolute;
-    bottom: -4rem;
-  }
-}
-*/
+
 
 .hr{
   width: 5rem;
@@ -167,16 +143,11 @@ div.detail{
     }
   }
   .techno-icons{
-    position: absolute;
     top:100%;
-    left:0;
     width: 100%;
-    display: none;
   }
   .length-bar{
-    position: absolute;
     top:-28px;
-    left:0;
     height: 15px;
     width: 100%;
     background-color: grey;
@@ -213,28 +184,6 @@ div.detail{
       transform: translate(50%, 50%);
       transition: transform .15s ease-in;
       position: relative;
-      /*
-      overflow: hidden;
-      &:after {
-      	content: '';
-      	position: absolute;
-      	top: 0;
-      	left:0;
-      	height: 100%;
-      	width: 100%;
-      	width: 100%;
-      	opacity: 0;
-      	border-radius: 2px;
-      	background: linear-gradient(-90deg, rgba(255, 255, 255, 0.4) 20%, rgba(255,255,255,0) 50%);
-        animation-name: sheen;
-			  animation-duration: 5s;
-			  animation-timing-function: cubic-bezier(0.36, 0.37, 0.45, 1);
-			  animation-direction: normal;
-			  animation-iteration-count: infinite;
-			  animation-fill-mode: both;
-			  animation-play-state: running;
-      }
-      */
       .desc{
         // background: rgb(17,80,125);
         // @include gradient();
@@ -281,10 +230,6 @@ div.detail{
 
       &:before{
         content: '';
-        // background-image: url("data:image/svg+xml, %3Csvg%20version%3D%221.1%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20x%3D%220px%22%20y%3D%220px%22%20viewBox%3D%220%200%20200%20200%22%20preserveAspectRatio%3D%22xMinYMin%20meet%22%3E%3Cpolyline%20fill%3D%22none%22%20stroke%3D%22%23FFF%22%20stroke-width%3D%229%22%20stroke-miterlimit%3D%2210%22%20points%3D%2221.5%2C150%2021.5%2C19.5%20116%2C19.5%20%22%2F%3E%3Cpolyline%20fill%3D%22none%22%20stroke%3D%22%23FFF%22%20stroke-width%3D%229%22%20stroke-miterlimit%3D%2210%22%20points%3D%22178.5%2C42%20178.5%2C176.5%2088%2C176.5%20%22%2F%3E%3Cline%20fill%3D%22none%22%20stroke%3D%22%23FFF%22%20stroke-width%3D%223%22%20stroke-miterlimit%3D%2210%22%20x1%3D%2234.5%22%20y1%3D%22189%22%20x2%3D%22163%22%20y2%3D%225%22%2F%3E%0A%3C%2Fsvg%3E");
-        // background-size: 70% auto;
-        // background-position: 45% 45%;
-        // background-repeat: no-repeat;
         height: 100%;
         position: absolute;
         width: 18%;
@@ -323,9 +268,6 @@ div.detail{
 }
 div.symbol{
   position: relative;
-  // box-shadow: 15px 15px 16px 20px rgba(0,0,0,0.12);
-  // filter: drop-shadow(20px 20px 20px rgba(0,0,0,0.16));
-  // transform: scale(1);
   opacity: 1;
   transition: opacity 1s 1.5s;
   div.bg{

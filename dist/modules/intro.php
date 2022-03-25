@@ -1,13 +1,6 @@
-<div id="intro">
-  <div class="popup highlight container">
+<div id="intro" class="absolute">
 
-    <div class="header">
-			<a class="scroll" href="#ExploreWork-btn">
-        <span>
-  				Projects <svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 200 200" preserveAspectRatio="xMinYMin meet"><polyline style="fill:none;stroke:#FFFFFF;stroke-width:16;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;" points="49.69,17.2 150.79,99.66 54.24,181.29 "/></svg>
-        </span>
-			</a>
-		</div>
+  <div class="popup container">
 
     <!-- <div v-show="displayConfig"> -->
     <div class="row">
@@ -15,7 +8,7 @@
         <h2 class="tc">Ben's portfolio</h2>
       </div>
     </div>
-    <div class="row">
+    <div class="row highlight">
       <div class="col-12 col-md-1 margin-section"></div>
       <div class="col-12 col-md-10 margin-section">
         <!-- <div class="tagline"><p>I'm <span class="highlight--tag">project manager</span> and <span class="highlight--tag">digital producer</span> who puts <span class="highlight--tag">code</span> and <span class="highlight--tag">design</span> into my daily work.</p></div> -->
@@ -24,10 +17,10 @@
 
       </div>
     </div>
-    <div class="row">
+    <div class="row highlight">
       <div class="col-12 col-md-1 margin-section"></div>
       <div class="col-12 col-md-10 margin-section">
-        <div class="highlight">
+        <div>
           <!-- <p>While my main job is Project manager and Digital Producer, I use code and design capabilities to prototype ideas, lead preliminary researches and feasibilities studies (<span class="abbr" title="Proof Of Concept">POC</span>), automate and improve internal tools.</p>
           <p>I also work on freelance contracts.</p>
           <p>This portfolio has been designed with a single idea in mind: to show evidence and examples of project I made for every skills I state in my portfolio.</p> -->
@@ -42,12 +35,12 @@
         </div>
       </div>
     </div>
-    <div class="row">
+    <div class="row highlight">
       <div class="col-12 margin-section">
         <h2>Coding</h2>
       </div>
       <div class="col-12 col-md-6 margin-section">
-        <h3 class="borderline">Main stack</h3>
+        <h3 class="borderline relative">Main stack</h3>
         <?php
           $arrImg = array("js", "vue", "python");
           $count = count($arrImg);
@@ -56,13 +49,13 @@
               <use xlink:href="#<?php echo $arrImg[$i]; ?>"/>
             </svg>
         <?php } ?>
-        <p>I'm a fullstack developer, with a focus on frontend - delivering high-end and interactive interfaces.<br/>
-        <span class="important">Vue</span> is my favoured framework (while I worked with <b>React</b> for few years). For small projects and quick bootstrap, I may set up <a target="_blank" rel="noreferrer" class="color-link" href="https://github.com/alpinejs/alpine/">AlpineJS</a>.</p>
+        <p><b class="highlight--tag">I'm a fullstack developer</b>, with a focus on frontend - <b class="highlight--tag">delivering high-end and interactive interfaces</b>.<br/>
+        <b class="important highlight--tag">Vue</b> is my favoured framework (while I worked with <b>React</b> for few years). For small projects and quick bootstrap, I may set up <a target="_blank" rel="noreferrer" class="color-link" href="https://github.com/alpinejs/alpine/">AlpineJS</a>.</p>
 
-        <p>Regarding backend, I'm working with <span class="important">Django</span> (in addition to <span class="important">DRF</span>) for large applications; otherwise and I opt for <span class="important">Flask</span> for smaller projects. Moreover, I largely use Python scripts for many sorts of automation.</p>
+        <p><b class="highlight--tag">Regarding backend, I'm working with <span class="important">Django</span></b> (in addition to <span class="important">DRF</span>) for large applications; otherwise and I opt for <span class="important">Flask</span> for smaller projects. Moreover, I largely use Python scripts for many sorts of automation.</p>
       </div>
       <div class="col-12 col-md-6 margin-section">
-        <h3 class="borderline">Secondary</h3>
+        <h3 class="borderline relative">Secondary</h3>
         <?php
           $arrImg = array("nodejs", "php", "ruby", "wordpress");
           $count = count($arrImg);
@@ -71,11 +64,11 @@
               <use xlink:href="#<?php echo $arrImg[$i]; ?>"/>
             </svg>
         <?php } ?>
-        <p>From time to time, I worked with <span class="important">PHP</span> (<b>Laravel</b>) and <span class="important">NodeJS</span> (<b>Express</b>).<br/>I've worked with <b>Ruby on Rails</b> years ago; I abandoned it to focus on other stacks.</p>
+        <p>From time to time, I work with <b class="highlight--tag">PHP</b> (<b class="highlight--tag">Laravel</b>) and <b class="highlight--tag">NodeJS</b> (<b class="highlight--tag">Express</b>).<br/>I've worked with <b class="highlight--tag">Ruby on Rails</b> years ago; I abandoned it to focus on other stacks.</p>
       </div>
       <div class="col-12 col-md-6"></div>
       <div class="col-12 col-md-6 margin-section">
-        <h3 class="borderline">Others</h3>
+        <h3 class="borderline relative">Others</h3>
         <?php
           $arrImg = array("bash", "unity");
           $count = count($arrImg);
@@ -104,9 +97,10 @@
             </svg>
         <?php } ?>
       </div>
-      <div class="col-12 col-md-10 margin-section">
-        <h3 class="borderline">Software</h3>
-        <p>I predominantly made use of the <span class="important">Adobe Suite</span> (<b>Illustrator</b> and <b>Photoshop</b>) for web designs. On the other hand, I also use them for my daily work as project manager/digital producer for many sorts of documents - wireframes, flows, sitemaps, diagrams, technical approaches...</p>
+      <div class="col-12 col-md-10 margin-section highlight">
+        <h3 class="borderline relative">Software</h3>
+        <p>I predominantly made use of the <b class="highlight--tag">Adobe Suite</b> (<b class="highlight--tag">Illustrator</b> and <b class="highlight--tag">Photoshop</b>) for web designs. On the other hand, <b class="highlight--tag">I also use them for my daily work as project manager/digital producer for many sorts of documents</b> - wireframes, flows, sitemaps, diagrams, technical approaches...</p>
+        <p>I switched to <a class="color-link" rel="noreferrer" href="https://affinity.serif.com/en-us/designer/">Affinity Design</a> and <a class="color-link" rel="noreferrer" href="https://affinity.serif.com/en-us/photo/">Affinity Photo</a> in 2021.</p>
       </div>
       <div class="col-12 col-md-2 margin-section">
         <?php
@@ -118,19 +112,19 @@
             </svg>
         <?php } ?>
       </div>
-      <div class="col-12 col-md-6 margin-section">
-        <h3 class="borderline">3D</h3>
-        <p>I started 3D modeling as a hobbit, with <a rel="noreferrer" target="_blank" class="color-link" href="https://www.blender.org/">Blender</a>. I'm using EEVEE for fast rendering, especially for animations; and occasionnaly Cycle for single shots.<br/>Some of my work on my <a target="_blank" class="color-link" href="https://www.artstation.com/richwood" rel="noopener" class="color-link">ArtStation</a></p>
+      <div class="col-12 col-md-6 margin-section highlight">
+        <h3 class="borderline relative">3D</h3>
+        <p>I started 3D modeling as a hobbit, with <a rel="noreferrer" target="_blank" class="color-link" href="https://www.blender.org/">Blender</a>. I'm using <b class="highlight--tag">EEVEE</b> for fast rendering, especially for animations; and occasionnaly <b class="highlight--tag">Cycle</b> for single shots.<br/>Some of my work on my <a target="_blank" class="color-link" href="https://www.artstation.com/richwood" rel="noopener" class="color-link">ArtStation</a></p>
         <p>I also tried Rhino3D during my studies, and Keyshot for renders.</p>
         <p>In a near future, I would like to experiement with <a rel="noreferrer" target="_blank" class="color-link" href="https://www.sidefx.com/products/houdini-apprentice/" class="color-link">Houdini Apprentice</a>.</p>
       </div>
     </div>
 
-    <div class="row">
+    <div class="row highlight">
       <div class="col-12 col-md-10 margin-section">
-        <h3 class="borderline">Clients</h3>
-        <p>Some clients I worked with</p>
-        <p><span class="important">HM</span> (Her Majesty - UK Government), <span class="important">BOSCH ASEAN</span>, <span class="important">Spotify Asia</span>, Suntory PepsiCo and local Vietnamese clients</p>
+        <h3 class="borderline relative">Clients</h3>
+        <p>Some clients I worked with:</p>
+        <p><b class="highlight--tag"><span class="important">HM</span> (Her Majesty - UK Government), <span class="important">BOSCH ASEAN</span>, <span class="important">Spotify Asia</span>, Suntory PepsiCo</b> and local Vietnamese clients</p>
         <div class="">
           <?php
           $arrImg = array("gov-uk", "bosch", "spotify", "pepsi", "tuborg");
@@ -163,18 +157,18 @@
 
       <div class="row">
         <div class="col-12">
-          <h3 class="borderline">Legend</h3>
+          <h3 class="borderline relative">Legend</h3>
         </div>
       </div>
       <div class="row margin-section">
-        <div class="col-6">
+        <div class="col-12 col-md-6">
           <b>Colors</b>
           <div style="padding-left: 2rem; margin-top: 1.5rem">
             <div class="major legend-item" style="max-width: 130px;">Major projects</div>
             <div class="minor legend-item" style="max-width: 130px;">Minor projects</div>
           </div>
         </div>
-        <div class="col-6">
+        <div class="col-12 col-md-6">
           <b>Icons</b>
           <div class="flex f-column f-start" style="align-items: flex-start;padding-left: 2rem;margin-top: 1.5rem">
             <div class="flex f-row f-start">
@@ -200,7 +194,7 @@
       <div class="row">
         <div class="col-12 col-md-2"></div>
         <div class="col-12 col-md-10 margin-section">
-          <h3 class="borderline">Interaction</h3>
+          <h3 class="borderline relative">Interaction</h3>
           <div>
             <p>To interact with the map, it's very much like Google Maps. Use the following controls:</p>
           </div>
@@ -246,7 +240,7 @@
                 </div>
               </div>
 
-              <div class="pointer">
+              <div class="pointer absolute">
                 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 200 200" preserveAspectRatio="xMinYMin meet" role="img">
                   <title>Pan icon</title>
                   <desc>Pan the map with the left click</desc>
@@ -265,7 +259,7 @@
                 <div class="techno node tl">Developping company brand and culture</div>
               </div>
             </div>
-            <div class="pointer">
+            <div class="pointer absolute">
               <svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 200 200" preserveAspectRatio="xMinYMin meet" role="img">
                 <path d="M166.6,87.8c0-0.8-0.399-4.8-4-8.8c-3.8-4.4-9.8-6.8-17.6-7.4c-0.8-1.2-1.8-2.4-3.4-3.6c-4.399-3.4-11.199-5.2-20-5.4
                 	c-0.8-1-2.199-2.2-3.8-3.4c-4-2.8-9-4.4-15.2-5V38c0-1.6,0.2-8.4-4.399-13.2c-2-2.2-5.8-4.8-12.2-4.8c-6.6,0-10.4,2.6-12.6,4.8
@@ -308,7 +302,7 @@
       <div class="row">
         <!-- <div class="col-12 col-md-2"></div> -->
         <div class="col-12 col-md-10">
-          <h3 class="borderline">Analytics</h3>
+          <h3 class="borderline relative">Analytics</h3>
           <details>
             <summary>Expand details</summary>
             <div>
@@ -326,5 +320,5 @@
 
     </div>
   </div>
-  <div id="notCompatible"></div>
+  <div class="absolute pointer-none" id="notCompatible"></div>
 </div>

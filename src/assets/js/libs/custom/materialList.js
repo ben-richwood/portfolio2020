@@ -1,4 +1,4 @@
-import * as THREE from '../../build/three.module.js';
+import * as THREE from 'three';
 
 export const crossMaterial = new THREE.PointsMaterial({
   size: 250,
@@ -10,7 +10,7 @@ export const crossMaterial = new THREE.PointsMaterial({
 });
 
 export const blurredCrossMaterial = new THREE.PointsMaterial({
-  size: 500,
+  size: 340,
   map: new THREE.TextureLoader().load("assets/img/blurred-cross-frame.png"),
   opacity: .5,
   blending: THREE.AdditiveBlending,

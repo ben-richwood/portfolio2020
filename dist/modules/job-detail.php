@@ -8,7 +8,7 @@
        <span>Back</span>
     </button>
   </div>
-  <div class="details-wrapper">
+  <div class="details-wrapper flex f-row f-between">
     <div class="text">
       <div class="scrollbar">
         <div class="bg-block no-margin">
@@ -33,7 +33,6 @@
 
         <div class="only-mobile" v-for="(img, i) in images.slice(0, 1)" :key="i">
           <picture>
-
               <source type="image/webp" media="(min-width: 800px) and (orientation: landscape)" :srcset="img.large.srcWebp">
               <source type="image/jp2" media="(min-width: 800px) and (orientation: landscape)" :srcset="img.large.srcJp2">
               <source type="image/jpg" media="(min-width: 800px) and (orientation: landscape)" :srcset="img.large.srcJpg">

@@ -1,5 +1,5 @@
 <div id="optionMenu" v-show="optionsOpen">
-  <div class="menuContainer hide">
+  <div class="menuContainer flex f-start f-row align-center hide">
     <div class="leftSubmenuColumn">
       <ul class="no-list option-menu-list">
         <li><button :class="currentSubmenu == 3 ? 'active' : ''" class="large-button left-align" @click="changeSubmenu(3)">About me</button></li>

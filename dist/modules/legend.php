@@ -2,52 +2,12 @@
   <div class="legend" v-show="showLegend" :class="HUDoff ? 'smaller' : ''">
     <h3 style="margin-top:.3rem;">Filtering</h3>
     <div class="flex f-row f-start">
-      <!-- <div class="legend-row">
-        <div class="qub main"> </div>
-        <div class="text">Main thread</div>
-      </div>
-      <div class="legend-row">
-        <div class="qub work"> </div>
-        <div class="text">Work</div>
-      </div>
-      <div class="legend-row">
-        <div class="qub freelance"> </div>
-        <div class="text">Freelance</div>
-      </div>
-      <div class="legend-row">
-        <div class="qub study"> </div>
-        <div class="text">Study</div>
-      </div> -->
-      <!-- <div class="column-legend"> -->
       <div class="col-12" style="padding-left:0;">
-        <button @click="applyFilter(0)" class="filter-item" :class="selectedFilter === 'techno' ? 'selected' : ''">
-          <span>Code</span>
-        </button>
-        <button @click="applyFilter(1)" class="filter-item" :class="selectedFilter === 'software' ? 'selected' : ''">
-          <span>Design</span>
-        </button>
-        <button @click="applyFilter(2)" class="filter-item" :class="selectedFilter === 'timeline' ? 'selected' : ''">
-          <span>Timeline</span>
-        </button>
-        <button @click="applyFilter(3)" class="filter-item" :class="selectedFilter === 'all' ? 'selected' : ''">
-          <span>Grid</span>
+        <button v-for="([key, value], idx) in Object.entries(filterItems)" :key="key" @click="applyFilter(key)" class="filter-item" :class="selectedFilter === key ? 'selected' : ''">
+          <span>{{ value.name }}</span>
         </button>
       </div>
-      <!-- <div class="col-6">
-        <div class="extra-legend">
-          <div class="flex f-row f-start">
-            <div class="col-6">
-              <div class="major legend-item"> Major projects </div>
-              <div class="minor legend-item"> Minor projects </div>
-            </div>
-            <div class="col-6">
-              <div class="major legend-item"> Main project </div>
-              <div class="minor legend-item"> Freelance </div>
-              <div class="minor legend-item"> Side project </div>
-            </div>
-          </div>
-        </div>
-      </div> -->
+
     </div>
   </div>
 

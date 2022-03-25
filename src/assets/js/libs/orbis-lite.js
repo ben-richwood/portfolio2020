@@ -15,15 +15,16 @@ import {
 	TOUCH,
 	Vector2,
 	Vector3
-} from "../build/three.module.js";
+} from "three";
 
-import { settings, legendMenu } from '../components.js'
-import { camera, controls } from '../timeline.js'
+// import { settings, legendMenu } from '../components.js'
+// import { camera, controls } from '../timeline.js'
 import { distanceVector } from './custom/miscellaneous.js'
 
 const marker = document.getElementById("scaleMarker");
 const scale = document.getElementById("scale");
-const scaleHeight = scale.clientHeight;
+let scaleHeight;
+if(scale) scaleHeight = scale.clientHeight;
 
 // let posFromTop = scaleHeight / (1930 - 96) * 100;
 // marker.style.transform = `translateY(${posFromTop}px)`;
@@ -35,7 +36,7 @@ const scaleHeight = scale.clientHeight;
 //    Zoom - middle mouse, or mousewheel / touch: two-finger spread or squish
 //    Pan - right mouse, or left mouse + ctrl/meta/shiftKey, or arrow keys / touch: two-finger move
 
-var OrbitControls = function ( object, domElement ) {
+var OrbitControls = function ( object, domElement, settings ) {
 
 	if ( domElement === undefined ) console.warn( 'THREE.OrbitControls: The second parameter "domElement" is now mandatory.' );
 	if ( domElement === document ) console.error( 'THREE.OrbitControls: "document" should not be used as the target "domElement". Please use "renderer.domElement" instead.' );
@@ -155,7 +156,7 @@ var OrbitControls = function ( object, domElement ) {
 
 		// so camera.up is the orbit axis
 		var quat = new Quaternion().setFromUnitVectors( object.up, new Vector3( 0, 1, 0 ) );
-		var quatInverse = quat.clone().inverse();
+		var quatInverse = quat.clone().invert();
 
 		var lastPosition = new Vector3();
 		var lastQuaternion = new Quaternion();
@@ -973,11 +974,11 @@ var OrbitControls = function ( object, domElement ) {
 		if ( scope.enabled === false || scope.enableZoom === false || ( state !== STATE.NONE && state !== STATE.ROTATE ) ) return;
 
 
-		let d = distanceVector(camera.position, {x: camera.position.x, y:scope.minDistance, z:camera.position.z});
+		let d = distanceVector(object.position, {x: object.position.x, y:scope.minDistance, z:object.position.z});
 
 		let intermediate = d.toFixed(2) / (scope.maxDistance - scope.minDistance) * 100;
 		// console.log("zoom level: ", d);
-		marker.style.transform = `translateY(${((scaleHeight * intermediate) / 100).toFixed(2)}px)`;
+		if(marker) marker.style.transform = `translateY(${((scaleHeight * intermediate) / 100).toFixed(2)}px)`;
 
 		event.preventDefault();
 		event.stopPropagation();

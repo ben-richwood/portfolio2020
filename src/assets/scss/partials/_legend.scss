@@ -15,7 +15,7 @@
       align-items: flex-start;
       transform-origin: 100% 100%;
       transition: transform .25s cubic-bezier(0.5, 0, 0.75, 0);
-      &.smaller, &.initially-reduced{
+      &.smaller{
         transform: scale(.8);
         transition: transform .25s cubic-bezier(0.5, 0, 0.75, 0);
       }
