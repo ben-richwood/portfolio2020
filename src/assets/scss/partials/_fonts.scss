@@ -1,0 +1,25 @@
+@import "inter";
+// @import url('https://rsms.me/inter/inter.css');
+
+$font-main: 'Avenir Next', 'Nunito Sans', sans-serif;
+
+$font-title: 'Ubuntu', 'Open Sans', 'Segoe UI', 'Helvetica Neue', 'Droid Sans Serif', 'Roboto', Arial, sans-serif;
+
+$font-body: 'Inter var', 'Ubuntu', 'Open Sans', 'Segoe UI', 'Helvetica Neue', 'Droid Sans Serif', 'Roboto', Arial, sans-serif;
+
+$font-figures: 'Rajdhani', 'Avenir Next Condensed', 'Dosis', 'Encode Sans Semi Condensed', 'Arial', sans-serif;
+
+$font-monospace: Menlo,Consolas,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New,monospace,serif;
+
+.font-body{
+	font-family: $font-body;
+}
+.font-subtitle{
+	font-family: $font-figures;
+}
+.font-title{
+	font-family: $font-title;
+}
+.font-monospace{
+	font-family: $font-monospace;
+}
