@@ -1,6 +1,12 @@
 #intro{
   @include scrollbar(.6em);
 }
+.stack-icons{
+  margin:-6px;
+  svg{
+    margin:6px;
+  }
+}
 #brightness{
   position: fixed;
   z-index: 200;
@@ -40,6 +46,24 @@
 @media (min-width: 1200px){
 #intro .container {
     max-width: 1140px;
+  }
+}
+@media (max-width: 764px) {
+  #intro .popup {
+    width: 80%;
+    padding: .6rem;
+    p {
+      font-size: 1rem;
+    }
+  }
+  .margin-section {
+    margin-top: 1rem !important;
+    margin-bottom: 1rem !important;
+  }
+  .stack-icons{
+    margin-top: .5rem !important;
+    margin-bottom: .5rem !important;
+
   }
 }
 @media screen and (min-width: 768px){

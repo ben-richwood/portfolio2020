@@ -445,6 +445,11 @@ body {
   perspective: 1000;
 }
 
+summary {
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
 img {
   max-width: 100%;
   /* width: 100%; */
@@ -784,6 +789,10 @@ b {
 }
 .button:focus {
   border: 2px solid red;
+}
+
+.cursor-pointer {
+  cursor: pointer;
 }
 
 #ExploreWork-btn {
@@ -1214,6 +1223,13 @@ code {
   background: linear-gradient(90deg, #201c29, #201c29 1px, #100e17 0, #100e17);
 }
 
+.stack-icons {
+  margin: -6px;
+}
+.stack-icons svg {
+  margin: 6px;
+}
+
 #brightness {
   position: fixed;
   z-index: 200;
@@ -1261,6 +1277,25 @@ code {
 @media (min-width: 1200px) {
   #intro .container {
     max-width: 1140px;
+  }
+}
+@media (max-width: 764px) {
+  #intro .popup {
+    width: 80%;
+    padding: 0.6rem;
+  }
+  #intro .popup p {
+    font-size: 1rem;
+  }
+
+  .margin-section {
+    margin-top: 1rem !important;
+    margin-bottom: 1rem !important;
+  }
+
+  .stack-icons {
+    margin-top: 0.5rem !important;
+    margin-bottom: 0.5rem !important;
   }
 }
 @media screen and (min-width: 768px) {
@@ -2122,14 +2157,6 @@ div.symbol.hide-symbol {
 }
 
 @media (max-width: 764px) {
-  #intro .popup {
-    width: 80%;
-    padding: 0.6rem;
-  }
-  #intro .popup p {
-    font-size: 0.9rem;
-  }
-
   #legend .key-legend {
     display: none;
   }

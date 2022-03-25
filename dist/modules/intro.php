@@ -41,43 +41,49 @@
       </div>
       <div class="col-12 col-md-6 margin-section">
         <h3 class="borderline relative">Main stack</h3>
-        <?php
-          $arrImg = array("js", "vue", "python");
-          $count = count($arrImg);
-          for( $i = 0; $i<$count; $i++ ) { ?>
-            <svg xmlns="http://www.w3.org/2000/svg" class="techno-svg large" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
-              <use xlink:href="#<?php echo $arrImg[$i]; ?>"/>
-            </svg>
-        <?php } ?>
+        <div class="stack-icons">
+          <?php
+            $arrImg = array("js", "vue", "nuxt", "python");
+            $count = count($arrImg);
+            for( $i = 0; $i<$count; $i++ ) { ?>
+              <svg xmlns="http://www.w3.org/2000/svg" class="techno-svg large" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+                <use xlink:href="#<?php echo $arrImg[$i]; ?>"/>
+              </svg>
+          <?php } ?>
+        </div>
         <p><b class="highlight--tag">I'm a fullstack developer</b>, with a focus on frontend - <b class="highlight--tag">delivering high-end and interactive interfaces</b>.<br/>
-        <b class="important highlight--tag">Vue</b> is my favoured framework (while I worked with <b>React</b> for few years). For small projects and quick bootstrap, I may set up <a target="_blank" rel="noreferrer" class="color-link" href="https://github.com/alpinejs/alpine/">AlpineJS</a>.</p>
+        <b class="important highlight--tag">Vue</b> (2x and 3x) is my favoured framework, extended with <b class="important highlight--tag">Nuxt</b> for larger projects. For small projects and quick bootstrap, I might set up <a target="_blank" rel="noreferrer" class="color-link" href="https://github.com/alpinejs/alpine/">AlpineJS</a> or <a target="_blank" rel="noreferrer" class="color-link" href="https://github.com/vuejs/petite-vue">petite-vue</a>.</p>
 
         <p><b class="highlight--tag">Regarding backend, I'm working with <span class="important">Django</span></b> (in addition to <span class="important">DRF</span>) for large applications; otherwise and I opt for <span class="important">Flask</span> for smaller projects. Moreover, I largely use Python scripts for many sorts of automation.</p>
       </div>
       <div class="col-12 col-md-6 margin-section">
         <h3 class="borderline relative">Secondary</h3>
-        <?php
-          $arrImg = array("nodejs", "php", "ruby", "wordpress");
-          $count = count($arrImg);
-          for( $i = 0; $i<$count; $i++ ) { ?>
-            <svg xmlns="http://www.w3.org/2000/svg" class="techno-svg" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
-              <use xlink:href="#<?php echo $arrImg[$i]; ?>"/>
-            </svg>
-        <?php } ?>
+        <div class="stack-icons">
+          <?php
+            $arrImg = array("nodejs", "php", "ruby", "wordpress");
+            $count = count($arrImg);
+            for( $i = 0; $i<$count; $i++ ) { ?>
+              <svg xmlns="http://www.w3.org/2000/svg" class="techno-svg" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+                <use xlink:href="#<?php echo $arrImg[$i]; ?>"/>
+              </svg>
+          <?php } ?>
+        </div>
         <p>From time to time, I work with <b class="highlight--tag">PHP</b> (<b class="highlight--tag">Laravel</b>) and <b class="highlight--tag">NodeJS</b> (<b class="highlight--tag">Express</b>).<br/>I've worked with <b class="highlight--tag">Ruby on Rails</b> years ago; I abandoned it to focus on other stacks.</p>
       </div>
       <div class="col-12 col-md-6"></div>
       <div class="col-12 col-md-6 margin-section">
         <h3 class="borderline relative">Others</h3>
-        <?php
-          $arrImg = array("bash", "unity");
-          $count = count($arrImg);
-          for( $i = 0; $i<$count; $i++ ) { ?>
-            <svg xmlns="http://www.w3.org/2000/svg" class="techno-svg" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
-              <use xlink:href="#<?php echo $arrImg[$i]; ?>"/>
-            </svg>
-        <?php } ?>
-        <p>Among others, I worked with Android Studio and Xcode to prototype native mobile apps.<br/>I used <a target="_blank" class="color-link" rel="noreferrer" href="https://unity3d.com/">Unity</a> for AR apps</p>
+        <div class="stack-icons">
+          <?php
+            $arrImg = array("bash", "unity");
+            $count = count($arrImg);
+            for( $i = 0; $i<$count; $i++ ) { ?>
+              <svg xmlns="http://www.w3.org/2000/svg" class="techno-svg" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+                <use xlink:href="#<?php echo $arrImg[$i]; ?>"/>
+              </svg>
+          <?php } ?>
+        </div>
+        <p>Among others, I worked with Android Studio and Xcode to prototype native mobile apps.<br/>I also developped few small projects with <a target="_blank" class="color-link" rel="noreferrer" href="https://unity3d.com/">Unity</a> for AR apps</p>
       </div>
     </div>
 
@@ -88,32 +94,49 @@
     </div>
     <div class="row">
       <div class="col-12 col-md-2 margin-section">
-        <?php
-          $arrImg = array("illustrator", "photoshop", "indesign", "sketch");
-          $count = count($arrImg);
-          for( $i = 0; $i<$count; $i++ ) { ?>
-            <svg xmlns="http://www.w3.org/2000/svg" class="techno-svg" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
-              <use xlink:href="#<?php echo $arrImg[$i]; ?>"/>
-            </svg>
-        <?php } ?>
+        <div class="stack-icons only-desktop"><?php
+            $arrImg = array("illustrator", "photoshop", "indesign", "sketch", "figma");
+            $count = count($arrImg);
+            for( $i = 0; $i<$count; $i++ ) { ?>
+              <svg xmlns="http://www.w3.org/2000/svg" class="techno-svg large" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+                <use xlink:href="#<?php echo $arrImg[$i]; ?>"/>
+              </svg>
+          <?php } ?></div>
       </div>
       <div class="col-12 col-md-10 margin-section highlight">
         <h3 class="borderline relative">Software</h3>
+        <div class="stack-icons only-mobile"><?php
+            $arrImg = array("illustrator", "photoshop", "indesign", "sketch", "figma");
+            $count = count($arrImg);
+            for( $i = 0; $i<$count; $i++ ) { ?>
+              <svg xmlns="http://www.w3.org/2000/svg" class="techno-svg" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+                <use xlink:href="#<?php echo $arrImg[$i]; ?>"/>
+              </svg>
+          <?php } ?></div>
         <p>I predominantly made use of the <b class="highlight--tag">Adobe Suite</b> (<b class="highlight--tag">Illustrator</b> and <b class="highlight--tag">Photoshop</b>) for web designs. On the other hand, <b class="highlight--tag">I also use them for my daily work as project manager/digital producer for many sorts of documents</b> - wireframes, flows, sitemaps, diagrams, technical approaches...</p>
-        <p>I switched to <a class="color-link" rel="noreferrer" href="https://affinity.serif.com/en-us/designer/">Affinity Design</a> and <a class="color-link" rel="noreferrer" href="https://affinity.serif.com/en-us/photo/">Affinity Photo</a> in 2021.</p>
+        <p>I switched to <a class="color-link" target="_blank" rel="noreferrer" href="https://affinity.serif.com/en-us/designer/">Affinity Design</a> and <a class="color-link" rel="noreferrer" target="_blank" href="https://affinity.serif.com/en-us/photo/">Affinity Photo</a> and <b class="important highlight--tag">Figma</b> in 2021.</p>
+        <p>I also switched from InDesign to <a class="color-link" rel="noreferrer" target="_blank" href="https://www.scribus.net/">Scribus</a>, it's Open Source twin.</p>
       </div>
       <div class="col-12 col-md-2 margin-section">
-        <?php
-          $arrImg = array("blender");
-          $count = count($arrImg);
-          for( $i = 0; $i<$count; $i++ ) { ?>
-            <svg xmlns="http://www.w3.org/2000/svg" class="techno-svg" style="transform: scale(1.5);" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
-              <use xlink:href="#<?php echo $arrImg[$i]; ?>"/>
-            </svg>
-        <?php } ?>
+        <div class="stack-icons only-desktop"><?php
+            $arrImg = array("blender");
+            $count = count($arrImg);
+            for( $i = 0; $i<$count; $i++ ) { ?>
+              <svg xmlns="http://www.w3.org/2000/svg" class="techno-svg large" style="transform: scale(1.5);" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+                <use xlink:href="#<?php echo $arrImg[$i]; ?>"/>
+              </svg>
+          <?php } ?></div>
       </div>
       <div class="col-12 col-md-6 margin-section highlight">
         <h3 class="borderline relative">3D</h3>
+        <div class="stack-icons only-mobile"><?php
+            $arrImg = array("blender");
+            $count = count($arrImg);
+            for( $i = 0; $i<$count; $i++ ) { ?>
+              <svg xmlns="http://www.w3.org/2000/svg" class="techno-svg" style="transform: scale(1.5);" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+                <use xlink:href="#<?php echo $arrImg[$i]; ?>"/>
+              </svg>
+          <?php } ?></div>
         <p>I started 3D modeling as a hobbit, with <a rel="noreferrer" target="_blank" class="color-link" href="https://www.blender.org/">Blender</a>. I'm using <b class="highlight--tag">EEVEE</b> for fast rendering, especially for animations; and occasionnaly <b class="highlight--tag">Cycle</b> for single shots.<br/>Some of my work on my <a target="_blank" class="color-link" href="https://www.artstation.com/richwood" rel="noopener" class="color-link">ArtStation</a></p>
         <p>I also tried Rhino3D during my studies, and Keyshot for renders.</p>
         <p>In a near future, I would like to experiement with <a rel="noreferrer" target="_blank" class="color-link" href="https://www.sidefx.com/products/houdini-apprentice/" class="color-link">Houdini Apprentice</a>.</p>
@@ -126,14 +149,14 @@
         <p>Some clients I worked with:</p>
         <p><b class="highlight--tag"><span class="important">HM</span> (Her Majesty - UK Government), <span class="important">BOSCH ASEAN</span>, <span class="important">Spotify Asia</span>, Suntory PepsiCo</b> and local Vietnamese clients</p>
         <div class="">
-          <?php
-          $arrImg = array("gov-uk", "bosch", "spotify", "pepsi", "tuborg");
-          $count = count($arrImg);
-          for( $i = 0; $i<$count; $i++ ) { ?>
-            <svg xmlns="http://www.w3.org/2000/svg" class="techno-svg very-large" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
-              <use xlink:href="#<?php echo $arrImg[$i]; ?>"/>
-              </svg>
-          <?php } ?>
+          <div class="stack-icons"><?php
+            $arrImg = array("gov-uk", "bosch", "spotify", "pepsi", "tuborg");
+            $count = count($arrImg);
+            for( $i = 0; $i<$count; $i++ ) { ?>
+              <svg xmlns="http://www.w3.org/2000/svg" class="techno-svg very-large" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+                <use xlink:href="#<?php echo $arrImg[$i]; ?>"/>
+                </svg>
+            <?php } ?></div>
         </div>
       </div>
     </div>
@@ -145,7 +168,7 @@
 
       <div class="row">
         <div class="col-12 margin-section">
-          <h2>Projects</h2>
+          <h2 class="tc">Projects</h2>
         </div>
       </div>
 
@@ -304,7 +327,7 @@
         <div class="col-12 col-md-10">
           <h3 class="borderline relative">Analytics</h3>
           <details>
-            <summary>Expand details</summary>
+            <summary class="cursor-pointer">Expand details</summary>
             <div>
               <p class="mb">Privacy does matter to me. I hate being tracked when browsing and visiting websites.</p>
               <p class="mb">In the meantime, I would like to have some inkling about how many people visit my website. So I opted for Google Analytics.</p>

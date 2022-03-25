@@ -13,6 +13,7 @@
 	import ProjectDetail from "./ProjectDetail.vue"
 	import Legend from "./Legend.vue"
 	import OptionMenu from "./OptionMenu.vue"
+	import { sound } from "../utilis.js";
 
 	export default {
 		components: { Legend, Canvas, OptionMenu, ProjectDetail },
@@ -24,6 +25,7 @@
 		},
 		methods:{
 			start(){
+				sound.project();
 				this.$refs.legend.displayLegend()
 				this.$refs.canvas.start()
 			},

@@ -285,7 +285,6 @@
 		  display: inline-block;
 		  width: 40px;
 		  max-height: 30px;
-		  margin-right: .4rem;
 		}
 		.techno-svg.large{
 			width: 50px;

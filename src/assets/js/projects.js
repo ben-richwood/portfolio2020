@@ -787,11 +787,11 @@ export const PROJECTS = (function(){
         "id": 24,
         "name": "Spotify Campaign",
         "cat": "main",
-        "major": true,
+        "major": false,
+        "year": 2020,
         "summary": "Campaign website for Spotify Vietnam",
         "description": `<p>For one of their campaign, I was in charge of developing the website for <b>Spotify</b> (both backend and frontend).</p><h4>Motivations and challenges</h4>
         <ul><li>Trying parcel</li><li>multiple locales with Vue</li> <li>secured backend with Flask (CSRF token, CORS)</li><li>Vision AI</li></ul>`,
-        "year": 2020,
         "code": "It's a one-page app, built with VueJS. It handles photo uploads, using Google Cloud Vision AI to detect explicit and/or violent content in the pictures. And it's all build in a secure Google App Engine",
         "link": "https://spotify-fan.com/",
         "images": ["home", {url:"artist", caption:"The website showcases some local artists"}],
@@ -813,7 +813,7 @@ export const PROJECTS = (function(){
         "techno": {
           "n/a": false,
           "list": ["python", "flask", "vue", "parcel", "google-cloud"],
-          "position": {x: 60, y: 1, z: -500}
+          "position": {x: 80, y: 1, z: -800}
         }
       }, {
         "id": 25,
@@ -861,7 +861,7 @@ export const PROJECTS = (function(){
         "summary": "Map + 3d modeling in the browser",
         "year": 2021,
         "major": true,
-        "description": "<p>I developed a website which allows urban developers to select parcels and draw building templates onto it, according to urban planning rules, such as maximum height and occupation.</p>",
+        "description": `<p>I developed a website which allows urban developers to select parcels and draw building templates onto it, according to urban planning rules, such as maximum height and occupation.</p>`,
         "code": `<p>The web app offers 3D modeling capabilities inside a map, allowing to generate models (building templates) with basic transformations (translation and rotation), apply predefined textures, add and define roof height, edit the geometries (by selecting selecting vertices). And it calculates many parameters related to urban planing based on the geometry.</p>
         <h4>Challenges</h4>
         <ul>
@@ -899,6 +899,51 @@ export const PROJECTS = (function(){
         "techno": {
           "n/a": false,
           "list": ["python", "flask", "webpack", "three", "typescript"],
+          "position": {x: 30, y: 1, z: -500}
+        }
+      }, {
+        "id": 27,
+        "name": "Homers.fr",
+        "summary": "Fullstack website with Django & Nuxt",
+        "year": 2021,
+        "major": true,
+        "description": `<p>Homers.fr is a mobility service that helps workers who need to move house for professional reasons to find a new home.</p>
+        <p>For this webapp, I entirely developed the website, from backend to frontend.</p>
+        <p>This project is build upon:</p>
+        <ul>
+          <li>SPA (SSG) based on Vue.js 2 + Nuxt + Vuetify on client side, with Mapbox and other common libraries (Axios, Vuex, Lodash ...)</li>
+          <li>Django & DRF on server side - with all the standard security tools (JWT, hashing, CSRF tokens, virtual env, encrypted S3 buckets with AES...)</li>
+          <li>DevOps: AWS architecture, Nginx, SSL certificates etc.</li>
+          </ul>
+          <h4>Challenges</h4>
+          <ul>
+          <li>Security: authentication (with JWT), access management with roles, encrypted files with AES on AWS...</li>
+          <li>Loading times and performance concerns</li>
+        </ul>
+        `,
+        "images": ["main", "timeline"],
+        "cat": "main",
+
+        "slug": "homers",
+        "category": "Freelance contract - Fullstack development",
+        "group": "freelance",
+
+        "timeline": {
+          "n/a": false,
+          "onlyTimeline": false,
+          "startingYear": 2021.5,
+          "len": .8,
+          "thread": "main",
+          "type": "duration",
+        },
+        "software": {
+          "n/a": true,
+          "list": ["blender"],
+          "position": {x: 1600, y: 100, z: -100}
+        },
+        "techno": {
+          "n/a": false,
+          "list": ["python", "django", "webpack", "mapbox", "js", 'vue', 'nuxt'],
           "position": {x: -60, y: 1, z: 0}
         }
       }
