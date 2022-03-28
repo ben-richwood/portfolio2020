@@ -1,9 +1,9 @@
 <template lang="html">
 	<div>
-		<div id="brightness"></div>
-		<Canvas ref="canvas" />
-		<OptionMenu :isOpen="isMenuOpen" />
-		<ProjectDetail :isOpen="selectedProject !== null" />
+		<div id="brightness" :style="`opacity: ${brightness}`" />
+		<Canvas ref="canvas" @clickProject="openProject($event)" />
+		<OptionMenu />
+		<ProjectDetail ref="projectDetail" />
 		<Legend ref="legend" @applyFilter="applyFilter" />
 	</div>
 </template>
@@ -23,6 +23,11 @@
 				selectedProject: null
 			}
 		},
+		computed: {
+			brightness(){
+				return (100 - this.$store.state.brightness) / 100
+			}
+		},
 		methods:{
 			start(){
 				sound.project();
@@ -32,8 +37,12 @@
 			applyFilter(){
 				// this.$refs.legend.displayLegend()
 				this.$refs.canvas.applyFilter()
-				console.log("this.$store.settings.currFilter:", this.$store.state.settings.currFilter);
-			}
+				console.log("this.$store.settings.currFilter:", this.$store.state.currentFilter);
+			},
+			openProject(id){
+				this.selectedProject = id
+				this.$refs.projectDetail.open(id)
+			},
 		},
 		mounted(){
 			// settings.isMobile = isMobile;

@@ -1,6 +1,6 @@
 <template lang="html">
   <div>
-    <div id="legend">
+    <div id="legend" :class="{'mute': mute}">
       <div class="legend" :class="{'smaller': HUDoff, 'show': showLegend}">
         <h3 style="margin-top:.3rem;">Filtering</h3>
         <div class="flex f-row f-start">
@@ -67,7 +67,7 @@
         </div>
       </div>
     </div>
-    <div id="scale" class="only-desktop">
+    <div id="scale" class="only-desktop d-none" :class="{'mute': mute}">
       <div class="marker" id="scaleMarker"></div>
       <!-- <button @click="resetCamera" class="reset-camera" type="button" name="button" title="Reset the camera">
         <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 1800 200 200" preserveAspectRatio="xMinYMin meet">
@@ -87,6 +87,7 @@
 </template>
 
 <script>
+  import { sound } from "../utilis.js";
   const filters = {
     techno: {name: "techno", id:"techno"},
     software: {name: "software", id:"software"},
@@ -99,14 +100,20 @@
   		    showLegend: false,
   		    legendState: null,
   		    showLegendForDetail: false,
-  		    selectedFilter: "techno",
+  		    // selectedFilter: "techno",
   		    filterItems: filters,
   		    HUDoff: false
         }
 		  },
       computed:{
+        mute(){
+          return this.$store.state.currentProject !== null || this.$store.state.isMenuOpen
+        },
         keyMap() {
           return this.$store.state.settings.keyboardConfig;
+        },
+        selectedFilter() {
+          return this.$store.state.currentFilter;
         },
       },
 		  mounted(){
@@ -120,15 +127,18 @@
         },
         openMenu(){
           console.log("Open menu");
+          this.$store.commit("toggleMenu")
         },
         toggleHUD(){
-          console.log("toggleHUD");
+          sound.hud();
           this.showLegend = !this.showLegend;
         },
         applyFilter: function(key){
-          this.$store.state.settings.prevFilter = this.$store.state.settings.currFilter;
-          this.$store.commit('updateSettings', {currFilter: key})
-          this.selectedFilter = this.$store.state.settings.currFilter;
+          // this.selectedFilter = key;
+
+          this.$store.commit('setFilter', key)
+          // let prevFilter = `${this.$store.state.settings.currFilter}`;
+          // this.$store.commit('updateSettings', {currFilter: key, prevFilter })
           // tl.transform( tl.targets[key], 2000 );
           // console.log(this.legendState)
           this.$emit("applyFilter")

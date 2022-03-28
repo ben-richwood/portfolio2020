@@ -1,21 +1,22 @@
 <template lang="html">
 	<div>
-		<div class="visuallyhidden">
+		<!-- <div class="visuallyhidden">
 			<?php include("./assets/img/techno-icons.svg"); ?>
-		</div>
+		</div> -->
 		<div id="DOMElTimeline"></div>
 		<!-- <?php /* include "./modules/legend.php" */ ?> -->
 
 		<div id="canvasScene" class="absolute">
 			<canvas id="timeline"></canvas>
 		</div>
-		<div id="canvasStats" class="d-none"></div>
+		$store.state.developerMode : {{ $store.state.developerMode }}
+		<div id="canvasStats" v-show="$store.state.developerMode" />
 	</div>
 </template>
 
 <script>
 	import TWEEN from '@tweenjs/tween.js'
-	import { Timeline } from '../timeline.js'
+	import { Timeline, SingletonTimeline } from '../timeline.js'
 
 	const legendObj = document.querySelector(".legend");
 	const divLegends = document.querySelectorAll("#legend .key-legend > div");
@@ -29,12 +30,14 @@
 		},
 		methods: {
 			applyFilter(){
-				this.timeline.updatedSettings(this.$store.state.settings)
-				this.timeline.transform( this.timeline.targets[this.$store.state.settings.currFilter], 2000 );
+				// this.timeline.updatedSettings(this.$store.state.settings)
+				this.timeline.transform( this.timeline.targets[this.$store.state.currentFilter], 2000 );
 			},
 			start(){
 				// this.timeline.animate();
 				this.timeline.playAnimation();
+
+				// this.applyFilter()
 
 				document.getElementById("intro").style.display = "none";
 				domElTimeline = document.getElementById("DOMElTimeline");
@@ -44,6 +47,8 @@
 				    let id = evt.target.getAttribute("data-id");
 				    // detailPopup.open(id);
 						console.log(id);
+						// this.$emit("clickProject", id)
+						this.$store.commit("setProject", id)
 				  }
 				}, true);
 				/*
@@ -77,8 +82,8 @@
 			}
 		},
 		mounted(){
-			this.timeline = new Timeline(this.$store.state.settings);
-			console.log("this.timeline", this.timeline);
+			this.timeline = SingletonTimeline.getInstance();
+			// this.timeline = new Timeline(this.$store.state.settings);
 			// this.timeline.animate();
 		}
 	}

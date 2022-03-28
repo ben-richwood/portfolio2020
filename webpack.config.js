@@ -87,7 +87,7 @@ module.exports = (env, options) => {
         ]
       }, {
         // test: /\.wav$/,
-        test: /\.(mp3|wav)$/,
+        test: /\.(mp3|wav|m4a)$/,
         loader: 'file-loader'
       }
       ]

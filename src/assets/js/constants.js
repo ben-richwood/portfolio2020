@@ -36,6 +36,7 @@ const date = new Date;
 const hour = date.getHours();
 export const SETTINGS = {
     // STATES
+    t0: performance.now(),
     debug: false,
     isPaused: true,
     currentEnv: null,
@@ -69,7 +70,7 @@ export const SETTINGS = {
     analyticsOn: true,
 
     // OPTIONS
-    muteSound: false,
+    isSoundOn: true,
     linksNewTab: true,
     keyboardConfig: {...keyboardMap.kb_default},
     GPU: "",
