@@ -182,7 +182,8 @@ function launchMap(e) {
     }
     // document.removeEventListener('keyup', (event) => {}, false);
   }
-  console.log(app);
+  // console.log(app);
+  document.querySelector('.header').style.display = "none";
   app.$root.$children[0].start()
   // selectPerf = false;
 }

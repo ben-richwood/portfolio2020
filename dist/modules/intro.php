@@ -43,7 +43,7 @@
         <h3 class="borderline relative">Main stack</h3>
         <div class="stack-icons">
           <?php
-            $arrImg = array("js", "vue", "nuxt", "python");
+            $arrImg = array("js", "vue", "nuxt", "npm", "python", "django");
             $count = count($arrImg);
             for( $i = 0; $i<$count; $i++ ) { ?>
               <svg xmlns="http://www.w3.org/2000/svg" class="techno-svg large" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">

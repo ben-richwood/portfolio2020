@@ -319,7 +319,7 @@
       </a>
     </div>
     <div id="app">
-      <router-view></router-view>
+      <!-- <router-view></router-view> -->
     </div>
     <?php include "./modules/intro.php" ?>
     <div class="visuallyhidden">
