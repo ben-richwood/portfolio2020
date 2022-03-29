@@ -44,6 +44,10 @@ ul.no-list{
 	user-select:none;
 }
 
+.fill-height{
+	height: 100%;
+}
+
 .flex-row{
   @include displayFlex(space-around, row);
 	// @at-root &--secondary{
@@ -70,6 +74,10 @@ ul.no-list{
 	align-items: center;
 
 	flex-wrap: wrap;
+
+	&.flex-nowrap{
+		flex-wrap: nowrap;
+	}
 
 	&.f-start{
 		-webkit-justify-content: flex-start; /* Safari 6.1+ */

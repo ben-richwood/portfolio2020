@@ -16,10 +16,10 @@
   z-index: 1;
 }
 div#DOMElTimeline{
-  filter: blur(8px);
-  -webkit-filter: blur(8px);
-  -o-filter: blur(8px);
-  -moz-filter: blur(8px);
+  // filter: blur(8px);
+  // -webkit-filter: blur(8px);
+  // -o-filter: blur(8px);
+  // -moz-filter: blur(8px);
   z-index: 20;
   background: url(../img/background.svg) 0 0 / cover no-repeat;
   cursor: grab;
@@ -28,9 +28,9 @@ div#DOMElTimeline{
     cursor: grabbing;
   }
 }
-.blurred{
-  filter: blur(7px);
-}
+// .blurred{
+//   filter: blur(7px);
+// }
 div.yearlong{
   height: 2px;
   background-color: $mainColor;
@@ -136,8 +136,8 @@ div.detail{
   // transition: transform .2s ease-in;
   &:hover .into-detail{
     // border: 1px solid rgba(127,255,255,0.75);
-    transform: translate(50%, 50%) scale(1.12);
-    transition: transform .15s ease-in;
+    transform: scale(1.08);
+    transition: transform .4s $transition;
     .techno-icons{
       display: block;
     }
@@ -153,13 +153,13 @@ div.detail{
     background-color: grey;
     transform-origin: 0 50%;
     transform: scaleX(0);
-    transition: transform .5s 1s ease;
+    transition: transform .5s 1s $transition;
   }
   &.timeline{
     // transform-origin: 0 0;
     .length-bar{
       transform: scaleX(1);
-      transition: transform .8s 1s ease;
+      transition: transform .8s 1s $transition;
     }
     .techno{
       display: none;
@@ -181,7 +181,7 @@ div.detail{
       user-select:none;
     }
     &.major{
-      transform: translate(50%, 50%);
+      // transform: translate(50%, 50%);
       transition: transform .15s ease-in;
       position: relative;
       .desc{
@@ -198,7 +198,7 @@ div.detail{
       }
     }
     &.minor{
-      transform: translate(50%, 50%) scale(.65);
+      // transform: translate(50%, 50%) scale(.65);
       transition: transform .15s ease-in;
       .desc{
         // background: #6d9aba;

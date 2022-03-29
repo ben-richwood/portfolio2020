@@ -340,21 +340,21 @@ When using this, you will likely need to set font-variation-settings explicitly,
 }
 @keyframes animateDetailLeft {
   0% {
-    transform: translateY(30px) translateZ(0px) rotateY(0) rotateY(16deg) scale(0.92);
+    transform: perspective(650px) rotateY(2deg) translateY(30px) translateZ(0px) rotateX(0) scale(0.92);
     opacity: 0;
   }
   100% {
-    transform: translateY(0) translateZ(0px) rotateY(0) rotateX(0) scale(1);
+    transform: perspective(650px) rotateY(0) translateY(0) translateZ(0px) rotateX(0) scale(1);
     opacity: 1;
   }
 }
 @keyframes animateDetailRight {
   0% {
-    transform: translateY(30px) translateZ(0px) rotateY(0) rotateY(-16deg) scale(0.92);
+    transform: perspective(650px) rotateY(-4deg) translateY(40px) translateZ(-30px) rotateX(0) scale(0.92);
     opacity: 0;
   }
   100% {
-    transform: translateY(0) translateZ(0px) rotateY(0) rotateX(0) scale(1);
+    transform: perspective(650px) rotateY(0) translateY(0px) translateZ(0px) rotateX(0) scale(1);
     opacity: 1;
   }
 }
@@ -380,6 +380,32 @@ When using this, you will likely need to set font-variation-settings explicitly,
   }
   50% {
     background-position: 100% 50%;
+  }
+}
+@keyframes lineTransition {
+  0% {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0px);
+  }
+}
+@keyframes skewTransitionBefore {
+  0% {
+    transform: skewY(0deg) translateY(-100%);
+  }
+  100% {
+    transform: skewY(-2deg) translateY(-130px);
+  }
+}
+@keyframes skewTransitionAfter {
+  0% {
+    transform: skewY(0deg) translateY(100%);
+  }
+  100% {
+    transform: skewY(-3deg) translateY(140px);
   }
 }
 /* http://meyerweb.com/eric/tools/css/reset/
@@ -515,6 +541,10 @@ ul.no-list {
   user-select: none;
 }
 
+.fill-height {
+  height: 100%;
+}
+
 .flex-row {
   display: -webkit-box;
   /* OLD - iOS 6-, Safari 3.1-6 */
@@ -562,6 +592,9 @@ ul.no-list {
   /* Safari 7.0+ */
   align-items: center;
   flex-wrap: wrap;
+}
+.flex.flex-nowrap {
+  flex-wrap: nowrap;
 }
 .flex.f-start {
   -webkit-justify-content: flex-start;
@@ -879,65 +912,6 @@ b {
     background-position: 0 0;
   }
 }
-/*
-.button--sheen-l {
-	color: #fff;
-	letter-spacing: 0.025em;
-	background: rgb(255,255,255);
-	background: linear-gradient(90deg, rgba(255,255,255,0.5) 10%, rgba(255,255,255,0) 100%);
-	padding: 1rem 10rem 1rem 2rem;
-	width: 100%;
-	max-width: 650px;
-	border: 0;
-	border-left: 15px solid #FFF;
-	cursor: pointer;
-	-ms-transform: skewX(16deg);
-	-webkit-transform: skewX(16deg);
-	transform: skewX(16deg);
-	border-radius: 1px;
-	min-width: 7.1428571429rem;
-	overflow: hidden;
-	position: absolute;
-	top: 0%;
-	left: 0%;
-	transform: skewX(16deg) !important;
-}
-.button--sheen-l span {
-		display: block;
-		position: relative;
-		z-index: 10;
-		font-size: 1.25rem;
-		-ms-transform: skewX(-16deg);
-		-webkit-transform: skewX(-16deg);
-		transform: skewX(-16deg);
-		font-family: $font-title;
-		margin: 0 auto 0 0;
-	}
-.button--sheen-l:after, .button--sheen-l:before {
-	content: '';
-	position: absolute;
-	top: 0;
-	left:0;
-	height: 100%;
-	width: 100%;
-	opacity: 0;
-	color: #fff;
-	border-radius: 2px;
-	transition: opacity .4s ease-in-out, box-shadow .3s ease-in-out;
-	background: linear-gradient(90deg, rgba(255, 249, 220, 0.7) 20%, rgba(255,255,255,0) 50%);
-	box-shadow: 0 0 12px rgba(255, 249, 220, 0);
-}
-
-.button--sheen-l:hover{
-	border-left: 15px solid rgba(255, 249, 220, .7);
-	box-shadow: 0 0 12px rgba(255, 249, 220, .3);
-	transition: box-shadow .3s ease-in-out;
-}
-.button--sheen-l:hover:before {
-		opacity: 1;
-		transition: opacity .4s ease-in-out;
-}
-*/
 .large-btn {
   cursor: pointer;
   display: block;
@@ -1084,6 +1058,7 @@ b {
   flex-basis: 70%;
   max-height: 100%;
   padding-left: 1vw;
+  padding-bottom: 3rem;
   box-sizing: border-box;
   border-left: 1px solid rgba(255, 255, 255, 0.2);
 }
@@ -1485,6 +1460,15 @@ code {
   animation: AnimationName 0.4s ease 1;
 }
 
+#legend, #scale {
+  transition: opacity 0.35s ease-in-out;
+  opacity: 1;
+}
+#legend.mute, #scale.mute {
+  opacity: 0;
+  transition: opacity 0.35s ease-in-out;
+}
+
 .key-legend {
   position: fixed;
   bottom: 2rem;
@@ -1781,20 +1765,12 @@ code {
 }
 
 div#DOMElTimeline {
-  filter: blur(8px);
-  -webkit-filter: blur(8px);
-  -o-filter: blur(8px);
-  -moz-filter: blur(8px);
   z-index: 20;
   background: url(../img/background.svg) 0 0/cover no-repeat;
   cursor: grab;
 }
 div#DOMElTimeline:active {
   cursor: grabbing;
-}
-
-.blurred {
-  filter: blur(7px);
 }
 
 div.yearlong {
@@ -1941,8 +1917,8 @@ div.detail {
   cursor: pointer;
 }
 div.detail:hover .into-detail {
-  transform: translate(50%, 50%) scale(1.12);
-  transition: transform 0.15s ease-in;
+  transform: scale(1.08);
+  transition: transform 0.4s cubic-bezier(0.5, 0, 0.75, 0);
 }
 div.detail:hover .into-detail .techno-icons {
   display: block;
@@ -1958,11 +1934,11 @@ div.detail .length-bar {
   background-color: grey;
   transform-origin: 0 50%;
   transform: scaleX(0);
-  transition: transform 0.5s 1s ease;
+  transition: transform 0.5s 1s cubic-bezier(0.5, 0, 0.75, 0);
 }
 div.detail.timeline .length-bar {
   transform: scaleX(1);
-  transition: transform 0.8s 1s ease;
+  transition: transform 0.8s 1s cubic-bezier(0.5, 0, 0.75, 0);
 }
 div.detail.timeline .techno {
   display: none;
@@ -1981,7 +1957,6 @@ div.detail div.into-detail.techno {
   user-select: none;
 }
 div.detail div.into-detail.major {
-  transform: translate(50%, 50%);
   transition: transform 0.15s ease-in;
   position: relative;
 }
@@ -2011,7 +1986,6 @@ div.detail div.into-detail.major div.techno.legend-item:before {
   left: 0;
 }
 div.detail div.into-detail.minor {
-  transform: translate(50%, 50%) scale(0.65);
   transition: transform 0.15s ease-in;
 }
 div.detail div.into-detail.minor .desc {
@@ -2210,7 +2184,7 @@ div.symbol.hide-symbol {
   top: 0;
   left: 0;
   transform-style: preserve-3d;
-  z-index: 50;
+  z-index: 150;
   background-color: rgba(0, 0, 0, 0.88);
 }
 #optionMenu:before, #optionMenu:after {
@@ -2219,21 +2193,73 @@ div.symbol.hide-symbol {
   position: absolute;
   width: 100%;
   height: 15vh;
-  z-index: 70;
-}
-#optionMenu:after {
-  transform-origin: 0 100%;
-  bottom: 0;
-  left: 0;
-  transform: skewY(2deg) translateY(100px);
-  transition: transform 0.4s ease-in;
+  z-index: 200;
 }
 #optionMenu:before {
   transform-origin: 100% 0%;
   top: 0;
   right: 0;
-  transform: skewY(3deg) translateY(-100px);
-  transition: transform 0.4s ease-in;
+}
+#optionMenu:after {
+  transform-origin: 0 100%;
+  bottom: 0;
+  left: 0;
+}
+#optionMenu.isMenuOpen:before {
+  animation-name: skewTransitionBefore;
+  animation-duration: 0.4s;
+  animation-delay: 0.45s;
+  animation-timing-function: cubic-bezier(0.5, 0, 0.75, 0);
+  animation-direction: normal;
+  animation-fill-mode: both;
+  animation-iteration-count: 1;
+}
+#optionMenu.isMenuOpen:after {
+  animation-name: skewTransitionAfter;
+  animation-duration: 0.4s;
+  animation-delay: 0.3s;
+  animation-timing-function: cubic-bezier(0.5, 0, 0.75, 0);
+  animation-direction: normal;
+  animation-fill-mode: both;
+  animation-iteration-count: 1;
+}
+#optionMenu.isMenuOpen .option-menu-list li {
+  animation-name: lineTransition;
+  animation-duration: 0.4s;
+  animation-timing-function: cubic-bezier(0.5, 0, 0.75, 0);
+  animation-direction: normal;
+  animation-fill-mode: both;
+  animation-iteration-count: 1;
+}
+#optionMenu.isMenuOpen .option-menu-list li:nth-child(1) {
+  animation-delay: 0.4s;
+}
+#optionMenu.isMenuOpen .option-menu-list li:nth-child(2) {
+  animation-delay: 0.45s;
+}
+#optionMenu.isMenuOpen .option-menu-list li:nth-child(3) {
+  animation-delay: 0.5s;
+}
+#optionMenu.isMenuOpen .option-menu-list li:nth-child(4) {
+  animation-delay: 0.55s;
+}
+#optionMenu.isMenuOpen .option-menu-list li:nth-child(5) {
+  animation-delay: 0.6s;
+}
+#optionMenu.isMenuOpen .option-menu-list li:nth-child(6) {
+  animation-delay: 0.65s;
+}
+#optionMenu.isMenuOpen .option-menu-list li:nth-child(7) {
+  animation-delay: 0.7s;
+}
+#optionMenu.isMenuOpen .option-menu-list li:nth-child(8) {
+  animation-delay: 0.75s;
+}
+#optionMenu.isMenuOpen .option-menu-list li:nth-child(9) {
+  animation-delay: 0.8s;
+}
+#optionMenu.isMenuOpen .option-menu-list li:nth-child(10) {
+  animation-delay: 0.85s;
 }
 
 .returnArrow {
@@ -2430,7 +2456,7 @@ input.slider:disabled::-webkit-slider-thumb, input.slider:disabled::-moz-range-t
 #details {
   perspective: 1000px;
   position: fixed;
-  z-index: 45;
+  z-index: 100;
   top: 0;
   left: 0;
   height: 100vh;
@@ -2444,6 +2470,7 @@ input.slider:disabled::-webkit-slider-thumb, input.slider:disabled::-moz-range-t
   padding: 4vw;
   box-sizing: border-box;
   max-height: 100vh;
+  height: 100vh;
 }
 #details .text, #details .images {
   background-image: url(../img/timeline/timeline_nw.svg), url(../img/timeline/timeline_ne.svg), url(../img/timeline/timeline_sw.svg), url(../img/timeline/timeline_se.svg);
@@ -2461,12 +2488,16 @@ input.slider:disabled::-webkit-slider-thumb, input.slider:disabled::-moz-range-t
   animation-play-state: running;
 }
 #details .text {
+  transform-origin: 0% 0%;
   animation-name: animateDetailLeft;
   flex-shrink: 2;
   box-sizing: border-box;
   margin-right: 2vw;
   width: 60%;
   max-width: 600px;
+}
+#details .text h2 {
+  margin-bottom: 1rem;
 }
 #details .text .bg-block:last-child {
   margin-bottom: 0;
@@ -2481,8 +2512,9 @@ input.slider:disabled::-webkit-slider-thumb, input.slider:disabled::-moz-range-t
   margin-bottom: 0;
 }
 #details .images {
+  transform-origin: 100% 0%;
   animation-name: animateDetailRight;
-  animation-delay: 0.4s;
+  animation-delay: 0.15s;
   animation-duration: 0.5s;
   background-color: rgba(0, 0, 0, 0.08);
   flex-basis: 0;

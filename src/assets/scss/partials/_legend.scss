@@ -1,3 +1,11 @@
+#legend, #scale{
+  transition: opacity .35s ease-in-out;
+  opacity: 1;
+  &.mute{
+    opacity: 0;
+    transition: opacity .35s ease-in-out;
+  }
+}
 .key-legend{
   	position: fixed;
   	bottom: 2rem;

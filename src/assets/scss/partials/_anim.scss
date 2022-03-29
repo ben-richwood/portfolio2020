@@ -79,23 +79,23 @@
 
 @keyframes animateDetailLeft {
   0% {
-    transform: translateY(30px) translateZ(0px) rotateY(0) rotateY(16deg) scale(.92);
+    transform: perspective(650px) rotateY(2deg) translateY(30px) translateZ(0px) rotateX(0) scale(.92);
     opacity: 0;
   }
 
   100% {
-    transform: translateY(0) translateZ(0px) rotateY(0) rotateX(0) scale(1);
+    transform: perspective(650px) rotateY(0) translateY(0) translateZ(0px) rotateX(0) scale(1);
     opacity: 1;
   }
 }
 @keyframes animateDetailRight {
   0% {
-    transform: translateY(30px) translateZ(0px) rotateY(0) rotateY(-16deg) scale(.92);
+    transform: perspective(650px) rotateY(-4deg) translateY(40px) translateZ(-30px) rotateX(0) scale(.92);
     opacity: 0;
   }
 
   100% {
-    transform: translateY(0) translateZ(0px) rotateY(0) rotateX(0) scale(1);
+    transform: perspective(650px) rotateY(0) translateY(0px) translateZ(0px) rotateX(0) scale(1);
     opacity: 1;
   }
 }
@@ -111,4 +111,18 @@
 @keyframes AnimationName {
     0%{background-position:0% 50%}
     50%{background-position:100% 50%}
+}
+
+@keyframes lineTransition {
+  0% { opacity: 0; transform: translateX(20px) }
+  100% { opacity: 1; transform: translateX(0px) }
+}
+@keyframes skewTransitionBefore {
+  0% { transform: skewY(0deg) translateY(-100%) }
+  100% { transform: skewY(-2deg) translateY(-130px) }
+}
+
+@keyframes skewTransitionAfter {
+  0% { transform: skewY(0deg) translateY(100%) }
+  100% { transform: skewY(-3deg) translateY(140px) }
 }

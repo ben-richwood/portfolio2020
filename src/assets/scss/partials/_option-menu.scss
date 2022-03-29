@@ -8,7 +8,7 @@
   top: 0;
   left: 0;
   transform-style: preserve-3d;
-  z-index: 50;
+  z-index: 150;
   background-color: rgba(0,0,0,.88);
   // overflow: hidden;
   &:before, &:after{
@@ -17,21 +17,59 @@
     position: absolute;
     width: 100%;
     height: 15vh;
-    z-index: 70;
-  }
-  &:after{
-    transform-origin: 0 100%;
-    bottom: 0;
-    left: 0;
-    transform: skewY(2deg) translateY(100px);
-    transition: transform .4s ease-in;
+    z-index: 200;
   }
   &:before{
     transform-origin: 100% 0%;
     top: 0;
     right: 0;
-    transform: skewY(3deg) translateY(-100px);
-    transition: transform .4s ease-in;
+    // transform: skewY(0deg) translateY(-100%);
+  }
+  &:after{
+    transform-origin: 0 100%;
+    bottom: 0;
+    left: 0;
+    // transform: skewY(0deg) translateY(100%);
+    // transition: transform .4s ease-in;
+  }
+
+  &.isMenuOpen{
+    &:before{
+      // transform: skewY(-1deg) translateY(-140px);
+      // transition: transform .4s .3s ease-in;
+      animation-name: skewTransitionBefore;
+      animation-duration: .4s;
+      animation-delay: .45s;
+      animation-timing-function: $transition;
+      animation-direction: normal;
+      animation-fill-mode: both;
+      animation-iteration-count: 1;
+    }
+    &:after{
+      // transform: skewY(-2deg) translateY(120px);
+      // transition: transform .4s .3s ease-in;
+      animation-name: skewTransitionAfter;
+      animation-duration: .4s;
+      animation-delay: .3s;
+      animation-timing-function: $transition;
+      animation-direction: normal;
+      animation-fill-mode: both;
+      animation-iteration-count: 1;
+    }
+    .option-menu-list li{
+      animation-name: lineTransition;
+      animation-duration: .4s;
+      animation-timing-function: $transition;
+      animation-direction: normal;
+      animation-fill-mode: both;
+      animation-iteration-count: 1;
+      $lines: 10;
+      @for $i from 1 through $lines {
+        &:nth-child(#{$i}) {
+          animation-delay: #{math.div($i, 20) + .35}s;
+        }
+      }
+    }
   }
 }
 .returnArrow{

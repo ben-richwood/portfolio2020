@@ -10,7 +10,7 @@
 
 @import "partials/_fonts";
 
-
+$transition: cubic-bezier(0.5, 0, 0.75, 0);
 @import "partials/mixins";
 @import "partials/anim";
 
@@ -234,65 +234,6 @@ b{
   }
 }
 
-/*
-.button--sheen-l {
-	color: #fff;
-	letter-spacing: 0.025em;
-	background: rgb(255,255,255);
-	background: linear-gradient(90deg, rgba(255,255,255,0.5) 10%, rgba(255,255,255,0) 100%);
-	padding: 1rem 10rem 1rem 2rem;
-	width: 100%;
-	max-width: 650px;
-	border: 0;
-	border-left: 15px solid #FFF;
-	cursor: pointer;
-	-ms-transform: skewX(16deg);
-	-webkit-transform: skewX(16deg);
-	transform: skewX(16deg);
-	border-radius: 1px;
-	min-width: 7.1428571429rem;
-	overflow: hidden;
-	position: absolute;
-	top: 0%;
-	left: 0%;
-	transform: skewX(16deg) !important;
-}
-.button--sheen-l span {
-		display: block;
-		position: relative;
-		z-index: 10;
-		font-size: 1.25rem;
-		-ms-transform: skewX(-16deg);
-		-webkit-transform: skewX(-16deg);
-		transform: skewX(-16deg);
-		font-family: $font-title;
-		margin: 0 auto 0 0;
-	}
-.button--sheen-l:after, .button--sheen-l:before {
-	content: '';
-	position: absolute;
-	top: 0;
-	left:0;
-	height: 100%;
-	width: 100%;
-	opacity: 0;
-	color: #fff;
-	border-radius: 2px;
-	transition: opacity .4s ease-in-out, box-shadow .3s ease-in-out;
-	background: linear-gradient(90deg, rgba(255, 249, 220, 0.7) 20%, rgba(255,255,255,0) 50%);
-	box-shadow: 0 0 12px rgba(255, 249, 220, 0);
-}
-
-.button--sheen-l:hover{
-	border-left: 15px solid rgba(255, 249, 220, .7);
-	box-shadow: 0 0 12px rgba(255, 249, 220, .3);
-	transition: box-shadow .3s ease-in-out;
-}
-.button--sheen-l:hover:before {
-		opacity: 1;
-		transition: opacity .4s ease-in-out;
-}
-*/
 
 .large-btn{
 	// border: 0;
@@ -454,6 +395,7 @@ b{
   max-height: 100%;
   // overflow-y: scroll;
   padding-left: 1vw;
+  padding-bottom: 3rem;
   // padding-right: 3vw;
   box-sizing: border-box;
   border-left: 1px solid rgba(255,255,255,0.2);
@@ -473,11 +415,14 @@ b{
   padding:.7rem;
   margin-bottom: 4rem;
 }
+
 .option-menu-list{
   li{
     margin-bottom: 0;
   }
 }
+
+
 
 // Radio
 

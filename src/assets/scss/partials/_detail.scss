@@ -14,7 +14,7 @@
 #details{
   perspective: 1000px;
   position: fixed;
-  z-index: 45;
+  z-index: 100;
   top: 0;
   left:0;
   height: 100vh;
@@ -27,6 +27,7 @@
     padding: 4vw;
     box-sizing: border-box;
     max-height: 100vh;
+    height: 100vh;
   }
   .text, .images{
     // flex-basis: 40%
@@ -52,13 +53,16 @@
 
   }
   .text{
+    transform-origin: 0% 0%;
     animation-name: animateDetailLeft;
     flex-shrink: 2;
     box-sizing: border-box;
-    // height: 45vh;
     margin-right: 2vw;
     width: 60%;
     max-width: 600px;
+    h2{
+      margin-bottom: 1rem;
+    }
     .bg-block{
       &:last-child{
         margin-bottom:0;
@@ -75,8 +79,9 @@
     }
   }
   .images{
+    transform-origin: 100% 0%;
     animation-name: animateDetailRight;
-    animation-delay: .4s;
+    animation-delay: .15s;
     animation-duration: .5s;
     background-color: rgba(0,0,0,.08);
     flex-basis: 0;
