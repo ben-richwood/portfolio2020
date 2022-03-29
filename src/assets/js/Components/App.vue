@@ -2,8 +2,8 @@
 	<div>
 		<div id="brightness" :style="`opacity: ${brightness}`" />
 		<Canvas ref="canvas" @clickProject="openProject($event)" />
-		<OptionMenu />
-		<ProjectDetail ref="projectDetail" />
+		<OptionMenu @closeMenu="closeMenu" />
+		<ProjectDetail ref="projectDetail" @closeDetail="closeMenu" />
 		<Legend ref="legend" @applyFilter="applyFilter" />
 	</div>
 </template>
@@ -29,6 +29,9 @@
 			}
 		},
 		methods:{
+			closeMenu(){
+				this.$refs.canvas.playAnimation()
+			},
 			start(){
 				sound.project();
 				this.$refs.legend.displayLegend()

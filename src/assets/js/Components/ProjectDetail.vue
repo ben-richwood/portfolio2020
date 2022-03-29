@@ -119,6 +119,7 @@
 		methods: {
 			close(){
 				this.$store.commit("setProject", null)
+				this.$emit("closeDetail")
 			},
 
 		}

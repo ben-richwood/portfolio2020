@@ -199,7 +199,7 @@
 	        <h4>Techno and stack</h4>
 	        <div class="flex f-start f-row">
 	          <div class="col-12 col-md-6">
-	            <ul>
+	            <ul class="no-list">
 	              <li><svg class="returnArrow" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
 	                <use xlink:href="#three"/>
 	              </svg> ThreeJS</li>
@@ -207,10 +207,14 @@
 	                <use xlink:href="#vue"/>
 	              </svg>
 	              VueJs</li>
+	              <li><svg class="returnArrow" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+	                <use xlink:href="#php"/>
+	              </svg>
+	              PHP</li>
 	            </ul>
 	          </div>
 	          <div class="col-12 col-md-6">
-	            <ul>
+	            <ul class="no-list">
 	              <li><svg class="returnArrow" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
 	                <use xlink:href="#sass"/>
 	              </svg>
@@ -218,7 +222,11 @@
 	              <li><svg class="returnArrow" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
 	                <use xlink:href="#webpack"/>
 	              </svg>
-	              Webpack 4</li>
+	              Webpack 5</li>
+	              <li><svg class="returnArrow" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+	                <use xlink:href="#gulp"/>
+	              </svg>
+	              Gulp</li>
 	            </ul>
 	          </div>
 	        </div>
@@ -251,8 +259,8 @@
 	          <div class="col-12 col-md-6">
 	            <h4>Dev</h4>
 	            <ul>
-	              <li>OS: Ubuntu 20.04.1 LTS with Awesome WM</li>
-	              <li>Terminal: zsh & oh-my-zsh (plus manpage autocompletion from fish)</li>
+	              <li>OS: Ubuntu 20.04.1 LTS</li>
+	              <li>Terminal: Alacritty, zsh & oh-my-zsh (plus manpage autocompletion from fish)</li>
 	              <li>Atom</li>
 	              <li>Firefox Developer Edition</li>
 	              <li>
@@ -279,23 +287,23 @@
 	                <ul>
 	                  <li>NodeJS & NPM</li>
 	                  <li>VueJS</li>
+	                  <li>Nuxt</li>
 	                  <li>AlpineJS</li>
 	                  <li>ThreeJS</li>
 	                  <li>Mapbox</li>
-	                  <li>React</li>
 	                </ul>
 	              </li>
-	              <li>
+								<li>
+									Python
+									<ul>
+										<li>Flask</li>
+										<li>Django (with DRF)</li>
+									</ul>
+								</li>
+	              <!-- <li>
 	                Ruby
 	                <ul>
 	                  <li>Ruby on Rails</li>
-	                </ul>
-	              </li>
-	              <li>
-	                Python
-	                <ul>
-	                  <li>Flask</li>
-	                  <li>Django (with DRF)</li>
 	                </ul>
 	              </li>
 	              <li>
@@ -304,7 +312,7 @@
 	                  <li>Laravel</li>
 	                  <li>Twig</li>
 	                </ul>
-	              </li>
+	              </li> -->
 	            </ul>
 	          </div>
 	        </div>
@@ -312,12 +320,12 @@
 	          <div class="col-12 col-md-6">
 	            <h4>Design</h4>
 	            <ul>
-	              <li>Adobe Photoshop (migrating to <a class="color-link" :target="linksNewTab ? '_blank' : '_self'" href="https://affinity.serif.com/en-gb/photo/">Affinity Photo</a> and Gimp)</li>
-	              <li>Adobe Illustrator (migrating to <a class="color-link" :target="linksNewTab ? '_blank' : '_self'" href="https://affinity.serif.com/en-gb/designer/">Affinity Designer</a> and <a class="color-link" :target="linksNewTab ? '_blank' : '_self'" href="https://inkscape.org/">InkScape</a>)</li>
-	              <li>Adobe inDesign (migrating to <a class="color-link" :target="linksNewTab ? '_blank' : '_self'"  href="https://www.scribus.net/">Scribus</a>)</li>
-	              <li>Adobe After Effect (migrating to <a class="color-link" :target="linksNewTab ? '_blank' : '_self'"  href="https://natrongithub.github.io/">Natron</a> and Blender)</li>
-	              <li>Sketch</li>
-	              <li><a class="color-link" :target="linksNewTab ? '_blank' : '_self'"  href="https://imagemagick.org/index.php">ImageMagick</a> (want to try <a class="color-link" :target="linksNewTab ? '_blank' : '_self'"  href="http://www.graphicsmagick.org/">GraphicsMagick</a>)</li>
+	              <li>Adobe Photoshop (migrating to <LinkTo copy="Affinity Photo" url="https://affinity.serif.com/en-gb/photo/"/> and Gimp)</li>
+	              <li>Adobe Illustrator (migrating to <LinkTo copy="Affinity Designer" url="https://affinity.serif.com/en-gb/designer/"/>)</li>
+	              <li>Adobe inDesign (migrating to <LinkTo copy="Scribus" url="https://www.scribus.net/"/>)</li>
+	              <li>Adobe After Effect (migrating to <LinkTo copy="Natron" url="https://natrongithub.github.io/"/> and Blender)</li>
+	              <li>Sketch (migrating to <LinkTo copy="Figma" url="https://www.figma.com/"/>)</li>
+	              <li><LinkTo copy="ImageMagick" url="https://imagemagick.org/index.php"/> (want to try <LinkTo copy="GraphicsMagick" url="http://www.graphicsmagick.org/"/>)</li>
 	            </ul>
 	          </div>
 	          <div class="col-12 col-md-6">
@@ -325,9 +333,9 @@
 	            <ul>
 	              <li>Productivity: <LinkTo url="https://workona.com/" copy="Workona"/></li>
 	              <li>Documentation and references: <LinkTo url="https://coda.io/" copy="Coda" /></li>
-	              <li>Project management: <LinkTo url="https://www.smartsheet.com/" copy="SmartSheet"/></li>
+	              <!-- <li>Project management: <LinkTo url="https://www.smartsheet.com/" copy="SmartSheet"/></li> -->
 	              <li>Project management: <LinkTo url="https://clickup.com" copy="ClickUp"/></li>
-	              <li>Time tracker: <LinkTo url="https://clockify.me/" copy="Clockify"/></li>
+	              <!-- <li>Time tracker: <LinkTo url="https://clockify.me/" copy="Clockify"/></li> -->
 	              <li>Coding time tracking: <LinkTo url="https://wakatime.com/" copy="WakaTime"/></li>
 	              <li>Google Apps</li>
 	              <li>Thunderbird</li>
@@ -360,7 +368,7 @@
 	          <p class="mb">In the meantime, I would like to have some inkling about how many people visit my website. I don't want to know how long they stay, from which country they are from, or what referrer they're coming from. I wanted to go for a simple solution, crafted by hand; but honestly it's a lot of work. So yeah, I accepted to use Google Analytics</p>
 	          <p class="mb">If you're using <LinkTo url="https://en.wikipedia.org/wiki/Do_Not_Track" copy="DoNotTrack" /> - which I highly recommend by the way -, it won't record any analytics or data about your visit (no matter you tick the checbox or not)</p>
 	          <p class="mb">The only custom "events" I'm tracking are opening the option menu (where you currently are reading) and opening a project detail panel.</p>
-	          <p>Finally, I use <LinkTo copy="IP Anonymization" url="https://developers.google.com/analytics/devguides/collection/analyticsjs/ip-anonymization"></LinkTo> for the Analytics</p>
+	          <p>Finally, I use <LinkTo copy="IP Anonymization" url="https://developers.google.com/analytics/devguides/collection/analyticsjs/ip-anonymization"/> for the Analytics</p>
 	        </div>
 	      </div>
 	    </div>
@@ -438,6 +446,7 @@
 			open(){},
 			close(){
 				this.$store.commit("toggleMenu")
+				this.$emit("closeMenu")
 			},
 			toggle(){},
 			changeKbConfig(){},

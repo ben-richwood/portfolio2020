@@ -8,32 +8,14 @@ import { CSS3DRenderer, CSS3DObject } from './libs/CSS3DRenderer.js';
 import * as MAT from './libs/custom/materialList.js'
 import Stats from './libs/stats.module.js'; // for testing only
 import * as TEST from './libs/custom/testing.js'
-import * as Utilis from './libs/custom/miscellaneous.js'
+import { debounce } from './libs/custom/miscellaneous.js'
 import { PROJECTS } from "./projects.js";
-
-// import { settings } from './components.js'
+import _ from 'lodash';
+import store from './store/index.js';
 
 import TWEEN from '@tweenjs/tween.js'
-import _ from 'lodash';
 
 var sortedTimeline = _.cloneDeep(PROJECTS);
-
-// const timelineMaterial = {
-//   perso: 0x11517F,
-//   today: 0xff0000,
-//   study: 0x11517F,
-//   work: 0x00ffff,
-//   freelance: 0x8800ff
-// }
-
-// For timeline
-// export const matLine = new LineMaterial( {
-//   color: 0xffffff,
-//   linewidth: .003, // in pixels
-//   vertexColors: THREE.VertexColors,
-//   //resolution:  // to be set by renderer, eventually
-//   dashed: false
-// } );
 
 // Variables to build the timeline - easier to tweak
 const unit = 20; // unit value for 1 month
@@ -44,19 +26,42 @@ let startingPoint = sp;
 let xOffset = -1000
 const yDepth = -50 // default depth
 
-// const globalTimeline = document.createElement( 'div' );
-// globalTimeline.className = "globalTimeline"
+// used to offset the elements during the animation
+const X_OFFSET = 180;
+const Z_OFFSET = 40;
+const X_OFFSET_SYMBOL = 100;
+const Z_OFFSET_SYMBOL = 20;
+
+/**
+ * Singleton design pattern, to initiate only one Timeline
+ */
+export const SingletonTimeline = (function () {
+    var instance;
+
+    function createInstance() {
+      var object = new Timeline();
+      return object;
+    }
+
+    return {
+        getInstance: function () {
+            if (!instance) {
+                instance = createInstance();
+            }
+            return instance;
+        }
+    };
+})();
 
 export class Timeline {
 
-  constructor(settings) {
+  constructor() {
     this.objects = [];
     this.targets = { techno: [], software: [], skills: [], all: [], timeline: []};
     this.symbols = { techno: [], software: [], skills: [], timeline: []};
     this.bounds = { techno: [], software: [], timeline: []};
 
-    this.settings = settings
-    // console.log("settings", settings);
+    // this.settings = store.state.settings
     this.canvasTimeline = document.getElementById('timeline');
     this.canvasStats = document.getElementById('canvasStats');
     this.canvasCssEl = document.getElementById('DOMElTimeline');
@@ -87,13 +92,13 @@ export class Timeline {
     this.camera.position.z = this.cameraInitialPosition.z;
     // camera.lookAt(new THREE.Vector3(600,0,327));
     // controls
-    this.controls = new OrbitControls( this.camera, this.rendererCSS.domElement, settings );
+    this.controls = new OrbitControls( this.camera, this.rendererCSS.domElement, store.state.settings );
     //controls.addEventListener( 'change', render ); // call this only in static scenes (i.e., if there is no animation loop)
     this.controls.enableDamping = true; // an animation loop is required when either damping or auto-rotation are enabled
     this.controls.dampingFactor = 0.05;
     this.controls.screenSpacePanning = false;
-    this.controls.minDistance = settings.isMobile ? 300 : 600;
-    this.controls.maxDistance = settings.isMobile ? 2800 : 2000;
+    this.controls.minDistance = store.state.settings.isMobile ? 300 : 600;
+    this.controls.maxDistance = store.state.settings.isMobile ? 2800 : 2000;
     // controls.maxDistance = 2000;
     this.controls.minAzimuthAngle = 0;
     this.controls.maxAzimuthAngle = this.controls.minAzimuthAngle;
@@ -191,15 +196,13 @@ export class Timeline {
     newCross.position.z = 0;
     this.scene.add( newCross );
 
+    this.#buildingObjects()
     this.#buildingTimelineElements()
     this.#buildingSymbols()
     this.#buildingBounds()
-    this.#buildingObjects()
-    if(this.settings.debug) this.#stats(this.settings.debug)
+    if(store.state.settings.debug) this.#stats(store.state.settings.debug)
 
     window.addEventListener( 'resize', this.#onWindowResize, false );
-
-    console.log("Timeline warm up DONE");
 
     this.animate()
 
@@ -290,9 +293,9 @@ export class Timeline {
     		element.appendChild( wrapper );
 
     		let object = new CSS3DObject( element );
-        object.position.x = el.position.x;
+        object.position.x = el.position.x + X_OFFSET_SYMBOL;
         object.position.y = el.position.y;
-        object.position.z = el.position.z;
+        object.position.z = el.position.z + Z_OFFSET_SYMBOL;
         object.rotation.x = -Math.PI/2;
     		this.cssScene.add( object );
 
@@ -331,10 +334,11 @@ export class Timeline {
     // WARNING - ID - 1
     // TECHNO
     //////////////////////////////////////////
+    var boundsConstructor = {techno: [], software: [], }
     let jsArr = [2, 3, 5, 15, 16, 17, 18, 19, 20, 23, 25];
     for (var i = 0, j = jsArr.length; i < j; i++) {
       const k = PROJECTS.list.find(e => e.id == (jsArr[i] + 1));
-      this.bounds.techno.push({
+      boundsConstructor.techno.push({
         start: {...PROJECTS.symbols.techno[0].position},
         end: {...k.techno.position}
       })
@@ -342,7 +346,7 @@ export class Timeline {
     let pyArr = [5, 23, 25];
     for (var i = 0, j = pyArr.length; i < j; i++) {
       const k = PROJECTS.list.find(e => e.id == (pyArr[i] + 1));
-      this.bounds.techno.push({
+      boundsConstructor.techno.push({
         start: {...PROJECTS.symbols.techno[1].position},
         end: {...k.techno.position}
       })
@@ -350,7 +354,7 @@ export class Timeline {
     let rorArr = [4]; // 11
     for (var i = 0, j = rorArr.length; i < j; i++) {
       const k = PROJECTS.list.find(e => e.id == (rorArr[i] + 1));
-      this.bounds.techno.push({
+      boundsConstructor.techno.push({
         start: {...PROJECTS.symbols.techno[2].position},
         end: {...k.techno.position}
       })
@@ -358,7 +362,7 @@ export class Timeline {
     let phpArr = [0, 1, 3];
     for (var i = 0, j = phpArr.length; i < j; i++) {
       const k = PROJECTS.list.find(e => e.id == (phpArr[i] + 1));
-      this.bounds.techno.push({
+      boundsConstructor.techno.push({
         start: {...PROJECTS.symbols.techno[3].position},
         end: {...k.techno.position}
       })
@@ -368,7 +372,7 @@ export class Timeline {
     for (var i = 0, j = psArr.length; i < j; i++) {
       // let k = psArr[i];
       const k = PROJECTS.list.find(e => e.id == (psArr[i] + 1));
-      this.bounds.software.push({
+      boundsConstructor.software.push({
         start: {...PROJECTS.symbols.software[3].position},
         end: {...k.software.position}
       })
@@ -377,7 +381,7 @@ export class Timeline {
     for (var i = 0, j = inddArr.length; i < j; i++) {
       // let k = inddArr[i];
       const k = PROJECTS.list.find(e => e.id == (inddArr[i] + 1));
-      this.bounds.software.push({
+      boundsConstructor.software.push({
         start: {...PROJECTS.symbols.software[2].position},
         end: {...k.software.position}
       })
@@ -386,7 +390,7 @@ export class Timeline {
     for (var i = 0, j = aiArr.length; i < j; i++) {
       // let k = aiArr[i];
       const k = PROJECTS.list.find(e => e.id == (aiArr[i] + 1));
-      this.bounds.software.push({
+      boundsConstructor.software.push({
         start: {...PROJECTS.symbols.software[0].position},
         end: {...k.software.position}
       })
@@ -395,7 +399,7 @@ export class Timeline {
     for (var i = 0, j = skArr.length; i < j; i++) {
       // let k = skArr[i];
       const k = PROJECTS.list.find(e => e.id == (skArr[i] + 1));
-      this.bounds.software.push({
+      boundsConstructor.software.push({
         start: {...PROJECTS.symbols.software[1].position},
         end: {...k.software.position}
       })
@@ -404,7 +408,7 @@ export class Timeline {
     for (var i = 0, j = blArr.length; i < j; i++) {
       // let k = BlArr[i];
       const k = PROJECTS.list.find(e => e.id == (blArr[i] + 1));
-      this.bounds.software.push({
+      boundsConstructor.software.push({
         start: {...PROJECTS.symbols.software[4].position},
         end: {...k.software.position}
       })
@@ -414,7 +418,7 @@ export class Timeline {
     // BONDS
     // Largely taken from https://threejs.org/examples/?q=molecu#css3d_molecules
     // I still don't understand the math behind...
-    for (const [prop, value] of Object.entries(this.bounds)) {
+    for (const [prop, value] of Object.entries(boundsConstructor)) {
     	for ( var i = 0, j = value.length; i < j; i++ ) {
         var tmpVec1 = new THREE.Vector3();
         var tmpVec2 = new THREE.Vector3();
@@ -468,11 +472,11 @@ export class Timeline {
         object.rotation.z = Math.PI / 2;
         object.rotation.y = Math.PI / 2;
 
-        this.bounds[prop].push( {obj: object} );
+        this.bounds[prop].push({obj: object});
 
     		this.cssScene.add( object );
 
-
+        /*
         var bond = document.createElement( 'div' );
     		bond.className = "bond hide-bounds";
         bond.setAttribute("data-symbol", prop);
@@ -503,13 +507,12 @@ export class Timeline {
     		object.userData.joint = joint;
 
     		joint.add( object );
-        this.bounds[prop].push( {obj: object} );
+        // this.bounds[prop].push( {obj: object} );
 
     		this.cssScene.add( joint );
+        */
       }
     }
-
-
 
 
     // TIMELINE
@@ -517,8 +520,9 @@ export class Timeline {
 
     let spanOfPreviousJob = 0;
     let zCounter = 0;
+    console.log("sortedTimeline", sortedTimeline);
     for ( var i = 0, l = this.objects.length; i < l; i ++ ) {
-      let el = sortedTimeline[i];
+      let el = sortedTimeline.list[i];
       // if(el.timeline.type === "event") {
       //   continue;
       // }
@@ -558,8 +562,9 @@ export class Timeline {
     }
 
     // SOFTWARE
+    console.log("this.objects.length", this.objects.length);
   	for ( var i = 0, l = this.objects.length; i < l; i ++ ) {
-      let el = sortedTimeline[i];
+      let el = sortedTimeline.list[i];
       let na = false
       if (el.software && el.software["n/a"] && el.software["n/a"] === true) na = true;
 
@@ -735,19 +740,18 @@ export class Timeline {
       this.rendererStats.domElement.style.top    = '48px'
       this.rendererStats.domElement.style.zIndex    = '100'
       this.canvasStats.appendChild( this.rendererStats.domElement )
-      console.log("this.rendererStats.domElement", this.rendererStats.domElement);
-      if(showAtStartUp) this.rendererStats.domElement.parentNode.style.display = "block";
+      // if(showAtStartUp) this.rendererStats.domElement.parentNode.style.display = "block";
   }
 
   #hideAllBounds ()  {
-    if (this.bounds[this.settings.prevFilter] && this.bounds[this.settings.prevFilter].length > 0){
-      for ( let i = 0, j = this.bounds[this.settings.prevFilter].length; i < j; i++ ) {
-        this.bounds[this.settings.prevFilter][i].obj.element.classList.add("hide-bounds");
+    if (this.bounds[store.state.previousFilter] && this.bounds[store.state.previousFilter].length > 0){
+      for ( let i = 0, j = this.bounds[store.state.previousFilter].length; i < j; i++ ) {
+        this.bounds[store.state.previousFilter][i].obj.element.classList.add("hide-bounds");
       }
     }
   }
 
-  #onWindowResize = Utilis.debounce( () => {
+  #onWindowResize = debounce( () => {
     let winW = window.innerWidth, winH = window.innerHeight;
     this.camera.aspect = winW / winH;
     this.camera.updateProjectionMatrix();
@@ -756,18 +760,20 @@ export class Timeline {
   }, 80);
 
   updatedSettings(newSettings) {
-    this.settings = newSettings
+    console.log("state", store);
+    // this.settings = newSettings
   }
 
   animate() {
-    if ( !this.settings.isPaused ){
+    if ( !store.state.isPaused ){
       requestAnimationFrame( () => {this.animate()} );
-      // TWEEN.update();
-      _.once( () => console.log(TWEEN) )
-      this.controls.update(); // only required if controls.enableDamping = true, or if controls.autoRotate = true
-      // var newX = this.target.x + pan.x;
-      // var newY = this.target.y + `pan.y;
-      if (this.settings.debug) {
+      TWEEN.update();
+      // _.once( () => console.log("called ONCE") )
+      // _.once( () => console.log(TWEEN) )
+
+      // only required if controls.enableDamping = true, or if controls.autoRotate = true
+      this.controls.update();
+      if (store.state.settings.debug) {
         this.stats.update();
         this.rendererStats.update(this.renderer);
       }
@@ -781,20 +787,20 @@ export class Timeline {
   }
 
   playAnimation() {
-    this.settings.isPaused = false;
-    this.canvasCssEl.style.filter = "none";
+    store.commit("setPauseState", false)
+    console.log("play");
     this.animate();
   }
 
   pauseAnimation() {
-    this.settings.isPaused = true;
-    this.canvasCssEl.style.filter = "blur(10px)";
-    this.animate();
+    console.log("pause");
+    store.commit("setPauseState", true)
+    // this.animate();
   }
 
   transform( targets, duration ) {
 
-    if (this.settings.prevFilter === this.settings.currFilter){
+    if (store.state.previousFilter === store.state.currentFilter){
       return null;
     }
 
@@ -803,10 +809,10 @@ export class Timeline {
     // Initial call
     // if (settings.prevFilter === null){ }
 
-    if (this.settings.currFilter === "all"){
+    if (store.state.currentFilter === "all"){
       this.#hideAllBounds();
-      for ( let i = 0, j = this.symbols[this.settings.prevFilter].length; i < j; i++ ) {
-        this.symbols[this.settings.prevFilter][i].element.classList.add("hide-symbol");
+      for ( let i = 0, j = this.symbols[store.state.previousFilter].length; i < j; i++ ) {
+        this.symbols[store.state.previousFilter][i].element.classList.add("hide-symbol");
       }
       // let allBounds = [...bounds.techno, ...bounds.software, ...bounds.timeline];
       // for ( let i = 0, j = allBounds.length; i < j; i++ ) {
@@ -816,59 +822,65 @@ export class Timeline {
 
       // Display/hide symbols
       ////////////////////////////////////////////////////////
-      if (this.settings.prevFilter !== "all" && this.settings.prevFilter !== null){
-        for ( let i = 0, j = this.symbols[this.settings.prevFilter].length; i < j; i++ ) {
-          this.symbols[this.settings.prevFilter][i].element.classList.add("hide-symbol");
+      if (store.state.previousFilter !== "all" && store.state.previousFilter !== null){
+        for ( let i = 0, j = this.symbols[store.state.previousFilter].length; i < j; i++ ) {
+          this.symbols[store.state.previousFilter][i].element.classList.add("hide-symbol");
         }
       }
-      for ( let i = 0, j = this.symbols[this.settings.currFilter].length; i < j; i++ ) {
-        if (this.symbols[this.settings.currFilter][i].element.classList.contains("hide-symbol")) this.symbols[this.settings.currFilter][i].element.classList.remove("hide-symbol");
+      for ( let i = 0, j = this.symbols[store.state.currentFilter].length; i < j; i++ ) {
+        if (this.symbols[store.state.currentFilter][i].element.classList.contains("hide-symbol")) this.symbols[store.state.currentFilter][i].element.classList.remove("hide-symbol");
       }
 
       // Display/hide bounds
       ////////////////////////////////////////////////////////
-      if (this.settings.prevFilter !== null){
+      if (store.state.previousFilter !== null){
         this.#hideAllBounds();
       }
       // show the new bonds
-      if (this.bounds[this.settings.currFilter] && this.bounds[this.settings.currFilter].length > 0){
-        for ( let i = 0, j = this.bounds[this.settings.currFilter].length; i < j; i++ ) {
-          if (this.bounds[this.settings.currFilter][i].obj.element.classList.contains("hide-bounds")) this.bounds[this.settings.currFilter][i].obj.element.classList.remove("hide-bounds");
+      // console.log("this.bounds", store.state.currentFilter, this.bounds);
+      if (this.bounds[store.state.currentFilter] && this.bounds[store.state.currentFilter].length > 0){
+        for ( let i = 0, j = this.bounds[store.state.currentFilter].length; i < j; i++ ) {
+          // console.log("this.bounds[store.state.currentFilter][i].obj", this.bounds[store.state.currentFilter][i]);
+          if (this.bounds[store.state.currentFilter][i].obj.element.classList.contains("hide-bounds")) this.bounds[store.state.currentFilter][i].obj.element.classList.remove("hide-bounds");
         }
       }
     }
 
-    // Moving objects
+    // console.log("this.objects", this.objects);
     for ( var i = 0; i < this.objects.length; i++ ) {
-      var object = this.objects[ i ];
+      var thisObject = this.objects[ i ];
       var target = targets[ i ].obj;
 
-      if (this.settings.prevFilter === "timeline"){
-        object.element.classList.remove("timeline");
+      if (store.state.previousFilter === "timeline"){
+        thisObject.element.classList.remove("timeline");
       }
-      if (this.settings.currFilter === "timeline"){
-        object.element.classList.add("timeline");
+      if (store.state.currentFilter === "timeline"){
+        thisObject.element.classList.add("timeline");
       }
       if (targets[ i ]["n/a"] === true){
-        object.element.classList.add("hide-el");
+        thisObject.element.classList.add("hide-el");
       } else {
-        if (object.element.classList.contains("hide-el")) object.element.classList.remove("hide-el");
+        if (thisObject.element.classList.contains("hide-el")) thisObject.element.classList.remove("hide-el");
+      // }
 
-
-        new TWEEN.Tween( object.position )
-        .to( { x: target.position.x, y: target.position.y, z: target.position.z }, Math.random() * duration + duration )
+        console.log("Start moving things", thisObject);
+        // new TWEEN.Tween( thisObject.position )
+        new TWEEN.Tween( thisObject.position )
+        .to( { x: target.position.x + X_OFFSET, y: target.position.y, z: target.position.z + Z_OFFSET }, Math.random() * duration + duration )
         .easing( TWEEN.Easing.Exponential.InOut )
         .start();
 
-        new TWEEN.Tween( object.rotation )
+        new TWEEN.Tween( thisObject.rotation )
         .to( { x: target.rotation.x, y: target.rotation.y, z: target.rotation.z }, Math.random() * duration + duration )
         .easing( TWEEN.Easing.Exponential.InOut )
         .start();
       }
     }
+
+    // new TWEEN.Tween( this )
     new TWEEN.Tween( this )
     .to( {}, duration * 2 )
-    .onUpdate( this.render )
+    .onUpdate( () => this.render )
     .start();
   }
 
@@ -885,8 +897,6 @@ export class Timeline {
       .start();
     }
 }
-
-
 
 // function buildLine(color, points,  mat = matLine){
 //   let geometry = new LineGeometry();

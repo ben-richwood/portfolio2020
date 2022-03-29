@@ -7,7 +7,7 @@ import { sound } from "../utilis.js";
 
 Vue.use(Vuex)
 
-let Timeline
+// let Timeline
 const project_template = {
   name: "",
   year: null,
