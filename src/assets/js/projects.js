@@ -710,7 +710,7 @@ export const PROJECTS = (function(){
         },
         "software": {
           "n/a": false,
-          "list": ["photoshop", "illustrator"],
+          "list": ["photoshop", "illustrator", "figma"],
           "position": {x: 380, y: 1, z: 490}
         },
         "techno": {
