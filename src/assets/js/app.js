@@ -58,6 +58,7 @@ let gl, debugInfo, vendor, rendererEval;
 
 const env = ENV;
 const debug = DEBUG;
+// const debug = false;
 const three_version = THREE_VERSION;
 const vue_version = VUE_VERSION;
 
@@ -74,20 +75,7 @@ function init (){
   if(debug) initDebug();
   /* Initialize analytics */
   if(!debug){
-    analytics = Analytics({
-      app: 'portfolio2020',
-      version: 100,
-      plugins: [
-        googleAnalytics({
-          trackingId: 'UA-90932543-3',
-          anonymizeIp: true
-        }),
-        doNotTrack()
-      ]
-    })
-    // does nothing if DNT on
-    analytics.page();
-    analytics.plugins.disable('google')
+    store.commit('initiAnalytics')
   }
 
   /*
@@ -171,7 +159,8 @@ function launchMap(e) {
   // optionMenu.analyticsOn = settings.analyticsOn;
 
   if (analyticsOn && !debug){
-    analytics.plugins.enable('google')
+    // analytics.plugins.enable('google')
+    store.commit("enableAnalytics")
   }
 
   store.commit('updateSettings', {analyticsOn, isConfigHigh: e, isPaused: false})

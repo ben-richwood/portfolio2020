@@ -5,7 +5,13 @@ import { PROJECTS } from '../projects.js'
 import { SingletonTimeline } from '../timeline.js';
 import { sound } from "../utilis.js";
 
+import Analytics from 'analytics'
+import googleAnalytics from '@analytics/google-analytics'
+import doNotTrack from 'analytics-plugin-do-not-track'
+
 Vue.use(Vuex)
+
+let analytics;
 
 // let Timeline
 const project_template = {
@@ -31,7 +37,9 @@ export default new Vuex.Store({
 
     isMenuOpen: false,
 
-    currentProject: null
+    currentProject: null,
+
+    analytics: null,
   },
   getters:{
     getCurrentProject: (state) => () => {
@@ -139,12 +147,49 @@ export default new Vuex.Store({
     toggleMenu (state) {
       sound.project();
       state.isMenuOpen = !state.isMenuOpen
+      if (!state.analytics) return
+      if (state.isMenuOpen && state.settings.analyticsOn){
+        state.analytics.track('key press', {
+          category: 'Options menu',
+          label: 'menu opening',
+          value: 1
+        });
+      }
     },
     setBrightness (state, newVal) {
       state.brightness = newVal;
     },
     toggleDvpMode (state, status) {
       state.developerMode = status
+    },
+    initiAnalytics (state) {
+      state.analytics = Analytics({
+        app: 'portfolio2020',
+        version: 100,
+        plugins: [
+          googleAnalytics({
+            trackingId: 'UA-90932543-3',
+            anonymizeIp: true
+          }),
+          doNotTrack()
+        ]
+      })
+      // does nothing if DNT on
+      state.analytics.page();
+      state.analytics.plugins.disable('google')
+    },
+    enableAnalytics(state){
+      if (!state.analytics) return
+      state.analytics.plugins.enable('google')
+    },
+    analyticsTrackProject(state, data) {
+      console.log("state.analytics", state.analytics);
+      if (!state.analytics) return
+      state.analytics.track('click', {
+        category: 'Projects', // Typically the object that was interacted with
+        label: data.name,
+        value: data.id
+      });
     }
   }
 })

@@ -14,7 +14,8 @@
 </template>
 
 <script>
-	import TWEEN from '@tweenjs/tween.js'
+	// import TWEEN from '@tweenjs/tween.js'
+	import { PROJECTS } from '../projects.js'
 	import { Timeline, SingletonTimeline } from '../timeline.js'
 
 	let domElTimeline;
@@ -52,6 +53,8 @@
 				  if (evt.target.classList.contains("node")){
 				    let id = evt.target.getAttribute("data-id");
 						this.$store.commit("setProject", id)
+						let prj = PROJECTS.list.find(e => e["id"] === parseInt(id) );
+						this.$store.commit("analyticsTrackProject", {id: prj.id, name: prj.name})
 						this.timeline.pauseAnimation();
 				  }
 				}, true);

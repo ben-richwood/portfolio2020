@@ -382,6 +382,11 @@
         document.getElementById('ExploreWork-btn').className = "button disabled";
         // notCompatible.style.display = "block";
       } else {
+        if (window.navigator.doNotTrack){
+          document.getElementById('analyticsCheckbox').checked = false;
+          document.getElementById('analytic-block').className = "d-none";
+          document.getElementById('analytic-block--alt').classList.remove("d-none");
+        }
         var script = document.createElement('script');
 
         script.src = './assets/js/bundle_project.js?v=0.1.2';

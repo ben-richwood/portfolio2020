@@ -326,17 +326,22 @@
         <!-- <div class="col-12 col-md-2"></div> -->
         <div class="col-12 col-md-10">
           <h3 class="borderline relative">Analytics</h3>
-          <details>
-            <summary class="cursor-pointer">Expand details</summary>
-            <div>
-              <p class="mb">Privacy does matter to me. I hate being tracked when browsing and visiting websites.</p>
-              <p class="mb">In the meantime, I would like to have some inkling about how many people visit my website. So I opted for Google Analytics.</p>
-              <p class="mb">Analytics wil start as soon as you start the project map, unless you uncheck the checkbox below.</p>
-              <p>More about privacy on the option menu (Space bar)</p>
+          <div id="analytic-block">
+            <details>
+              <summary class="cursor-pointer">Expand details</summary>
+              <div>
+                <p class="mb">Privacy does matter to me. I hate being tracked when browsing and visiting websites.</p>
+                <p class="mb">In the meantime, I would like to have some inkling about how many people visit my website. So I opted for Google Analytics.</p>
+                <p class="mb">Analytics wil start as soon as you start the project map, unless you uncheck the checkbox below.</p>
+                <p>More about privacy on the option menu (Space bar)</p>
+              </div>
+            </details>
+            <div style="margin-top: .8rem;">
+              <input type="checkbox" name="analyticsCheckbox" value="analyticsCheckbox" id="analyticsCheckbox" checked><label style="margin-left: 1rem;" for="analyticsCheckbox">Accept analytics</label>
             </div>
-          </details>
-          <div style="margin-top: .8rem;">
-            <input type="checkbox" name="analyticsCheckbox" value="analyticsCheckbox" id="analyticsCheckbox" checked><label style="margin-left: 1rem;" for="analyticsCheckbox">Accept analytics</label>
+          </div>
+          <div id="analytic-block--alt" class="d-none">
+            <p class="mb">Your browser is set to <a class="color-link" target="_blank" rel="noreferrer" href="https://www.eff.org/issues/do-not-track">doNotTrack.</a> Analytics are therefrore disabled.</p>
           </div>
         </div>
       </div>

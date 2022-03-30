@@ -2,11 +2,11 @@
   <div>
     <div id="legend" :class="{'mute': mute}">
       <div class="legend" :class="{'smaller': HUDoff, 'show': showLegend}">
-        <h3 style="margin-top:.3rem;" class="user-select-none">Filtering</h3>
+        <h3 style="margin-top:.3rem;" class="user-select-none">Sorting</h3>
         <div class="flex f-row f-start">
           <div class="col-12" style="padding-left:0;">
             <button v-for="([key, value], idx) in Object.entries(filterItems)" :key="key" @click="applyFilter(key)" class="filter-item" :class="selectedFilter === key ? 'selected' : ''">
-              <span>{{ value.name }}</span>
+              <span class="user-select-none">{{ value.name }}</span>
             </button>
           </div>
 

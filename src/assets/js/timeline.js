@@ -788,14 +788,11 @@ export class Timeline {
 
   playAnimation() {
     store.commit("setPauseState", false)
-    console.log("play");
     this.animate();
   }
 
   pauseAnimation() {
-    console.log("pause");
     store.commit("setPauseState", true)
-    // this.animate();
   }
 
   transform( targets, duration ) {
@@ -863,8 +860,6 @@ export class Timeline {
         if (thisObject.element.classList.contains("hide-el")) thisObject.element.classList.remove("hide-el");
       // }
 
-        console.log("Start moving things", thisObject);
-        // new TWEEN.Tween( thisObject.position )
         new TWEEN.Tween( thisObject.position )
         .to( { x: target.position.x + X_OFFSET, y: target.position.y, z: target.position.z + Z_OFFSET }, Math.random() * duration + duration )
         .easing( TWEEN.Easing.Exponential.InOut )
@@ -877,7 +872,6 @@ export class Timeline {
       }
     }
 
-    // new TWEEN.Tween( this )
     new TWEEN.Tween( this )
     .to( {}, duration * 2 )
     .onUpdate( () => this.render )
