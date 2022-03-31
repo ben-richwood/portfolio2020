@@ -75,7 +75,7 @@ ul.no-list{
 
 	flex-wrap: wrap;
 
-	&.flex-nowrap{
+	&.f-nowrap{
 		flex-wrap: nowrap;
 	}
 
@@ -110,7 +110,7 @@ ul.no-list{
 		-webkit-align-items: flex-start; /* Safari 7.0+ */
 		align-items: flex-start;
 	}
-	&.align-center{
+	&.f-align-center{
 		-webkit-align-items: center; /* Safari 7.0+ */
 		align-items: center;
 	}

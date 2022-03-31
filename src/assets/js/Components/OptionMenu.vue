@@ -1,6 +1,6 @@
 <template lang="html">
 	<div id="optionMenu" v-show="isMenuOpen" :class="{'isMenuOpen': isMenuOpen}">
-	  <div class="menuContainer flex f-start f-row align-center flex-nowrap">
+	  <div class="menuContainer flex f-start f-row f-align-center f-nowrap">
 	    <div class="leftSubmenuColumn">
 	      <ul class="no-list option-menu-list">
 	        <li><button :class="currentSubmenu == 3 ? 'active' : ''" class="large-button left-align" @click="changeSubmenu(3)">About me</button></li>
