@@ -129,72 +129,7 @@ export class Timeline {
     }
 
 
-    /////////////////////////////////////////////////////////////////////////
-   //             	 Building the cross particle grid in bg               //
-  /////////////////////////////////////////////////////////////////////////
-
-    let partVert = new THREE.BufferGeometry();
-    // const positions = new Float32Array( 15 * 8 * 3 );
-    let crossStartingZ = -2000
-
-    const AMOUNTX = 10
-    const AMOUNTY = 15
-    const SEPARATION = 700
-    const numParticles = AMOUNTX * AMOUNTY;
-    const positions = new Float32Array( numParticles * 3 );
-    let i = 0, j = 0;
-    for ( let ix = 0; ix < AMOUNTX; ix ++ ) {
-      for ( let iy = 0; iy < AMOUNTY; iy ++ ) {
-        positions[ i ] = ix * SEPARATION - ( ( AMOUNTX * SEPARATION ) / 2 ); // x
-        positions[ i + 1 ] = -350; // y
-        positions[ i + 2 ] = iy * SEPARATION - ( ( AMOUNTY * SEPARATION ) / 2 ); // z
-        i += 3;
-        j ++;
-      }
-    }
-
-    partVert.setAttribute( 'position', new THREE.BufferAttribute( positions, 3 ) );
-    // if (this.settings.debug){
-    // }
-      // Display the center of the scene
-      let cross = new THREE.Points( partVert, MAT.crossMaterial );
-      cross.position.x = 0;
-      cross.position.y = 0;
-      cross.position.z = 0;
-      this.scene.add( cross );
-
-    /*
-    // same in foreground (blurred)
-    partVert = new THREE.BufferGeometry();
-    crossStartingZ = -2000
-    for ( var i = 1; i < 8; i ++ ) { // vertical loop
-      for ( var j = 1; j < 15; j ++ ) { // horizontal loop
-        var star = new THREE.Vector3();
-        star.x = startingPoint + (yu * 2.6 * j);
-        star.y = 500;
-        star.z = crossStartingZ + ( i * 500 );
-        partVert.vertices.push( star );
-      }
-    }
-    */
-    i = 0, j = 0;
-    const newPositions = new Float32Array( numParticles * 3 );
-    for ( let ix = 0; ix < AMOUNTX; ix ++ ) {
-      for ( let iy = 0; iy < AMOUNTY; iy ++ ) {
-        newPositions[ i ] = ix * SEPARATION - ( ( AMOUNTX * SEPARATION ) / 2 ); // x
-        newPositions[ i + 1 ] = 350; // y
-        newPositions[ i + 2 ] = iy * SEPARATION - ( ( AMOUNTY * SEPARATION ) / 2 ); // z
-        i += 3;
-        j ++;
-      }
-    }
-    let newPartVert = new THREE.BufferGeometry();
-    newPartVert.setAttribute( 'position', new THREE.BufferAttribute( newPositions, 3 ) );
-    let newCross = new THREE.Points( newPartVert, MAT.blurredCrossMaterial );
-    newCross.position.x = 0;
-    newCross.position.y = 0;
-    newCross.position.z = 0;
-    this.scene.add( newCross );
+  this.#build3dFloatingElements()
 
     this.#buildingObjects()
     this.#buildingTimelineElements()
@@ -209,6 +144,61 @@ export class Timeline {
     // store.commit('updateSettings')
     // store.state.settings
 
+  }
+
+  #build3dFloatingElements() {
+    /////////////////////////////////////////////////////////////////////////
+   //             	 Building the cross particle grid in bg               //
+  /////////////////////////////////////////////////////////////////////////
+
+    let partVert = new THREE.BufferGeometry();
+    // const positions = new Float32Array( 15 * 8 * 3 );
+    let crossStartingZ = -2000
+
+    const AMOUNTX = 10
+    const AMOUNTY = 15
+    const SEPARATION = 700
+    const numParticles = AMOUNTX * AMOUNTY * 5;
+    const positions = new Float32Array( numParticles * 3 );
+    let i = 0;
+    for ( let iz = 0; iz < 5; iz ++ ) {
+      for ( let ix = 0; ix < AMOUNTX; ix ++ ) {
+        for ( let iy = 0; iy < AMOUNTY; iy ++ ) {
+          positions[ i ] = ix * SEPARATION - ( ( AMOUNTX * SEPARATION ) / 2 ); // x
+          positions[ i + 1 ] = -350 - (iz * 20); // y
+          positions[ i + 2 ] = iy * SEPARATION - ( ( AMOUNTY * SEPARATION ) / 2 ); // z
+          i += 3;
+        }
+      }
+    }
+
+    partVert.setAttribute( 'position', new THREE.BufferAttribute( positions, 3 ) );
+    // if (this.settings.debug){
+    // }
+      // Display the center of the scene
+      let cross = new THREE.Points( partVert, MAT.crossMaterial );
+      cross.position.x = 0;
+      cross.position.y = 0;
+      cross.position.z = 0;
+      this.scene.add( cross );
+
+    i = 0
+    const newPositions = new Float32Array( numParticles * 3 );
+    for ( let ix = 0; ix < AMOUNTX; ix ++ ) {
+      for ( let iy = 0; iy < AMOUNTY; iy ++ ) {
+        newPositions[ i ] = ix * SEPARATION - ( ( AMOUNTX * SEPARATION ) / 2 ); // x
+        newPositions[ i + 1 ] = 350; // y
+        newPositions[ i + 2 ] = iy * SEPARATION - ( ( AMOUNTY * SEPARATION ) / 2 ); // z
+        i += 3;
+      }
+    }
+    let newPartVert = new THREE.BufferGeometry();
+    newPartVert.setAttribute( 'position', new THREE.BufferAttribute( newPositions, 3 ) );
+    let newCross = new THREE.Points( newPartVert, MAT.blurredCrossMaterial );
+    newCross.position.x = 0;
+    newCross.position.y = 0;
+    newCross.position.z = 0;
+    this.scene.add( newCross );
   }
 
     /////////////////////////////////////////////////////////////////////////
@@ -335,7 +325,7 @@ export class Timeline {
     // TECHNO
     //////////////////////////////////////////
     var boundsConstructor = {techno: [], software: [], }
-    let jsArr = [2, 3, 5, 15, 16, 17, 18, 19, 20, 23, 25];
+    let jsArr = [0, 2, 3, 5, 15, 16, 17, 18, 19, 20, 23, 25, 26];
     for (var i = 0, j = jsArr.length; i < j; i++) {
       const k = PROJECTS.list.find(e => e.id == (jsArr[i] + 1));
       boundsConstructor.techno.push({
@@ -404,7 +394,7 @@ export class Timeline {
         end: {...k.software.position}
       })
     }
-    let blArr = [8, 17, 24];
+    let blArr = [8, 17, 20, 24];
     for (var i = 0, j = blArr.length; i < j; i++) {
       // let k = BlArr[i];
       const k = PROJECTS.list.find(e => e.id == (blArr[i] + 1));
@@ -615,6 +605,7 @@ export class Timeline {
 
       let techno = document.createElement( 'div' );
       let technoIcons = document.createElement( 'div' );
+      let coordinateDiv = document.createElement( 'div' );
 
       if (el.techno && el.techno.list) {
       // console.log("el.techno.list", el.techno.list.length)
@@ -636,6 +627,10 @@ export class Timeline {
         }
         // console.log("techSVG", techSVG)
         technoIcons.innerHTML = techSVG;
+
+        coordinateDiv.className = 'coordinates absolute';
+        if (!store.state.settings.debug) coordinateDiv.classList.add("d-none")
+        coordinateDiv.innerHTML = `X: ${el.techno.position.x}, Y: ${el.techno.position.y}`
       }
 
   		wrapper.appendChild( lengthBar );
@@ -643,9 +638,11 @@ export class Timeline {
       if (el.techno && el.techno.list) {
     		wrapper.appendChild( techno );
         wrapper.appendChild( technoIcons );
+        wrapper.appendChild( coordinateDiv );
       }
   		element.appendChild( wrapper );
 
+      // var element = new ProjectObject(el)
 
   		var object = new CSS3DObject( element );
   		object.position.x = Math.random() * 600 - 600;
@@ -743,7 +740,7 @@ export class Timeline {
       // if(showAtStartUp) this.rendererStats.domElement.parentNode.style.display = "block";
   }
 
-  #hideAllBounds ()  {
+  #hideAllBounds()  {
     if (this.bounds[store.state.previousFilter] && this.bounds[store.state.previousFilter].length > 0){
       for ( let i = 0, j = this.bounds[store.state.previousFilter].length; i < j; i++ ) {
         this.bounds[store.state.previousFilter][i].obj.element.classList.add("hide-bounds");
@@ -890,6 +887,80 @@ export class Timeline {
       .onUpdate( this.render )
       .start();
     }
+}
+
+class ProjectObject {
+  constructor(element) {
+    this.el = element
+    this.display = true;
+    this.faded = false;
+  }
+
+  #buildObject(){
+    let element = document.createElement( 'div' );
+    element.className = `element detail node`;
+    if (this.el.ignore){
+      element.classList.add("ignore");
+    }
+
+    element.setAttribute("data-id", this.el.id);
+    // element.style.backgroundColor = 'rgba(0,127,127,' + ( Math.random() * 0.5 + 0.25 ) + ')';
+
+    let wrapper = document.createElement( 'div' );
+    wrapper.className = `name into-detail corners node ${this.el.major ? "major" : "minor"}`;
+    wrapper.setAttribute("data-id", this.el.id);
+
+    let content = document.createElement( 'div' );
+    content.className = `desc node job-${this.el.cat}`;
+    content.textContent = this.el.name;
+    content.setAttribute("data-id", this.el.id);
+
+    let lengthBar = document.createElement( 'div' );
+    lengthBar.className = 'length-bar absolute';
+    if(this.el.timeline && this.el.timeline.len) {
+      lengthBar.style.width = (this.el.timeline.len * yu * 1.15) + "px";
+    }
+
+    let techno = document.createElement( 'div' );
+    let technoIcons = document.createElement( 'div' );
+    let coordinateDiv = document.createElement( 'div' );
+
+    if (this.el.techno && this.el.techno.list) {
+    // console.log("el.techno.list", el.techno.list.length)
+      techno.className = 'techno node';
+      techno.setAttribute("data-id", this.el.id);
+      // if (settings.isDebugMode) {
+      //   techno.textContent = el.techno.position.x + " / " + el.techno.position.z;
+      // } else {
+        // techno.innerHTML = el.techno.list.join(", ") + "<br/>" + el.summary;
+        techno.innerHTML = this.el.summary;
+      // }
+      technoIcons.className = "techno-icons absolute d-none";
+      // console.log("el.techno.list", el.techno.list)
+      let techSVG = "";
+      for (let i = 0, j = this.el.techno.list.length; i < j; i++) {
+        techSVG += `<svg title="#${ el.techno.list[i] }" class="techno-svg" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+          <use xlink:href="#${ this.el.techno.list[i] }"/>
+        </svg>`;
+      }
+      // console.log("techSVG", techSVG)
+      technoIcons.innerHTML = techSVG;
+
+      coordinateDiv.className = 'techno-icons absolute';
+      coordinateDiv.innerHTML = `X: ${this.el.techno.position.x}, Y: ${this.el.techno.position.y}`
+    }
+
+    wrapper.appendChild( lengthBar );
+    wrapper.appendChild( content );
+    if (el.techno && el.techno.list) {
+      wrapper.appendChild( techno );
+      wrapper.appendChild( technoIcons );
+      wrapper.appendChild( coordinateDiv );
+    }
+    // element.appendChild( wrapper );
+  }
+
+  #updateCoordinateDisplay(){}
 }
 
 // function buildLine(color, points,  mat = matLine){

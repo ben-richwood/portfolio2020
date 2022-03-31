@@ -1,5 +1,59 @@
-<svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" preserveAspectRatio="xMinYMin meet" role="img">
-	<title id="parcelTitle">Django, the MVT Python framework</title>
-  <desc id="catDesc">Django logo</desc>
-<path fill="#555" d="M14.859 0h5.234v24.219c-2.682 0.51-4.656 0.714-6.797 0.714-6.385 0-9.714-2.885-9.714-8.427 0-5.333 3.531-8.797 9-8.797 0.849 0 1.495 0.068 2.276 0.271zM14.859 12.193c-0.568-0.193-1.167-0.286-1.766-0.276-2.651 0-4.177 1.63-4.177 4.49 0 2.786 1.458 4.313 4.146 4.313 0.578 0 1.052-0.031 1.797-0.135v-8.396zM28.417 8.078v12.13c0 4.177-0.302 6.188-1.219 7.917-0.849 1.667-1.974 2.719-4.281 3.875l-4.859-2.313c2.307-1.089 3.432-2.036 4.146-3.5 0.745-1.495 0.984-3.229 0.984-7.781v-10.328zM23.188 0.026h5.229v5.37h-5.229z"/>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   version="1.1"
+   width="32"
+   height="32"
+   viewBox="0 0 32 32"
+   preserveAspectRatio="xMinYMin meet"
+   role="img"
+   id="svg899"
+   sodipodi:docname="django.svg"
+   inkscape:version="0.92.5 (2060ec1f9f, 2020-04-08)">
+  <metadata
+     id="metadata905">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title>Django, the MVT Python framework</dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs903" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="640"
+     inkscape:window-height="480"
+     id="namedview901"
+     showgrid="false"
+     inkscape:zoom="14.046875"
+     inkscape:cx="3.723823"
+     inkscape:cy="18.21201"
+     inkscape:current-layer="svg899" />
+  <title
+     id="parcelTitle">Django, the MVT Python framework</title>
+  <desc
+     id="catDesc">Django logo</desc>
+  <path
+     d="m 14.719404,1.108984 h 4.894512 v 22.648104 c -2.50804,0.476921 -4.354002,0.667689 -6.356132,0.667689 -5.9708556,0 -9.0839296,-2.697873 -9.0839296,-7.880407 0,-4.987091 3.301972,-8.226408 8.4162406,-8.226408 0.793932,0 1.398031,0.063589 2.128374,0.2534224 z m 0,11.402136 c -0.531158,-0.180482 -1.091306,-0.267449 -1.651453,-0.258098 -2.479051,0 -3.9060706,1.524275 -3.9060706,4.198769 0,2.605294 1.3634306,4.03325 3.8770816,4.03325 0.540509,0 0.983765,-0.02899 1.680442,-0.126244 V 12.50738 Z m 12.6786,-3.8480921 V 20.00625 c 0,3.906071 -0.282412,5.786634 -1.139933,7.403487 -0.793932,1.558875 -1.845962,2.54264 -4.003326,3.623659 L 17.71091,28.870422 c 2.157364,-1.018365 3.209394,-1.90394 3.877082,-3.272982 0.696678,-1.398031 0.920176,-3.019561 0.920176,-7.276308 V 8.6630279 Z M 22.508168,1.1332976 h 4.889836 v 5.0216905 h -4.889836 z"
+     id="path897"
+     inkscape:connector-curvature="0"
+     style="fill:#555555;stroke-width:0.99999994" />
 </svg>

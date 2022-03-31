@@ -1,16 +1,23 @@
 <template lang="html">
   <div>
     <div id="legend" :class="{'mute': mute}">
-      <div class="legend" :class="{'smaller': HUDoff, 'show': showLegend}">
-        <h3 style="margin-top:.3rem;" class="user-select-none">Sorting</h3>
-        <div class="flex f-row f-start">
-          <div class="col-12" style="padding-left:0;">
-            <button v-for="([key, value], idx) in Object.entries(filterItems)" :key="key" @click="applyFilter(key)" class="filter-item" :class="selectedFilter === key ? 'selected' : ''">
-              <span class="user-select-none">{{ value.name }}</span>
-            </button>
-          </div>
+      <div class="legend only-desktop" :class="{'smaller': HUDoff, 'show': showLegend}">
+        <Filtering @applyFilter="applyFilter($event)" />
+        <Sorting @applySorting="applySorting($event)" />
+      </div>
 
+      <div class="legend legend-mobile only-mobile" :class="{'smaller': HUDoff, 'show': showLegend}">
+        <div class="flex f-row f-between tab-title">
+          <h3 class="user-select-none" v-for="(title, idx) in tabNames" :key="title" :class="{'faded': tabIdx !== idx}" @click="clickTab(idx)">{{ title }}</h3>
         </div>
+        <div :tab="tabIdx" class="flex f-row f-between f-nowrap tabs f-align-start" style="width: 200vw;">
+          <Sorting mobile @applySorting="applySorting($event)" />
+          <Filtering mobile @applyFilter="applyFilter($event)" />
+        </div>
+      </div>
+
+      <div class="open-legend only-mobile" @click="showLegend = !showLegend">
+        <img src="assets/img/legend.svg" alt="Legend icon" title="open the legend panel" />
       </div>
 
       <div class="key-legend only-desktop" v-if="showLegendForDetail">
@@ -21,30 +28,6 @@
       </div>
 
       <div class="key-legend only-desktop" v-else>
-        <div class="HUD-legend" :class="{'smaller': HUDoff, 'show': showLegend}">
-          <div class="flex f-row f-between">
-            <div class="legend-icon" style="align-items: flex-start;">
-              <div class="major legend-item user-select-none">Major projects</div>
-              <div class="minor legend-item user-select-none">Minor projects</div>
-            </div>
-            <div class="legend-icon">
-              <svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 200 200" preserveAspectRatio="xMinYMin meet" role="img"><path fill="#FFF" d="M44.667,157h111v12h-123V45h12V157z M166.667,34v114h-113V34H166.667z M144.568,90L112.81,51H77.766l31.759,39l-31.759,39
-                h35.044L144.568,90z"/>
-              </svg>
-              <label class="user-select-none" for="">Main job</label>
-            </div>
-            <div class="legend-icon">
-              <svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 200 200" preserveAspectRatio="xMinYMin meet" role="img">
-                <path fill="#FFF" d="M12.507,90.288c-5.826-5.658-5.464-11.451,0-15.879l79.419-45.681c5.666-4.056,10.39-4.056,15.878,0l79.42,45.681 c6.358,5.482,5.642,11.275,0,15.879l-79.42,45.685c-4.615,3.306-10.213,3.723-15.878,0L12.507,90.288z M9.238,116.211 c0,4.423-0.894,7.734,3.269,11.784l79.419,45.68c5.666,3.724,11.263,3.306,15.878,0l79.42-45.68 c4.277-3.479,3.383-6.897,3.383-11.874v-3.213l-81.822,46.014c-5.195,3.638-11.509,4.1-17.868,0L9.238,112.998V116.211z"/></svg>
-              <label class="user-select-none" for="">Freelance<br/> contract</label>
-            </div>
-            <div class="legend-icon">
-              <svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 200 200" preserveAspectRatio="xMinYMin meet" role="img"><path fill="#FFF" d="M35.897,33.829v120.673c0,6.107,4.955,11.054,11.063,11.054h83.228c6.112,0,11.068-4.946,11.068-11.054V134.92 l27.778-19.138c5.912-4.275,11.067-7.413,11.067-13.521V53.917c0-6.1-4.955-11.055-11.067-11.055h-27.778v-9.033l-60.747,0v44.228 h4.439l7.511,9.85v26.024l0,0H57.261V87.907l7.503-9.849h4.444V33.83L35.897,33.829z M163.749,96.972l-22.492,18.003V94.44V59.207 h22.492V96.972z"/></svg>
-              </svg>
-              <label calss="user-select-none" for="">Personal <br/>project</label>
-            </div>
-          </div>
-        </div>
         <div class="key-blocks" :class="{'smaller': HUDoff, 'show': showLegend}">
           <div class="key-block" @click="openMenu">
             <div class="key user-select-none" style="padding-right:4.5rem;">{{ keyMap.accept[1] }}</div>
@@ -89,23 +72,24 @@
 <script>
   import { sound } from "../utilis.js";
   import { SingletonTimeline } from '../timeline.js'
+  import Sorting from "./LegendSorting.vue"
+  import Filtering from "./LegendFiltering.vue"
 
-  const filters = {
-    techno: {name: "techno", id:"techno"},
-    software: {name: "software", id:"software"},
-    timeline: {name: "timeline", id:"timeline"},
-    all: {name: "grid", id:"all"}
-  }
+
 	export default {
+    components: { Sorting, Filtering },
 		  data() {
         return {
   		    showLegend: false,
   		    legendState: null,
   		    showLegendForDetail: false,
   		    // selectedFilter: "techno",
-  		    filterItems: filters,
+
   		    HUDoff: false,
-          timeline: null
+          timeline: null,
+
+          tabNames: ["Sorting", "Filtering"],
+          tabIdx: 0,
         }
 		  },
       computed:{
@@ -115,9 +99,6 @@
         keyMap() {
           return this.$store.state.settings.keyboardConfig;
         },
-        selectedFilter() {
-          return this.$store.state.currentFilter;
-        },
       },
 		  mounted(){
 		    // this.legendState = service.machine.current
@@ -126,6 +107,10 @@
         this.timeline = SingletonTimeline.getInstance();
 		  },
 		  methods: {
+        clickTab(idx){
+          // this.$refs.legendTabContent.setAttribute("tab", idx)
+          this.tabIdx = idx
+        },
         displayLegend(){
           this.showLegend = true
         },
@@ -138,15 +123,9 @@
           sound.hud();
           this.showLegend = !this.showLegend;
         },
-        applyFilter: function(key){
-          // this.selectedFilter = key;
-
-          this.$store.commit('setFilter', key)
-          // let prevFilter = `${this.$store.state.settings.currFilter}`;
-          // this.$store.commit('updateSettings', {currFilter: key, prevFilter })
-          // tl.transform( tl.targets[key], 2000 );
-          // console.log(this.legendState)
-          this.$emit("applyFilter")
+        applySorting: function(key){
+          // this.$store.commit('setFilter', key)
+          this.$emit("applySorting")
         },
         /*
 		    resetCamera: function () {
@@ -214,5 +193,44 @@
         }
       }
     }
+  }
+  .tab-title{
+    padding: .5rem 5vw;
+    h3.faded{
+      opacity: 0.3;
+    }
+  }
+  .tabs{
+    &[tab="0"]{
+      transform: translateX(0);
+      transition: transform .35s $transition
+    }
+    &[tab="1"]{
+      transform: translateX(-50%);
+      transition: transform .35s $transition
+    }
+  }
+  .legend-mobile{
+    padding: 1rem;
+    box-sizing: border-box;
+    transform: translateY(100%);
+    transition: transform .35s $transition;
+    &.show{
+      transform: translateY(0%);
+      transition: transform .35s $transition;
+    }
+  }
+  .open-legend{
+    position: absolute;
+    bottom: 9vw;
+    right: 9vw;
+    z-index: 120;
+    width: 56px;
+    height: 56px;
+    background-color: white;
+    border-radius: 50%;
+    box-shadow: 4px 4px 14px #00000018;
+    padding: .4rem;
+    box-sizing: border-box;
   }
 </style>

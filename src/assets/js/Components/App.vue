@@ -4,7 +4,7 @@
 		<Canvas ref="canvas" @clickProject="openProject($event)" />
 		<OptionMenu @closeMenu="closeMenu" />
 		<ProjectDetail ref="projectDetail" @closeDetail="closeMenu" />
-		<Legend ref="legend" @applyFilter="applyFilter" />
+		<Legend :class="{'d-none': displayNone}" ref="legend" @applySorting="applySorting" />
 	</div>
 </template>
 
@@ -20,7 +20,8 @@
 		data(){
 			return{
 				isMenuOpen: false,
-				selectedProject: null
+				selectedProject: null,
+				displayNone: true
 			}
 		},
 		computed: {
@@ -33,11 +34,12 @@
 				this.$refs.canvas.playAnimation()
 			},
 			start(){
+				this.displayNone = false
 				sound.project();
-				this.$refs.legend.displayLegend()
+				if (!this.$store.state.settings.isMobile) this.$refs.legend.displayLegend()
 				this.$refs.canvas.start()
 			},
-			applyFilter(){
+			applySorting(){
 				// this.$refs.legend.displayLegend()
 				this.$refs.canvas.applyFilter()
 				console.log("this.$store.settings.currFilter:", this.$store.state.currentFilter);

@@ -1,7 +1,8 @@
 import * as THREE from 'three';
 
 export const crossMaterial = new THREE.PointsMaterial({
-  size: 250,
+  // size: 250,
+  size: 230,
   map: new THREE.TextureLoader().load("assets/img/cross-frame.png"),
   opacity: .6,
   blending: THREE.AdditiveBlending,

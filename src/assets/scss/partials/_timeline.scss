@@ -146,6 +146,12 @@ div.detail{
     top:100%;
     width: 100%;
   }
+  .coordinates{
+    top:-28px;
+    left: 0;
+    // height: 15px;
+    width: 100%;
+  }
   .length-bar{
     top:-28px;
     height: 15px;
@@ -263,13 +269,14 @@ div.detail{
   &.hide-el{
     opacity: 0;
     transition: opacity .75s .3s;
-    pointer-events: none;
+    pointer-events: none !important;
   }
 }
 div.symbol{
   position: relative;
   opacity: 1;
   transition: opacity 1s 1.5s;
+  // pointer-events: none !important;
   div.bg{
     background-color: #5F9DD4;
     width: 280px;
@@ -309,6 +316,7 @@ div.symbol{
     // transform: scale(.6);
     opacity: 0;
     transition: opacity .75s .3s;
+    pointer-events: none !important;
   }
 }
 

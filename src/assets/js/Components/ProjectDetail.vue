@@ -60,6 +60,7 @@
 	          <div class="caption tc" v-show="img.caption">
 	            {{ img.caption }}
 	          </div>
+						<img v-if="img.screenshot" class="frame" src="assets/img/frame.svg" alt="">
 	          <picture>
 	            <!-- <source type="image/webp" media="(min-width: 1400px)" :srcset="img.srcWebp">
 	            <source type="image/jp2" :srcset="img.srcJp2">
@@ -73,7 +74,7 @@
 	              <source type="image/jp2" media="(max-width: 800px) and (orientation: portrait)" :srcset="img.mobile.srcJp2">
 	              <source type="image/jpg" media="(max-width: 800px) and (orientation: portrait)" :srcset="img.mobile.srcJpg">
 
-	            <img :src="img.srcJpg" alt="img">
+	            <img :class="{'frame-border': img.screenshot}" :src="img.srcJpg" alt="img">
 	          </picture>
 	       </div>
 	      </div>
@@ -86,17 +87,6 @@
 	import { PROJECTS } from '../projects.js'
 	import SvgSymbol from "./SvgSymbol.vue"
 
-	const project_template = {
-		name: "",
-		year: null,
-		description: null,
-		category: null,
-		link: null,
-		images: null,
-		icons: null,
-		data: null,
-		iconsTech: null
-	}
 	export default {
 		props:{
 			// isOpen: {type: Boolean, default: false}
@@ -105,7 +95,6 @@
 		data(){
 			return{
 				blurred: false,
-				// project: {...project_template}
 			}
 		},
 		computed: {
@@ -126,5 +115,15 @@
 	}
 </script>
 
-<style lang="css" scoped>
+<style lang="scss" scoped>
+	.frame{
+		margin-bottom: 0 !important;
+	}
+	.frame-border{
+		$radius: 5px;
+		border: 1px solid #ededed;
+		border-bottom-right-radius: $radius;
+		border-bottom-left-radius: $radius;
+		box-sizing: border-box;
+	}
 </style>

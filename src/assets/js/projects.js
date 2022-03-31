@@ -108,7 +108,7 @@ export const PROJECTS = (function(){
         },
         "techno": {
           "n/a": false,
-          "list": ["PHP", "Wordpress", "Bootstrap"],
+          "list": ["php", "wordpress", "bootstrap"],
           "position": {x: 190, y: 200, z: -780}
         }
       }, {
@@ -711,7 +711,7 @@ export const PROJECTS = (function(){
         "software": {
           "n/a": false,
           "list": ["photoshop", "illustrator", "figma"],
-          "position": {x: 380, y: 1, z: 490}
+          "position": {x: 1200, y: 1, z: 500}
         },
         "techno": {
           "n/a": false,
@@ -776,7 +776,7 @@ export const PROJECTS = (function(){
         "software": {
           "n/a": false,
           "list": ["photoshop"],
-          "position": {x: 1200, y: 1, z: 500}
+          "position": {x: 380, y: 1, z: 490}
         },
         "techno": {
           "n/a": true,
@@ -876,7 +876,7 @@ export const PROJECTS = (function(){
         <p>I also employed many techniques and algorithm to differ or restrain certain calculations, like ray casting, partial geometry recalculation, debounce functions, collision detection, optimizing loops and condition statements and the like.</p>
         <p>I used few additional libraries to monitor performance and frame rate. For instance, the rectangles on the top right-hand corner are debug tools; they display page metrics. For instance, the first screen shows 143 (frames "painted" per sec), 6ms (JS compute rate), and 130MB (buffer usage).</p>
         `,
-        "images": ["main", {url: "nook", caption:"Ability to add nooks for the latest floors, and to adjust their geometry independently"}, {url: "collision-intersection", caption:"Collision detection to move the template within the parcel"}, {url: "goldenHour", caption:"Showcase features were added, such as controling the sun position and luminosity depending on date and time."}],
+        "images": ["main", {url: "nook", caption:"Ability to add nooks for the latest floors, and to adjust their geometry independently", screenshot: true}, {url: "collision-intersection", caption:"Collision detection to move the template within the parcel"}, {url: "goldenHour", caption:"Showcase features were added, such as controling the sun position and luminosity depending on date and time."}],
         "cat": "main",
 
         "slug": "urbascope",
@@ -921,7 +921,7 @@ export const PROJECTS = (function(){
           <li>Loading times and performance concerns</li>
         </ul>
         `,
-        "images": ["main", "timeline"],
+        "images": [{url: "main", screenshot: true, caption:"The homepage"}, {url: "timeline", screenshot: true, caption: "the client's timeline, useful to know what's coming next at any point"}],
         "cat": "main",
 
         "slug": "homers",

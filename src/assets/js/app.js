@@ -112,10 +112,10 @@ function firstConfigCheck() {
     // In particular, note that usage of textures in vertex shaders is only possible if webgl.getParameter(webgl.MAX_VERTEX_TEXTURE_IMAGE_UNITS) is greater than zero. Typically, this fails on current mobile hardware.
   }
   /*
-  let isMobile = mobilecheck();
-  settings.isMobile = isMobile;
   settings.GPU = rendererEval;
   */
+  let isMobile = mobilecheck();
+  store.commit('updateSettings', {isMobile})
 }
 
 function initDebug(){

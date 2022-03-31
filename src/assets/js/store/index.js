@@ -104,12 +104,14 @@ export default new Vuex.Store({
             let newImg = {
               id: counter,
               src: item,
+              screenshot: typeof item !== "string" && item.screenshot,
               srcJpg: `assets/img/all-projects/${prj.slug}/${itemUrl}.jpg`,
               large: {
                 srcJpg: `assets/img/all-projects/${prj.slug}/${itemUrl}.jpg`,
                 srcJp2: `assets/img/all-projects/${prj.slug}/${itemUrl}.jp2`,
                 srcWebp: `assets/img/all-projects/${prj.slug}/${itemUrl}.webp`,
-              }, mobile: {
+              },
+              mobile: {
                 srcJpg: `assets/img/all-projects/${prj.slug}/${itemUrl}-mobile.jpg`,
                 srcJp2: `assets/img/all-projects/${prj.slug}/${itemUrl}-mobile.jp2`,
                 srcWebp: `assets/img/all-projects/${prj.slug}/${itemUrl}-mobile.webp`,
