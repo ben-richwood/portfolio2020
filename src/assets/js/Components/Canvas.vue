@@ -33,14 +33,12 @@
 		},
 		methods: {
 			applyFilter(){
-				// this.timeline.updatedSettings(this.$store.state.settings)
-				this.timeline.transform( this.timeline.targets[this.$store.state.currentFilter], 2000 );
+				this.timeline.transform( 2000 );
 			},
 			playAnimation(){
 				this.timeline.playAnimation();
 			},
 			start(){
-				// this.timeline.animate();
 				this.timeline.playAnimation();
 				console.log(this.$store.state.isPaused);
 

@@ -78,10 +78,6 @@ function init (){
     store.commit('initiAnalytics')
   }
 
-  /*
-  timeline = new Timeline(settings);
-  timeline.animate();
-  */
   if(!debug) console.clear();
   branding()
 
@@ -103,17 +99,23 @@ function firstConfigCheck() {
   } catch (e) {}
 
   if (gl) {
-    debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
-    vendor = gl.getParameter(debugInfo.UNMASKED_VENDOR_WEBGL);
-    rendererEval = gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL);
+    // debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
+    debugInfo = gl.getParameter(gl.RENDERER);
+    var unMaskedInfo = {
+      renderer: '',
+      vendor: ''
+    };
 
-    store.commit('updateSettings', {GPU: rendererEval})
+    var dbgRenderInfo = gl.getExtension("WEBGL_debug_renderer_info");
+    if (dbgRenderInfo !== null) {
+      unMaskedInfo.renderer = gl.getParameter(dbgRenderInfo.UNMASKED_RENDERER_WEBGL);
+      unMaskedInfo.vendor = gl.getParameter(dbgRenderInfo.UNMASKED_VENDOR_WEBGL);
+    }
+
+    store.commit('updateSettings', {GPU: unMaskedInfo.renderer})
     // gl.getParameter(debugInfo.MAX_TEXTURE_SIZE)
     // In particular, note that usage of textures in vertex shaders is only possible if webgl.getParameter(webgl.MAX_VERTEX_TEXTURE_IMAGE_UNITS) is greater than zero. Typically, this fails on current mobile hardware.
   }
-  /*
-  settings.GPU = rendererEval;
-  */
   let isMobile = mobilecheck();
   store.commit('updateSettings', {isMobile})
 }
@@ -153,7 +155,6 @@ function branding(){
 }
 
 function launchMap(e) {
-  // settings.analyticsOn = document.getElementById("analyticsCheckbox").checked;
   let analyticsOn = document.getElementById("analyticsCheckbox").checked
   store.commit('updateSettings', {analyticsOn})
   // optionMenu.analyticsOn = settings.analyticsOn;
@@ -179,6 +180,7 @@ function launchMap(e) {
 
 window.addEventListener('load', (event) => {
   console.log("FULLY LOADED");
+
   if ( WEBGL.isWebGLAvailable() ) {
     init()
   } else {

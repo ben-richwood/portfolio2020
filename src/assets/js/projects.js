@@ -162,6 +162,10 @@ export const PROJECTS = (function(){
         "cat": "personal",
         "timeline": {
           "onlyTimeline": false,
+          "startingYear": 2019.2,
+          "len": 1.2,
+          "thread": "second",
+          "type": "duration"
         },
         "software": {
           "n/a": true,

@@ -1,4 +1,5 @@
 import * as THREE from "three";
+// import * as BufferGeometryUtils from 'three/examples/jsm/utils/BufferGeometryUtils.js';
 // custom Orbit Control
 import { OrbitControls } from './libs/orbis-lite.js';
 // import { OrbitControls } from './libs/OrbitControls.js';
@@ -15,7 +16,9 @@ import store from './store/index.js';
 
 import TWEEN from '@tweenjs/tween.js'
 
-var sortedTimeline = _.cloneDeep(PROJECTS);
+var sortedTimeline = _.cloneDeep(PROJECTS.list).filter(e => {
+	if (!e.hasOwnProperty("ignore") || e.ignore !== true) return e
+});
 
 // Variables to build the timeline - easier to tweak
 const unit = 20; // unit value for 1 month
@@ -31,6 +34,57 @@ const X_OFFSET = 180;
 const Z_OFFSET = 40;
 const X_OFFSET_SYMBOL = 100;
 const Z_OFFSET_SYMBOL = 20;
+
+const UpdateMatrix = function () {
+
+	const position = new THREE.Vector3();
+	const rotation = new THREE.Euler();
+	const quaternion = new THREE.Quaternion();
+	const scale = new THREE.Vector3();
+
+	return function ( matrix, pos ) {
+
+		position.x = pos.x;
+		position.y = pos.y;
+		position.z = pos.z;
+
+		rotation.x = -Math.PI/2;
+		rotation.y = 0;
+		rotation.z = 0;
+		quaternion.setFromEuler( rotation );
+		scale.x = scale.y = scale.z = 1;
+		// scale.x = scale.y = scale.z = Math.random() * 1;
+		matrix.compose( position, quaternion, scale );
+
+	};
+}();
+
+const randomizeMatrix = function () {
+
+	const position = new THREE.Vector3();
+	const rotation = new THREE.Euler();
+	const quaternion = new THREE.Quaternion();
+	const scale = new THREE.Vector3();
+
+	return function ( matrix ) {
+
+		position.x = Math.random() * 40 - 20;
+		position.y = Math.random() * 40 - 20;
+		position.z = Math.random() * 40 - 20;
+
+		rotation.x = Math.random() * 2 * Math.PI;
+		rotation.y = Math.random() * 2 * Math.PI;
+		rotation.z = Math.random() * 2 * Math.PI;
+
+		quaternion.setFromEuler( rotation );
+
+		scale.x = scale.y = scale.z = Math.random() * 1;
+
+		matrix.compose( position, quaternion, scale );
+
+	};
+
+}();
 
 /**
  * Singleton design pattern, to initiate only one Timeline
@@ -56,7 +110,15 @@ export const SingletonTimeline = (function () {
 export class Timeline {
 
   constructor() {
-    this.objects = [];
+		this.geoPosition = new THREE.Vector3();
+		this.geoRotation = new THREE.Euler();
+		this.geoQuaternion = new THREE.Quaternion();
+		this.geoScale = new THREE.Vector3();
+		this.geoScale.x = this.geoScale.y = this.geoScale.z = 1;
+		this.matrix = null;
+
+
+    this.objects = []; // all the project object of the scene
     this.targets = { techno: [], software: [], skills: [], all: [], timeline: []};
     this.symbols = { techno: [], software: [], skills: [], timeline: []};
     this.bounds = { techno: [], software: [], timeline: []};
@@ -79,6 +141,7 @@ export class Timeline {
     this.renderer.setClearColor( 0x000000, 0 ); // default
     this.renderer.setPixelRatio( window.devicePixelRatio );
     this.renderer.setSize( winW, winH );
+		this.renderer.outputEncoding = THREE.sRGBEncoding;
 
     this.stats = null;
 
@@ -128,8 +191,8 @@ export class Timeline {
       marker.style.transform = `translateY(${((scaleHeight * intermediate.toFixed(2)) / 100)}px)`;
     }
 
-
-  this.#build3dFloatingElements()
+    // this.#build3dFloatingElements()
+    this.#buildGroundRectangles()
 
     this.#buildingObjects()
     this.#buildingTimelineElements()
@@ -138,12 +201,6 @@ export class Timeline {
     if(store.state.settings.debug) this.#stats(store.state.settings.debug)
 
     window.addEventListener( 'resize', this.#onWindowResize, false );
-
-    this.animate()
-
-    // store.commit('updateSettings')
-    // store.state.settings
-
   }
 
   #build3dFloatingElements() {
@@ -161,14 +218,12 @@ export class Timeline {
     const numParticles = AMOUNTX * AMOUNTY * 5;
     const positions = new Float32Array( numParticles * 3 );
     let i = 0;
-    for ( let iz = 0; iz < 5; iz ++ ) {
-      for ( let ix = 0; ix < AMOUNTX; ix ++ ) {
-        for ( let iy = 0; iy < AMOUNTY; iy ++ ) {
-          positions[ i ] = ix * SEPARATION - ( ( AMOUNTX * SEPARATION ) / 2 ); // x
-          positions[ i + 1 ] = -350 - (iz * 20); // y
-          positions[ i + 2 ] = iy * SEPARATION - ( ( AMOUNTY * SEPARATION ) / 2 ); // z
-          i += 3;
-        }
+    for ( let ix = 0; ix < AMOUNTX; ix ++ ) {
+      for ( let iy = 0; iy < AMOUNTY; iy ++ ) {
+        positions[ i ] = ix * SEPARATION - ( ( AMOUNTX * SEPARATION ) / 2 ); // x
+        positions[ i + 1 ] = -350; // y
+        positions[ i + 2 ] = iy * SEPARATION - ( ( AMOUNTY * SEPARATION ) / 2 ); // z
+        i += 3;
       }
     }
 
@@ -201,6 +256,77 @@ export class Timeline {
     this.scene.add( newCross );
   }
 
+  #buildGroundRectangles(){
+    const sqLength = 20;
+    const sqHeight = 10;
+		/*
+    const squareShape = new THREE.Shape()
+			.moveTo( 0, 0 )
+			.lineTo( 0, sqHeight )
+			.lineTo( sqLength, sqHeight )
+			.lineTo( sqLength, 0 )
+			.lineTo( 0, 0 );
+
+		// flat shape
+		const geometry = new THREE.ShapeGeometry( squareShape );
+		// geometry.computeVertexNormals();
+		*/
+
+		const geometry = new THREE.BufferGeometry();
+		// vertices because each vertex needs to appear once per triangle.
+		const vertices = new Float32Array( [
+			-20.0, -20.0,  20.0,
+			 20.0, -20.0,  20.0,
+			 20.0,  20.0,  20.0,
+
+			 20.0,  20.0,  20.0,
+			-20.0,  20.0,  20.0,
+			-20.0, -20.0,  20.0
+		] );
+
+		// itemSize = 3 because there are 3 values (components) per vertex
+		geometry.setAttribute( 'position', new THREE.BufferAttribute( vertices, 3 ) );
+
+    const AMOUNTX = 50
+    const AMOUNTY = 25
+    const AMOUNTZ = 5
+    const SEPARATION = 100
+    const numParticles = AMOUNTX * AMOUNTY * AMOUNTZ;
+		const colors = [0x0040c0, 0x0040c9, 0x0040d0, 0x0040df, 0x0040f0]
+
+		// let i = 0;
+
+    const geometries = [];
+
+    const material = { color: colors[0], emissive: colors[0], emissiveIntensity:0.5, side: THREE.DoubleSide }
+		this.matrix = new THREE.Matrix4();
+		const mesh = new THREE.InstancedMesh( geometry, material, numParticles );
+
+		for ( let i = 0; i < numParticles; i ++ ) {
+			this.#randomizeMatrix();
+			mesh.setMatrixAt( i, this.matrix );
+		}
+		// console.log(mesh);
+		this.scene.add( mesh );
+
+		// addLineShape( shape, color, x, y, z, rx, ry, rz, s );
+  }
+
+	#randomizeMatrix(){
+
+		this.geoPosition.x = Math.random() * 4000 - 2000;
+		this.geoPosition.y = Math.random() * 4000 - 2000;
+		this.geoPosition.z = Math.random() * 4000 - 2000;
+
+		this.geoRotation.x = Math.random() * 2 * Math.PI;
+		this.geoRotation.y = Math.random() * 2 * Math.PI;
+		this.geoRotation.z = Math.random() * 2 * Math.PI;
+
+		this.geoQuaternion.setFromEuler( this.geoRotation );
+
+		this.matrix.compose( this.geoPosition, this.geoQuaternion, this.geoScale );
+
+	};
     /////////////////////////////////////////////////////////////////////////
    //             	      Building timeline elements                      //
   /////////////////////////////////////////////////////////////////////////
@@ -251,7 +377,6 @@ export class Timeline {
   }
 
   #buildingSymbols(){
-
     // Add symbols
     //////////////////////////////////////////
     for (const [prop, value] of Object.entries(PROJECTS.symbols)) {
@@ -503,28 +628,89 @@ export class Timeline {
         */
       }
     }
+  }
+
+  #buildingObjects(){
+    // ALL
+    const distNode = 305
+    let previousPos = -300
+    let previousZ = -500;
+
+    // Add PROJECTS
+    let c = 0;
+		let zCounter = 0;
+		let spanOfPreviousJob = 0
+    for ( let i = 0, j = sortedTimeline.length; i < j; i++ ) {
+
+      let el = sortedTimeline[i];
+			let na = false
+
+			console.log(el);
+      var element = new ProjectObject(el)
+
+      this.cssScene.add( element.cssObj );
+      this.objects.push( element );
+
+			// TECHNO
+			var object = new THREE.Object3D();
+			if (el.techno && el.techno["n/a"] && el.techno["n/a"] === true) na = true
+
+	    if (el.techno && !el.techno["n/a"] && el.techno.position) {
+	      object.position.x = el.techno.position.x;
+	      object.position.y = el.techno.position.y;
+	      object.position.z = el.techno.position.z;
+	    }  else {
+	      object.position.x = Math.random() * 900 - 450;
+	      object.position.z = Math.random() * 900 - 450;
+	    }
+	    object.rotation.x = -Math.PI/2;
+      this.targets.techno.push( {"n/a": na, obj: object} );
 
 
-    // TIMELINE
-    var vector = new THREE.Vector3();
+			// ALL
+      if (c % 6 === 0){
+        previousZ += 210;
+        previousPos = -300;
+      }
+      object = new THREE.Object3D();
+      object.position.x = previousPos + distNode;
+      object.position.y = Math.random() * 900 - 450;
+      object.position.z = previousZ;
+      c++;
 
-    let spanOfPreviousJob = 0;
-    let zCounter = 0;
-    console.log("sortedTimeline", sortedTimeline);
-    for ( var i = 0, l = this.objects.length; i < l; i ++ ) {
-      let el = sortedTimeline.list[i];
-      // if(el.timeline.type === "event") {
-      //   continue;
-      // }
-      let na = false
+      object.rotation.x = -Math.PI/2;
+      // object.lookAt( vector );
+      this.targets.all.push( {"n/a": false, obj: object} );
+      // targets.all.push( object );
+			previousPos = previousPos + distNode;
+
+
+
+			// SOFTWARE
+      if (el.software && el.software["n/a"] && el.software["n/a"] === true) na = true;
+
+			object = new THREE.Object3D();
+      if (el.software) {
+        object.position.x = el.software.position.x;
+        object.position.y = el.software.position.y;
+        object.position.z = el.software.position.z;
+      } else {
+        object.position.x = Math.random() * 900 - 450; // 0;
+        object.position.z = Math.random() * 900 - 450; // 0;
+      }
+      object.rotation.x = -Math.PI/2;
+      this.targets.software.push( {"n/a": na, obj: object} );
+
+
+
+			// TIMELINE
+			na = false
+			console.log("el", el);
       let startingPoint = ((el.timeline.startingYear - 2009) * yu) + xOffset;
       let len = el.timeline.hasOwnProperty("len") ? el.timeline.len : 1;
 
-      if (zCounter > 900){
-        zCounter = 150;
-      }
+      if (zCounter > 900) zCounter = 150;
 
-      // let zPos = 0;
       let yPos = 0;
       if ( (len + startingPoint) < (spanOfPreviousJob ) ){
         zOffset += 300;
@@ -534,7 +720,7 @@ export class Timeline {
       spanOfPreviousJob = len + startingPoint;
       if (el.timeline.level) zOffset * (el.timeline.level * 20)
 
-      var object = new THREE.Object3D();
+      object = new THREE.Object3D();
       if (el.timeline) {
         if (el.timeline["n/a"] && el.timeline["n/a"] === true) na = true;
         object.position.x = startingPoint;
@@ -542,186 +728,13 @@ export class Timeline {
         object.position.y = Math.random() * 25 - 25;
         object.position.z = zCounter * (i % 2 === 0 ? 1 : -1);
       } else {
-        object.position.x = 0;
-        object.position.z = 0;
+        object.position.x = Math.random() * 900 - 450; // 0;
+        object.position.z = Math.random() * 900 - 450; // 0;
       }
       object.rotation.x = -Math.PI/2;
       this.targets.timeline.push( {"n/a": na, obj: object} );
       zCounter += 80;
-
-    }
-
-    // SOFTWARE
-    console.log("this.objects.length", this.objects.length);
-  	for ( var i = 0, l = this.objects.length; i < l; i ++ ) {
-      let el = sortedTimeline.list[i];
-      let na = false
-      if (el.software && el.software["n/a"] && el.software["n/a"] === true) na = true;
-
-      if (el.software) {
-    		var object = new THREE.Object3D();
-        object.position.x = el.software.position.x;
-        object.position.y = el.software.position.y;
-        object.position.z = el.software.position.z;
-      } else {
-        object.position.x = 0;
-        object.position.z = 0;
-      }
-      object.rotation.x = -Math.PI/2;
-      this.targets.software.push( {"n/a": na, obj: object} );
   	}
-  }
-
-  #buildingObjects(){
-    // Add PROJECTS
-    for ( let i = 0, j = sortedTimeline.list.length; i < j; i++ ) {
-
-      let el = sortedTimeline.list[i];
-
-  		let element = document.createElement( 'div' );
-  		element.className = `element detail node`;
-      if (el.ignore){
-        element.classList.add("ignore");
-      }
-
-      element.setAttribute("data-id", el.id);
-  		// element.style.backgroundColor = 'rgba(0,127,127,' + ( Math.random() * 0.5 + 0.25 ) + ')';
-
-  		let wrapper = document.createElement( 'div' );
-  		wrapper.className = `name into-detail corners node ${el.major ? "major" : "minor"}`;
-      wrapper.setAttribute("data-id", el.id);
-
-  		let content = document.createElement( 'div' );
-  		content.className = `desc node job-${el.cat}`;
-      content.textContent = el.name;
-      content.setAttribute("data-id", el.id);
-
-      let lengthBar = document.createElement( 'div' );
-  		lengthBar.className = 'length-bar absolute';
-      if(el.timeline && el.timeline.len) {
-        // ((i - 2009) * yu) + xOffset
-        lengthBar.style.width = (el.timeline.len * yu * 1.15) + "px";
-      }
-
-      let techno = document.createElement( 'div' );
-      let technoIcons = document.createElement( 'div' );
-      let coordinateDiv = document.createElement( 'div' );
-
-      if (el.techno && el.techno.list) {
-      // console.log("el.techno.list", el.techno.list.length)
-    		techno.className = 'techno node';
-        techno.setAttribute("data-id", el.id);
-        // if (settings.isDebugMode) {
-        //   techno.textContent = el.techno.position.x + " / " + el.techno.position.z;
-        // } else {
-          // techno.innerHTML = el.techno.list.join(", ") + "<br/>" + el.summary;
-          techno.innerHTML = el.summary;
-        // }
-        technoIcons.className = "techno-icons absolute d-none";
-        // console.log("el.techno.list", el.techno.list)
-        let techSVG = "";
-        for (let i = 0, j = el.techno.list.length; i < j; i++) {
-          techSVG += `<svg title="#${ el.techno.list[i] }" class="techno-svg" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
-            <use xlink:href="#${ el.techno.list[i] }"/>
-          </svg>`;
-        }
-        // console.log("techSVG", techSVG)
-        technoIcons.innerHTML = techSVG;
-
-        coordinateDiv.className = 'coordinates absolute';
-        if (!store.state.settings.debug) coordinateDiv.classList.add("d-none")
-        coordinateDiv.innerHTML = `X: ${el.techno.position.x}, Y: ${el.techno.position.y}`
-      }
-
-  		wrapper.appendChild( lengthBar );
-  		wrapper.appendChild( content );
-      if (el.techno && el.techno.list) {
-    		wrapper.appendChild( techno );
-        wrapper.appendChild( technoIcons );
-        wrapper.appendChild( coordinateDiv );
-      }
-  		element.appendChild( wrapper );
-
-      // var element = new ProjectObject(el)
-
-  		var object = new CSS3DObject( element );
-  		object.position.x = Math.random() * 600 - 600;
-  		object.position.y = Math.random() * 3000;
-  		object.position.z = Math.random() * 4000 - 2000;
-      object.rotation.x = -Math.PI/2;
-  		this.cssScene.add( object );
-
-      let na = false;
-      if (el.techno && el.techno["n/a"] && el.techno["n/a"] === true) na = true
-
-      this.objects.push( object );
-
-      var object = new THREE.Object3D();
-      if (el.techno && !el.techno["n/a"] && el.techno.position) {
-        object.position.x = el.techno.position.x;
-        object.position.y = el.techno.position.y;
-        object.position.z = el.techno.position.z;
-      }  else {
-        object.position.x = 0;
-        object.position.z = 0;
-      }
-      object.rotation.x = -Math.PI/2;
-
-      this.targets.techno.push( {"n/a": na, obj: object} );
-  	}
-
-    // ALL
-    const distNode = 305
-    let previousPos = -300
-    let previousZ = -500;
-
-  	for ( let i = 0, c = 0, l = this.objects.length; i < l; i ++ ) {
-      let el = sortedTimeline.list[i];
-      if (c % 6 === 0){
-        previousZ += 210;
-        previousPos = -300;
-      }
-
-  		// var phi = Math.acos( - 1 + ( 2 * i ) / l );
-  		// var theta = Math.sqrt( l * Math.PI ) * phi;
-
-  		var object = new THREE.Object3D();
-  		// object.position.setFromSphericalCoords( 800, phi, theta );
-      if (el.ignore){
-        object.position.x = 0;
-        object.position.y = 0;
-        object.position.z = 0;
-      } else {
-        object.position.x = previousPos + distNode;
-        object.position.y = Math.random() * 150 - 150;
-        object.position.z = previousZ;
-        c++;
-      }
-
-      object.rotation.x = -Math.PI/2;
-      // object.lookAt( vector );
-      this.targets.all.push( {"n/a": false, obj: object} );
-      // targets.all.push( object );
-      if (!el.ignore){
-        previousPos = previousPos + distNode;
-      }
-  	}
-    // console.log("targets", targets);
-    // console.log("symbols", symbols);
-    // TEST.testing(scene);
-
-    // }
-
-    // lights
-    // var light = new THREE.DirectionalLight( 0xffffff );
-    // light.position.set( 1, 1, 1 );
-    // scene.add( light );
-    // var light = new THREE.DirectionalLight( 0x002288 );
-    // light.position.set( - 1, - 1, - 1 );
-    // scene.add( light );
-    // var light = new THREE.AmbientLight( 0x222222 );
-    // scene.add( light );
-    // animate();
   }
 
   #stats(showAtStartUp = false){
@@ -740,7 +753,7 @@ export class Timeline {
       // if(showAtStartUp) this.rendererStats.domElement.parentNode.style.display = "block";
   }
 
-  #hideAllBounds()  {
+  #hideAllBounds() {
     if (this.bounds[store.state.previousFilter] && this.bounds[store.state.previousFilter].length > 0){
       for ( let i = 0, j = this.bounds[store.state.previousFilter].length; i < j; i++ ) {
         this.bounds[store.state.previousFilter][i].obj.element.classList.add("hide-bounds");
@@ -792,26 +805,20 @@ export class Timeline {
     store.commit("setPauseState", true)
   }
 
-  transform( targets, duration ) {
+  transform( duration ) {
 
-    if (store.state.previousFilter === store.state.currentFilter){
-      return null;
-    }
+		if (store.state.previousFilter === store.state.currentFilter) return null;
+    let targets = this.targets[store.state.currentFilter]
 
     TWEEN.removeAll();
 
-    // Initial call
-    // if (settings.prevFilter === null){ }
-
+		// 1. manage the bounds
+		this.#hideAllBounds();
     if (store.state.currentFilter === "all"){
-      this.#hideAllBounds();
+			// Hide Symbols
       for ( let i = 0, j = this.symbols[store.state.previousFilter].length; i < j; i++ ) {
         this.symbols[store.state.previousFilter][i].element.classList.add("hide-symbol");
       }
-      // let allBounds = [...bounds.techno, ...bounds.software, ...bounds.timeline];
-      // for ( let i = 0, j = allBounds.length; i < j; i++ ) {
-        //   allBounds[i].obj.element.classList.add("hide-bounds");
-        // }
     } else {
 
       // Display/hide symbols
@@ -827,52 +834,40 @@ export class Timeline {
 
       // Display/hide bounds
       ////////////////////////////////////////////////////////
-      if (store.state.previousFilter !== null){
-        this.#hideAllBounds();
-      }
-      // show the new bonds
-      // console.log("this.bounds", store.state.currentFilter, this.bounds);
       if (this.bounds[store.state.currentFilter] && this.bounds[store.state.currentFilter].length > 0){
         for ( let i = 0, j = this.bounds[store.state.currentFilter].length; i < j; i++ ) {
-          // console.log("this.bounds[store.state.currentFilter][i].obj", this.bounds[store.state.currentFilter][i]);
           if (this.bounds[store.state.currentFilter][i].obj.element.classList.contains("hide-bounds")) this.bounds[store.state.currentFilter][i].obj.element.classList.remove("hide-bounds");
         }
       }
     }
 
-    // console.log("this.objects", this.objects);
     for ( var i = 0; i < this.objects.length; i++ ) {
       var thisObject = this.objects[ i ];
-      var target = targets[ i ].obj;
 
-      if (store.state.previousFilter === "timeline"){
-        thisObject.element.classList.remove("timeline");
-      }
-      if (store.state.currentFilter === "timeline"){
-        thisObject.element.classList.add("timeline");
-      }
-      if (targets[ i ]["n/a"] === true){
-        thisObject.element.classList.add("hide-el");
-      } else {
-        if (thisObject.element.classList.contains("hide-el")) thisObject.element.classList.remove("hide-el");
-      // }
+			thisObject.shouldBeVisible = targets[ i ]["n/a"]
+			thisObject.updateVisibility()
 
-        new TWEEN.Tween( thisObject.position )
-        .to( { x: target.position.x + X_OFFSET, y: target.position.y, z: target.position.z + Z_OFFSET }, Math.random() * duration + duration )
-        .easing( TWEEN.Easing.Exponential.InOut )
-        .start();
+      if (targets[ i ]["n/a"] === false){
+	    	thisObject.updateCoordinateDisplay()
 
-        new TWEEN.Tween( thisObject.rotation )
-        .to( { x: target.rotation.x, y: target.rotation.y, z: target.rotation.z }, Math.random() * duration + duration )
-        .easing( TWEEN.Easing.Exponential.InOut )
-        .start();
-      }
-    }
+				var target = targets[ i ].obj;
 
-    new TWEEN.Tween( this )
-    .to( {}, duration * 2 )
-    .onUpdate( () => this.render )
-    .start();
+	      new TWEEN.Tween( thisObject.cssObj.position )
+	      .to( { x: target.position.x + X_OFFSET, y: target.position.y, z: target.position.z + Z_OFFSET }, Math.random() * duration + duration )
+	      .easing( TWEEN.Easing.Exponential.InOut )
+	      .start();
+
+	      new TWEEN.Tween( thisObject.cssObj.rotation )
+	      .to( { x: target.rotation.x, y: target.rotation.y, z: target.rotation.z }, Math.random() * duration + duration )
+	      .easing( TWEEN.Easing.Exponential.InOut )
+	      .start();
+	    }
+
+	    new TWEEN.Tween( this )
+	    .to( {}, duration * 2 )
+	    .onUpdate( () => this.render )
+	    .start();
+		}
   }
 
   resetCamera (duration ) {
@@ -890,77 +885,127 @@ export class Timeline {
 }
 
 class ProjectObject {
-  constructor(element) {
-    this.el = element
+  constructor(projectData) {
+    this.projectData = projectData
     this.display = true;
     this.faded = false;
+    this.na = false;
+    this.currentCoordinates = [0, 0]
+
+    this.DOMEl = this.#buildObject()
+		this.shouldBeVisible = true
+    this.cssObj = null
+    this.#build3dObj()
   }
 
   #buildObject(){
     let element = document.createElement( 'div' );
     element.className = `element detail node`;
-    if (this.el.ignore){
-      element.classList.add("ignore");
-    }
+    // if (this.projectData.ignore){
+    //   element.classList.add("ignore");
+    // }
 
-    element.setAttribute("data-id", this.el.id);
+    element.setAttribute("data-id", this.projectData.id);
     // element.style.backgroundColor = 'rgba(0,127,127,' + ( Math.random() * 0.5 + 0.25 ) + ')';
 
     let wrapper = document.createElement( 'div' );
-    wrapper.className = `name into-detail corners node ${this.el.major ? "major" : "minor"}`;
-    wrapper.setAttribute("data-id", this.el.id);
+    wrapper.className = `name into-detail corners node ${this.projectData.major ? "major" : "minor"}`;
+    wrapper.setAttribute("data-id", this.projectData.id);
 
     let content = document.createElement( 'div' );
-    content.className = `desc node job-${this.el.cat}`;
-    content.textContent = this.el.name;
-    content.setAttribute("data-id", this.el.id);
+    content.className = `desc node job-${this.projectData.cat}`;
+    content.textContent = this.projectData.name;
+    content.setAttribute("data-id", this.projectData.id);
 
     let lengthBar = document.createElement( 'div' );
     lengthBar.className = 'length-bar absolute';
-    if(this.el.timeline && this.el.timeline.len) {
-      lengthBar.style.width = (this.el.timeline.len * yu * 1.15) + "px";
+    if(this.projectData.timeline && this.projectData.timeline.len) {
+      lengthBar.style.width = (this.projectData.timeline.len * yu * 1.15) + "px";
     }
 
     let techno = document.createElement( 'div' );
     let technoIcons = document.createElement( 'div' );
     let coordinateDiv = document.createElement( 'div' );
 
-    if (this.el.techno && this.el.techno.list) {
+    if (this.projectData.techno && this.projectData.techno.list) {
     // console.log("el.techno.list", el.techno.list.length)
       techno.className = 'techno node';
-      techno.setAttribute("data-id", this.el.id);
+      techno.setAttribute("data-id", this.projectData.id);
       // if (settings.isDebugMode) {
       //   techno.textContent = el.techno.position.x + " / " + el.techno.position.z;
       // } else {
         // techno.innerHTML = el.techno.list.join(", ") + "<br/>" + el.summary;
-        techno.innerHTML = this.el.summary;
+        techno.innerHTML = this.projectData.summary;
       // }
       technoIcons.className = "techno-icons absolute d-none";
       // console.log("el.techno.list", el.techno.list)
       let techSVG = "";
-      for (let i = 0, j = this.el.techno.list.length; i < j; i++) {
-        techSVG += `<svg title="#${ el.techno.list[i] }" class="techno-svg" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
-          <use xlink:href="#${ this.el.techno.list[i] }"/>
+      for (let i = 0, j = this.projectData.techno.list.length; i < j; i++) {
+        techSVG += `<svg title="#${ this.projectData.techno.list[i] }" class="techno-svg" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+          <use xlink:href="#${ this.projectData.techno.list[i] }"/>
         </svg>`;
       }
       // console.log("techSVG", techSVG)
       technoIcons.innerHTML = techSVG;
 
-      coordinateDiv.className = 'techno-icons absolute';
-      coordinateDiv.innerHTML = `X: ${this.el.techno.position.x}, Y: ${this.el.techno.position.y}`
+      coordinateDiv.className = 'coordinates absolute';
+      coordinateDiv.innerHTML = `X: ${this.projectData.techno.position.x}, Y: ${this.projectData.techno.position.y}`
     }
+
+    this.coordinateDOMEl = coordinateDiv
 
     wrapper.appendChild( lengthBar );
     wrapper.appendChild( content );
-    if (el.techno && el.techno.list) {
+    if (this.projectData.techno && this.projectData.techno.list) {
       wrapper.appendChild( techno );
       wrapper.appendChild( technoIcons );
       wrapper.appendChild( coordinateDiv );
     }
-    // element.appendChild( wrapper );
+    element.appendChild( wrapper );
+
+    return element
   }
 
-  #updateCoordinateDisplay(){}
+  #build3dObj(){
+    var cssObj = new CSS3DObject( this.DOMEl );
+    cssObj.position.x = Math.random() * 600 - 600;
+    cssObj.position.y = Math.random() * 3000;
+    cssObj.position.z = Math.random() * 4000 - 2000;
+    cssObj.rotation.x = -Math.PI/2;
+    // this.cssScene.add( object );
+
+    this.cssObj = cssObj;
+  }
+
+  updateCoordinateDisplay(){
+		// console.log("this.projectData", this.projectData);
+		if (
+			!this.projectData.hasOwnProperty(store.state.currentFilter) ||
+			store.state.currentFilter === "timeline" ||
+			this.projectData[store.state.currentFilter]["n/a"]
+		) return
+		console.log("this.projectData", this.projectData);
+    let {x ,y, z} = this.projectData[store.state.currentFilter].position
+    this.currentCoordinates = [x, z]
+    this.coordinateDOMEl.innerHTML = `X: ${x}, Y: ${y}`
+  }
+
+	set shouldBeVisible(value) {
+		if (value) {
+			this.DOMEl.classList.add("hide-el");
+		} else {
+			this.DOMEl.classList.remove("hide-el");
+		}
+	}
+
+	updateVisibility(){
+		if (store.state.previousFilter === "timeline"){
+			this.DOMEl.classList.remove("timeline");
+		}
+		if (store.state.currentFilter === "timeline"){
+			this.DOMEl.classList.add("timeline");
+		}
+	}
 }
 
 // function buildLine(color, points,  mat = matLine){
