@@ -646,7 +646,7 @@ export class Timeline {
       let el = sortedTimeline[i];
 			let na = false
 
-      var element = new ProjectObject(el)
+      var element = new ProjectObject(el, this)
 
       this.cssScene.add( element.cssObj );
       this.objects.push( element );
@@ -875,22 +875,40 @@ export class Timeline {
 		}
 	}
 
-  resetCamera (duration ) {
-      // TWEEN.removeAll();
-      new TWEEN.Tween( this.camera.position )
-      .to( this.cameraInitialPosition, Math.random() * duration + duration )
-      .easing( TWEEN.Easing.Exponential.InOut )
-      .start();
+  resetCamera (duration=1200 ) {
+    // TWEEN.removeAll();
+    new TWEEN.Tween( this.camera.position )
+    .to( {...this.cameraInitialPosition}, Math.random() * duration + duration )
+    .easing( TWEEN.Easing.Exponential.InOut )
+    .start();
 
-      new TWEEN.Tween( this )
-      .to( {}, duration * 2 )
-      .onUpdate( this.render )
-      .start();
-    }
+    new TWEEN.Tween( this )
+    .to( {}, duration * 2 )
+    .onUpdate( () => this.render )
+    .start();
+  }
+
+  zoomToProject (project, duration=1200 ) {
+    // TWEEN.removeAll();
+		if (project[store.state.currentFilter]["n/a"]) return
+		console.dir(project[store.state.currentFilter].position)
+
+    new TWEEN.Tween( this.camera.position )
+    .to( project[store.state.currentFilter].position, Math.random() * duration + duration )
+    .easing( TWEEN.Easing.Exponential.InOut )
+    .start();
+
+    new TWEEN.Tween( this )
+    .to( {}, duration * 2 )
+    .onUpdate( () => this.render )
+    .start();
+  }
 }
 
 class ProjectObject {
-  constructor(projectData) {
+  constructor(projectData, timeline) {
+		this.timeline = timeline;
+
     this.projectData = projectData
     this.display = true;
     this.faded = false;
@@ -898,6 +916,17 @@ class ProjectObject {
     this.currentCoordinates = [0, 0]
 
     this.DOMEl = this.#buildObject()
+		/*
+		this.DOMEl.addEventListener("click", evt => {
+			this.timeline.zoomToProject(this.projectData)
+		}, true)
+		*/
+		this.DOMEl.addEventListener("dblclick", evt => {
+			store.commit("setProject", this.projectData.id)
+			store.commit("analyticsTrackProject", {id: this.projectData.id, name: this.projectData.name})
+			this.timeline.pauseAnimation();
+		}, false)
+
 		this.isVisible = true
     this.cssObj = null
     this.#build3dObj()
@@ -906,9 +935,7 @@ class ProjectObject {
   #buildObject(){
     let element = document.createElement( 'div' );
     element.className = `element detail node`;
-    // if (this.projectData.ignore){
-    //   element.classList.add("ignore");
-    // }
+
 
     element.setAttribute("data-id", this.projectData.id);
     // element.style.backgroundColor = 'rgba(0,127,127,' + ( Math.random() * 0.5 + 0.25 ) + ')';

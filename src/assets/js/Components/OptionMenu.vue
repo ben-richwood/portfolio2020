@@ -3,14 +3,11 @@
 	  <div class="menuContainer flex f-start f-row f-align-center f-nowrap">
 	    <div class="leftSubmenuColumn">
 	      <ul class="no-list option-menu-list">
-	        <li><button :class="currentSubmenu == 3 ? 'active' : ''" class="large-button left-align" @click="changeSubmenu(3)">About me</button></li>
-	        <li><button :class="currentSubmenu == 0 ? 'active' : ''" class="large-button left-align" @click="changeSubmenu(0)">Config</button></li>
-	        <li><button :class="currentSubmenu == 1 ? 'active' : ''" class="large-button left-align" @click="changeSubmenu(1)">Controls</button></li>
-	        <li><button :class="currentSubmenu == 2 ? 'active' : ''" class="large-button left-align" @click="changeSubmenu(2)">Graphics</button></li>
-	        <li><button :class="currentSubmenu == 4 ? 'active' : ''" class="large-button left-align" @click="changeSubmenu(4)">Stats</button></li>
-	        <li><button :class="currentSubmenu == 5 ? 'active' : ''" class="large-button left-align" @click="changeSubmenu(5)">Credit</button></li>
-	        <li><button :class="currentSubmenu == 6 ? 'active' : ''" class="large-button left-align" @click="changeSubmenu(6)">Privacy</button></li>
-	        <li><button class="large-button left-align" @click="close">
+					<li v-for="(menu, idx) in leftMenu" :key="menu">
+						<button :class="{'active': currentSubmenu == idx}" class="important-button large-button left-align" @click="changeSubmenu(idx)">{{ menu }}</button>
+					</li>
+
+	        <li><button class="important-button large-button left-align" @click="close">
 	          <svg class="returnArrow" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
 	            <use xlink:href="#return"/>
 	          </svg>
@@ -19,100 +16,7 @@
 	      </ul>
 	    </div>
 	    <div class="rightSettings scrollbar">
-	      <div v-if="currentSubmenu == 0" id="config">
-	        <h3 class="tc">Website config</h3>
-	        <div class="notice">
-	          <p class="tc">Adjust the general settings at your please</p>
-	        </div>
-	        <ul>
-	          <h3>External links</h3>
-	          <div class="inputGroup">
-	            <input id="radio1" name="radio" @click="changeLinkBehavior" v-model="linksNewTab" type="checkbox"/>
-	            <label for="radio1">{{linksNewTab ? 'Open external links in a new tab' : 'Open the external links in the current tab'}}</label>
-	          </div>
-						<h3>Audio</h3>
-	          <div class="inputGroup">
-	            <input id="radio2" name="radio" v-model="isSoundOn" type="checkbox"/>
-	            <label for="radio2">{{ isSoundOn ? 'Sound if on' : 'Sound is off'}}</label>
-	          </div>
-	        </ul>
-	      </div>
-	      <div v-if="currentSubmenu == 1" id="controls">
-	        <h3 class="tc">Controls</h3>
-	        <div class="notice"> <p class="tc">Mouse</p> </div>
-					<img src="/assets/img/icons/mice.svg" alt="mouse control" />
-	        <!-- <?php echo file_get_contents("./assets/img/icons/mice.svg"); ?> -->
-	        <div class="notice"> <p class="tc">Keyboard</p> </div>
-	        <div class="inputGroup">
-	          <input id="kb_default" v-on:click="changeKbConfig('kb_default')" value="kb_default" name="radio" type="radio" v-model="kb_config"/>
-	          <label for="kb_default">Default</label>
-	        </div>
-	        <div class="inputGroup">
-	          <input id="kb_gamer" v-on:click="changeKbConfig('kb_gamer')" value="kb_gamer" name="radio" type="radio" v-model="kb_config"/>
-	          <label for="kb_gamer">Gamer</label>
-	        </div>
-	        <div class="inputGroup">
-	          <input id="kb_vim" v-on:click="changeKbConfig('kb_vim')" value="kb_vim" name="radio" type="radio" v-model="kb_config" />
-	          <label for="kb_vim">vim</label>
-	        </div>
-	        <div class="flex f-start f-row">
-	          <div class="col-12 col-md-6">
-	            <div class="keyMap">
-	              <div class="key">{{ keyMap.option[1] }}</div>
-	              <div class="keyFeature">Close project details and Option menu</div>
-	            </div>
-	            <div class="keyMap">
-	              <div class="key">{{ keyMap.hud[1] }}</div>
-	              <div class="keyFeature">Display/hide <span class="abbr" title="Head-Up display">HUD</span></div>
-	            </div>
-	          </div>
-	          <div class="col-12 col-md-6">
-	            <div class="keyMap">
-	              <div class="key">{{ keyMap.accept[1] }}</div>
-	              <div class="keyFeature">Open/close the Option menu (current menu)</div>
-	            </div>
-	          </div>
-	        </div>
-					<img src="/assets/img/icons/keyboard.svg" alt="mouse control" />
-	        <!-- <?php echo file_get_contents("./assets/img/icons/keyboard.svg"); ?> -->
-	        <!-- <img src="./assets/img/icons/keyboard.svg" alt="keyboard configuration"> -->
-	      </div>
-	      <div v-else-if="currentSubmenu == 2" id="graphics">
-	        <h3 class="tc">Graphics</h3>
-	        <div class="notice">
-	          <p class="tc">You can switch to low performances if the animation is not smooth. To switch to high perf, please refresh the page</p>
-	        </div>
-	        <div class="inputGroup">
-	          <input id="debug" name="radio" type="checkbox" v-model="isDebugMode" />
-	          <label for="debug">Debug mode</label>
-	        </div>
-	        <div class="notice">Shows an info box that monitor code performance. You can click to parade across FPS (Frames rendered in the last second), MS (millisecond needed to render a frame) and MB (allocated memory).</div>
-	        <h3>Dark mode</h3>
-	        <div class="inputGroup">
-	          <input id="dark" v-on:click="darkMode()" name="radio" type="checkbox" v-model="isDarkMode" />
-	          <label for="dark">Dark mode {{isDarkMode ? 'enabled' : 'disabled'}}</label>
-	        </div>
-	        <div class="notice">If your system is set up to Dark mode, it may not work.</div>
-
-	        <h3>Brightness</h3>
-	        <div>
-	          <input type="range" min="20" max="100" step="5" @input="updateBrightness" v-model.number="brightValue" class="slider">
-	        </div>
-	        <div class="notice">You can adjust brightness</div>
-	        <!-- <div class="inputGroup">
-	          <input id="antialias" v-on:click="changeConfig('antialias')" name="radio" type="checkbox" v-model="antialias" />
-	          <label for="antialias">Antialias</label>
-	        </div>
-	        <div class="inputGroup">
-	          <input id="precision" v-on:click="changeConfig('precision')" name="radio" type="checkbox" v-model="precision" />
-	          <label for="precision">Enhanced shader precision</label>
-	        </div>
-	        <div class="inputGroup">
-	          <input id="isShadowEnabled" v-on:click="toggleShadows()" name="radio" type="checkbox" v-model="isShadowEnabled" />
-	          <label for="isShadowEnabled">Turn on/off shadows</label>
-	        </div> -->
-	      </div>
-	      <div v-else-if="currentSubmenu == 3" id="about">
+				<div v-if="currentSubmenu == 0" id="about">
 	        <h3 class="tc">About me</h3>
 	        <h3>Contact me</h3>
 	        <div class="notice tl">
@@ -179,6 +83,99 @@
 	          <p>And besides that, I travelled a lot in Vietnam, I ran 2 half marathons, I start designing a desktop...</p>
 	          */ ?> -->
 	        </div>
+	      </div>
+	      <div v-else-if="currentSubmenu == 1" id="config">
+	        <h3 class="tc">Website config</h3>
+	        <div class="notice">
+	          <p class="tc">Adjust the general settings at your please</p>
+	        </div>
+	        <ul>
+	          <h3>External links</h3>
+	          <div class="inputGroup">
+	            <input id="radio1" name="radio" @click="changeLinkBehavior" v-model="linksNewTab" type="checkbox"/>
+	            <label for="radio1">{{linksNewTab ? 'Open external links in a new tab' : 'Open the external links in the current tab'}}</label>
+	          </div>
+						<h3>Audio</h3>
+	          <div class="inputGroup">
+	            <input id="radio2" name="radio" v-model="isSoundOn" type="checkbox"/>
+	            <label for="radio2">{{ isSoundOn ? 'Sound if on' : 'Sound is off'}}</label>
+	          </div>
+	        </ul>
+	      </div>
+				<div v-else-if="currentSubmenu == 2" id="graphics">
+	        <h3 class="tc">Graphics</h3>
+	        <div class="notice">
+	          <p class="tc">You can switch to low performances if the animation is not smooth. To switch to high perf, please refresh the page</p>
+	        </div>
+	        <div class="inputGroup">
+	          <input id="debug" name="radio" type="checkbox" v-model="isDebugMode" />
+	          <label for="debug">Debug mode</label>
+	        </div>
+	        <div class="notice">Shows an info box that monitor code performance. You can click to parade across FPS (Frames rendered in the last second), MS (millisecond needed to render a frame) and MB (allocated memory).</div>
+	        <h3>Dark mode</h3>
+	        <div class="inputGroup">
+	          <input id="dark" v-on:click="darkMode()" name="radio" type="checkbox" v-model="isDarkMode" />
+	          <label for="dark">Dark mode {{isDarkMode ? 'enabled' : 'disabled'}}</label>
+	        </div>
+	        <div class="notice">If your system is set up to Dark mode, it may not work.</div>
+
+	        <h3>Brightness</h3>
+	        <div>
+	          <input type="range" min="20" max="100" step="5" @input="updateBrightness" v-model.number="brightValue" class="slider">
+	        </div>
+	        <div class="notice">You can adjust brightness</div>
+	        <!-- <div class="inputGroup">
+	          <input id="antialias" v-on:click="changeConfig('antialias')" name="radio" type="checkbox" v-model="antialias" />
+	          <label for="antialias">Antialias</label>
+	        </div>
+	        <div class="inputGroup">
+	          <input id="precision" v-on:click="changeConfig('precision')" name="radio" type="checkbox" v-model="precision" />
+	          <label for="precision">Enhanced shader precision</label>
+	        </div>
+	        <div class="inputGroup">
+	          <input id="isShadowEnabled" v-on:click="toggleShadows()" name="radio" type="checkbox" v-model="isShadowEnabled" />
+	          <label for="isShadowEnabled">Turn on/off shadows</label>
+	        </div> -->
+	      </div>
+	      <div v-else-if="currentSubmenu == 3" id="controls">
+	        <h3 class="tc">Controls</h3>
+	        <div class="notice"> <p class="tc">Mouse</p> </div>
+					<img src="/assets/img/icons/mice.svg" alt="mouse control" />
+	        <!-- <?php echo file_get_contents("./assets/img/icons/mice.svg"); ?> -->
+	        <div class="notice"> <p class="tc">Keyboard</p> </div>
+	        <div class="inputGroup">
+	          <input id="kb_default" v-on:click="changeKbConfig('kb_default')" value="kb_default" name="radio" type="radio" v-model="kb_config"/>
+	          <label for="kb_default">Default</label>
+	        </div>
+	        <div class="inputGroup">
+	          <input id="kb_gamer" v-on:click="changeKbConfig('kb_gamer')" value="kb_gamer" name="radio" type="radio" v-model="kb_config"/>
+	          <label for="kb_gamer">Gamer</label>
+	        </div>
+	        <div class="inputGroup">
+	          <input id="kb_vim" v-on:click="changeKbConfig('kb_vim')" value="kb_vim" name="radio" type="radio" v-model="kb_config" />
+	          <label for="kb_vim">vim</label>
+	        </div>
+	        <div class="flex f-start f-row">
+	          <div class="col-12 col-md-6">
+	            <div class="keyMap">
+	              <div class="key">{{ keyMap.option[1] }}</div>
+	              <div class="keyFeature">Close project details and Option menu</div>
+	            </div>
+	            <div class="keyMap">
+	              <div class="key">{{ keyMap.hud[1] }}</div>
+	              <div class="keyFeature">Display/hide <span class="abbr" title="Head-Up display">HUD</span></div>
+	            </div>
+	          </div>
+	          <div class="col-12 col-md-6">
+	            <div class="keyMap">
+	              <div class="key">{{ keyMap.accept[1] }}</div>
+	              <div class="keyFeature">Open/close the Option menu (current menu)</div>
+	            </div>
+	          </div>
+	        </div>
+					<img src="/assets/img/icons/keyboard.svg" alt="mouse control" />
+	        <!-- <?php echo file_get_contents("./assets/img/icons/keyboard.svg"); ?> -->
+	        <!-- <img src="./assets/img/icons/keyboard.svg" alt="keyboard configuration"> -->
 	      </div>
 	      <div v-else-if="currentSubmenu == 4" id="stat">
 	        <h3 class="tc">Stats</h3>
@@ -391,7 +388,9 @@
 				cities: [ "tignes", "saigon", "lyon", "montreal", "paris" ],
 				cityImgPath: "assets/img/all-projects/about/",
 
-				currentSubmenu: 3,
+				leftMenu: [ "About me", "Config", "Graphics", "Controls", "Stats", "Credit", "Privacy" ],
+
+				currentSubmenu: 0,
 		    kb_config: "kb_default",
 		    t1: performance.now(),
 		    fullConfig: selectedNavigator,

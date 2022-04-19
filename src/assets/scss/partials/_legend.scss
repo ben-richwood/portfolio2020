@@ -128,10 +128,10 @@
     flex-direction: row;
     align-items: center;
     justify-content: flex-start;
-    margin-bottom: 1rem;
+    margin-bottom: .15rem;
+    padding: .7rem .8rem;
     cursor: pointer;
-    // flex-basis: 0
-    &.selected{
+    &.active{
       background-color: $mainColor;
       label{
         color: white;
@@ -227,8 +227,8 @@
     flex-direction: row;
     align-items: center;
     svg{
-      max-height: 30px;
-      width: 30px;
+      max-height: 20px;
+      width: 20px;
       // margin-right: .6rem;
     }
   }

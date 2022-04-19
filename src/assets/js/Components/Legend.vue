@@ -4,6 +4,21 @@
       <div class="legend only-desktop" :class="{'smaller': HUDoff, 'show': showLegend}">
         <Filtering @applyFilter="applyFilter($event)" />
         <Sorting @applySorting="applySorting($event)" />
+        <div class="flex f-row f-start">
+          <span style="margin-right:1rem;">Zoom out</span>
+          <button @click="resetCamera" class="reset-camera" type="button" name="button" title="Reset the camera">
+            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 1800 200 200" preserveAspectRatio="xMinYMin meet">
+              <title>Camera</title>
+              <path fill="#11517F" d="M120.758,1851.507c6.511,0,11.789,5.278,11.789,11.789v27.705l17.684-10.159l35.466-20.395v79.105l-35.485-20.415
+              l-17.684-10.159v27.705c0,6.512-5.278,11.789-11.789,11.789h-96.16c-6.511,0-11.79-5.277-11.79-11.789v-73.388
+              c0-6.511,5.278-11.789,11.79-11.789H120.758 M120.758,1839.718h-96.18c-13.022,0-23.579,10.556-23.579,23.578v73.407
+              c0,13.022,10.556,23.579,23.579,23.579h96.18c13.022,0,23.579-10.557,23.579-23.579v-7.328l39.514,22.713
+              c1.817,1.123,3.896,1.753,6.032,1.828c4.48,0,7.584-3.576,7.584-9.727v-88.419c0-6.149-3.104-9.726-7.584-9.726
+              c-2.135,0.074-4.214,0.703-6.032,1.827l-39.514,22.753v-7.329C144.337,1850.273,133.78,1839.718,120.758,1839.718L120.758,1839.718z
+              "/>
+            </svg>
+          </button>
+        </div>
       </div>
 
       <div class="legend legend-mobile only-mobile" :class="{'smaller': HUDoff, 'show': showLegend}">
@@ -52,18 +67,6 @@
     </div>
     <div id="scale" class="only-desktop d-none" :class="{'mute': mute}">
       <div class="marker" id="scaleMarker"></div>
-      <!-- <button @click="resetCamera" class="reset-camera" type="button" name="button" title="Reset the camera">
-        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 1800 200 200" preserveAspectRatio="xMinYMin meet">
-        <title>Camera</title>
-        <path fill="#11517F" d="M120.758,1851.507c6.511,0,11.789,5.278,11.789,11.789v27.705l17.684-10.159l35.466-20.395v79.105l-35.485-20.415
-          l-17.684-10.159v27.705c0,6.512-5.278,11.789-11.789,11.789h-96.16c-6.511,0-11.79-5.277-11.79-11.789v-73.388
-          c0-6.511,5.278-11.789,11.79-11.789H120.758 M120.758,1839.718h-96.18c-13.022,0-23.579,10.556-23.579,23.578v73.407
-          c0,13.022,10.556,23.579,23.579,23.579h96.18c13.022,0,23.579-10.557,23.579-23.579v-7.328l39.514,22.713
-          c1.817,1.123,3.896,1.753,6.032,1.828c4.48,0,7.584-3.576,7.584-9.727v-88.419c0-6.149-3.104-9.726-7.584-9.726
-          c-2.135,0.074-4.214,0.703-6.032,1.827l-39.514,22.753v-7.329C144.337,1850.273,133.78,1839.718,120.758,1839.718L120.758,1839.718z
-          "/>
-        </svg>
-      </button> -->
     </div>
   </div>
 
@@ -74,7 +77,6 @@
   import { SingletonTimeline } from '../timeline.js'
   import Sorting from "./LegendSorting.vue"
   import Filtering from "./LegendFiltering.vue"
-
 
 	export default {
     components: { Sorting, Filtering },
@@ -101,14 +103,10 @@
         },
       },
 		  mounted(){
-		    // this.legendState = service.machine.current
-        // console.log("this.$store", this.$store.state.settings);
-        // this.legendState = service.machine.current
         this.timeline = SingletonTimeline.getInstance();
 		  },
 		  methods: {
         clickTab(idx){
-          // this.$refs.legendTabContent.setAttribute("tab", idx)
           this.tabIdx = idx
         },
         displayLegend(){
@@ -129,19 +127,9 @@
         applyFilter: function(key){
           this.$emit("applyFilter")
         },
-        /*
 		    resetCamera: function () {
-		      tl.resetCamera(1200 );
+		      this.timeline.resetCamera();
 		    },
-		    close: function() {
-		      console.log(this.legendState)
-		      closeAllMenus();
-		    },
-		    menu: function (){
-		      console.log(this.legendState)
-		      optionMenu.open();
-		    },
-        */
 		  }
 		}
 </script>

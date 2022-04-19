@@ -935,6 +935,52 @@ b {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+.important-button {
+  background-color: transparent;
+  color: white;
+  border: 1px solid transparent;
+  transition: border 0.3s ease-out;
+  box-sizing: border-box;
+  position: relative;
+  width: 100%;
+}
+.important-button:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.12);
+  opacity: 1;
+  color: #fff;
+  border-radius: 2px;
+}
+.important-button:hover:before {
+  background-image: url(../img/timeline/timeline_nw.svg), url(../img/timeline/timeline_ne.svg), url(../img/timeline/timeline_sw.svg), url(../img/timeline/timeline_se.svg);
+  background-position: 0 0, 100% 0, 0 100%, 100% 100%;
+  background-size: 12px 12px;
+  background-repeat: no-repeat;
+}
+.important-button.active:before {
+  background-image: url(../img/timeline/timeline_nw.svg), url(../img/timeline/timeline_ne.svg), url(../img/timeline/timeline_sw.svg), url(../img/timeline/timeline_se.svg);
+  background-position: 0 0, 100% 0, 0 100%, 100% 100%;
+  background-size: 12px 12px;
+  background-repeat: no-repeat;
+  background: linear-gradient(90deg, #11507d 0%, #1875bb 100%);
+  opacity: 0.75;
+  z-index: -1;
+}
+.important-button.active:after {
+  content: "";
+  position: absolute;
+  right: calc(0% - 2vw);
+  top: 50%;
+  height: 1px;
+  width: 2vw;
+  background-color: rgba(255, 255, 255, 0.4);
+}
+
 .large-button {
   display: -ms-inline-flexbox;
   display: -webkit-inline-box;
@@ -950,45 +996,14 @@ b {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  background-color: transparent;
   font-size: 0.9285714286rem;
   line-height: 1.4;
   min-height: 4rem;
-  color: white;
   /* align-self: stretch; */
   display: block;
   align-self: stretch;
   /* padding-left: 3rem; */
   /* padding-right: 3rem; */
-  box-sizing: content-box;
-  width: 100%;
-  border: 0;
-  border: 1px solid transparent;
-  transition: border 0.3s ease-out;
-  box-sizing: border-box;
-  position: relative;
-}
-.large-button.left-align {
-  text-align: left;
-  padding-left: 2rem;
-}
-.large-button:before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 96%;
-  background-color: rgba(255, 255, 255, 0.12);
-  opacity: 1;
-  color: #fff;
-  border-radius: 2px;
-}
-.large-button:hover:before {
-  background-image: url(../img/timeline/timeline_nw.svg), url(../img/timeline/timeline_ne.svg), url(../img/timeline/timeline_sw.svg), url(../img/timeline/timeline_se.svg);
-  background-position: 0 0, 100% 0, 0 100%, 100% 100%;
-  background-size: 12px 12px;
-  background-repeat: no-repeat;
 }
 .large-button:active {
   outline: none;
@@ -1000,33 +1015,19 @@ b {
   outline: none;
   position: relative;
 }
-.large-button.left-align.active:before {
-  background-image: url(../img/timeline/timeline_nw.svg), url(../img/timeline/timeline_ne.svg), url(../img/timeline/timeline_sw.svg), url(../img/timeline/timeline_se.svg);
-  background-position: 0 0, 100% 0, 0 100%, 100% 100%;
-  background-size: 12px 12px;
-  background-repeat: no-repeat;
-  background: linear-gradient(90deg, #11507d 0%, #1875bb 100%);
-  opacity: 0.75;
-  z-index: -1;
-}
-.large-button.left-align.active:after {
-  content: "";
-  position: absolute;
-  right: calc(0% - 2vw);
-  top: 50%;
-  height: 1px;
-  width: 2vw;
-  background-color: rgba(255, 255, 255, 0.4);
-}
 .large-button.left-align:before {
   opacity: 0;
+  width: calc(100% - 6px);
 }
 .large-button.left-align:hover:before {
   opacity: 1;
   transition: opacity 0.3s ease;
 }
-.large-button.left-align:active {
+.large-button.left-align.active {
   outline: none;
+}
+.large-button.left-align.active:before {
+  opacity: 1;
 }
 
 .menu {
@@ -1572,16 +1573,17 @@ code {
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
-  margin-bottom: 1rem;
+  margin-bottom: 0.15rem;
+  padding: 0.7rem 0.8rem;
   cursor: pointer;
 }
-.legend-icon.selected {
+.legend-icon.active {
   background-color: #11517F;
 }
-.legend-icon.selected label {
+.legend-icon.active label {
   color: white;
 }
-.legend-icon.selected path {
+.legend-icon.active path {
   fill: #FFFFFF;
 }
 .legend-icon label {
@@ -1709,8 +1711,8 @@ code {
   align-items: center;
 }
 .reset-camera svg {
-  max-height: 30px;
-  width: 30px;
+  max-height: 20px;
+  width: 20px;
 }
 
 .row-legend {

@@ -59,7 +59,7 @@ export const PROJECTS = (function(){
         "cat": CAT[1],
         "group": "freelance",
         "slug": "smarteo",
-        "images": ["intro", {url:"product", caption: "The product page"}, {url:"montage", caption: "The design guideline, fleshed out into the 'Press Kit'"}, {url:"formation", caption: "The training page"}],
+        "images": [{url: "intro", caption:"The 3d intro on the homerpage", screenshot: true}, {url:"product", caption: "The product page", screenshot: true}, {url:"montage", caption: "The design guideline, fleshed out into the 'Press Kit'"}, {url:"formation", caption: "The training page", screenshot: true}],
         "software": {
           "n/a": false,
           "list": ["illustrator", "indesign"],
