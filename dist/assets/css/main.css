@@ -1573,8 +1573,19 @@ code {
   align-items: center;
   justify-content: flex-start;
   margin-bottom: 1rem;
+  cursor: pointer;
+}
+.legend-icon.selected {
+  background-color: #11517F;
+}
+.legend-icon.selected label {
+  color: white;
+}
+.legend-icon.selected path {
+  fill: #FFFFFF;
 }
 .legend-icon label {
+  cursor: pointer;
   color: #11517F;
   margin-left: 2rem;
 }
@@ -1582,8 +1593,12 @@ code {
   display: none;
 }
 .legend-icon svg {
+  cursor: pointer;
   width: 30px;
   height: 30px;
+}
+.legend-icon svg path {
+  fill: #11517F;
 }
 
 .HUD-legend {
@@ -1926,6 +1941,11 @@ div.detail {
   transition: opacity 1s 1.5s;
   cursor: pointer;
 }
+div.detail.fade-project .into-detail {
+  opacity: 0.28;
+  transform: scale(0.7);
+  transition: all 0.65s cubic-bezier(0.5, 0, 0.75, 0);
+}
 div.detail:hover .into-detail {
   transform: scale(1.08);
   transition: transform 0.4s cubic-bezier(0.5, 0, 0.75, 0);
@@ -1964,6 +1984,8 @@ div.detail.ignore {
 div.detail div.into-detail {
   padding: 0.55rem;
   box-sizing: border-box;
+  transform: scale(1);
+  transition: transform 0.4s cubic-bezier(0.5, 0, 0.75, 0);
 }
 div.detail div.into-detail.techno {
   -webkit-user-select: none;

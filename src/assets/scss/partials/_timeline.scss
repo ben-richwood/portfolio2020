@@ -132,6 +132,11 @@ div.detail{
   opacity: 1;
   transition: opacity 1s 1.5s;
   cursor: pointer;
+  &.fade-project .into-detail{
+    opacity: 0.28;
+    transform: scale(0.7);
+    transition: all .65s $transition;
+  }
   // border: 1px solid transparent;
   // transition: transform .2s ease-in;
   &:hover .into-detail{
@@ -180,6 +185,8 @@ div.detail{
     // background-color: rgba(255,255,255,.02);
     padding: .55rem;
     box-sizing: border-box;
+    transform: scale(1);
+    transition: transform .4s $transition;
     &.techno{
       -webkit-user-select:none;
       -moz-user-select:none;

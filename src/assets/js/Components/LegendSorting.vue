@@ -35,13 +35,7 @@
     },
     methods: {
       applySorting: function(key){
-        // this.selectedFilter = key;
-
-        this.$store.commit('setFilter', key)
-        // let prevFilter = `${this.$store.state.settings.currFilter}`;
-        // this.$store.commit('updateSettings', {currFilter: key, prevFilter })
-        // tl.transform( tl.targets[key], 2000 );
-        // console.log(this.legendState)
+        this.$store.commit('setSorting', key)
         this.$emit("applySorting")
       },
     }

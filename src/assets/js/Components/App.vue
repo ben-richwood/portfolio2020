@@ -4,7 +4,7 @@
 		<Canvas ref="canvas" @clickProject="openProject($event)" />
 		<OptionMenu @closeMenu="closeMenu" />
 		<ProjectDetail ref="projectDetail" @closeDetail="closeMenu" />
-		<Legend :class="{'d-none': displayNone}" ref="legend" @applySorting="applySorting" />
+		<Legend :class="{'d-none': displayNone}" ref="legend" @applyFilter="applyFilter" @applySorting="applySorting" />
 	</div>
 </template>
 
@@ -40,9 +40,10 @@
 				this.$refs.canvas.start()
 			},
 			applySorting(){
-				// this.$refs.legend.displayLegend()
+				this.$refs.canvas.applySorting()
+			},
+			applyFilter(){
 				this.$refs.canvas.applyFilter()
-				console.log("this.$store.settings.currFilter:", this.$store.state.currentFilter);
 			},
 			openProject(id){
 				this.selectedProject = id

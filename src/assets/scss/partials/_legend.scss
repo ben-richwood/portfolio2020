@@ -129,15 +129,26 @@
     align-items: center;
     justify-content: flex-start;
     margin-bottom: 1rem;
+    cursor: pointer;
     // flex-basis: 0
+    &.selected{
+      background-color: $mainColor;
+      label{
+        color: white;
+      }
+      path{ fill: #FFFFFF }
+    }
     label{
+      cursor: pointer;
       color: $mainColor;
       margin-left: 2rem;
       br{ display: none; }
     }
     svg{
+      cursor: pointer;
       width: 30px;
-      height:30px
+      height:30px;
+      path{ fill: #11517F }
     }
   }
 

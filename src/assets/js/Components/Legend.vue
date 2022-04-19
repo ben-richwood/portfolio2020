@@ -124,8 +124,10 @@
           this.showLegend = !this.showLegend;
         },
         applySorting: function(key){
-          // this.$store.commit('setFilter', key)
           this.$emit("applySorting")
+        },
+        applyFilter: function(key){
+          this.$emit("applyFilter")
         },
         /*
 		    resetCamera: function () {

@@ -11,6 +11,7 @@ import Stats from './libs/stats.module.js'; // for testing only
 import * as TEST from './libs/custom/testing.js'
 import { debounce } from './libs/custom/miscellaneous.js'
 import { PROJECTS } from "./projects.js";
+import { CAT } from "./constants.js";
 import _ from 'lodash';
 import store from './store/index.js';
 
@@ -645,7 +646,6 @@ export class Timeline {
       let el = sortedTimeline[i];
 			let na = false
 
-			console.log(el);
       var element = new ProjectObject(el)
 
       this.cssScene.add( element.cssObj );
@@ -705,7 +705,6 @@ export class Timeline {
 
 			// TIMELINE
 			na = false
-			console.log("el", el);
       let startingPoint = ((el.timeline.startingYear - 2009) * yu) + xOffset;
       let len = el.timeline.hasOwnProperty("len") ? el.timeline.len : 1;
 
@@ -870,6 +869,12 @@ export class Timeline {
 		}
   }
 
+	applyFilter () {
+		for ( var i = 0; i < this.objects.length; i++ ) {
+			this.objects[i].applyFiler()
+		}
+	}
+
   resetCamera (duration ) {
       // TWEEN.removeAll();
       new TWEEN.Tween( this.camera.position )
@@ -893,7 +898,7 @@ class ProjectObject {
     this.currentCoordinates = [0, 0]
 
     this.DOMEl = this.#buildObject()
-		this.shouldBeVisible = true
+		this.isVisible = true
     this.cssObj = null
     this.#build3dObj()
   }
@@ -984,17 +989,36 @@ class ProjectObject {
 			store.state.currentFilter === "timeline" ||
 			this.projectData[store.state.currentFilter]["n/a"]
 		) return
-		console.log("this.projectData", this.projectData);
     let {x ,y, z} = this.projectData[store.state.currentFilter].position
     this.currentCoordinates = [x, z]
     this.coordinateDOMEl.innerHTML = `X: ${x}, Y: ${y}`
   }
 
 	set shouldBeVisible(value) {
+		this.isVisible = value
 		if (value) {
 			this.DOMEl.classList.add("hide-el");
 		} else {
 			this.DOMEl.classList.remove("hide-el");
+		}
+	}
+
+	applyFiler(){
+		// main, freelance, personal
+
+		// if no filter selected, disable
+		if (store.state.filtersOn.every(e => e === false)){
+			this.DOMEl.classList.remove("fade-project")
+			return
+		}
+		// if some
+		let index = CAT.findIndex(e => e === this.projectData["cat"])
+		if (index !== -1){
+			if (store.state.filtersOn[index] === true){
+				this.DOMEl.classList.remove("fade-project")
+			} else {
+				this.DOMEl.classList.add("fade-project")
+			}
 		}
 	}
 

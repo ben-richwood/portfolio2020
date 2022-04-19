@@ -1,4 +1,5 @@
 import deepFreeze from "deep-freeze"
+import { CAT } from "./constants.js"
 
 // JSX Adobe - PS script
 // Blender BLISS animation
@@ -55,7 +56,7 @@ export const PROJECTS = (function(){
         "code": "<p>The website groundwork was already sound, built upon Laravel. I enhanced the interface and implemented the freshly revamped identity.<br/>Moreover, I made up the 3D introduction with Three.js (scene and props modelled with Blender), which portrays a table with all the elements related to Smarteo activities: notebooks, 3d printing, tablet (for coding), smart city, robots...<br/>Webpack, Babel and Gulp process the bundles and serve minified assets (including next-gen images).</p>",
         "link": "https://www.smarteo.co/",
         "category": "Freelance",
-        "cat": "freelance",
+        "cat": CAT[1],
         "group": "freelance",
         "slug": "smarteo",
         "images": ["intro", {url:"product", caption: "The product page"}, {url:"montage", caption: "The design guideline, fleshed out into the 'Press Kit'"}, {url:"formation", caption: "The training page"}],
@@ -91,7 +92,7 @@ export const PROJECTS = (function(){
         "slug": "gme",
         "images": ["GME-fullpage", "circuit_and_detailPage",{url:"catalog01", caption: "Print leaflet - for commercial usage"},"catalog03",{url:"medley", caption: "Lots of handdrawings to illustrate the trips"}],
         "category": "Freelance",
-        "cat": "freelance",
+        "cat": CAT[1],
         "group": "freelance",
         "timeline": {
           "n/a": false,
@@ -114,6 +115,7 @@ export const PROJECTS = (function(){
       }, {
         "id": 3,
         "name": "ctOS",
+        "cat": CAT[2],
         "major": false,
         "summary": "Personal project to build my own map system",
         "objectives": "ES6, class constructor, VueJS",
@@ -125,7 +127,6 @@ export const PROJECTS = (function(){
         "images": ["desktop_tactical", {url:"contrast-mobile", caption: "It comes with different map styles, depending on the needs. And it was designed \"mobile-first\""}, {url:"graphic_research_markers", caption: "Lots of graphic researches for styles and icons"}, {url:"graphic_research_surchaging", caption:"Same for all the other graphic components"}],
         "link": "https://projets.richebois.fr/citadelle/map/mobile.php",
         "category": "Personal project",
-        "cat": "personal",
         "group": "perso",
         "timeline": {
           "onlyTimeline": false,
@@ -149,6 +150,7 @@ export const PROJECTS = (function(){
         "id": 4,
         "name": "Tool explorer",
         "major": false,
+        "cat": CAT[2],
         "summary": "Personal project to map useful web dev common services",
         "objectives": "Data vizualisation and Graph, VueJS, canvas",
         "year": 2019,
@@ -159,7 +161,6 @@ export const PROJECTS = (function(){
         "images": ["homepage",{url:"loading",caption:"Loading screen - while the solver is building up the graph (which counts 450+ elements so far)"}],
         "link": "",
         "category": "Personal project",
-        "cat": "personal",
         "timeline": {
           "onlyTimeline": false,
           "startingYear": 2019.2,
@@ -182,6 +183,7 @@ export const PROJECTS = (function(){
         "id": 5,
         "name": "Takacorp Studio",
         "major": true,
+        "cat": CAT[1],
         "summary": "E-commerce website for manga products",
         "year": 2018,
         "description": "<p>Takacorp is a e-commerce website that sell high quality manga figurines. For this website, I realized all the design and all the development (full-stack).</p><p>Let’s face it: payment was a big challenge, on the ground that the website accepts 3 different types of payment (Stripe, Monetico and Paypal), with one-go and staggered payments for 2, 3, 4 and 10 months. Moreover, the website is also SCA compliant - the new European payment regulation. I learnt a lot about Stripe API, webhooks, routing, banking regulations and such.</p><h4>Motivations</h4><ul><li>Full stack, from design, to frontend and backend</li><li>Payment integration</li></ul>",
@@ -191,7 +193,6 @@ export const PROJECTS = (function(){
         "images": ["Taka_webdesign_homepage",{url:"intention", caption:"I started with a design intend, to lead the design elements"}, {url:"Taka_webdesign",caption:"I started with a \"Design Principle\"  document, and then turned it into a proper webdesign guideline"}, {url:"UI_page",caption:"UI components of the pages"}, {url:"stripeCheckout",caption:"Stripe Chaeckout - the website used 3 different payment gateway (Monetico, Paypal and Stripe), accepting one-go and staggered payments"}],
         "slug": "taka",
         "category": "Freelance job - Full stack + design",
-        "cat": "freelance",
         "group": "freelance",
         "timeline": {
           "onlyTimeline": false,
@@ -214,6 +215,7 @@ export const PROJECTS = (function(){
         "id": 6,
         "name": "Uptime checker",
         "major": false,
+        "cat": CAT[0],
         "summary": "Internal tool to track uptime website and domain names",
         "description": "<p>Uptime Checker is an internal tool (for BLISS interactive where I worked) to monitor and get notified if one of the website we were managing was down.</p>",
         "year": 2019,
@@ -222,7 +224,6 @@ export const PROJECTS = (function(){
         "slug": "uptime",
         "images": ["screenshot", "popup", {url:"flow",caption:"Flow of the webapp - to have a clear overview before starting development"}],
         "category": "Work for BLISS interactive - internal tool",
-        "cat": "main",
         "group": "work",
         "timeline": {
           "onlyTimeline": false,
@@ -246,9 +247,9 @@ export const PROJECTS = (function(){
         "name": "Geography studies",
         "major": false,
         "year": 2009,
+        "cat": CAT[0],
         "summary": "Degree in Geography",
         "description": "I studied Geography for 4 years, between Paris 4 - la Sorbonne and UQAM (Montrea, Canada), specilizing in cuture, politic and heritage.",
-        "cat": "main",
         "slug": "master",
         "images": [{url:"sorbonne",caption:"Paris Sorbonne, France"},{url:"uqam",caption:"UQAM, Montral, Canada"}],
         "group": "study",
@@ -305,9 +306,9 @@ export const PROJECTS = (function(){
         "name": "Master (EMLyon & Centrale Lyon)",
         "major": false,
         "year": 2013,
+        "cat": CAT[0],
         "summary": "Master degree in Entrepreneuship and Design",
         "description": "After 4 years in geography, I move to Lyon to make a Master degree in Entrepreneuship and Design, between EMLyon and Centrale Lyon. The program was hinged on on social science, ingineering (including coding), business and design. And a fabLab was the pivot point of this studdy, where we were able to prototype ideas and projects.",
-        "cat": "main",
         "slug": "master",
         "images": [{url:"emlyon",caption:"EMLYON Business School, France"},{url:"essay-cover",caption:"My final essay, about the impact of innovation of branding"}, {url:"essay-sample", caption:"Sample of my essay"}],
         "group": "study",
@@ -333,7 +334,7 @@ export const PROJECTS = (function(){
         "name": "CAPSA Container - Internship",
         "summary": "Intership",
         "category": "Intership",
-        "cat": "main",
+        "cat": CAT[0],
         "year": 2014,
         "description": "<p>My main objective was to design and realize a prototype of an accomodation in a maritim container.</p><p>Coming along the master degree, I wrote an essay about how innovation impacts companies' identity.</p>",
         "design": "<p>I mostly work on Capsul, the container's accomodation. It started with exploration and concepts. And then it switched to prototyping the ideas and modeling. I allso worked a lot on the regulations related to hosting.</p><p><a href='https://skfb.ly/F8Wr'>3D model of the room</a> (link to SketchFab)</p><p>In paralel, I helpled with the leaflets, some presentations and 3d modeling for client proposals.</p>",
@@ -361,7 +362,7 @@ export const PROJECTS = (function(){
       }, {
         "id": 10,
         "name": "Diplome Master",
-        "cat": "main",
+        "cat": CAT[0],
         "year": 2015,
         "ignore": true,
         "major": false,
@@ -387,7 +388,7 @@ export const PROJECTS = (function(){
         "ignore": true,
         "year": 2015,
         "name": "freelance",
-        "cat": "freelance",
+        "cat": CAT[1],
         "major": false,
         "summary": "Various web development jobs",
         "group": "work",
@@ -411,7 +412,7 @@ export const PROJECTS = (function(){
       }, {
         "id": 12,
         "name": "MonMentor",
-        "cat": "freelance",
+        "cat": CAT[1],
         "ignore": true,
         "major": false,
         "year": 2015,
@@ -440,7 +441,7 @@ export const PROJECTS = (function(){
       }, {
         "id": 13,
         "name": "Kicklaws",
-        "cat": "freelance",
+        "cat": CAT[1],
         "year": 2015,
         "ignore": true,
         "major": false,
@@ -467,7 +468,7 @@ export const PROJECTS = (function(){
         "id": 14,
         "name": "Vietnam",
         "category": "Living place",
-        "cat": "main",
+        "cat": CAT[0],
         "year": 2016,
         "major": false,
         "summary": "4 years living in Ho Chi Minh City",
@@ -493,7 +494,7 @@ export const PROJECTS = (function(){
       }, {
         "id": 15,
         "name": "BLISS",
-        "cat": "main",
+        "cat": CAT[0],
         "year": 2017,
         "category": "Main job for BLISS interactive",
         "summary": "IT agency in Saigon",
@@ -527,7 +528,7 @@ export const PROJECTS = (function(){
       }, {
         "id": 16,
         "name": "Year of Engineering",
-        "cat": "main",
+        "cat": CAT[0],
         "summary": "Website for the UK government",
         "description": "Year of Engineering was a UK government initiative, to promote and celebrate engineering. I coworked on the techical approach, as account manager with the British client and as lead deveoper on some phases (only frontend). We worked in collaboration with a design studio based in London.",
         "major": true,
@@ -558,7 +559,7 @@ export const PROJECTS = (function(){
       }, {
         "id": 17,
         "name": "CCM",
-        "cat": "main",
+        "cat": CAT[0],
         "year": 2019,
         "category":"Project management for BLISS interactive",
         "major": false,
@@ -588,7 +589,7 @@ export const PROJECTS = (function(){
         "id": 18,
         "name": "Identity and branding for BLISS",
         "major": true,
-        "cat": "main",
+        "cat": CAT[0],
         "summary": "Developping company brand and culture",
         "group": "work",
         "year": 2019,
@@ -627,7 +628,7 @@ export const PROJECTS = (function(){
       }, {
         "id": 19,
         "name": "Chrome Extension",
-        "cat": "main",
+        "cat": CAT[0],
         "major": false,
         "category": "Main work for BLISS interactive - lead developer",
         "summary": "Enhance an existing website",
@@ -656,7 +657,7 @@ export const PROJECTS = (function(){
       }, {
         "id": 20,
         "name": "Family Medical Practice",
-        "cat": "main",
+        "cat": CAT[0],
         "major": false,
         "link": "https://vietnammedicalpractice.com/",
         "summary": "Website revamping for the largest care provider in Vietnam",
@@ -688,7 +689,7 @@ export const PROJECTS = (function(){
       }, {
         "id": 21,
         "name": "Portfolio",
-        "cat": "personal",
+        "cat": CAT[2],
         "major": false,
         "summary": "About this website",
         "objectives": "ThreeJS, Webpack, performance oriented",
@@ -725,7 +726,7 @@ export const PROJECTS = (function(){
       }, {
         "id": 22,
         "name": "Tran Duong",
-        "cat": "freelance",
+        "cat": CAT[1],
         "major": false,
         "summary": "Webdesign for a Vietnamese supplier",
         "description": "I realized the webdesign for a Vietnamese supplier and constructer of high-class wallpaper and curtains.",
@@ -757,7 +758,7 @@ export const PROJECTS = (function(){
       }, {
         "id": 23,
         "name": "Minh Minh Nhut",
-        "cat": "freelance",
+        "cat": CAT[1],
         "major": false,
         "summary": "Webdesign for a packaging company",
         "description": "Minh Minh Nhut supplies, manufactures paper bags/boxes and label tags industry. I redesigned their website.",
@@ -790,7 +791,7 @@ export const PROJECTS = (function(){
       }, {
         "id": 24,
         "name": "Spotify Campaign",
-        "cat": "main",
+        "cat": CAT[0],
         "major": false,
         "year": 2020,
         "summary": "Campaign website for Spotify Vietnam",
@@ -824,7 +825,7 @@ export const PROJECTS = (function(){
         "name": "Hideout",
         "summary": "3d modeling",
         "year": 2020,
-        "cat": "personal",
+        "cat": CAT[2],
         "group": "personal",
         "major": true,
 
@@ -864,6 +865,7 @@ export const PROJECTS = (function(){
         "name": "Urbascope",
         "summary": "Map + 3d modeling in the browser",
         "year": 2021,
+        "cat": CAT[0],
         "major": true,
         "description": `<p>I developed a website which allows urban developers to select parcels and draw building templates onto it, according to urban planning rules, such as maximum height and occupation.</p>`,
         "code": `<p>The web app offers 3D modeling capabilities inside a map, allowing to generate models (building templates) with basic transformations (translation and rotation), apply predefined textures, add and define roof height, edit the geometries (by selecting selecting vertices). And it calculates many parameters related to urban planing based on the geometry.</p>
@@ -881,7 +883,6 @@ export const PROJECTS = (function(){
         <p>I used few additional libraries to monitor performance and frame rate. For instance, the rectangles on the top right-hand corner are debug tools; they display page metrics. For instance, the first screen shows 143 (frames "painted" per sec), 6ms (JS compute rate), and 130MB (buffer usage).</p>
         `,
         "images": ["main", {url: "nook", caption:"Ability to add nooks for the latest floors, and to adjust their geometry independently", screenshot: true}, {url: "collision-intersection", caption:"Collision detection to move the template within the parcel"}, {url: "goldenHour", caption:"Showcase features were added, such as controling the sun position and luminosity depending on date and time."}],
-        "cat": "main",
 
         "slug": "urbascope",
         "category": "Freelance contract - Frontend development",
@@ -910,6 +911,7 @@ export const PROJECTS = (function(){
         "name": "Homers.fr",
         "summary": "Fullstack website with Django & Nuxt",
         "year": 2021,
+        "cat": CAT[0],
         "major": true,
         "description": `<p>Homers.fr is a mobility service that helps workers who need to move house for professional reasons to find a new home.</p>
         <p>For this webapp, I entirely developed the website, from backend to frontend.</p>
@@ -926,7 +928,6 @@ export const PROJECTS = (function(){
         </ul>
         `,
         "images": [{url: "main", screenshot: true, caption:"The homepage"}, {url: "timeline", screenshot: true, caption: "the client's timeline, useful to know what's coming next at any point"}],
-        "cat": "main",
 
         "slug": "homers",
         "category": "Freelance contract - Fullstack development",

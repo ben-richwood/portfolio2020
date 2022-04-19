@@ -32,8 +32,11 @@
 			},
 		},
 		methods: {
-			applyFilter(){
+			applySorting(){
 				this.timeline.transform( 2000 );
+			},
+			applyFilter(){
+				this.timeline.applyFilter();
 			},
 			playAnimation(){
 				this.timeline.playAnimation();
@@ -42,7 +45,7 @@
 				this.timeline.playAnimation();
 				console.log(this.$store.state.isPaused);
 
-				this.applyFilter()
+				this.applySorting()
 
 				document.getElementById("intro").style.display = "none";
 				domElTimeline = document.getElementById("DOMElTimeline");

@@ -34,10 +34,11 @@ export default new Vuex.Store({
     isPaused: true,
     brightness: 90,
     developerMode: false,
-
     isMenuOpen: false,
-
     currentProject: null,
+
+    filtersOn: [false, false, false],
+    // main, freelance, personal
 
     analytics: null,
   },
@@ -134,9 +135,20 @@ export default new Vuex.Store({
     updateSettings (state, newSet) {
       state.settings = Object.assign({}, {...state.settings, ...newSet});
     },
-    setFilter (state, newFilter) {
+    setSorting (state, newFilter) {
       state.previousFilter = state.currentFilter
       state.currentFilter = newFilter
+    },
+    setFilter (state, filterIdx) {
+      // if (!state.filtersOn.some(e => e === false)){
+      //   // state.filtersOn = [false, false, false]
+      //   state.filtersOn.splice(filterIdx, 1, true)
+      //   return
+      // }
+      state.filtersOn.splice(filterIdx, 1, !state.filtersOn[filterIdx])
+      if (state.filtersOn.every(e => e === true)){
+        state.filtersOn = [false, false, false]
+      }
     },
     setPauseState (state, status) {
       state.isPaused = status

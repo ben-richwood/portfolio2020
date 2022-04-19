@@ -22,6 +22,8 @@ export const keyboardMap = {
   },
 }
 
+export const CAT = [ "main", "freelance", "personal" ]
+
 export const GPURegex = /rtx|gtx|Direct3D11|AMD\sRadeon/i;
 
 export const selectedNavigator = {
