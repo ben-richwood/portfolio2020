@@ -185,7 +185,7 @@
     }
   }
   .tab-title{
-    padding: .5rem 5vw;
+    padding: .9rem 7vw;
     h3.faded{
       opacity: 0.3;
     }
@@ -193,15 +193,15 @@
   .tabs{
     &[tab="0"]{
       transform: translateX(0);
-      transition: transform .35s $transition
+      transition: transform .42s $transition
     }
     &[tab="1"]{
       transform: translateX(-50%);
-      transition: transform .35s $transition
+      transition: transform .42s $transition
     }
   }
   .legend-mobile{
-    padding: 1rem;
+    // padding: 1rem;
     box-sizing: border-box;
     transform: translateY(100%);
     transition: transform .35s $transition;

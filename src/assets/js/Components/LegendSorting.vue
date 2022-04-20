@@ -2,8 +2,8 @@
   <div :class="{'full-width': mobile}">
     <h3 v-if="!mobile" style="margin-top:.3rem;" class="user-select-none">Sorting</h3>
     <div class="flex f-row f-start">
-      <div class="col-12" style="padding-left:0;">
-        <button v-for="([key, value], idx) in Object.entries(filterItems)" :key="key" @click="applySorting(key)" class="filter-item" :class="selectedFilter === key ? 'selected' : ''">
+      <div style="width:100%;">
+        <button v-for="([key, value], idx) in Object.entries(filterItems)" :key="key" @click="applySorting(key)" class="important-button filter-item tl" :class="{'active': selectedFilter === key}">
           <span class="user-select-none">{{ value.name }}</span>
         </button>
       </div>
@@ -47,5 +47,7 @@
     width: 100vh;
     max-width: 100vh;
     flex-basis: 100%;
+    padding: 1.5rem;
+    box-sizing: border-box;
   }
 </style>

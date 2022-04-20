@@ -54,5 +54,7 @@
     width: 100vh;
     max-width: 100vh;
     flex-basis: 100%;
+    padding: 1.5rem;
+    box-sizing: border-box;
   }
 </style>

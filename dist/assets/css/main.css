@@ -942,6 +942,8 @@ b {
   transition: border 0.3s ease-out;
   box-sizing: border-box;
   position: relative;
+  cursor: pointer;
+  display: block;
   width: 100%;
 }
 .important-button:before {
@@ -961,6 +963,7 @@ b {
   background-position: 0 0, 100% 0, 0 100%, 100% 100%;
   background-size: 12px 12px;
   background-repeat: no-repeat;
+  background-color: rgba(17, 80, 125, 0.08);
 }
 .important-button.active:before {
   background-image: url(../img/timeline/timeline_nw.svg), url(../img/timeline/timeline_ne.svg), url(../img/timeline/timeline_sw.svg), url(../img/timeline/timeline_se.svg);
@@ -968,17 +971,8 @@ b {
   background-size: 12px 12px;
   background-repeat: no-repeat;
   background: linear-gradient(90deg, #11507d 0%, #1875bb 100%);
-  opacity: 0.75;
+  opacity: 1;
   z-index: -1;
-}
-.important-button.active:after {
-  content: "";
-  position: absolute;
-  right: calc(0% - 2vw);
-  top: 50%;
-  height: 1px;
-  width: 2vw;
-  background-color: rgba(255, 255, 255, 0.4);
 }
 
 .large-button {
@@ -1028,6 +1022,15 @@ b {
 }
 .large-button.left-align.active:before {
   opacity: 1;
+}
+.large-button.left-align.active:after {
+  content: "";
+  position: absolute;
+  right: calc(0% - 2vw);
+  top: 50%;
+  height: 1px;
+  width: 2vw;
+  background-color: rgba(255, 255, 255, 0.4);
 }
 
 .menu {
@@ -1514,13 +1517,15 @@ code {
   bottom: 2.5vw;
   background: #f5f5f5;
   z-index: 50;
-  padding: 2vw;
   box-sizing: border-box;
   transform: scale(0);
   transform-origin: 0% 100%;
   transition: transform 0.3s cubic-bezier(0.265, 0.83, 0.745, 1);
   /* easeOutCubic */
   box-shadow: 7px 7px 20px 0px #0002, 4px 4px 5px 0px #0001, inset 0px 0px 0px 0px #0001, inset 0px 0px 0px 0px #0001;
+}
+.legend.only-desktop {
+  padding: 2vw;
 }
 .legend.smaller {
   transform: scale(0.8);
@@ -1538,7 +1543,6 @@ code {
   left: 0;
   bottom: 0;
   width: 100%;
-  height: 45vh;
 }
 
 .legend-row {
@@ -1576,9 +1580,6 @@ code {
   margin-bottom: 0.15rem;
   padding: 0.7rem 0.8rem;
   cursor: pointer;
-}
-.legend-icon.active {
-  background-color: #11517F;
 }
 .legend-icon.active label {
   color: white;
@@ -1660,39 +1661,34 @@ code {
 }
 
 .filter-item {
-  position: relative;
-  display: block;
-  border: 0;
-  cursor: pointer;
-  margin-bottom: 0.8rem;
   outline: 0;
-  background-color: transparent;
   padding-left: 0;
+  margin-bottom: 0.15rem;
+  padding: 1rem 0.8rem;
 }
 .filter-item span {
-  padding: 0.4rem 3.55rem 0.4rem;
+  padding: 0.4rem 3.55rem;
   color: #AAA;
   padding-left: 2.8rem;
 }
-.filter-item.selected span {
-  background-color: #11517F;
+.filter-item.active span {
   color: white;
 }
-.filter-item.selected:before {
+.filter-item.active:after {
   border: 1px solid white;
   background-image: url("data:image/svg+xml,%3Csvg%20version%3D%221.1%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20x%3D%220px%22%20y%3D%220px%22%20preserveAspectRatio%3D%22xMinYMin%20meet%22%20viewBox%3D%220%200%20200%20200%22%3E%20%3Cline%20style%3D%22fill%3Anone%3Bstroke%3A%23FFF%3Bstroke-width%3A15%3Bstroke-miterlimit%3A10%3B%22%20x1%3D%226.46%22%20y1%3D%226.98%22%20x2%3D%22192.93%22%20y2%3D%22193.45%22%2F%3E%20%3Cline%20style%3D%22fill%3Anone%3Bstroke%3A%23FFF%3Bstroke-width%3A15%3Bstroke-miterlimit%3A10%3B%22%20x1%3D%22192.93%22%20y1%3D%226.98%22%20x2%3D%226.46%22%20y2%3D%22193.45%22%2F%3E%20%3C%2Fsvg%3E%0A");
   background-size: 70% auto;
   background-position: 45% 45%;
   background-repeat: no-repeat;
 }
-.filter-item:before {
+.filter-item:after {
   content: "";
   position: absolute;
   background-color: transparent;
-  width: 10px;
-  height: 10px;
+  width: 16px;
+  height: 16px;
   left: 1.15rem;
-  top: 7px;
+  top: 17px;
   border: 1px solid #11517F;
   transform: translateY(-4px);
 }

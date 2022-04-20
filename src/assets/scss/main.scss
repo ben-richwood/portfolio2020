@@ -265,6 +265,8 @@ b{
   transition: border .3s ease-out;
   box-sizing: border-box;
   position: relative;
+  cursor: pointer;
+  display: block;
   width: 100%;
   &:before {
   	content: '';
@@ -281,24 +283,16 @@ b{
   }
   &:hover:before{
     @include corners();
+    background-color: rgba(17,80,125,0.08)
   }
   &.active{
     &:before {
       // opacity: 1;
       @include corners();
       @include gradient();
-      opacity: .75;
+      opacity: 1;
       z-index: -1;
       // background-color: rgba(255, 242, 0, .3);
-    }
-    &:after{
-      content: "";
-      position: absolute;
-      right: calc(0% - 2vw);
-      top: 50%;
-      height: 1px;
-      width: 2vw;
-      background-color: rgba(255,255,255,.4);
     }
   }
 }
@@ -355,6 +349,15 @@ b{
       outline: none;
       &:before{
         opacity: 1;
+      }
+      &:after{
+        content: "";
+        position: absolute;
+        right: calc(0% - 2vw);
+        top: 50%;
+        height: 1px;
+        width: 2vw;
+        background-color: rgba(255,255,255,.4);
       }
     }
   }

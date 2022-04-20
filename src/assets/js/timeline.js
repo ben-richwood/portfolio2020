@@ -183,6 +183,12 @@ export class Timeline {
       TWO: THREE.TOUCH.DOLLY_PAN
     }
 
+		window.addEventListener( 'keydown', evt => {
+			console.log(evt);
+			if (evt.code === "Space")
+			console.log(this.camera.position);
+		}, false );
+
     const marker = document.getElementById("scaleMarker");
     const scale = document.getElementById("scale");
     let scaleHeight, intermediate;
@@ -877,8 +883,10 @@ export class Timeline {
 
   resetCamera (duration=1200 ) {
     // TWEEN.removeAll();
+
+		// .to( {...this.cameraInitialPosition}, Math.random() * duration + duration )
     new TWEEN.Tween( this.camera.position )
-    .to( {...this.cameraInitialPosition}, Math.random() * duration + duration )
+    .to( {x: 445, y: 1804, z: 587}, Math.random() * duration + duration )
     .easing( TWEEN.Easing.Exponential.InOut )
     .start();
 

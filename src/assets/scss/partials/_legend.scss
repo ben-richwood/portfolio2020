@@ -50,11 +50,12 @@
     color: #666;
     left: 2.5vw;
     bottom: 2.5vw;
-    // width:30%;
-    // min-height: 20vh;
     background: #f5f5f5;
     z-index: 50;
-    padding:2vw;
+    &.only-desktop{
+      padding:2vw;
+    }
+
     box-sizing: border-box;
 
     transform: scale(0);
@@ -81,7 +82,7 @@
       left: 0;
       bottom: 0;
       width: 100%;
-      height: 45vh;
+      // height: 45vh;
     }
 
     // -webkit-tap-highlight-color: rgba(0,0,0,0);
@@ -116,12 +117,6 @@
     }
   }
   .legend-icon{
-    // display: -webkit-inline-flex;
-    // display: -ms-inline-flex;
-    // display: inline-flex;
-    // flex-direction: column;
-    // align-items: center;
-    // justify-content: center;
     display: -webkit-flex;
     display: -ms-flex;
     display: flex;
@@ -132,7 +127,6 @@
     padding: .7rem .8rem;
     cursor: pointer;
     &.active{
-      background-color: $mainColor;
       label{
         color: white;
       }
@@ -174,25 +168,25 @@
   }
 
   .filter-item{
-    position: relative;
-    display: block;
-    border: 0;
-    cursor: pointer;
-    margin-bottom: .8rem;
+    // position: relative;
+    // display: block;
+    // border: 0;
+    // margin-bottom: .8rem;
+    // background-color: transparent;
     outline: 0;
-    background-color: transparent;
     padding-left: 0;
+    margin-bottom: .15rem;
+    padding: 1rem .8rem;
     span{
-      padding: .4rem 3.55rem .4rem;
+      padding: .4rem 3.55rem;
       color: #AAA;
       padding-left: 2.8rem;
     }
-    &.selected{
+    &.active{
       span{
-        background-color: $mainColor;
         color: white;
       }
-      &:before{
+      &:after{
         border: 1px solid white;
         background-image: url("data:image/svg+xml,%3Csvg%20version%3D%221.1%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20x%3D%220px%22%20y%3D%220px%22%20preserveAspectRatio%3D%22xMinYMin%20meet%22%20viewBox%3D%220%200%20200%20200%22%3E%20%3Cline%20style%3D%22fill%3Anone%3Bstroke%3A%23FFF%3Bstroke-width%3A15%3Bstroke-miterlimit%3A10%3B%22%20x1%3D%226.46%22%20y1%3D%226.98%22%20x2%3D%22192.93%22%20y2%3D%22193.45%22%2F%3E%20%3Cline%20style%3D%22fill%3Anone%3Bstroke%3A%23FFF%3Bstroke-width%3A15%3Bstroke-miterlimit%3A10%3B%22%20x1%3D%22192.93%22%20y1%3D%226.98%22%20x2%3D%226.46%22%20y2%3D%22193.45%22%2F%3E%20%3C%2Fsvg%3E%0A");
         background-size: 70% auto;
@@ -200,14 +194,14 @@
         background-repeat: no-repeat;
       }
     }
-    &:before{
+    &:after{
       content: "";
       position: absolute;
       background-color: transparent;
-      width: 10px;
-      height: 10px;
+      width: 16px;
+      height: 16px;
       left: 1.15rem;
-      top: 7px;
+      top: 17px;
       border: 1px solid $mainColor;
       transform: translateY(-4px);
     }
