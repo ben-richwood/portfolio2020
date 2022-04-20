@@ -96,7 +96,7 @@ module.exports = (env, options) => {
       new VueLoaderPlugin(),
       new webpack.DefinePlugin({
 				BASEURL: JSON.stringify(baseUrl),
-        DEBUG: environment === "local" ? true : false,
+        DEBUG: environment === "local" ? 'true' : 'false',
 				ENV: JSON.stringify(environment),
 				THREE_VERSION: JSON.stringify(packageJson.dependencies["three"]),
 				VUE_VERSION: JSON.stringify(packageJson.dependencies["vue"]),

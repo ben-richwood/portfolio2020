@@ -4,6 +4,7 @@
       <div class="legend only-desktop" :class="{'smaller': HUDoff, 'show': showLegend}">
         <Filtering @applyFilter="applyFilter($event)" />
         <Sorting @applySorting="applySorting($event)" />
+        <!--
         <div class="flex f-row f-start">
           <span style="margin-right:1rem;">Zoom out</span>
           <button @click="resetCamera" class="reset-camera" type="button" name="button" title="Reset the camera">
@@ -19,6 +20,7 @@
             </svg>
           </button>
         </div>
+      -->
       </div>
 
       <div class="legend legend-mobile only-mobile" :class="{'smaller': HUDoff, 'show': showLegend}">

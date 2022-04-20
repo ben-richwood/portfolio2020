@@ -989,6 +989,7 @@ class ProjectObject {
       technoIcons.innerHTML = techSVG;
 
       coordinateDiv.className = 'coordinates absolute';
+			if(!store.state.settings.debug) coordinateDiv.classList.add("visuallyhidden")
       coordinateDiv.innerHTML = `X: ${this.projectData.techno.position.x}, Y: ${this.projectData.techno.position.y}`
     }
 
