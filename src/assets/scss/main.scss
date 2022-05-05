@@ -419,6 +419,21 @@ b{
     margin-bottom: 0;
   }
 }
+@media screen and (orientation: portrait) and (max-width: 768px) {
+  $width: 60px;
+  .leftSubmenuColumn{
+    flex-basis: $width;
+    .important-button{
+      min-height: 3rem;
+      path{fill: $mainColor}
+      &.active path{ fill: white}
+    }
+  }
+  .rightSettings {
+    flex-basis: calc(100% - #{$width});
+    flex-grow: 2;
+  }
+}
 
 
 

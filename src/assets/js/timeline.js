@@ -111,6 +111,7 @@ export const SingletonTimeline = (function () {
 export class Timeline {
 
   constructor() {
+		console.log("isMobile", store.state.settings.isMobile);
 		this.geoPosition = new THREE.Vector3();
 		this.geoRotation = new THREE.Euler();
 		this.geoQuaternion = new THREE.Quaternion();
@@ -156,7 +157,7 @@ export class Timeline {
     this.camera.position.z = this.cameraInitialPosition.z;
     // camera.lookAt(new THREE.Vector3(600,0,327));
     // controls
-    this.controls = new OrbitControls( this.camera, this.rendererCSS.domElement, store.state.settings );
+    this.controls = new OrbitControls( this.camera, this.rendererCSS.domElement );
     //controls.addEventListener( 'change', render ); // call this only in static scenes (i.e., if there is no animation loop)
     this.controls.enableDamping = true; // an animation loop is required when either damping or auto-rotation are enabled
     this.controls.dampingFactor = 0.05;
@@ -366,11 +367,11 @@ export class Timeline {
       var element = document.createElement( 'div' );
       element.className = `yearlong symbol hide-symbol`;
       // element.style.width = ((yyyy - 2009) * yu * 1.1) + xOffset + "px";
-      element.style.width = (totalNberYears * yu * 3.1) + xOffset + "px";
+      element.style.width = (totalNberYears * yu * 5) + xOffset + "px";
 
       var cssObject = new CSS3DObject( element );
       // we reference the same position and rotation
-      cssObject.position.x = xOffset;
+      cssObject.position.x = xOffset - 600 ;
       cssObject.position.y = 0;
       cssObject.position.z = 0;
       cssObject.rotation.x = Math.PI/2;
@@ -950,12 +951,12 @@ class ProjectObject {
 
     let wrapper = document.createElement( 'div' );
     wrapper.className = `name into-detail corners node ${this.projectData.major ? "major" : "minor"}`;
-    wrapper.setAttribute("data-id", this.projectData.id);
+    // wrapper.setAttribute("data-id", this.projectData.id);
 
     let content = document.createElement( 'div' );
     content.className = `desc node job-${this.projectData.cat}`;
     content.textContent = this.projectData.name;
-    content.setAttribute("data-id", this.projectData.id);
+    // content.setAttribute("data-id", this.projectData.id);
 
     let lengthBar = document.createElement( 'div' );
     lengthBar.className = 'length-bar absolute';
@@ -963,45 +964,46 @@ class ProjectObject {
       lengthBar.style.width = (this.projectData.timeline.len * yu * 1.15) + "px";
     }
 
-    let techno = document.createElement( 'div' );
+    let summary = document.createElement( 'div' );
     let technoIcons = document.createElement( 'div' );
     let coordinateDiv = document.createElement( 'div' );
 
-    if (this.projectData.techno && this.projectData.techno.list) {
-    // console.log("el.techno.list", el.techno.list.length)
-      techno.className = 'techno node';
-      techno.setAttribute("data-id", this.projectData.id);
-      // if (settings.isDebugMode) {
-      //   techno.textContent = el.techno.position.x + " / " + el.techno.position.z;
-      // } else {
-        // techno.innerHTML = el.techno.list.join(", ") + "<br/>" + el.summary;
-        techno.innerHTML = this.projectData.summary;
-      // }
-      technoIcons.className = "techno-icons absolute d-none";
-      // console.log("el.techno.list", el.techno.list)
-      let techSVG = "";
-      for (let i = 0, j = this.projectData.techno.list.length; i < j; i++) {
-        techSVG += `<svg title="#${ this.projectData.techno.list[i] }" class="techno-svg" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
-          <use xlink:href="#${ this.projectData.techno.list[i] }"/>
-        </svg>`;
-      }
-      // console.log("techSVG", techSVG)
-      technoIcons.innerHTML = techSVG;
+    summary.className = 'techno node';
+		summary.innerHTML = this.projectData.summary;
+    technoIcons.className = "techno-icons absolute d-none";
+    let techSVG = "";
+		var iconArray = []
+		if (this.projectData.techno["n/a"] === false){
+			iconArray = [...this.projectData.techno.list]
+		} else {
+			if (this.projectData.software && this.projectData.software.list){
+				iconArray = [...this.projectData.software.list]
+			}
+		}
 
-      coordinateDiv.className = 'coordinates absolute';
-			if(!store.state.settings.debug) coordinateDiv.classList.add("visuallyhidden")
-      coordinateDiv.innerHTML = `X: ${this.projectData.techno.position.x}, Y: ${this.projectData.techno.position.y}`
+    for (let i = 0, j = iconArray.length; i < j; i++) {
+      techSVG += `<svg title="#${ iconArray[i] }" class="techno-svg" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+        <use xlink:href="#${ iconArray[i] }"/>
+      </svg>`;
     }
+    // console.log("techSVG", techSVG)
+    technoIcons.innerHTML = techSVG;
+
+    coordinateDiv.className = 'coordinates absolute';
+		if(!store.state.settings.debug) coordinateDiv.classList.add("visuallyhidden")
+		if (this.projectData.techno && this.projectData.techno.list) {
+    	coordinateDiv.innerHTML = `X: ${this.projectData.techno.position.x}, Y: ${this.projectData.techno.position.y}`
+		}
 
     this.coordinateDOMEl = coordinateDiv
 
     wrapper.appendChild( lengthBar );
     wrapper.appendChild( content );
-    if (this.projectData.techno && this.projectData.techno.list) {
-      wrapper.appendChild( techno );
-      wrapper.appendChild( technoIcons );
-      wrapper.appendChild( coordinateDiv );
-    }
+		if (this.projectData.techno && this.projectData.techno.list) {
+      wrapper.appendChild( summary );
+		}
+    wrapper.appendChild( technoIcons );
+    wrapper.appendChild( coordinateDiv );
     element.appendChild( wrapper );
 
     return element

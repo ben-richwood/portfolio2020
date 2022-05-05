@@ -3,8 +3,12 @@
 	  <div class="menuContainer flex f-start f-row f-align-center f-nowrap">
 	    <div class="leftSubmenuColumn">
 	      <ul class="no-list option-menu-list">
-					<li v-for="(menu, idx) in leftMenu" :key="menu">
-						<button :class="{'active': currentSubmenu == idx}" class="important-button large-button left-align" @click="changeSubmenu(idx)">{{ menu }}</button>
+					<li v-for="(menu, idx) in leftMenu" :key="menu.label">
+						<button :class="{'active': currentSubmenu == idx}" class="important-button large-button left-align" @click="changeSubmenu(idx)">
+							<span class="only-desktop">{{ menu.label }}</span>
+							<!-- <img :src="`assets/img/menu/${menu.img}.svg`" class="only-mobile menu-icon" /> -->
+							<MenuIcon class="only-mobile" :menu="menu.img" />
+						</button>
 					</li>
 
 	        <li><button class="important-button large-button left-align" @click="close">
@@ -121,7 +125,7 @@
 
 	        <h3>Brightness</h3>
 	        <div>
-	          <input type="range" min="20" max="100" step="5" @input="updateBrightness" v-model.number="brightValue" class="slider">
+	          <input type="range" min="20" max="100" step="2" @input="updateBrightness" v-model.number="brightValue" class="slider">
 	        </div>
 	        <div class="notice">You can adjust brightness</div>
 	        <!-- <div class="inputGroup">
@@ -378,17 +382,26 @@
 	import LinkTo from "./LinkTo.vue"
 	import SvgSymbol from "./SvgSymbol.vue"
 	import ResponsiveImage from "./ResponsiveImage.vue"
+	import MenuIcon from "./MenuIcon.vue"
 	import { selectedNavigator, keyboardMap } from '../constants.js'
 
 	export default {
-		components: { LinkTo, SvgSymbol, ResponsiveImage },
+		components: { LinkTo, SvgSymbol, ResponsiveImage, MenuIcon },
 		data(){
 			return {
 				techIcons: [ "bash", "npm", "js", "vue", "nuxt", "gulp", "webpack", "git", "python", "sass", "bootstrap", "photoshop", "illustrator" ],
 				cities: [ "tignes", "saigon", "lyon", "montreal", "paris" ],
 				cityImgPath: "assets/img/all-projects/about/",
 
-				leftMenu: [ "About me", "Config", "Graphics", "Controls", "Stats", "Credit", "Privacy" ],
+				leftMenu: [
+					{label: "About me", img: "about"},
+					{label: "Config", img: "settings"},
+					{label: "Graphics", img: "graphics"},
+					{label: "Controls", img: "controls"},
+					{label: "Stats", img: "stats"},
+					{label: "Credit", img: "credit"},
+					{label: "Privacy", img: "privacy"}
+				],
 
 				currentSubmenu: 0,
 		    kb_config: "kb_default",
@@ -444,6 +457,7 @@
 	    },
 			open(){},
 			close(){
+				this.currentSubmenu = 0;
 				this.$store.commit("toggleMenu")
 				this.$emit("closeMenu")
 			},
@@ -482,5 +496,9 @@
 	}
 </script>
 
-<style lang="css" scoped>
+<style lang="scss" scoped>
+	.menu-icon{
+		width: 36px;
+		color: white;
+	}
 </style>

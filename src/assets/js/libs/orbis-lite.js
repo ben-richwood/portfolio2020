@@ -20,6 +20,7 @@ import {
 // import { settings, legendMenu } from '../components.js'
 // import { camera, controls } from '../timeline.js'
 import { distanceVector } from './custom/miscellaneous.js'
+import store from '../store/index.js';
 
 const marker = document.getElementById("scaleMarker");
 const scale = document.getElementById("scale");
@@ -36,7 +37,7 @@ if(scale) scaleHeight = scale.clientHeight;
 //    Zoom - middle mouse, or mousewheel / touch: two-finger spread or squish
 //    Pan - right mouse, or left mouse + ctrl/meta/shiftKey, or arrow keys / touch: two-finger move
 
-var OrbitControls = function ( object, domElement, settings ) {
+var OrbitControls = function ( object, domElement ) {
 
 	if ( domElement === undefined ) console.warn( 'THREE.OrbitControls: The second parameter "domElement" is now mandatory.' );
 	if ( domElement === document ) console.error( 'THREE.OrbitControls: "document" should not be used as the target "domElement". Please use "renderer.domElement" instead.' );
@@ -77,6 +78,11 @@ var OrbitControls = function ( object, domElement, settings ) {
 	// Set to false to disable zooming
 	this.enableZoom = true;
 	this.zoomSpeed = 1.0;
+
+	var maxZ = store.state.settings.isMobile ? 800 : 800
+	var minX = store.state.settings.isMobile ? -850 : -800
+	this.minPan = new Vector3( minX, -1200, -850 );
+	this.maxPan = new Vector3( 2400, 1200, maxZ );
 
 	// Set to false to disable rotating
 	this.enableRotate = true;
@@ -212,10 +218,9 @@ var OrbitControls = function ( object, domElement, settings ) {
 				scope.target.addScaledVector( panOffset, scope.dampingFactor );
 
 				// to limit panning
-				var minPan = new Vector3( -400, -1200, -650 );
-				var maxPan = new Vector3( 1800, 1200, 450 );
 
-				scope.target.clamp( minPan, maxPan );
+
+				scope.target.clamp( this.minPan, this.maxPan );
 
 
 			} else {

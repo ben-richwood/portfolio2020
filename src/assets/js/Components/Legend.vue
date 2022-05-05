@@ -36,6 +36,9 @@
       <div class="open-legend only-mobile" @click="showLegend = !showLegend">
         <img src="assets/img/legend.svg" alt="Legend icon" title="open the legend panel" />
       </div>
+      <div class="open-menu only-mobile" @click="openMenu">
+        <img src="assets/img/burger.svg" alt="Legend icon" title="open the legend panel" />
+      </div>
 
       <div class="key-legend only-desktop" v-if="showLegendForDetail">
         <div class="key-block openMenu" @click="close">
@@ -115,7 +118,7 @@
           this.showLegend = true
         },
         openMenu(){
-          console.log("Open menu");
+          // console.log("Open menu");
           this.$store.commit("toggleMenu")
           this.timeline.pauseAnimation()
         },
@@ -212,13 +215,28 @@
       transition: transform .35s $transition;
     }
   }
+  $button-size: 50px;
   .open-legend{
     position: absolute;
     bottom: 9vw;
     right: 9vw;
     z-index: 120;
-    width: 56px;
-    height: 56px;
+    width: $button-size;
+    height: $button-size;
+    background-color: white;
+    border-radius: 50%;
+    box-shadow: 4px 4px 14px #00000018;
+    padding: .4rem;
+    box-sizing: border-box;
+  }
+
+  .open-menu{
+    position: absolute;
+    bottom: calc(9vw + #{$button-size} + 16px);
+    right: 9vw;
+    z-index: 121;
+    width: $button-size;
+    height: $button-size;
     background-color: white;
     border-radius: 50%;
     box-shadow: 4px 4px 14px #00000018;

@@ -308,7 +308,7 @@ export const PROJECTS = (function(){
         "year": 2013,
         "cat": CAT[0],
         "summary": "Master degree in Entrepreneuship and Design",
-        "description": "After 4 years in geography, I move to Lyon to make a Master degree in Entrepreneuship and Design, between EMLyon and Centrale Lyon. The program was hinged on on social science, ingineering (including coding), business and design. And a fabLab was the pivot point of this studdy, where we were able to prototype ideas and projects.",
+        "description": "After 4 years in geography, I moved to Lyon to make a Master degree in Entrepreneuship and Design, between EMLyon and Centrale Lyon. The program was hinged on on social science, ingineering (including coding), business and design. And a fabLab was the pivot point of this studdy, where we were able to prototype ideas and projects.",
         "slug": "master",
         "images": [{url:"emlyon",caption:"EMLYON Business School, France"},{url:"essay-cover",caption:"My final essay, about the impact of innovation of branding"}, {url:"essay-sample", caption:"Sample of my essay"}],
         "group": "study",
@@ -747,7 +747,7 @@ export const PROJECTS = (function(){
         },
         "software": {
           "n/a": false,
-          "list": ["photoshop"],
+          "list": ["photoshop", 'illustrator'],
           "position": {x: 780, y: 1, z: 600}
         },
         "techno": {
@@ -780,7 +780,7 @@ export const PROJECTS = (function(){
         },
         "software": {
           "n/a": false,
-          "list": ["photoshop"],
+          "list": ["photoshop", "illustrator"],
           "position": {x: 380, y: 1, z: 490}
         },
         "techno": {
@@ -857,8 +857,6 @@ export const PROJECTS = (function(){
         },
         "techno": {
           "n/a": true,
-          // "list": ["PHP", "Wordpress", "Bootstrap"],
-          // "position": {x: 190, y: 200, z: -780}
         }
       }, {
         "id": 26,
@@ -937,7 +935,7 @@ export const PROJECTS = (function(){
           "n/a": false,
           "onlyTimeline": false,
           "startingYear": 2021.5,
-          "len": .8,
+          "len": 1.2,
           "thread": "main",
           "type": "duration",
         },
