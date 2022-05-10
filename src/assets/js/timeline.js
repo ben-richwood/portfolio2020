@@ -111,7 +111,6 @@ export const SingletonTimeline = (function () {
 export class Timeline {
 
   constructor() {
-		console.log("isMobile", store.state.settings.isMobile);
 		this.geoPosition = new THREE.Vector3();
 		this.geoRotation = new THREE.Euler();
 		this.geoQuaternion = new THREE.Quaternion();
@@ -185,7 +184,7 @@ export class Timeline {
     }
 
 		window.addEventListener( 'keydown', evt => {
-			console.log(evt);
+			// console.log(evt);
 			if (evt.code === "Space")
 			console.log(this.camera.position);
 		}, false );
@@ -343,7 +342,6 @@ export class Timeline {
     var today = new Date();
     var yyyy = today.getFullYear();
     const totalNberYears = yyyy - 2009
-    console.log("totalNberYears", totalNberYears);
     for (var i = 2009; i <= yyyy; i++) {
       var element = document.createElement( 'div' );
       element.className = `font-body user-select-none year element symbol hide-symbol`;
@@ -775,11 +773,6 @@ export class Timeline {
     this.renderer.setSize( winW, winH );
     this.rendererCSS.setSize( winW, winH );
   }, 80);
-
-  updatedSettings(newSettings) {
-    console.log("state", store);
-    // this.settings = newSettings
-  }
 
   animate() {
     if ( !store.state.isPaused ){

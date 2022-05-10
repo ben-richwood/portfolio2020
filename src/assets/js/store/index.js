@@ -130,7 +130,6 @@ export default new Vuex.Store({
             counter++;
           });
         }
-        console.log("project");
         return project
       }
     },
@@ -170,7 +169,6 @@ export default new Vuex.Store({
     setProject (state, id) {
       // null to close
       state.currentProject = id
-      console.log("state.currentProject", state.currentProject);
     },
     toggleMenu (state) {
       sound.project();
@@ -211,7 +209,7 @@ export default new Vuex.Store({
       state.analytics.plugins.enable('google')
     },
     analyticsTrackProject(state, data) {
-      console.log("state.analytics", state.analytics);
+      // console.log("state.analytics", state.analytics);
       if (!state.analytics) return
       state.analytics.track('click', {
         category: 'Projects', // Typically the object that was interacted with
