@@ -4,7 +4,7 @@
 		<Canvas ref="canvas" @clickProject="openProject($event)" />
 		<OptionMenu @closeMenu="closeMenu" />
 		<ProjectDetail ref="projectDetail" @closeDetail="closeMenu" />
-		<Legend :class="{'d-none': displayNone}" ref="legend" @applyFilter="applyFilter" @applySorting="applySorting" />
+		<Legend :class="{'d-none': displayNone}" ref="legend" @applyJobTypeFilter="applyJobTypeFilter" @applyFilter="applyFilter" @applySorting="applySorting" />
 	</div>
 </template>
 
@@ -44,6 +44,9 @@
 			},
 			applyFilter(){
 				this.$refs.canvas.applyFilter()
+			},
+			applyJobTypeFilter(){
+				this.$refs.canvas.applyJobTypeFilter()
 			},
 			openProject(id){
 				this.selectedProject = id

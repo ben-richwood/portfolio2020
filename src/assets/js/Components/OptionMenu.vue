@@ -4,7 +4,7 @@
 	    <div class="leftSubmenuColumn">
 	      <ul class="no-list option-menu-list">
 					<li v-for="(menu, idx) in leftMenu" :key="menu.label">
-						<button :class="{'active': currentSubmenu == idx}" class="important-button large-button left-align" @click="changeSubmenu(idx)">
+						<button :class="{'active': currentSubmenu == idx, 'only-desktop': menu.label === 'Controls'}" class="important-button large-button left-align" @click="changeSubmenu(idx)">
 							<span class="only-desktop">{{ menu.label }}</span>
 							<!-- <img :src="`assets/img/menu/${menu.img}.svg`" class="only-mobile menu-icon" /> -->
 							<MenuIcon class="only-mobile" :menu="menu.img" />
@@ -209,6 +209,10 @@
 	              </svg>
 	              VueJs</li>
 	              <li><svg class="returnArrow" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+	                <use xlink:href="#js"/>
+	              </svg>
+	              Tween.js</li>
+	              <li><svg class="returnArrow" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
 	                <use xlink:href="#php"/>
 	              </svg>
 	              PHP</li>
@@ -389,7 +393,7 @@
 		components: { LinkTo, SvgSymbol, ResponsiveImage, MenuIcon },
 		data(){
 			return {
-				techIcons: [ "bash", "npm", "js", "vue", "nuxt", "gulp", "webpack", "git", "python", "sass", "bootstrap", "photoshop", "illustrator" ],
+				techIcons: [ "js", "npm", "vue", "nuxt", "python", "django", "gulp", "webpack", "git", "sass", "photoshop", "illustrator", "figma" ],
 				cities: [ "tignes", "saigon", "lyon", "montreal", "paris" ],
 				cityImgPath: "assets/img/all-projects/about/",
 

@@ -6,6 +6,15 @@
     transition: opacity .35s ease-in-out;
   }
 }
+@media screen and (max-width: 860px) {
+  .legend-icon{
+    padding: 0.3rem 0.4rem;
+    svg, .qub{
+      width: 20px;
+      height: 20px;
+    }
+  }
+}
 .key-legend{
   	position: fixed;
   	bottom: 2rem;
@@ -100,12 +109,15 @@
     display:flex;justify-content:flex-start;flex-direction:row;margin-bottom:1rem;
   }
   .qub{
-    width: 20px;
-    height: 20px;
-    margin-right:1rem;
+    width: 30px;
+    height: 30px;
+    // margin-right:1rem;
     &.main{
-        background-color: $mainColor;
+      background-color: $mainColor;
     }
+    // &.minor{
+    //   background-color: #666;
+    // }
     &.work{
       background-color: #00ffff;
     }
@@ -131,6 +143,12 @@
         color: white;
       }
       path{ fill: #FFFFFF }
+    }
+    .major-job{
+      background-color: $mainProjectOne;
+    }
+    .minor-job{
+      background-color: #666;
     }
     label{
       cursor: pointer;

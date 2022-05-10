@@ -37,8 +37,13 @@ export default new Vuex.Store({
     isMenuOpen: false,
     currentProject: null,
 
+    // main, freelance, personal = CAT
     filtersOn: [false, false, false],
-    // main, freelance, personal
+    // used as cached value for ProjectObject.applyFiler()
+    allFiltersOff: true,
+    // major, minor
+    jobFiltersOn: [false, false],
+    allJobFiltersOff: true,
 
     analytics: null,
   },
@@ -128,7 +133,7 @@ export default new Vuex.Store({
         console.log("project");
         return project
       }
-    }
+    },
   },
 
   mutations: {
@@ -140,15 +145,24 @@ export default new Vuex.Store({
       state.currentFilter = newFilter
     },
     setFilter (state, filterIdx) {
-      // if (!state.filtersOn.some(e => e === false)){
-      //   // state.filtersOn = [false, false, false]
-      //   state.filtersOn.splice(filterIdx, 1, true)
-      //   return
-      // }
       state.filtersOn.splice(filterIdx, 1, !state.filtersOn[filterIdx])
+      let allFiltersOff = false
       if (state.filtersOn.every(e => e === true)){
         state.filtersOn = [false, false, false]
+        allFiltersOff = true
       }
+      if (state.filtersOn.every(e => e === false)) allFiltersOff = true
+      state.allFiltersOff = allFiltersOff
+    },
+    setJobTypeFilter (state, filterIdx) {
+      state.jobFiltersOn.splice(filterIdx, 1, !state.jobFiltersOn[filterIdx])
+      let allFiltersOff = false
+      if (state.jobFiltersOn.every(e => e === true)){
+        state.jobFiltersOn = [false, false]
+        allFiltersOff = true
+      }
+      if (state.jobFiltersOn.every(e => e === false)) allFiltersOff = true
+      state.allJobFiltersOff = allFiltersOff
     },
     setPauseState (state, status) {
       state.isPaused = status

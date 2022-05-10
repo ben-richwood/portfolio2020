@@ -553,6 +553,22 @@ code {
   -webkit-columns: 2;
   -moz-columns: 2;
 }
+@media screen and (max-width: 860px) {
+  .ul-2-columns{
+    columns: 1;
+    -webkit-columns: 1;
+    -moz-columns: 1;
+    li{
+      white-space: break-spaces;
+    }
+  }
+  .inputGroup label{
+    padding: 12px 30px 12px 10px;
+    &:after{
+      right: 50px;
+    }
+  }
+}
 
 @import "partials/_intro";
 @import "partials/_legend";

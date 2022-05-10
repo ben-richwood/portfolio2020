@@ -2,7 +2,7 @@
   <div>
     <div id="legend" :class="{'mute': mute}">
       <div class="legend only-desktop" :class="{'smaller': HUDoff, 'show': showLegend}">
-        <Filtering @applyFilter="applyFilter($event)" />
+        <Filtering @applyFilter="applyFilter()" />
         <Sorting @applySorting="applySorting($event)" />
         <!--
         <div class="flex f-row f-start">
@@ -29,7 +29,7 @@
         </div>
         <div :tab="tabIdx" class="flex f-row f-between f-nowrap tabs f-align-start" style="width: 200vw;">
           <Sorting mobile @applySorting="applySorting($event)" />
-          <Filtering mobile @applyFilter="applyFilter($event)" />
+          <Filtering mobile @applyFilter="applyFilter()" />
         </div>
       </div>
 
@@ -126,10 +126,10 @@
           sound.hud();
           this.showLegend = !this.showLegend;
         },
-        applySorting: function(key){
+        applySorting(key){
           this.$emit("applySorting")
         },
-        applyFilter: function(key){
+        applyFilter(){
           this.$emit("applyFilter")
         },
 		    resetCamera: function () {
@@ -191,6 +191,7 @@
   }
   .tab-title{
     padding: .9rem 7vw;
+    h3{margin-bottom:0}
     h3.faded{
       opacity: 0.3;
     }

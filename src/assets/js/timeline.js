@@ -681,7 +681,7 @@ export class Timeline {
       }
       object = new THREE.Object3D();
       object.position.x = previousPos + distNode;
-      object.position.y = Math.random() * 900 - 450;
+      object.position.y = Math.random() * 500 - 250;
       object.position.z = previousZ;
       c++;
 
@@ -694,6 +694,7 @@ export class Timeline {
 
 
 			// SOFTWARE
+			na = false
       if (el.software && el.software["n/a"] && el.software["n/a"] === true) na = true;
 
 			object = new THREE.Object3D();
@@ -923,6 +924,8 @@ class ProjectObject {
     this.faded = false;
     this.na = false;
     this.currentCoordinates = [0, 0]
+		this.filtersOnIdx = CAT.findIndex(e => e === this.projectData["cat"])
+		this.jobFiltersOnIdx = this.projectData["major"] ? 0 : 1
 
     this.DOMEl = this.#buildObject()
 		/*
@@ -930,16 +933,33 @@ class ProjectObject {
 			this.timeline.zoomToProject(this.projectData)
 		}, true)
 		*/
-		this.DOMEl.addEventListener("dblclick", evt => {
-			store.commit("setProject", this.projectData.id)
-			store.commit("analyticsTrackProject", {id: this.projectData.id, name: this.projectData.name})
-			this.timeline.pauseAnimation();
-		}, false)
+
+		this.tapedTwice = false;
+
+		this.DOMEl.addEventListener("touchstart", evt => { this.#tapHandler(evt) });
+		this.DOMEl.addEventListener("dblclick", evt => { this.#clickHandler(evt) }, false)
 
 		this.isVisible = true
     this.cssObj = null
     this.#build3dObj()
   }
+
+	#tapHandler(event) {
+			if(!this.tapedTwice) {
+					this.tapedTwice = true;
+					setTimeout( function() { this.tapedTwice = false; }, 300 );
+					return false;
+			}
+			event.preventDefault();
+			//action on double tap goes below
+			this.#clickHandler()
+	 }
+
+	#clickHandler(evt) {
+		store.commit("setProject", this.projectData.id)
+		store.commit("analyticsTrackProject", {id: this.projectData.id, name: this.projectData.name})
+		this.timeline.pauseAnimation();
+	}
 
   #buildObject(){
     let element = document.createElement( 'div' );
@@ -1042,22 +1062,31 @@ class ProjectObject {
 	}
 
 	applyFiler(){
-		// main, freelance, personal
+		// CAT : main, freelance, personal
 
-		// if no filter selected, disable
-		if (store.state.filtersOn.every(e => e === false)){
+		var shouldBedisplayed = true, filtersOn = false, jobFiltersOn = false
+
+		// if no filter selected, disable and quit
+		var noFilter = store.state.allFiltersOff
+		var noJobFilter = store.state.allJobFiltersOff
+
+		if (noFilter && noJobFilter){
 			this.DOMEl.classList.remove("fade-project")
 			return
 		}
-		// if some
-		let index = CAT.findIndex(e => e === this.projectData["cat"])
-		if (index !== -1){
-			if (store.state.filtersOn[index] === true){
-				this.DOMEl.classList.remove("fade-project")
-			} else {
-				this.DOMEl.classList.add("fade-project")
-			}
+
+
+		if (!noFilter && store.state.filtersOn[this.filtersOnIdx] === false) filtersOn = true
+		if (!noJobFilter && store.state.jobFiltersOn[this.jobFiltersOnIdx] === false) jobFiltersOn = true
+
+		shouldBedisplayed = !jobFiltersOn && !filtersOn
+		if (shouldBedisplayed){
+			this.DOMEl.classList.remove("fade-project")
+		} else {
+			this.DOMEl.classList.add("fade-project")
 		}
+
+		return
 	}
 
 	updateVisibility(){
