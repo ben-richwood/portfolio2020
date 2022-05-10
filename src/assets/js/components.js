@@ -1,3 +1,8 @@
+/**
+ * THIS FILE IS NOT USED ANYMORE. I STILL NEED TO MIGRATE SOME METHODS ELSEWHERE
+ */
+
+
 import Vue from 'vue';
 import { createMachine, interpret, state, transition } from 'robot3';
 

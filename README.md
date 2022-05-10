@@ -1,5 +1,7 @@
 # Portfolio Ben - 2020
 
+**v 1.1.0**
+
 ## Abstract
 
 This website rests on ThreeJS for the 3d space (actually using CSS3DRenderer, not Primitive objects) and VueJS.
@@ -33,60 +35,51 @@ I wanted my portfolio as a video games; so I naturally takes many elements from 
 
 ## Stack
 
+### Tools & stack
 
-```sh
-"dependencies": {
-  "@analytics/google-analytics": "^0.4.0",
-  "analytics": "^0.5.5",
-  "analytics-plugin-do-not-track": "^0.1.3",
-  "TWEEN.js", // as import, not package
-  "path": "^0.12.7",
-  "three-js" // as import, not package. Based on three.js r62 - released on 22 Oct 2013
-  "vue": "^2.6.11"
-},
-"devDependencies": {
-  "gulp": "^4.0.2",
-  "gulp-copy": "^4.0.1",
-  "gulp-image-resize": "^0.13.1",
-  "gulp-imagemin": "^7.1.0",
-  "gulp-inject": "^5.0.5",
-  "gulp-newer": "^1.4.0",
-  "gulp-rename": "^2.0.0",
-  "gulp-sass": "^4.1.0",
-  "gulp-svgmin": "^2.2.0",
-  "gulp-svgstore": "^7.0.1",
-  "gulp-webp": "^4.0.1",
-  "node-sass": "^4.14.1",
-  "nodemon": "^1.19.4",
-  "uglifyjs-webpack-plugin": "^2.2.0",
-  "webpack": "^4.41.5",
-  "webpack-cli": "^3.3.10"
-}
-```
+- Webpack
+- let user chooses high or low performances, with recommendations
+- Vue
+- check `saveData` config, and let user choose whether if wants to load the bundle or not
+- XHR and lazy loading
+- reduce draw calls
+- one canvas, 2 scene
+- reduce amount of materials
 
 ---
 
 ## Usage
 
-SASS: `npm run watch`
+* SASS: `npm run watch`
+* SASS  --style=compressed: `npm run sass`
 
-JS bundle: `npm run dev`
+
+* JS bundle + watch: `npm run dev`
+* bundle for prod: `npm run prod`
 
 ---
 
 ## Notes
 
-ThreeJS is not loaded using NPM; I load the libs manually (via import module though).
+I use a custom version of `OrbitControls`.
 
 ---
 
 ## Animations
 
-Mix between CSS3, ThreeJS, Vue and TweenMax
+Mix between CSS3, ThreeJS, Vue and Tween.js
 
 ---
 
-## All about performances
+## Performances
+
+### First Meaningful Paint
+
+At first, it might look weird to see inline style CSS, and a mix of PHP and Vue components. PHP and `<style>` tags are used to show first content immediately to user, without waiting for assets to load (css, fonts, JS bundle).
+
+Furthermore, the bundle is called with `var script = document.createElement('script');`. The reason is to let user decide whether they want to load the bundle if they have enabled the `saveData` setting.
+
+### Canvas
 
 Difficulty was to balances many performance concerns:
 - file size (JS, models, textures)
@@ -94,44 +87,26 @@ Difficulty was to balances many performance concerns:
 - memory usage and prevent memory leak (especially because of texture sizes)
 - canvas performances (limit number of draw calls)
 
-### Tools & stack
-
-- Webpack
-- let user chooses high or low performances, with recommendations
-- 3D format: glb, with low texture
-- Blender flow (+texture atlas)
-- Vue
-- XHR and lazy loading
-- tps percu (rather than time spent): hints and tuto (cf parc asterix)
-- reduce draw calls
-- one canvas, 2 scene
-- instanciate & bufferGeometry
-- reduce amount of materials
-- prevent post processing
-
 
 #### CSS report
 
 Full CSS report on [CSS Stat](https://cssstats.com/stats?url=https%3A%2F%2Frichebois.fr%2F)
 
-Report summary from 16/01/2021
+Report summary from 10/05/2022
+
+* **File size**: 55KB
+* **Gzipped file size**: 12KB
 
 |Rules|Selectors|Declarations|Properties|
 |:--|:--|:--|:--|
-|457|584|1,636|138|
+|500|625|1,595|133|
 
 |ID|Class|Pseudo Class|Pseudo Element|
 |:--|:--|:--|:--|
-| 92| 430| 41| 57|
+| 106| 470| 58| 53|
 
+Clearly, there is room for improvement. I need to tackle that later on.
 
-
-### 3D assets optimisation
-
-The 3D scene and all the 3D assets are built with Blender. I used few tricks to reduce the scene and keep good performances
-
-- Using RGB channels to merge roughness & metalness maps into one image
-- Reducing image textures - cause an overload on memory usage. Using Atlas images as much as possible
 
 ### Monitoring
 

@@ -1,6 +1,6 @@
 {
   "name": "portfolio2020",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Richwood's portfolio - flavour 2020. ThreeJS + VueJS",
   "private": true,
   "scripts": {
