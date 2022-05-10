@@ -28,6 +28,16 @@
 			paused(){
 				return this.$store.state.currentProject !== null || this.$store.state.isMenuOpen
 			},
+			playingState(){
+				return !this.$store.state.isPaused
+			}
+		},
+		watch: {
+			playingState(newVal, oldVal){
+				if (newVal) {
+					this.timeline.animate()
+				}
+			}
 		},
 		methods: {
 			applySorting(){

@@ -185,7 +185,7 @@ export class Timeline {
 
 		window.addEventListener( 'keydown', evt => {
 			// console.log(evt);
-			if (evt.code === "Space")
+			if (evt.key === "c")
 			console.log(this.camera.position);
 		}, false );
 

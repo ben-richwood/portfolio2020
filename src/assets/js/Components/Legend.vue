@@ -42,7 +42,7 @@
 
       <div class="key-legend only-desktop" v-if="showLegendForDetail">
         <div class="key-block openMenu" @click="close">
-          <div class="key">{{ keyMap.option[1] }}</div>
+          <div class="key">{{ keyMap.esc[1] }}</div>
           <label for="">Close detail</label>
         </div>
       </div>
@@ -50,7 +50,7 @@
       <div class="key-legend only-desktop" v-else>
         <div class="key-blocks" :class="{'smaller': HUDoff, 'show': showLegend}">
           <div class="key-block" @click="openMenu">
-            <div class="key user-select-none" style="padding-right:4.5rem;">{{ keyMap.accept[1] }}</div>
+            <div class="key user-select-none" style="padding-right:4.5rem;">{{ keyMap.menu[1] }}</div>
             <label class="user-select-none" for="">Open menu</label>
           </div>
           <!-- <div class="key-block">
@@ -87,7 +87,7 @@
     components: { Sorting, Filtering },
 		  data() {
         return {
-  		    showLegend: false,
+  		    // showLegend: false,
   		    legendState: null,
   		    showLegendForDetail: false,
   		    // selectedFilter: "techno",
@@ -106,6 +106,9 @@
         keyMap() {
           return this.$store.state.settings.keyboardConfig;
         },
+        showLegend() {
+          return this.$store.state.showLegend;
+        },
       },
 		  mounted(){
         this.timeline = SingletonTimeline.getInstance();
@@ -114,17 +117,13 @@
         clickTab(idx){
           this.tabIdx = idx
         },
-        displayLegend(){
-          this.showLegend = true
-        },
         openMenu(){
           // console.log("Open menu");
           this.$store.commit("toggleMenu")
           this.timeline.pauseAnimation()
         },
         toggleHUD(){
-          sound.hud();
-          this.showLegend = !this.showLegend;
+          this.$store.commit("toggleLegend")
         },
         applySorting(key){
           this.$emit("applySorting")
@@ -148,7 +147,7 @@
     transition: transform #{$speed + 0.25} 0s $transition;
     &.show{
       transform: scale(1);
-      transition: transform $speed 0.8s $transition;
+      transition: transform $speed 0.2s $transition;
     }
   }
   .key-blocks{

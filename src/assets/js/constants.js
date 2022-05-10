@@ -1,24 +1,28 @@
 export const keyboardMap = {
+  // keyCode, label
   kb_default: {
     prev: ["ArrowLeft", "⟵"],
     next: ["ArrowRight", "⟶"],
-    accept: ["Space", "SPACE"],
-    option: ["Escape", "ESC"],
-    hud: ["h", "H"]
+    // accept: ["Space", "SPACE"],
+    menu: ["Space", "SPACE"],
+    esc: ["Escape", "ESC"],
+    hud: ["KeyH", "H"]
   },
   kb_gamer: {
-    prev: ["a", "A"],
-    next: ["d", "D"],
-    accept: ["e", "E"],
-    option: ["Escape", "ESC"],
-    hud: ["h", "F"]
+    prev: ["KeyQ", "A"],
+    next: ["KeyD", "D"],
+    // accept: ["e", "E"],
+    menu: ["KeyE", "E"],
+    esc: ["Escape", "ESC"],
+    hud: ["KeyF", "F"]
   },
   kb_vim: {
-    prev: ["h", "H"],
-    next: ["l", "L"],
-    accept: ["Space", "SPACE"],
-    option: ["Escape", "ESC"],
-    hud: [";", ":"]
+    prev: ["KeyH", "H"],
+    next: ["KeyL", "L"],
+    // accept: ["Space", "SPACE"],
+    menu: ["KeyW", "W"],
+    esc: ["Escape", "ESC"],
+    hud: ["Comma", ":"]
   },
 }
 

@@ -19,7 +19,7 @@
 		components: { Legend, Canvas, OptionMenu, ProjectDetail },
 		data(){
 			return{
-				isMenuOpen: false,
+				// isMenuOpen: false,
 				selectedProject: null,
 				displayNone: true
 			}
@@ -29,14 +29,41 @@
 				return (100 - this.$store.state.brightness) / 100
 			}
 		},
+		mounted(){
+			// settings.isMobile = isMobile;
+		  // settings.GPU = rendererEval;
+			// Keyboard navigation
+			window.addEventListener('keyup', event => {
+			  const keyName = event.key;
+			  const keyCode = event.code
+
+				console.log(keyName);
+				console.log("keyCode", keyCode);
+
+			  if (keyCode === this.$store.state.settings.keyboardConfig.hud[0]) {
+					this.$store.commit("toggleLegend")
+			  }
+			  // escape keys
+			  if (keyCode === this.$store.state.settings.keyboardConfig.esc[0]) {
+					this.$store.commit("escape")
+					this.closeMenu()
+			  }
+			  // SPACE BAR KEY BY DEFAULT
+			  if (keyCode === this.$store.state.settings.keyboardConfig.menu[0]) {
+					this.$store.commit("toggleMenu")
+					// this.$refs.canvas.playAnimation()
+			  }
+			}, false);
+		},
 		methods:{
 			closeMenu(){
-				this.$refs.canvas.playAnimation()
+				this.$store.commit("setPauseState", false)
+				// this.$refs.canvas.playAnimation()
 			},
 			start(){
 				this.displayNone = false
 				sound.project();
-				if (!this.$store.state.settings.isMobile) this.$refs.legend.displayLegend()
+				if (!this.$store.state.settings.isMobile) this.$store.commit("toggleLegend")
 				this.$refs.canvas.start()
 			},
 			applySorting(){
@@ -53,10 +80,7 @@
 				this.$refs.projectDetail.open(id)
 			},
 		},
-		mounted(){
-			// settings.isMobile = isMobile;
-		  // settings.GPU = rendererEval;
-		}
+
 		// this.$store.state.settings
 	}
 </script>

@@ -118,7 +118,7 @@
 	        <div class="notice">Shows an info box that monitor code performance. You can click to parade across FPS (Frames rendered in the last second), MS (millisecond needed to render a frame) and MB (allocated memory).</div>
 	        <h3>Dark mode</h3>
 	        <div class="inputGroup">
-	          <input id="dark" v-on:click="darkMode()" name="radio" type="checkbox" v-model="isDarkMode" />
+	          <input id="dark" @click="darkMode()" name="radio" type="checkbox" v-model="isDarkMode" />
 	          <label for="dark">Dark mode {{isDarkMode ? 'enabled' : 'disabled'}}</label>
 	        </div>
 	        <div class="notice">If your system is set up to Dark mode, it may not work.</div>
@@ -148,21 +148,21 @@
 	        <!-- <?php echo file_get_contents("./assets/img/icons/mice.svg"); ?> -->
 	        <div class="notice"> <p class="tc">Keyboard</p> </div>
 	        <div class="inputGroup">
-	          <input id="kb_default" v-on:click="changeKbConfig('kb_default')" value="kb_default" name="radio" type="radio" v-model="kb_config"/>
+	          <input id="kb_default" @change="changeKbConfig('kb_default')" value="kb_default" name="radio" type="radio" v-model="kb_config"/>
 	          <label for="kb_default">Default</label>
 	        </div>
 	        <div class="inputGroup">
-	          <input id="kb_gamer" v-on:click="changeKbConfig('kb_gamer')" value="kb_gamer" name="radio" type="radio" v-model="kb_config"/>
+	          <input id="kb_gamer" @change="changeKbConfig('kb_gamer')" value="kb_gamer" name="radio" type="radio" v-model="kb_config"/>
 	          <label for="kb_gamer">Gamer</label>
 	        </div>
 	        <div class="inputGroup">
-	          <input id="kb_vim" v-on:click="changeKbConfig('kb_vim')" value="kb_vim" name="radio" type="radio" v-model="kb_config" />
+	          <input id="kb_vim" @change="changeKbConfig('kb_vim')" value="kb_vim" name="radio" type="radio" v-model="kb_config" />
 	          <label for="kb_vim">vim</label>
 	        </div>
 	        <div class="flex f-start f-row">
 	          <div class="col-12 col-md-6">
 	            <div class="keyMap">
-	              <div class="key">{{ keyMap.option[1] }}</div>
+	              <div class="key">{{ keyMap.esc[1] }}</div>
 	              <div class="keyFeature">Close project details and Option menu</div>
 	            </div>
 	            <div class="keyMap">
@@ -172,7 +172,7 @@
 	          </div>
 	          <div class="col-12 col-md-6">
 	            <div class="keyMap">
-	              <div class="key">{{ keyMap.accept[1] }}</div>
+	              <div class="key">{{ keyMap.menu[1] }}</div>
 	              <div class="keyFeature">Open/close the Option menu (current menu)</div>
 	            </div>
 	          </div>
@@ -466,7 +466,10 @@
 				this.$emit("closeMenu")
 			},
 			toggle(){},
-			changeKbConfig(){},
+			changeKbConfig(e){
+				this.$store.commit("updateSettings", {keyboardConfig: keyboardMap[this.kb_config]})
+	      this.keyMap = {...keyboardMap[this.kb_config]};
+			},
 			changeLinkBehavior(){
 				const links = document.querySelectorAll('a[href^="http"]');
 				links.forEach( (e) => {
@@ -478,12 +481,38 @@
 			// 	console.log(e.target.checked);
 			// 	this.$store.commit("toggleDvpMode", e.target.checked)
 			// },
-			changeConfig(){},
+			// TODO adapt
+			changeConfig(e){
+				return
+				if (e === "antialias"){
+	        this.antialias = !this.antialias;
+	        renderer.antialias = this.antialias;
+	      } else if (e === "precision") {
+	        this.precision = !this.precision;
+	        renderer.precision = this.precision ? "highp" : "mediump"
+	      } else if (e === "debug") {
+	        // console.log("settings.isDebugMode", this.isDebugMode);
+	        // settings.isDebugMode = this.isDebugMode;
+	        settings.isDebugMode = !settings.isDebugMode
+	        canvasStats.style.display = settings.isDebugMode ? "block" : "none";
+	      } else {}
+			},
 			darkMode(){
 				this.isDarkMode = !this.isDarkMode;
 				document.body.classList.toggle("dark-mode");
 			},
-			toggleShadows(){},
+			// TODO to adapt
+			toggleShadows(){
+				return
+				settings.isShadowEnabled = !settings.isShadowEnabled;
+	      this.isShadowEnabled = settings.isShadowEnabled;
+	      renderer.shadowMapEnabled = this.isShadowEnabled;
+	      if (this.isShadowEnabled) {
+	        // renderer.shadowMapEnabled = true;
+	        renderer.shadowMapType = THREE.PCFSoftShadowMap;
+	        castShadows();
+	      }
+			},
 			optout(){},
 			displayArr(e){
 				let txt = `<ul class="ul-2-columns">`;

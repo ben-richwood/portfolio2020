@@ -9,7 +9,15 @@ import Analytics from 'analytics'
 import googleAnalytics from '@analytics/google-analytics'
 import doNotTrack from 'analytics-plugin-do-not-track'
 
+// var sortedTimeline = _.cloneDeep(PROJECTS.list).filter(e => {
+// 	if (!e.hasOwnProperty("ignore") || e.ignore !== true) return e
+// });
+
 Vue.use(Vuex)
+
+var sortedTimeline = _.cloneDeep(PROJECTS.list).filter(e => {
+	if (!e.hasOwnProperty("ignore") || e.ignore !== true) return e
+});
 
 let analytics;
 
@@ -36,6 +44,8 @@ export default new Vuex.Store({
     developerMode: false,
     isMenuOpen: false,
     currentProject: null,
+
+    showLegend: false,
 
     // main, freelance, personal = CAT
     filtersOn: [false, false, false],
@@ -166,13 +176,33 @@ export default new Vuex.Store({
     setPauseState (state, status) {
       state.isPaused = status
     },
+    escape (state) {
+      this.commit("setProject", null)
+      this.commit("toggleMenu", false)
+    },
     setProject (state, id) {
       // null to close
       state.currentProject = id
     },
-    toggleMenu (state) {
+    nextProject (state, next=true) {
+			return
+      if (state.currentProject === null) return
+      let sign = next ? 1 : -1
+      var currentProjectIndex = sortedTimeline.findIndex(e => e.id === state.currentProject )
+      if (next){
+				if (nextProject === -1) {
+          state.currentProject = 1
+          return
+        } else { }
+      }
+    },
+    toggleMenu (state, val=undefined) {
       sound.project();
-      state.isMenuOpen = !state.isMenuOpen
+      if (val !== undefined){
+        state.isMenuOpen = val
+      } else {
+        state.isMenuOpen = !state.isMenuOpen
+      }
       if (!state.analytics) return
       if (state.isMenuOpen && state.settings.analyticsOn){
         state.analytics.track('key press', {
@@ -181,6 +211,10 @@ export default new Vuex.Store({
           value: 1
         });
       }
+    },
+    toggleLegend (state) {
+			sound.hud();
+      state.showLegend = !state.showLegend;
     },
     setBrightness (state, newVal) {
       state.brightness = newVal;
