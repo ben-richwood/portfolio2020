@@ -464,7 +464,7 @@ export class Timeline {
         end: {...k.techno.position}
       })
     }
-    let pyArr = [5, 23, 25];
+    let pyArr = [5, 23, 25, 27];
     for (var i = 0, j = pyArr.length; i < j; i++) {
       const k = PROJECTS.list.find(e => e.id == (pyArr[i] + 1));
       boundsConstructor.techno.push({
