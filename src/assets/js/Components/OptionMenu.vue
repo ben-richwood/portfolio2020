@@ -68,9 +68,10 @@
 	          </p>
 	        </div> -->
 	        <h3>Places where I lived</h3>
-	        <div class="flex f-start f-row">
-            <div class="col-6 col-md-3" v-for="city in cities" :key="city">
-							<ResponsiveImage :src="'map_' + city" :slug="cityImgPath" :alt="'Map of ' + city" />
+					<p>Below are the places I lived for more than 6 months.</p>
+	        <div class="flex f-start f-row flex-grid mt-10">
+            <div class="col-6 col-md-3" v-for="city in cities" :key="city.label">
+							<ResponsiveImage :src="'map_' + city.label" :slug="cityImgPath" :alt="'Map of ' + city.label" :caption="city.caption" />
             </div>
 	        </div>
 	        <div class="">
@@ -387,14 +388,14 @@
 	import SvgSymbol from "./SvgSymbol.vue"
 	import ResponsiveImage from "./ResponsiveImage.vue"
 	import MenuIcon from "./MenuIcon.vue"
-	import { selectedNavigator, keyboardMap } from '../constants.js'
+	import { selectedNavigator, keyboardMap, CITIES } from '../constants.js'
 
 	export default {
 		components: { LinkTo, SvgSymbol, ResponsiveImage, MenuIcon },
 		data(){
 			return {
 				techIcons: [ "js", "npm", "vue", "nuxt", "python", "django", "gulp", "webpack", "git", "sass", "photoshop", "illustrator", "figma" ],
-				cities: [ "tignes", "saigon", "lyon", "montreal", "paris" ],
+				cities: [...CITIES],
 				cityImgPath: "assets/img/all-projects/about/",
 
 				leftMenu: [

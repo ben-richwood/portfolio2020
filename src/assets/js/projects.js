@@ -949,6 +949,50 @@ export const PROJECTS = (function(){
           "list": ["python", "django", "webpack", "mapbox", "js", 'vue', 'nuxt'],
           "position": {x: -60, y: 1, z: 0}
         }
+      }, {
+        "id": 28,
+        "name": "DEVOR",
+        "summary": "Backend with Django & PostgreSQL",
+        "year": 2022,
+        "cat": CAT[1],
+        "major": true,
+        "description": `<p>DEVOR is a French company that creates dark kitchens franchise.</p>
+        <p></p>
+        <p>I worked on the following projects:</p>
+        <ol>
+          <li>They asked me to automatise a PDF generation, by fetching, corroborating and formatting data from different sources (multiple API calls + Google Sheet)</li>
+          <li>Then I create a PostgreSQL database designed for Analytics. To manage the later, I installed a Django backend</li>
+        </ol>
+        <h4>Challenges</h4>
+        <ul>
+          <li>Since the number database items were huge (150,000+ entries in one of the tables), queries and SQL calls needed to be optimized - thanks to the excellent Django ORM methods.</li>
+          <li>Crossing data from different sources was also challenging, and required to add many validations - including through custom Python Exceptions - to return comprehensive messages to the admins.</li>
+        </ul>
+        `,
+        "images": [],
+
+        "slug": "devor",
+        "category": "Freelance contract - Backend development",
+        "group": "freelance",
+
+        "timeline": {
+          "n/a": false,
+          "onlyTimeline": false,
+          "startingYear": 2022.3,
+          "len": .4,
+          "thread": "main",
+          "type": "duration",
+        },
+        "software": {
+          "n/a": true,
+          "list": [],
+          "position": {x: 1600, y: 100, z: -100}
+        },
+        "techno": {
+          "n/a": false,
+          "list": ["python", "django"],
+          "position": {x: -480, y: 1, z: 105}
+        }
       }
     ],
     "symbols": {

@@ -2,6 +2,11 @@
 @media screen and (orientation: portrait) and (max-width: 768px) {
   .only-desktop{ display: none; }
   .only-mobile{ display: block; }
+  // #optionMenu.isMenuOpen{
+  //   &:after, &:before{
+  //     display: none;
+  //   }
+  // }
   .tuto-pan, .tuto-dbclick{
     img{
       height: 80%;
@@ -19,6 +24,11 @@
   }
   .legend h3{
     font-size: 1.5rem;
+  }
+  #optionMenu, .text{
+    p{
+      text-align: left;
+    }
   }
   #scale{display: none !important;}
   #sidebar {

@@ -1040,9 +1040,9 @@ class ProjectObject {
 			store.state.currentFilter === "timeline" ||
 			this.projectData[store.state.currentFilter]["n/a"]
 		) return
-    let {x ,y, z} = this.projectData[store.state.currentFilter].position
+    let {x, y, z} = this.projectData[store.state.currentFilter].position
     this.currentCoordinates = [x, z]
-    this.coordinateDOMEl.innerHTML = `X: ${x}, Y: ${y}`
+    this.coordinateDOMEl.innerHTML = `X: ${x}, Y: ${z}`
   }
 
 	set shouldBeVisible(value) {

@@ -363,6 +363,20 @@ b{
   }
 }
 
+#optionMenu, .text{
+  p{
+    line-height: 1.75;
+    font-family: 'Inter var', 'Ubuntu', 'Open Sans', 'Segoe UI', 'Helvetica Neue', 'Droid Sans Serif', 'Roboto', Arial, sans-serif;
+    font-size: 16px;
+    // letter-spacing: -0.007em;
+    letter-spacing: 0.3px;
+    word-spacing: 0.2rem;
+
+    text-align: justify;
+    font-weight: 400;
+  }
+}
+
 .menu{
 	/* transform: rotateY(0deg) translateX(-3rem); */
 	background-color: rgba(0,0,0,0.7);
@@ -404,7 +418,7 @@ b{
   p{
     // margin: 3rem;
   }
-  ul{
+  ul, ol{
     margin: 1.2rem 0;
   }
 }

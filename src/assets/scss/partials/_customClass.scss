@@ -3,8 +3,8 @@ img{
 	/* width: 100%; */
 }
 
-ul{
-	list-style: disc;
+ul{ list-style: disc; }
+ul, ol{
 	padding-left: 1.4rem;
 	li {
 		margin-bottom: 1rem;
@@ -24,9 +24,9 @@ ul.no-list{
   -webkit-text-fill-color: transparent;
 }
 
-.mt-10{margin-top:1rem;}
-.mt-30{margin-top:3rem;}
-.mt-50{margin-top: 7.4rem;}
+.mt-10{margin-top:1rem !important;}
+.mt-30{margin-top:3rem !important;}
+.mt-50{margin-top: 7.4rem !important;}
 
 .hidden { opacity: 0; }
 
@@ -113,6 +113,13 @@ ul.no-list{
 	&.f-align-center{
 		-webkit-align-items: center; /* Safari 7.0+ */
 		align-items: center;
+	}
+
+	&.flex-grid{
+		margin: -12px;
+		& > div{
+			padding: 12px;
+		}
 	}
 
 	.col-md-12, .col-md-4, .col-md-3, .col-md-6, .col-12, .col-6, .col-4, .col-3, .col-6{

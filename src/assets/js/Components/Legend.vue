@@ -106,8 +106,13 @@
         keyMap() {
           return this.$store.state.settings.keyboardConfig;
         },
-        showLegend() {
-          return this.$store.state.showLegend;
+        showLegend: {
+          get(){
+            return this.$store.state.showLegend;
+          },
+          set() {
+            this.$store.commit("toggleLegend")
+          }
         },
       },
 		  mounted(){
@@ -208,6 +213,7 @@
   .legend-mobile{
     // padding: 1rem;
     box-sizing: border-box;
+    overflow-x: hidden;
     transform: translateY(100%);
     transition: transform .35s $transition;
     &.show{
@@ -217,7 +223,7 @@
   }
   $button-size: 50px;
   .open-legend{
-    position: absolute;
+    position: fixed;
     bottom: 9vw;
     right: 9vw;
     z-index: 120;

@@ -87,3 +87,17 @@ export const SETTINGS = {
     }
     */
 };
+
+export const CITIES = [
+  {
+    label: "tignes", caption: "From 2021 to 2022"
+  }, {
+    label: "saigon", caption: "From 2016 to 2020"
+  }, {
+    label: "lyon", caption: "From 2014 to 2016"
+  }, {
+    label: "montreal", caption: "From 2012 to 2013"
+  }, {
+    label: "paris", caption: "From childhood to university"
+  }
+]
