@@ -396,7 +396,7 @@
 			return {
 				techIcons: [ "js", "npm", "vue", "nuxt", "python", "django", "gulp", "webpack", "git", "sass", "photoshop", "illustrator", "figma" ],
 				cities: [...CITIES],
-				cityImgPath: "assets/img/all-projects/about/",
+				cityImgPath: "assets/img/all-projects/about",
 
 				leftMenu: [
 					{label: "About me", img: "about"},

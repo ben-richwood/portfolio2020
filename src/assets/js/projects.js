@@ -124,7 +124,7 @@ export const PROJECTS = (function(){
         "code": "<p>Mapbox is used as the map engine, plus for the tileset (made with Mapbox Studio) and the dataset API.</p><p>VueJS on the other hand takes care of reactiveness, especially regarding the list rendering and filtering.</p><p>I used Webpack to minify and compress all the assets; however, since it's a personal project, I din't use Babel or ES5 polyfills for old browser compatibility.</p>",
         "design": "<p>I designed all the map components (background, road hierarchy, rivers, marker, popup...) and all the interface elements (menus, listing, item, icons...).</p>As a personal tool, I didn't want to go for a \"fancy\" and catchy interface, but much rather for a hightly technical, terminal-based, effective and somewhat esoteric design. I went for a scify-inspired theme, with many influences coming from Arkham Knight, Cyberpunk 2077, the Martian, Tron, Oblivion or Halo Wars (actually many projects from <a href=\"https://gmunk.com/\">GMUNK</a> ).</p><p>An important part of the design was to build a consistent color, icon and shape system. They intend to convey states, hierarchy, triggers and expected actions</p>",
         "slug": "ctos",
-        "images": ["desktop_tactical", {url:"contrast-mobile", caption: "It comes with different map styles, depending on the needs. And it was designed \"mobile-first\""}, {url:"graphic_research_markers", caption: "Lots of graphic researches for styles and icons"}, {url:"graphic_research_surchaging", caption:"Same for all the other graphic components"}],
+        "images": ["sentry-home", {url:"sentry-map-desktop-cyberpunk", caption: "It comes with different map styles, depending on the needs. And it was designed \"mobile-first\""}, "sentry-map-desktop-tactical", {url:"sentry-map-add", caption:"Heavily inspired by Cyberpunk 2077"}, {url:"graphic_research_markers", caption: "Lots of graphic researches for styles and icons"}, {url:"graphic_research_surchaging", caption:"Same for all the other graphic components"}],
         "link": "https://projets.richebois.fr/citadelle/map/mobile.php",
         "category": "Personal project",
         "group": "perso",
@@ -507,7 +507,7 @@ export const PROJECTS = (function(){
         </ul>`,
         "major": true,
         "slug": "bliss",
-        "images": [{url:"rate_card",caption:"I worked on a card rate, which can be adapted from a simple Google Sheet - and then generates a PPT presentation using the Google Slide API."},{url:"hanbook_mockup", caption: "To accelerate on boarding for new comers, I designed a handbook with an overview of the company and all the best practices. Made with InDesign"}, {url:"iso",caption:"This isometric map was the illustration of our office for the BLISS Handbook. Made with Illustrator"},{url:"pepsi-posposal",caption:"One technical propsal I designed for a client"}],
+        "images": [{url:"labelme", caption:"I worked on a ML model, with labelme - to segregate pupils and determines drunkenness"},{url:"bot_flow", caption:"Flow for a chat bot - early researches"},{url:"pepsi-posposal",caption:"One technical propsal I designed for a client"}, {url:"homeyz-sample", caption:"For a React Native app development, I realized a post-mortem assessment after the project delivery, in order to improve our process for the next projects"},{url:"homeyz-timeline", caption:"the timeline of our development phase"}, {url:"tuborg", caption:"I co-developped a native Android app, where user has to be synced with the beat. Developped with Android Studio and Kotlin"}, {url:"ux-research", caption:"Some UX researches I did to solve a navigation issues that a client faced"}, {url:"img-optimisation", caption:"An asset assessment I did for BOSCH Asia, with recommendations to improve load time"}],
         "group": "work",
         "timeline": {
           "startingYear": 2017,
@@ -607,7 +607,7 @@ export const PROJECTS = (function(){
         <li>An 3d animation to present BLISS capabilities - <a href="https://www.behance.net/gallery/115427271/3d-animation-introduction-video" class="color-link">3D animation</a></li>
         <li>And I started a 3D animation (a video motion of sort) to showcase BLISS capabilities.</li>
         </ul>`,
-        "images": [{url:"rate_card",caption:"I worked o a card rate, which can be adapted from a simple Google Sheet - which then generates a PPT presentation using the Google API."},{url:"hanbook_mockup", caption: "To accelerate on boarding for new comers, I designed a handbook with an overview of the company and all the best practices. Made with InDesign."},{url:"handbook_sample",caption:"The company's handbook sample"}, {url:"iso",caption:"This isometric map was the illustration of our office for the BLISS Handbook, designed with Illustrator"}, {url:"presentation-leaflet", caption:"I also made the company's presentation leaflet"},{url:"motion-project",caption:"I made a motion design to highlight important moments for BLISS in 2019 as a promotional video. Made with After Effects"}],
+        "images": [{url:"rate_card",caption:"I worked o a card rate, which can be adapted from a simple Google Sheet - which then generates a PPT presentation using the Google API."},{url:"hanbook_mockup", caption: "To accelerate on boarding for new comers, I designed a handbook with an overview of the company and all the best practices. Made with InDesign."},{url:"iso",caption:"This isometric map was the illustration of our office for the BLISS Handbook, designed with Illustrator"},{url:"handbook_sample",caption:"The company's handbook sample"}, {url:"presentation-leaflet", caption:"I also made the company's presentation leaflet"},{url:"motion-project",caption:"I made a motion design to highlight important moments for BLISS in 2019 as a promotional video. Made with After Effects"}],
         "timeline": {
           "startingYear": 2019,
           "len": 2,
@@ -623,7 +623,7 @@ export const PROJECTS = (function(){
         "techno": {
           "n/a": false,
           "list": ["js", "react", "nodejs", "chrome", "webpack", "google-cloud", "bash"],
-          "position": {x: 980, y: 1, z: -250}
+          "position": {x: 980, y: 1, z: -0}
         }
       }, {
         "id": 19,
@@ -684,7 +684,7 @@ export const PROJECTS = (function(){
         "techno": {
           "n/a": false,
           "list": ["js", "react"],
-          "position": {x: 930, y: 1, z: 330}
+          "position": {x: 1100, y: 1, z: 500}
         }
       }, {
         "id": 21,
@@ -925,7 +925,7 @@ export const PROJECTS = (function(){
           <li>Loading times and performance concerns</li>
         </ul>
         `,
-        "images": [{url: "main", screenshot: true, caption:"The homepage"}, {url: "timeline", screenshot: true, caption: "the client's timeline, useful to know what's coming next at any point"}],
+        "images": [{url: "main", screenshot: true, caption:"The homepage"}, {url: "timeline", screenshot: true, caption: "the client's timeline, useful to know what's coming next at any point"}, {url:"graph",screenshot: true,caption:"A graph view representing the ongoing missions, and their link with Lockers"}, {url:"map-admin", screenshot:true,caption:"the map of our ongoing missions"}, {url:"timeline-mobile-mockup", "caption": "The client's timeline on mobile"}, {url:"locker-mission-mockup", caption:"The locker mission screen, to follow up the status."}],
 
         "slug": "homers",
         "category": "Freelance contract - Fullstack development",
@@ -992,6 +992,39 @@ export const PROJECTS = (function(){
           "n/a": false,
           "list": ["python", "django"],
           "position": {x: -480, y: 1, z: 105}
+        }
+      }, {
+        "id": 29,
+        "name": "Hotel Odéon",
+        "summary": "Wordpress website for a boutique hotel",
+        "year": 2019,
+        "major": false,
+        "description": "<p>Hotel Odéon is a boutique hotel located in HCMC.</p>",
+        "code": `The website is based on Wordpress. It includes a 360-panoramic image viewer - with <a class="color-link" target="_blank" href="https://github.com/google/marzipano">Marzipano</a>`,
+        "design": "<p>The client wanted a website that reflects the hotel standing</p>",
+        "link": "https://hotelodeon.vn/",
+        "slug": "odeon",
+        "images": [{url:"homepage", screenshot:true},{url:"room", screenshot:true, caption:"The Rooms & facilities page"}],
+        "category": "Freelance",
+        "cat": CAT[1],
+        "group": "freelance",
+        "timeline": {
+          "n/a": false,
+          "onlyTimeline": false,
+          "startingYear": 2019.2,
+          "len": .4,
+          "thread": "second",
+          "type": "duration",
+        },
+        "software": {
+          "n/a": false,
+          "list": ["photoshop"],
+          "position": {x: 1200, y: 1, z: 20}
+        },
+        "techno": {
+          "n/a": false,
+          "list": ["php", "wordpress", "js"],
+          "position": {x: 980, y: 200, z: -250}
         }
       }
     ],

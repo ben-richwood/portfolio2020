@@ -456,7 +456,7 @@ export class Timeline {
     // TECHNO
     //////////////////////////////////////////
     var boundsConstructor = {techno: [], software: [], }
-    let jsArr = [0, 2, 3, 5, 15, 16, 17, 18, 19, 20, 23, 25, 26];
+    let jsArr = [0, 2, 3, 5, 15, 16, 17, 18, 19, 20, 23, 25, 26, 28];
     for (var i = 0, j = jsArr.length; i < j; i++) {
       const k = PROJECTS.list.find(e => e.id == (jsArr[i] + 1));
       boundsConstructor.techno.push({
@@ -464,7 +464,7 @@ export class Timeline {
         end: {...k.techno.position}
       })
     }
-    let pyArr = [5, 23, 25, 27];
+    let pyArr = [5, 23, 25, 26, 27];
     for (var i = 0, j = pyArr.length; i < j; i++) {
       const k = PROJECTS.list.find(e => e.id == (pyArr[i] + 1));
       boundsConstructor.techno.push({
@@ -480,7 +480,7 @@ export class Timeline {
         end: {...k.techno.position}
       })
     }
-    let phpArr = [0, 1, 3];
+    let phpArr = [0, 1, 3, 28];
     for (var i = 0, j = phpArr.length; i < j; i++) {
       const k = PROJECTS.list.find(e => e.id == (phpArr[i] + 1));
       boundsConstructor.techno.push({

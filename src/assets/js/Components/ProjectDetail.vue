@@ -57,25 +57,11 @@
 	      </div>
 	        <div class="scrollbar">
 	        <div v-for="img in project.images" transition="staggered" stagger="400" :key="img.id">
-	          <div class="caption tc" v-show="img.caption">
-	            {{ img.caption }}
-	          </div>
+
 						<img v-if="img.screenshot" class="frame" src="assets/img/frame.svg" alt="">
-	          <picture>
-	            <!-- <source type="image/webp" media="(min-width: 1400px)" :srcset="img.srcWebp">
-	            <source type="image/jp2" :srcset="img.srcJp2">
-	            <source type="image/jpg" :srcset="img.srcJpg"> -->
 
-	              <source type="image/webp" media="(min-width: 800px) and (orientation: landscape)" :srcset="img.large.srcWebp">
-	              <source type="image/jp2" media="(min-width: 800px) and (orientation: landscape)" :srcset="img.large.srcJp2">
-	              <source type="image/jpg" media="(min-width: 800px) and (orientation: landscape)" :srcset="img.large.srcJpg">
+						<ResponsiveImage :src="img.fileName" :slug="img.slug" :alt="img.caption" :caption="img.caption" />
 
-	              <source type="image/webp" media="(max-width: 800px) and (orientation: portrait)" :srcset="img.mobile.srcWebp">
-	              <source type="image/jp2" media="(max-width: 800px) and (orientation: portrait)" :srcset="img.mobile.srcJp2">
-	              <source type="image/jpg" media="(max-width: 800px) and (orientation: portrait)" :srcset="img.mobile.srcJpg">
-
-	            <img :class="{'frame-border': img.screenshot}" :src="img.srcJpg" alt="img">
-	          </picture>
 	       </div>
 	      </div>
 	    </div>
@@ -86,12 +72,13 @@
 <script>
 	import { PROJECTS } from '../projects.js'
 	import SvgSymbol from "./SvgSymbol.vue"
+	import ResponsiveImage from "./ResponsiveImage.vue"
 
 	export default {
 		props:{
 			// isOpen: {type: Boolean, default: false}
 		},
-		components: { SvgSymbol },
+		components: { SvgSymbol, ResponsiveImage },
 		data(){
 			return{
 				blurred: false,

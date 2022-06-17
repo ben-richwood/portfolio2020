@@ -3,7 +3,7 @@ import Vuex from 'vuex'
 import { SETTINGS } from '../constants.js';
 import { PROJECTS } from '../projects.js'
 import { SingletonTimeline } from '../timeline.js';
-import { sound } from "../utilis.js";
+import { sound, getCookie, checkCookieExistence, setCookie } from "../utilis.js";
 
 import Analytics from 'analytics'
 import googleAnalytics from '@analytics/google-analytics'
@@ -12,6 +12,7 @@ import doNotTrack from 'analytics-plugin-do-not-track'
 // var sortedTimeline = _.cloneDeep(PROJECTS.list).filter(e => {
 // 	if (!e.hasOwnProperty("ignore") || e.ignore !== true) return e
 // });
+
 
 Vue.use(Vuex)
 
@@ -44,6 +45,7 @@ export default new Vuex.Store({
     developerMode: false,
     isMenuOpen: false,
     currentProject: null,
+		// tutoAlreadyDisplayed: checkCookieExistence(tutoAlreadyDisplayed),
 
     showLegend: false,
 
@@ -120,8 +122,11 @@ export default new Vuex.Store({
             let newImg = {
               id: counter,
               src: item,
+							slug: `assets/img/all-projects/${prj.slug}`,
+							caption: "",
               screenshot: typeof item !== "string" && item.screenshot,
               srcJpg: `assets/img/all-projects/${prj.slug}/${itemUrl}.jpg`,
+							fileName: itemUrl,
               large: {
                 srcJpg: `assets/img/all-projects/${prj.slug}/${itemUrl}.jpg`,
                 srcJp2: `assets/img/all-projects/${prj.slug}/${itemUrl}.jp2`,

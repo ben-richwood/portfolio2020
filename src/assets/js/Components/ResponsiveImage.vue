@@ -1,11 +1,15 @@
 <template lang="html">
   <figure>
     <picture>
-      <source type="image/webp" :srcset="`${slug}${src}.webp`">
-      <source type="image/jp2" :srcset="`${slug}${src}.jp2`">
-      <source type="image/jpg" :srcset="`${slug}${src}.jpg`">
+      <!-- <source type="image/webp" media="(min-width: 800px) and (orientation: landscape)" :srcset="`${slug}/${src}-mobile.webp`">
+      <source type="image/jp2" media="(min-width: 800px) and (orientation: landscape)" :srcset="`${slug}/${src}-mobile.jp2`">
+      <source type="image/jpg" media="(min-width: 800px) and (orientation: landscape)" :srcset="`${slug}/${src}-mobile.jpg`"> -->
 
-      <img loading="lazy" :src="`${slug}${src}.jpg`" :alt="alt">
+      <source type="image/webp" :srcset="`${slug}/${src}.webp`">
+      <source type="image/jp2" :srcset="`${slug}/${src}.jp2`">
+      <source type="image/jpg" :srcset="`${slug}/${src}.jpg`">
+
+      <img loading="lazy" :src="`${slug}/${src}.jpg`" :alt="alt">
       <figcaption class="tc" v-if="caption !== ''">{{ caption }}</figcaption>
     </picture>
   </figure>
