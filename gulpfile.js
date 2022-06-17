@@ -1,22 +1,45 @@
-var path = require('path');
-const gulp = require('gulp');
+/**
+ * In order to run this Gulp config, ensure to have
+ * "type": "module",
+ * present in the package.json
+ * Might need to be disabled to compile the bundle
+ */
 
-const webp = require('gulp-webp');
-var gulpCopy = require('gulp-copy');
-var rename = require("gulp-rename");
-var imageResize = require('gulp-image-resize');
-const imagemin = require('gulp-imagemin');
-var newer = require('gulp-newer');
+import path from 'path';
+import gulp from 'gulp';
 
-var sass = require('gulp-sass');
+import webp from 'gulp-webp';
+import gulpCopy from 'gulp-copy';
+import rename from "gulp-rename";
+import imageResize from 'gulp-image-resize';
+import imagemin from 'gulp-imagemin';
+import newer from 'gulp-newer';
 
-var svgstore = require('gulp-svgstore');
-var svgmin = require('gulp-svgmin');
-var inject = require('gulp-inject');
+import sass from 'gulp-sass';
+
+import svgstore from 'gulp-svgstore';
+import svgmin from 'gulp-svgmin';
+import inject from 'gulp-inject';
 
 var imgSrc = ['src/assets/img/projects/**/*.jpg', 'src/assets/img/projects/**/*.png'];
+// var imgSrc = ['src/assets/img/projects/homers/*.jpg', 'src/assets/img/projects/homers/*.png'];
 var imgDest = 'dist/assets/img/all-projects';
 
+const webPOptions = {
+  preset: "picture",
+  lossless: false,
+  quality: 85,
+  alphaQuality: 80,
+  metadata: ["icc"],
+}
+const JPGOptions = {
+  background: "#FFFFFF",
+  flatten: true,
+  upscale : false,
+  quality: 0.8,
+  width: 1000,
+  format: "jpg",
+}
 
 gulp.task('svgstore', function () {
   return gulp
@@ -55,13 +78,8 @@ gulp.task('img', () =>
     // .pipe(gulpCopy('dist/assets/img/all-projects', { prefix: 4 }))
     // .pipe(newer(imgDest))
     .pipe(imageResize({
+      ...JPGOptions,
       width : 1000,
-      // height : 100,
-      // crop : true,
-      upscale : false,
-      quality: 0.8,
-      format: "jpg",
-      imageMagick: true
     }))
     // .pipe(webp())
     .pipe(gulp.dest('dist/assets/img/all-projects'))
@@ -83,13 +101,8 @@ gulp.task('img-mobile', () =>
   gulp.src(imgSrc)
     // .pipe(newer(imgDest))
     .pipe(imageResize({
+      ...JPGOptions,
       width : 700,
-      // height : 100,
-      // crop : true,
-      upscale : false,
-      quality: 0.8,
-      format: "jpg",
-      imageMagick: true
     }))
     // .pipe(webp())
     .pipe(rename(function (path) { path.basename += "-mobile"; }))
@@ -100,15 +113,13 @@ gulp.task( 'webp', () =>
   gulp.src(imgSrc)
     // .pipe(newer(imgDest))
     .pipe(imageResize({
+      ...JPGOptions,
       width : 1000,
-      upscale : false,
-      quality: 0.8,
-      format: "jpg",
-      imageMagick: true
+      quality: 1,
     }))
     .pipe(webp({
-      quality: 70,
-      metadata: ["icc"]
+      // resize: { width: 1000, height: 1500 },
+      ...webPOptions,
     }))
     .pipe(gulp.dest(imgDest))
 );
@@ -117,20 +128,16 @@ gulp.task( 'webp-mobile', () =>
   gulp.src(imgSrc)
     // .pipe(newer(imgDest))
     .pipe(imageResize({
+      ...JPGOptions,
       width : 700,
-      upscale : false,
-      quality: 0.8,
-      format: "jpg",
-      imageMagick: true
+      quality: 1,
     }))
     .pipe(webp({
-      quality: 70,
-      metadata: ["icc"]
+      ...webPOptions,
     }))
     .pipe(rename(function (path) { path.basename += "-mobile"; }))
     .pipe(gulp.dest(imgDest))
 );
-
 
 gulp.task('img-pipeline', gulp.series('img', 'img-mobile', 'webp', 'webp-mobile'))
 
