@@ -35,10 +35,10 @@ export const checkCookieExistence = function (name) {
   .split('; ')
   .find(row => row.startsWith(`${name}=`))
   ?.split('=')[1];
-	return cookieLookUp !== undefined
+	return cookieLookUp
 }
 
-function setCookie(name, value, options = {}) {
+export function setCookie(name, value, options = {}) {
 
   options = {
     path: '/',

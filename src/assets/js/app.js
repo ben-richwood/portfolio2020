@@ -6,22 +6,22 @@ import store from './store'
 import App from './Components/App.vue'
 
 
-import * as THREE from "three";
+// import * as THREE from "three";
 import { WEBGL } from './libs/WebGL.js';
 // import { settings } from './components.js';
-import { keyboardMap, SETTINGS, GPURegex } from './constants.js';
-import { PROJECT } from './projects.js';
+import { GPURegex } from './constants.js';
+// import { PROJECT } from './projects.js';
 
 // Custom lib
-import * as MAT from './libs/custom/materialList.js'
-import * as TEST from './libs/custom/testing.js'
+// import * as MAT from './libs/custom/materialList.js'
+// import * as TEST from './libs/custom/testing.js'
 import { logStyle, mobilecheck, msieversion, displayProjectImageOnScreen, dayLight, nightLight, distanceVector, blueLogs, orangeLogs } from './libs/custom/miscellaneous.js'
 
-import Analytics from 'analytics'
-import googleAnalytics from '@analytics/google-analytics'
-import doNotTrack from 'analytics-plugin-do-not-track'
+// import Analytics from 'analytics'
+// import googleAnalytics from '@analytics/google-analytics'
+// import doNotTrack from 'analytics-plugin-do-not-track'
 
-let analytics;
+// let analytics;
 
 // import { Timeline } from './timeline.js'
 
@@ -32,16 +32,16 @@ let t1, t2;
 // All objects used for the THREE scene
 export let canvasTimeline, stats;
 // export const DOMElMain = document.getElementById( 'DOMElMain' );
-let time, clock, bgTexture, fog;
-let grid, groundMesh;
+// let time, clock, bgTexture, fog;
+// let grid, groundMesh;
 export let camera;
 export let box;
 
 // const speed = Math.PI/4;
 // let idleTimer = 8000;
-let isIdleTime = false;
-var tempT = 0;
-let loaded = false;
+// let isIdleTime = false;
+// var tempT = 0;
+// let loaded = false;
 
 
 // Shallow copy of all the scene objects

@@ -5,6 +5,10 @@
 		<OptionMenu @closeMenu="closeMenu" />
 		<ProjectDetail ref="projectDetail" @closeDetail="closeMenu" />
 		<Legend :class="{'d-none': displayNone}" ref="legend" @applyJobTypeFilter="applyJobTypeFilter" @applyFilter="applyFilter" @applySorting="applySorting" />
+		<div v-if="!tutoSeen" style="position:fixed;z-index:200;bottom:0">
+			Cookie
+			<button @click="tutoSeen = true">Seen</button>
+		</div>
 	</div>
 </template>
 
@@ -27,7 +31,15 @@
 		computed: {
 			brightness(){
 				return (100 - this.$store.state.brightness) / 100
-			}
+			},
+			tutoSeen:{
+				get(){
+					return this.$store.state.tutoAlreadyDisplayed
+				},
+				set(val){
+					this.$store.commit("tutoWatched", val)
+				}
+			},
 		},
 		mounted(){
 			// settings.isMobile = isMobile;

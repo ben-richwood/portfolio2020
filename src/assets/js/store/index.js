@@ -2,16 +2,19 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import { SETTINGS } from '../constants.js';
 import { PROJECTS } from '../projects.js'
-import { SingletonTimeline } from '../timeline.js';
+// import { SingletonTimeline } from '../timeline.js';
 import { sound, getCookie, checkCookieExistence, setCookie } from "../utilis.js";
+import _ from 'lodash';
 
 import Analytics from 'analytics'
-import googleAnalytics from '@analytics/google-analytics'
-import doNotTrack from 'analytics-plugin-do-not-track'
+// import googleAnalytics from '@analytics/google-analytics'
+// import doNotTrack from 'analytics-plugin-do-not-track'
 
 // var sortedTimeline = _.cloneDeep(PROJECTS.list).filter(e => {
 // 	if (!e.hasOwnProperty("ignore") || e.ignore !== true) return e
 // });
+
+
 
 
 Vue.use(Vuex)
@@ -45,7 +48,7 @@ export default new Vuex.Store({
     developerMode: false,
     isMenuOpen: false,
     currentProject: null,
-		// tutoAlreadyDisplayed: checkCookieExistence(tutoAlreadyDisplayed),
+		tutoAlreadyDisplayed: checkCookieExistence("tutoAlreadySeen") !== undefined,
 
     showLegend: false,
 
@@ -151,6 +154,10 @@ export default new Vuex.Store({
   },
 
   mutations: {
+    tutoWatched (state, val) {
+      state.tutoAlreadyDisplayed = true;
+			setCookie("tutoAlreadySeen", val)
+    },
     updateSettings (state, newSet) {
       state.settings = Object.assign({}, {...state.settings, ...newSet});
     },
