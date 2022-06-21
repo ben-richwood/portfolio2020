@@ -1019,7 +1019,7 @@ export const PROJECTS = (function(){
         "software": {
           "n/a": false,
           "list": ["photoshop"],
-          "position": {x: 1200, y: 1, z: 20}
+          "position": {x: 900, y: 1, z: 800}
         },
         "techno": {
           "n/a": false,

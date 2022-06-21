@@ -36,7 +36,7 @@ hr{
 }
 
 a {
-	color: $highlightColor;
+	color: var(--highlight-color);
 	text-decoration: none;
 	&:hover {
 		text-decoration: underline;

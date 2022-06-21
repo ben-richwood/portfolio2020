@@ -26,7 +26,7 @@
 
 @mixin buttonStyle(){
   display: inline-block;
-  background-color: $mainColor;
+  background-color: var(--main-color);
   padding: .4rem .8rem;
   color: #DDD;
   &:hover{
@@ -36,7 +36,7 @@
 }
 
 @mixin major(){
-  // background-color: $mainColor;
+  // background-color: var(--main-color);
   color: white;
   opacity: 1.2;
   font-size: 1rem;
@@ -86,7 +86,7 @@
     width: $w;
   }
   &::-webkit-scrollbar-thumb {
-    background: linear-gradient(180deg,#ff8a00,#e52e71);
+    background: linear-gradient(180deg,var(--highlight-color),#e52e71);
     // background: linear-gradient(180deg, rgba(17,80,125,1), rgba(24,117,187,1));
     border-radius: 10px;
     box-shadow: inset 2px 2px 2px hsla(0,0%,100%,.25), inset -2px -2px 2px rgba(0,0,0,.25);
@@ -105,10 +105,10 @@
 }
 
 @mixin gradient(){
-  background: linear-gradient(90deg, rgba(17,80,125,1) 0%, rgba(24,117,187,1) 100%);
+  background: linear-gradient(90deg, var(--main-color) 0%, rgba(24,117,187,1) 100%);
 }
 @mixin secondaryGradient(){
-  background: linear-gradient(90deg, #ff8a00 0%, #e52e71 100%);
+  background: linear-gradient(90deg, var(--highlight-color) 0%, #e52e71 100%);
 }
 
 .job-freelance:before{

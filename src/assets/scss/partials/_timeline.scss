@@ -33,7 +33,7 @@ div#DOMElTimeline{
 // }
 div.yearlong{
   height: 2px;
-  background-color: $mainColor;
+  background-color: var(--main-color);
 }
 div.timeline{
   color: #b7b7b7;
@@ -52,7 +52,7 @@ div.year{
     position: absolute;
     top: -35px;
     left: 50%;
-    background-color: $mainColor;
+    background-color: var(--main-color);
     width: 3px;
     height: 20px;
   }
@@ -312,8 +312,8 @@ div.symbol{
     position: absolute;
     bottom: -16px;
     left: -30px;
-    background: rgb(17,80,125);
-    background: linear-gradient(90deg, rgba(17,80,125,1) 0%, rgba(24,117,187,1) 100%);
+    background: var(--main-color);
+    background: linear-gradient(90deg, var(--main-color) 0%, rgba(24,117,187,1) 100%);
     color: #FFF;
     min-width: 150px;
     padding: .65rem;
@@ -329,7 +329,7 @@ div.symbol{
 
 .bond{
   width: 2px;
-  background-color: $mainColor;
+  background-color: var(--main-color);
   display: block;
   height: 10px;
   opacity: 1;

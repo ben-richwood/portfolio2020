@@ -17,7 +17,7 @@ ul.no-list{
 
 .color-link, .important{
 	// @include secondaryGradient();
-	background: linear-gradient(90deg, #ff8a00 0%, #e52e71 100%);
+	background: linear-gradient(90deg, var(--highlight-color) 0%, #e52e71 100%);
 
   /* clip hackery */
   -webkit-background-clip: text;
