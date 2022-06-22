@@ -37,6 +37,9 @@ if(scale) scaleHeight = scale.clientHeight;
 //    Zoom - middle mouse, or mousewheel / touch: two-finger spread or squish
 //    Pan - right mouse, or left mouse + ctrl/meta/shiftKey, or arrow keys / touch: two-finger move
 
+let neverPanned = true
+let neverZoomed = true
+
 var OrbitControls = function ( object, domElement ) {
 
 	if ( domElement === undefined ) console.warn( 'THREE.OrbitControls: The second parameter "domElement" is now mandatory.' );
@@ -416,6 +419,11 @@ var OrbitControls = function ( object, domElement ) {
 		return function pan( deltaX, deltaY ) {
 
 			var element = scope.domElement;
+
+			if (neverPanned) {
+				neverPanned = false;
+				store.commit("tutoWatched", {pan: true})
+			}
 
 			if ( scope.object.isPerspectiveCamera ) {
 
@@ -989,6 +997,10 @@ var OrbitControls = function ( object, domElement ) {
 		event.stopPropagation();
 
 		scope.dispatchEvent( startEvent );
+		if (neverZoomed) {
+			neverZoomed = false;
+			store.commit("tutoWatched", {zoom: true})
+		}
 
 		handleMouseWheel( event );
 

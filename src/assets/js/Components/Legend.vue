@@ -108,6 +108,8 @@
         },
         showLegend: {
           get(){
+            // Don't show legend before the end of the tutorial
+            if (Object.values(this.$store.state.tuto).some(e => e === false)) return false
             return this.$store.state.showLegend;
           },
           set() {

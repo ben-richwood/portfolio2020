@@ -29,6 +29,7 @@ ul.no-list{
 .mt-50{margin-top: 7.4rem !important;}
 
 .hidden { opacity: 0; }
+.faded { opacity: 0.2 !important; transition: opacity .3s $transition !important; }
 
 .black-color{color:#000}
 .white-color{color:#000}
@@ -176,6 +177,21 @@ ul.no-list{
   height: 100%;
   padding-right: 1rem;
   @include scrollbar();
+}
+
+.animated{
+	animation-name: lineTransition;
+	animation-duration: .4s;
+	animation-timing-function: $transition;
+	animation-direction: normal;
+	animation-fill-mode: both;
+	animation-iteration-count: 1;
+}
+$lines: 12;
+@for $i from 1 through $lines {
+  .animated:nth-child(#{$i}) {
+    animation-delay: +#{math.div($i, 20) + .25}s;
+  }
 }
 
 @media (max-width: 575.98px) {}

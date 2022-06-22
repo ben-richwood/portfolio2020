@@ -3,7 +3,7 @@ import Vuex from 'vuex'
 import { SETTINGS } from '../constants.js';
 import { PROJECTS } from '../projects.js'
 // import { SingletonTimeline } from '../timeline.js';
-import { sound, getCookie, checkCookieExistence, setCookie } from "../utilis.js";
+import { sound, getCookie, formatTutoObj, setCookie } from "../utilis.js";
 import _ from 'lodash';
 
 import Analytics from 'analytics'
@@ -15,7 +15,7 @@ import Analytics from 'analytics'
 // });
 
 
-
+const tuto = formatTutoObj("tutoAlreadySeen")
 
 Vue.use(Vuex)
 
@@ -48,7 +48,8 @@ export default new Vuex.Store({
     developerMode: false,
     isMenuOpen: false,
     currentProject: null,
-		tutoAlreadyDisplayed: checkCookieExistence("tutoAlreadySeen") !== undefined,
+		currentTuto: 'pan',
+		tuto,
 
     showLegend: false,
 
@@ -155,8 +156,11 @@ export default new Vuex.Store({
 
   mutations: {
     tutoWatched (state, val) {
-      state.tutoAlreadyDisplayed = true;
-			setCookie("tutoAlreadySeen", val)
+			console.log(val)
+      state.tuto = {...state.tuto, ...val};
+			if (Object.values(state.tuto).every(e => e === true)) {
+				setCookie("tutoAlreadySeen", true)
+			}
     },
     updateSettings (state, newSet) {
       state.settings = Object.assign({}, {...state.settings, ...newSet});

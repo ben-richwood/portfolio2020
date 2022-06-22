@@ -531,6 +531,11 @@ ul.no-list {
   opacity: 0;
 }
 
+.faded {
+  opacity: 0.2 !important;
+  transition: opacity 0.3s cubic-bezier(0.5, 0, 0.75, 0) !important;
+}
+
 .black-color {
   color: #000;
 }
@@ -717,6 +722,63 @@ ul.no-list {
 }
 .scrollbar::-webkit-scrollbar-track {
   background: linear-gradient(90deg, #201c29, #201c29 1px, #100e17 0, #100e17);
+}
+
+.animated {
+  animation-name: lineTransition;
+  animation-duration: 0.4s;
+  animation-timing-function: cubic-bezier(0.5, 0, 0.75, 0);
+  animation-direction: normal;
+  animation-fill-mode: both;
+  animation-iteration-count: 1;
+}
+
+.animated:nth-child(1) {
+  animation-delay: +0.3s;
+}
+
+.animated:nth-child(2) {
+  animation-delay: +0.35s;
+}
+
+.animated:nth-child(3) {
+  animation-delay: +0.4s;
+}
+
+.animated:nth-child(4) {
+  animation-delay: +0.45s;
+}
+
+.animated:nth-child(5) {
+  animation-delay: +0.5s;
+}
+
+.animated:nth-child(6) {
+  animation-delay: +0.55s;
+}
+
+.animated:nth-child(7) {
+  animation-delay: +0.6s;
+}
+
+.animated:nth-child(8) {
+  animation-delay: +0.65s;
+}
+
+.animated:nth-child(9) {
+  animation-delay: +0.7s;
+}
+
+.animated:nth-child(10) {
+  animation-delay: +0.75s;
+}
+
+.animated:nth-child(11) {
+  animation-delay: +0.8s;
+}
+
+.animated:nth-child(12) {
+  animation-delay: +0.85s;
 }
 
 @media (min-width: 768px) and (max-width: 991.98px) {
@@ -1410,9 +1472,11 @@ code {
 }
 
 .tuto-pan, .tuto-dbclick {
-  background-color: #FFFFFFCC;
   position: relative;
   height: 22vh;
+}
+.tuto-pan.with-background, .tuto-dbclick.with-background {
+  background-color: #FFFFFFCC;
   background: url(../img/background.svg) 50% 50%/180% auto no-repeat;
 }
 .tuto-pan .element, .tuto-dbclick .element {
@@ -1966,7 +2030,15 @@ div.timeline {
   animation-delay: +0.3s;
 }
 
+.animated:nth-child(1) {
+  animation-delay: +0.3s;
+}
+
 .techno-icons svg:nth-child(2) {
+  animation-delay: +0.35s;
+}
+
+.animated:nth-child(2) {
   animation-delay: +0.35s;
 }
 
@@ -1974,7 +2046,15 @@ div.timeline {
   animation-delay: +0.4s;
 }
 
+.animated:nth-child(3) {
+  animation-delay: +0.4s;
+}
+
 .techno-icons svg:nth-child(4) {
+  animation-delay: +0.45s;
+}
+
+.animated:nth-child(4) {
   animation-delay: +0.45s;
 }
 
@@ -1982,7 +2062,15 @@ div.timeline {
   animation-delay: +0.5s;
 }
 
+.animated:nth-child(5) {
+  animation-delay: +0.5s;
+}
+
 .techno-icons svg:nth-child(6) {
+  animation-delay: +0.55s;
+}
+
+.animated:nth-child(6) {
   animation-delay: +0.55s;
 }
 
@@ -1990,7 +2078,15 @@ div.timeline {
   animation-delay: +0.6s;
 }
 
+.animated:nth-child(7) {
+  animation-delay: +0.6s;
+}
+
 .techno-icons svg:nth-child(8) {
+  animation-delay: +0.65s;
+}
+
+.animated:nth-child(8) {
   animation-delay: +0.65s;
 }
 
@@ -1998,7 +2094,15 @@ div.timeline {
   animation-delay: +0.7s;
 }
 
+.animated:nth-child(9) {
+  animation-delay: +0.7s;
+}
+
 .techno-icons svg:nth-child(10) {
+  animation-delay: +0.75s;
+}
+
+.animated:nth-child(10) {
   animation-delay: +0.75s;
 }
 
@@ -2006,7 +2110,15 @@ div.timeline {
   animation-delay: +0.8s;
 }
 
+.animated:nth-child(11) {
+  animation-delay: +0.8s;
+}
+
 .techno-icons svg:nth-child(12) {
+  animation-delay: +0.85s;
+}
+
+.animated:nth-child(12) {
   animation-delay: +0.85s;
 }
 

@@ -908,6 +908,8 @@ export class Timeline {
   }
 }
 
+let projectClicked = false
+
 class ProjectObject {
   constructor(projectData, timeline) {
 		this.timeline = timeline;
@@ -949,6 +951,11 @@ class ProjectObject {
 	 }
 
 	#clickHandler(evt) {
+		if (!projectClicked) {
+			projectClicked = true
+			store.commit("tutoWatched", {project: true})
+		}
+
 		store.commit("setProject", this.projectData.id)
 		store.commit("analyticsTrackProject", {id: this.projectData.id, name: this.projectData.name})
 		this.timeline.pauseAnimation();

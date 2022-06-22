@@ -128,10 +128,12 @@
 }
 
 .tuto-pan, .tuto-dbclick{
-  background-color: #FFFFFFCC;
   position: relative;
   height: 22vh;
-  background: url(../img/background.svg) 50% 50% / 180% auto no-repeat;
+  &.with-background{
+    background-color: #FFFFFFCC;
+    background: url(../img/background.svg) 50% 50% / 180% auto no-repeat;
+  }
   .element{
     position: absolute;
     z-index: 100;

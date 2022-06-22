@@ -123,6 +123,9 @@ $lines: 12;
   .techno-icons svg:nth-child(#{$i}) {
     animation-delay: +#{math.div($i, 20) + .25}s;
   }
+  .animated:nth-child(#{$i}) {
+    animation-delay: +#{math.div($i, 20) + .25}s;
+  }
 }
 
 div.detail{

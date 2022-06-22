@@ -38,6 +38,15 @@ export const checkCookieExistence = function (name) {
 	return cookieLookUp
 }
 
+export const formatTutoObj = function(){
+	const cookie = checkCookieExistence("tutoAlreadySeen")
+	return {
+		zoom: cookie !== undefined,
+		pan: cookie !== undefined,
+		project: cookie !== undefined,
+	}
+}
+
 export function setCookie(name, value, options = {}) {
 
   options = {

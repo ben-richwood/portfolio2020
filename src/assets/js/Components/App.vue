@@ -5,10 +5,7 @@
 		<OptionMenu @closeMenu="closeMenu" />
 		<ProjectDetail ref="projectDetail" @closeDetail="closeMenu" />
 		<Legend :class="{'d-none': displayNone}" ref="legend" @applyJobTypeFilter="applyJobTypeFilter" @applyFilter="applyFilter" @applySorting="applySorting" />
-		<div v-if="!tutoSeen" style="position:fixed;z-index:200;bottom:0">
-			Cookie
-			<button @click="tutoSeen = true">Seen</button>
-		</div>
+		<Tuto ref="tuto" />
 	</div>
 </template>
 
@@ -17,10 +14,11 @@
 	import ProjectDetail from "./ProjectDetail.vue"
 	import Legend from "./Legend.vue"
 	import OptionMenu from "./OptionMenu.vue"
+	import Tuto from "./Tuto.vue"
 	import { sound } from "../utilis.js";
 
 	export default {
-		components: { Legend, Canvas, OptionMenu, ProjectDetail },
+		components: { Legend, Canvas, OptionMenu, ProjectDetail, Tuto },
 		data(){
 			return{
 				// isMenuOpen: false,
@@ -31,14 +29,6 @@
 		computed: {
 			brightness(){
 				return (100 - this.$store.state.brightness) / 100
-			},
-			tutoSeen:{
-				get(){
-					return this.$store.state.tutoAlreadyDisplayed
-				},
-				set(val){
-					this.$store.commit("tutoWatched", val)
-				}
 			},
 		},
 		mounted(){
@@ -51,6 +41,9 @@
 
 				console.log(keyName);
 				console.log("keyCode", keyCode);
+
+				// No shortcuts as long as the tuto is on
+				if (Object.values(this.$store.state.tuto).some(e => e === false)) return
 
 			  if (keyCode === this.$store.state.settings.keyboardConfig.hud[0]) {
 					this.$store.commit("toggleLegend")
@@ -77,6 +70,7 @@
 				sound.project();
 				if (!this.$store.state.settings.isMobile) this.$store.commit("toggleLegend")
 				this.$refs.canvas.start()
+				this.$refs.tuto.start()
 			},
 			applySorting(){
 				this.$refs.canvas.applySorting()
