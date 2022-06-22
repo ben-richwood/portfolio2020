@@ -156,7 +156,6 @@ export default new Vuex.Store({
 
   mutations: {
     tutoWatched (state, val) {
-			console.log(val)
       state.tuto = {...state.tuto, ...val};
 			if (Object.values(state.tuto).every(e => e === true)) {
 				setCookie("tutoAlreadySeen", true)

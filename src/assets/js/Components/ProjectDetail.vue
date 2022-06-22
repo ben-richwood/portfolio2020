@@ -1,11 +1,8 @@
 <template lang="html">
 	<div id="details" v-if="project" :class="blurred ? 'blurred' : ''">
-	  <div class="only-mobile0" style="position:fixed;top:1rem;right:1rem;z-index:300">
-	    <button type="button" class="important-button large-button left-align" name="button" @click="close" style="background-color:#222222BB;min-height:initial;padding: .2rem .5rem .45rem;">
-	      <svg class="returnArrow" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
-	        <use xlink:href="#return"/>
-	      </svg>
-	       <span>Back</span>
+	  <!-- <div class="" style="position:fixed;top:1rem;right:1rem;z-index:300"> -->
+	  <div class="" style="position:fixed;top:0;right:0;z-index:300">
+	    <button type="button" class="important-button large-button standout close-icon" name="button" @click="close">
 	    </button>
 	  </div>
 	  <div class="details-wrapper flex flex-row f-between f-align-start">

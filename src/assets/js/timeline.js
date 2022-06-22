@@ -952,6 +952,8 @@ class ProjectObject {
 
 	#clickHandler(evt) {
 		if (!projectClicked) {
+			// prevent opening project if the other tutos are not completed yet
+			if (!store.state.tuto.zoom || !store.state.tuto.pan) return
 			projectClicked = true
 			store.commit("tutoWatched", {project: true})
 		}

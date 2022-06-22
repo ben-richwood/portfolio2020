@@ -194,7 +194,20 @@ $lines: 12;
   }
 }
 
-@media (max-width: 575.98px) {}
+@media (min-width: 576px) {
+	.flex{
+		&.f-md-row{
+			flex-direction: row !important;
+			-webkit-flex-direction: row !important;
+			// orientation($dir);
+		}
+		&.f-md-column{
+			flex-direction: column !important;
+			-webkit-flex-direction: column !important;
+			// orientation($dir);
+		}
+	}
+}
 
 @media (min-width: 576px) and (max-width: 767.98px) {}
 

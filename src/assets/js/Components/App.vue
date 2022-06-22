@@ -39,8 +39,10 @@
 			  const keyName = event.key;
 			  const keyCode = event.code
 
-				console.log(keyName);
-				console.log("keyCode", keyCode);
+				if (this.$store.state.settings.debug){
+					console.log(keyName);
+					console.log("keyCode", keyCode);
+				}
 
 				// No shortcuts as long as the tuto is on
 				if (Object.values(this.$store.state.tuto).some(e => e === false)) return

@@ -127,6 +127,11 @@
   background: url(transition.svg) 0 0/100% 10vh no-repeat;
 }
 
+.with-frame{
+  border-radius: 4px;
+  border: 2px solid #FFFFFF66;
+  background-color: #FFFFFF16;
+}
 .tuto-pan, .tuto-dbclick{
   position: relative;
   height: 22vh;
@@ -243,7 +248,7 @@
 .pointer{
   width: 40px;
   height: 40px;
-  z-index: 120;
+  z-index: 120 !important;
 }
 
 .header a:hover {

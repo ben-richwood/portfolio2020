@@ -11,7 +11,7 @@
 						</button>
 					</li>
 
-	        <li><button class="important-button large-button left-align" @click="close">
+	        <li><button class="important-button large-button standout close" @click="close">
 	          <svg class="returnArrow" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
 	            <use xlink:href="#return"/>
 	          </svg>
